@@ -251,6 +251,16 @@ function customerLabel(c) {
             ? "Senior citizen"
             : "Super senior";
 }
+/** A small source-quality badge for a rate row (official / aggregator / sample). */
+function qualityTag(quality) {
+    if (quality === "OFFICIAL")
+        return el("span", { class: "tag tag-official" }, ["official"]);
+    if (quality === "AGGREGATOR")
+        return el("span", { class: "tag tag-aggregator" }, ["aggregator"]);
+    if (quality === "SAMPLE")
+        return el("span", { class: "tag" }, ["sample"]);
+    return "";
+}
 function renderTable() {
     const host = document.getElementById("table-region");
     host.innerHTML = "";
@@ -304,9 +314,7 @@ function renderTable() {
             el("td", { class: "muted" }, [detail]),
             el("td", { class: "muted" }, [
                 formatDate(r.entry.source.effectiveDate),
-                r.entry.source.quality === "SAMPLE"
-                    ? el("span", { class: "tag" }, ["sample"])
-                    : "",
+                qualityTag(r.entry.source.quality),
             ]),
         ]));
     }

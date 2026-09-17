@@ -9,7 +9,8 @@ import type { CustomerCategory, ProductType, RateEntry } from "../types.js";
  *
  * - maxDays / maxAmount: leave blank for "and above" (parsed as null).
  * - scheme: optional.
- * - Every imported row is stamped source.quality = "OFFICIAL".
+ * - quality: optional column ("OFFICIAL" | "AGGREGATOR" | "SAMPLE"). Defaults to
+ *   AGGREGATOR, since CSV imports are usually compiled from third-party sources.
  *
  * See data/rates-template.csv for a ready-to-fill template.
  */
@@ -37,6 +38,7 @@ export function parseRatesCsv(csv: string): RateEntry[] {
     scheme: idx("scheme"),
     sourceUrl: idx("sourceUrl"),
     effectiveDate: idx("effectiveDate"),
+    quality: idx("quality"),
   };
 
   const required = [
@@ -81,7 +83,9 @@ export function parseRatesCsv(csv: string): RateEntry[] {
       source: {
         url: get(col.sourceUrl),
         effectiveDate: get(col.effectiveDate),
-        quality: "OFFICIAL",
+        // Default CSV imports to AGGREGATOR (that's their usual origin); an
+        // explicit `quality` column can override to OFFICIAL/SAMPLE.
+        quality: normalizeQuality(get(col.quality)),
       },
     });
   }
@@ -91,6 +95,12 @@ export function parseRatesCsv(csv: string): RateEntry[] {
 function tenureLabelFallback(minDays: string, maxDays: string): string {
   if (maxDays === "" || maxDays == null) return `${minDays} days & above`;
   return `${minDays}–${maxDays} days`;
+}
+
+function normalizeQuality(v: string): "OFFICIAL" | "AGGREGATOR" | "SAMPLE" {
+  const u = v.trim().toUpperCase();
+  if (u === "OFFICIAL" || u === "SAMPLE") return u;
+  return "AGGREGATOR";
 }
 
 /** Minimal CSV splitter supporting double-quoted fields with embedded commas. */

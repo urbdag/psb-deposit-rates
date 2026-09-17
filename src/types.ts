@@ -64,10 +64,11 @@ export interface RateSource {
   /** ISO date (YYYY-MM-DD) the rate was effective / published. */
   effectiveDate: string;
   /**
-   * "OFFICIAL"  - scraped/entered from the bank's own published schedule
-   * "SAMPLE"    - representative placeholder data (NOT for financial decisions)
+   * "OFFICIAL"   - scraped from the bank's own published rate page
+   * "AGGREGATOR"  - compiled from a third-party aggregator / news source
+   * "SAMPLE"     - representative placeholder data (NOT for financial decisions)
    */
-  quality: "OFFICIAL" | "SAMPLE";
+  quality: "OFFICIAL" | "AGGREGATOR" | "SAMPLE";
 }
 
 /**
