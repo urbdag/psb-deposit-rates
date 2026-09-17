@@ -137,7 +137,7 @@ export class TableRateAdapter implements BankRateAdapter {
             fdRd = parsed;
             break;
           }
-          attempts.push(`${url} -> 0 rows (rendered)`);
+          attempts.push(`${url} -> 0 rows (rendered); ${diagnoseHtml(fdHtml)}`);
         } catch (e) {
           attempts.push(`${url} -> ${String(e)} (rendered)`);
         }
@@ -353,6 +353,25 @@ export function defaultScheme(tenureText: string): string {
  * Scan all tables; return the first whose rows look like
  * (tenure text, general %, senior %). Requires ≥3 valid rows.
  */
+/**
+ * Diagnostic: summarise a page's tables so a "0 rows" failure is debuggable
+ * from CI logs — how many tables, their row/col shape, and a sample first row.
+ */
+export function diagnoseHtml(html: string): string {
+  const tables = extractTables(html);
+  if (tables.length === 0) {
+    const pdfLinks = (html.match(/href="[^"]*\.pdf[^"]*"/gi) ?? []).slice(0, 3);
+    return `no <table>; ${html.length} chars; pdf-links=[${pdfLinks.join(", ")}]`;
+  }
+  const parts = tables.slice(0, 6).map((t, i) => {
+    const rows = extractRows(t);
+    const first = rows[0]?.slice(0, 4).join(" | ").slice(0, 80) ?? "";
+    const mid = rows[Math.floor(rows.length / 2)]?.slice(0, 4).join(" | ").slice(0, 80) ?? "";
+    return `T${i}(${rows.length}r): [${first}]${mid ? ` mid:[${mid}]` : ""}`;
+  });
+  return `${tables.length} tables: ` + parts.join(" ;; ");
+}
+
 export function findRateTable(
   html: string,
 ): { tenureText: string; general: number; senior: number | null }[] | null {
