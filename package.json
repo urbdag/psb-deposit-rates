@@ -5,9 +5,12 @@
   "description": "Compare Fixed Deposit, Savings, and Recurring Deposit rates across India's 12 public sector banks (SBI + nationalized banks).",
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json && node scripts/build-data.mjs",
+    "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "data": "node scripts/build-data.mjs",
+    "data:sample": "tsc -p tsconfig.json && node scripts/build-data.mjs",
+    "data:import": "tsc -p tsconfig.json && node scripts/import-csv.mjs",
+    "data:real": "tsc -p tsconfig.json && node scripts/gen-real-data.mjs > data/rates-real.csv && node scripts/import-csv.mjs data/rates-real.csv",
+    "ingest": "tsc -p tsconfig.json && node scripts/ingest.mjs",
     "serve": "node scripts/serve.mjs"
   },
   "license": "MIT"

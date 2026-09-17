@@ -68,10 +68,28 @@ Individual scripts:
 
 | Script | What it does |
 |--|--|
-| `npm run build` | `tsc` compile + regenerate `public/data/dataset.json` |
+| `npm run build` | Compile TS → `public/js` (does **not** touch the dataset) |
 | `npm run typecheck` | Type-check only (no emit) |
-| `npm run data` | Regenerate the dataset JSON from compiled data modules |
+| `npm run data:real` | Regenerate the researched real-rate CSV and import it |
+| `npm run data:import -- <file.csv>` | Import an official-rate CSV → `dataset.json` |
+| `npm run data:sample` | (Re)generate the SAMPLE dataset from `src/data` |
+| `npm run ingest` | Run daily adapters → validate → refresh `dataset.json` |
 | `npm run serve` | Zero-dependency static file server |
+
+> **Important:** `public/data/dataset.json` is the committed source of truth for
+> what the site publishes. `npm run build` deliberately does **not** regenerate
+> it (that would overwrite real/ingested rates with the sample seed). The deploy
+> workflow only compiles TS and publishes the committed `dataset.json`.
+
+### Daily ingestion (GitHub Actions)
+
+`.github/workflows/ingest.yml` runs `scripts/ingest.mjs` on a daily cron. The
+runner executes the registered per-bank adapters, **validates** each bank's
+output (non-empty, rates in 0–15%, `OFFICIAL` quality, correct `bankId`), and
+keeps the **last-known-good** rates for any bank whose scrape fails — so a broken
+scraper never wipes published data. If the dataset changes, it commits back to
+`main`, which triggers a redeploy. With no adapters registered yet it is a safe
+no-op. Register adapters in the `ADAPTERS` array in `scripts/ingest.mjs`.
 
 ## Architecture
 
