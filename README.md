@@ -185,34 +185,39 @@ a new bank is usually just URLs + optional special-scheme name hints. They run
 in the GitHub Actions `ingest` workflow (which has internet), **not** in a
 restricted sandbox.
 
-**Live adapter coverage (verified against the banks' live sites in CI).**
-All 12 banks have a registered adapter. Those that scrape successfully publish
-`OFFICIAL` rates; the rest fall back to last-known-good (aggregator) data via the
-merge-by-product logic, so a failed scrape never removes data.
+**Live adapter coverage (verified against the banks' live `.bank.in` sites in
+CI).** All 12 banks have a registered adapter. Successfully scraped banks
+publish `OFFICIAL` rates (source = the bank's own domain); the rest fall back to
+`AGGREGATOR` data (compiled from PolicyBazaar / BankBazaar / news sources) via
+the merge-by-product logic, so a failed scrape never removes data. The UI shows
+a per-rate **official / aggregator** badge.
 
-| Bank | Status | Reason it isn't live-scraped |
+| Bank | Source | Notes |
 |--|--|--|
-| **SBI** | ✅ FD + RD + Savings | — (from `sbi.co.in` / `bank.sbi`) |
-| **PNB** | ✅ FD + RD + Savings | — (from `pnbindia.in`) |
-| **Central Bank of India** | ✅ FD + RD + Savings | — (from `centralbankofindia.co.in`) |
-| Bank of Baroda | ⚠️ fallback | page is JS-rendered (no table in raw HTML) |
-| Bank of India | ⚠️ fallback | HTTP 403 (anti-bot) |
-| Canara | ⚠️ fallback | rate table on a JS-rendered / unreachable page |
-| Union Bank | ⚠️ fallback | JS-rendered (page loads, no table in HTML) |
-| Indian Bank | ⚠️ fallback | JS-rendered / bot-reject on some paths |
-| Indian Overseas Bank | ⚠️ fallback | rate-page path not resolved (404s) |
-| UCO Bank | ⚠️ fallback | host unreachable from runner (`fetch failed`) |
-| Bank of Maharashtra | ⚠️ fallback | host unreachable from runner (`fetch failed`) |
-| Punjab & Sind Bank | ⚠️ fallback | JS-rendered (no table in HTML) |
+| **SBI** | ✅ OFFICIAL | plain HTTP (`sbi.co.in` / `bank.sbi`) |
+| **PNB** | ✅ OFFICIAL | plain HTTP (`pnb.bank.in`) |
+| **Central Bank of India** | ✅ OFFICIAL | plain HTTP (`centralbank.bank.in`) |
+| **Bank of Maharashtra** | ✅ OFFICIAL | via Playwright render (`bankofmaharashtra.bank.in`) |
+| Bank of Baroda | aggregator | rate page rendered but exposes no HTML table (likely PDF/canvas) |
+| Bank of India | aggregator | HTTP 403 even via headless browser (hard anti-bot) |
+| Canara | aggregator | rate-page path not found (404) / product page has no table |
+| Union Bank | aggregator | page renders but no HTML rate table |
+| Indian Bank | aggregator | page renders but no HTML rate table |
+| Indian Overseas Bank | aggregator | rate-page path not found (404) |
+| UCO Bank | aggregator | rate-page path not found (404) |
+| Punjab & Sind Bank | aggregator | rate-page path not found (404) / no table |
 
-**Why the fallbacks:** the remaining 9 banks either render their rate tables
-client-side (so the table isn't in the fetched HTML — logged as "0 rows"),
-actively block non-browser requests (403), or weren't reachable from the CI
-runner. None is fixable with a plain HTTP fetch + a URL tweak. Scraping them
-reliably needs a **headless browser (e.g. Playwright) in the ingest job** to
-render JS and pass bot checks. Every adapter stays registered and logs the exact
-per-URL failure (see the ingest workflow logs), so any that becomes reachable
-starts working automatically.
+**Ingestion uses a two-stage fetch:** plain HTTP first, then (for adapters with
+`renderJs: true`) a **Playwright headless-Chromium** render that executes the
+page's JavaScript and behaves like a real browser. This unlocked Bank of
+Maharashtra. The remaining 8 fail for reasons a headless browser can't fix from
+a plain page fetch: some serve rates only as **PDF rate cards** or non-HTML
+widgets, one (BoI) blocks bots outright, and a few need a rate-page URL that
+couldn't be confirmed without loading the site. Every adapter stays registered
+and logs the exact per-URL outcome (see the ingest workflow logs), so any that
+becomes scrapeable activates automatically. **Next steps to raise coverage:**
+add a PDF-rate-card parser, and confirm the exact `.bank.in` rate-page paths for
+the 404 banks.
 
 ## Data model notes
 
