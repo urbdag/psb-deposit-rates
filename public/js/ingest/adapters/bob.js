@@ -9,10 +9,14 @@ export class BobAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "bob",
-            fdUrl: "https://www.bankofbaroda.in/interest-rate-and-service-charges/deposits-interest-rates",
-            savingsUrls: [
-                "https://www.bankofbaroda.in/personal-banking/accounts/saving-accounts",
+            fdUrl: [
+                "https://www.bankofbaroda.in/interest-rates-and-charges/deposits-interest-rates",
                 "https://www.bankofbaroda.in/interest-rate-and-service-charges/deposits-interest-rates",
+                "https://www.bankofbaroda.in/personal-banking/accounts/deposits/fixed-deposits",
+            ],
+            savingsUrls: [
+                "https://www.bankofbaroda.in/interest-rates-and-charges/deposits-interest-rates",
+                "https://www.bankofbaroda.in/personal-banking/accounts/saving-accounts",
             ],
             schemeNamer: (t) => {
                 if (/golden goal/i.test(t) || /\b555\b/.test(t))

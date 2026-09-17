@@ -28,13 +28,32 @@ export class TableRateAdapter {
     }
     async fetchRates() {
         const out = [];
-        const fdHtml = await fetchText(this.cfg.fdUrl);
-        const fdEff = extractEffectiveDate(fdHtml) ?? today();
-        const fdRd = this.parseFdRd(fdHtml, fdEff);
+        // Try each FD URL candidate until one yields parseable rows.
+        const fdUrls = Array.isArray(this.cfg.fdUrl)
+            ? this.cfg.fdUrl
+            : [this.cfg.fdUrl];
+        let fdRd = [];
+        let lastErr;
+        for (const url of fdUrls) {
+            try {
+                const fdHtml = await fetchText(url);
+                const fdEff = extractEffectiveDate(fdHtml) ?? today();
+                const parsed = this.parseFdRd(fdHtml, fdEff, url);
+                if (parsed.length > 0) {
+                    fdRd = parsed;
+                    break;
+                }
+            }
+            catch (e) {
+                lastErr = e;
+            }
+        }
         if (fdRd.length === 0) {
-            throw new Error(`${this.bankId}: no FD rates parsed (page structure may have changed)`);
+            throw new Error(`${this.bankId}: no FD rates parsed from any candidate URL` +
+                (lastErr ? ` (last error: ${String(lastErr)})` : ""));
         }
         out.push(...fdRd);
+        const fdEff = fdRd[0].source.effectiveDate;
         for (const url of this.cfg.savingsUrls ?? []) {
             try {
                 const savHtml = await fetchText(url);
@@ -52,9 +71,11 @@ export class TableRateAdapter {
         return out;
     }
     /** Pure parser: FD (+ derived RD) from a term-deposit page. Unit-testable. */
-    parseFdRd(html, effectiveDate) {
+    parseFdRd(html, effectiveDate, url) {
+        const fdUrl = url ??
+            (Array.isArray(this.cfg.fdUrl) ? this.cfg.fdUrl[0] : this.cfg.fdUrl);
         const source = {
-            url: this.cfg.fdUrl,
+            url: fdUrl,
             effectiveDate,
             quality: "OFFICIAL",
         };
@@ -86,8 +107,11 @@ export class TableRateAdapter {
     }
     /** Pure parser: flat savings rate. Unit-testable. */
     parseSavings(html, effectiveDate, url) {
+        const firstFd = Array.isArray(this.cfg.fdUrl)
+            ? this.cfg.fdUrl[0]
+            : this.cfg.fdUrl;
         const source = {
-            url: url ?? this.cfg.savingsUrls?.[0] ?? this.cfg.fdUrl,
+            url: url ?? this.cfg.savingsUrls?.[0] ?? firstFd,
             effectiveDate,
             quality: "OFFICIAL",
         };

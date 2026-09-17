@@ -34,8 +34,8 @@ import { parseTenure } from "../tenure.js";
  */
 export interface TableAdapterConfig {
   bankId: string;
-  /** FD/term-deposit page URL (retail, below ₹3 crore). */
-  fdUrl: string;
+  /** FD/term-deposit page URL(s), tried in order (retail, below ₹3 crore). */
+  fdUrl: string | string[];
   /** Candidate savings-rate page URLs, tried in order (first hit wins). */
   savingsUrls?: string[];
   /** Whether RD rates track the FD card rate (true for most PSU banks). */
@@ -85,15 +85,33 @@ export class TableRateAdapter implements BankRateAdapter {
   async fetchRates(): Promise<RateEntry[]> {
     const out: RateEntry[] = [];
 
-    const fdHtml = await fetchText(this.cfg.fdUrl);
-    const fdEff = extractEffectiveDate(fdHtml) ?? today();
-    const fdRd = this.parseFdRd(fdHtml, fdEff);
+    // Try each FD URL candidate until one yields parseable rows.
+    const fdUrls = Array.isArray(this.cfg.fdUrl)
+      ? this.cfg.fdUrl
+      : [this.cfg.fdUrl];
+    let fdRd: RateEntry[] = [];
+    let lastErr: unknown;
+    for (const url of fdUrls) {
+      try {
+        const fdHtml = await fetchText(url);
+        const fdEff = extractEffectiveDate(fdHtml) ?? today();
+        const parsed = this.parseFdRd(fdHtml, fdEff, url);
+        if (parsed.length > 0) {
+          fdRd = parsed;
+          break;
+        }
+      } catch (e) {
+        lastErr = e;
+      }
+    }
     if (fdRd.length === 0) {
       throw new Error(
-        `${this.bankId}: no FD rates parsed (page structure may have changed)`,
+        `${this.bankId}: no FD rates parsed from any candidate URL` +
+          (lastErr ? ` (last error: ${String(lastErr)})` : ""),
       );
     }
     out.push(...fdRd);
+    const fdEff = fdRd[0].source.effectiveDate;
 
     for (const url of this.cfg.savingsUrls ?? []) {
       try {
@@ -113,9 +131,12 @@ export class TableRateAdapter implements BankRateAdapter {
   }
 
   /** Pure parser: FD (+ derived RD) from a term-deposit page. Unit-testable. */
-  parseFdRd(html: string, effectiveDate: string): RateEntry[] {
+  parseFdRd(html: string, effectiveDate: string, url?: string): RateEntry[] {
+    const fdUrl =
+      url ??
+      (Array.isArray(this.cfg.fdUrl) ? this.cfg.fdUrl[0] : this.cfg.fdUrl);
     const source: RateSource = {
-      url: this.cfg.fdUrl,
+      url: fdUrl,
       effectiveDate,
       quality: "OFFICIAL",
     };
@@ -152,8 +173,11 @@ export class TableRateAdapter implements BankRateAdapter {
 
   /** Pure parser: flat savings rate. Unit-testable. */
   parseSavings(html: string, effectiveDate: string, url?: string): RateEntry[] {
+    const firstFd = Array.isArray(this.cfg.fdUrl)
+      ? this.cfg.fdUrl[0]
+      : this.cfg.fdUrl;
     const source: RateSource = {
-      url: url ?? this.cfg.savingsUrls?.[0] ?? this.cfg.fdUrl,
+      url: url ?? this.cfg.savingsUrls?.[0] ?? firstFd,
       effectiveDate,
       quality: "OFFICIAL",
     };
