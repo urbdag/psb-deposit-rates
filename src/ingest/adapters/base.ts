@@ -90,24 +90,26 @@ export class TableRateAdapter implements BankRateAdapter {
       ? this.cfg.fdUrl
       : [this.cfg.fdUrl];
     let fdRd: RateEntry[] = [];
-    let lastErr: unknown;
+    const attempts: string[] = [];
     for (const url of fdUrls) {
       try {
         const fdHtml = await fetchText(url);
         const fdEff = extractEffectiveDate(fdHtml) ?? today();
         const parsed = this.parseFdRd(fdHtml, fdEff, url);
+        if (parsed.length === 0)
+          attempts.push(`${url} -> 0 rows (no rate table found)`);
         if (parsed.length > 0) {
           fdRd = parsed;
           break;
         }
       } catch (e) {
-        lastErr = e;
+        attempts.push(`${url} -> ${String(e)}`);
       }
     }
     if (fdRd.length === 0) {
       throw new Error(
-        `${this.bankId}: no FD rates parsed from any candidate URL` +
-          (lastErr ? ` (last error: ${String(lastErr)})` : ""),
+        `${this.bankId}: no FD rates from any candidate URL:\n    ` +
+          attempts.join("\n    "),
       );
     }
     out.push(...fdRd);
