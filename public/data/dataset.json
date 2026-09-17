@@ -593,7 +593,6 @@
     {
       "bankId": "sbi",
       "product": "SAVINGS",
-      "customer": "GENERAL",
       "ratePercent": 2.5,
       "tenure": {
         "minDays": 0,
@@ -609,12 +608,12 @@
         "url": "https://bank.sbi/web/interest-rates/savings-bank-deposits",
         "effectiveDate": "2025-06-15",
         "quality": "OFFICIAL"
-      }
+      },
+      "customer": "GENERAL"
     },
     {
       "bankId": "sbi",
       "product": "SAVINGS",
-      "customer": "SENIOR",
       "ratePercent": 2.5,
       "tenure": {
         "minDays": 0,
@@ -630,133 +629,8 @@
         "url": "https://bank.sbi/web/interest-rates/savings-bank-deposits",
         "effectiveDate": "2025-06-15",
         "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 3.5,
-      "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
       },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 4,
-      "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 4.75,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 5.25,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5.75,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
+      "customer": "SENIOR"
     },
     {
       "bankId": "pnb",
@@ -764,18 +638,19 @@
       "customer": "GENERAL",
       "ratePercent": 6.25,
       "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Years"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "Special Tenure",
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
     },
@@ -783,158 +658,33 @@
       "bankId": "pnb",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 6.1,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": 1825,
+        "label": "5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1894,
+        "label": "> 5 Years to 1894 days"
       },
       "amount": {
         "minAmount": 0,
@@ -942,8 +692,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
     },
@@ -951,11 +701,11 @@
       "bankId": "pnb",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": 1894,
+        "label": "> 5 Years to 1894 days"
       },
       "amount": {
         "minAmount": 0,
@@ -963,8 +713,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
     },
@@ -972,137 +722,11 @@
       "bankId": "pnb",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": 1894,
+        "label": "> 5 Years to 1894 days"
       },
       "amount": {
         "minAmount": 0,
@@ -1110,8 +734,8 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
     },
@@ -1119,11 +743,11 @@
       "bankId": "pnb",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": 1894,
+        "label": "> 5 Years to 1894 days"
       },
       "amount": {
         "minAmount": 0,
@@ -1131,8 +755,136 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1895,
+        "maxDays": 1895,
+        "label": "1895 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1895-day Special",
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1895,
+        "maxDays": 1895,
+        "label": "1895 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1895-day Special",
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1895,
+        "maxDays": 3650,
+        "label": "1895 days to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1895,
+        "maxDays": 3650,
+        "label": "1895 days to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1895,
+        "maxDays": 3650,
+        "label": "1895 days to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1895,
+        "maxDays": 3650,
+        "label": "1895 days to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
     },
@@ -7561,6 +7313,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:18:40.373Z",
+  "generatedAt": "2026-09-17T15:26:34.873Z",
   "containsSampleData": false
 }
