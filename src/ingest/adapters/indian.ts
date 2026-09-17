@@ -13,12 +13,13 @@ export class IndianAdapter extends TableRateAdapter {
     super({
       bankId: "indian",
       fdUrl: [
-        "https://indianbank.in/departments/fixed-deposit/",
-        "https://www.indianbank.in/departments/fixed-deposit/",
+        "https://indianbank.bank.in/en/departments/fixed-deposit/",
+        "https://indianbank.bank.in/en/interest-rates/",
+        "https://indianbank.bank.in/departments/fixed-deposit/",
       ],
       savingsUrls: [
-        "https://indianbank.in/departments/savings-bank/",
-        "https://www.indianbank.in/departments/savings-bank/",
+        "https://indianbank.bank.in/en/departments/savings-bank/",
+        "https://indianbank.bank.in/en/interest-rates/",
       ],
       schemeNamer: (t) =>
         /ind secure/i.test(t) || /\b444\b/.test(t)

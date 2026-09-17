@@ -9,13 +9,13 @@ export class CanaraAdapter extends TableRateAdapter {
         super({
             bankId: "canara",
             fdUrl: [
-                "https://new.canarabank.com/Domestic-Deposits",
-                "https://new.canarabank.com/deposit-interest-rate",
-                "https://www.canarabank.com/Fixed-Deposit",
+                "https://www.canarabank.bank.in/Domestic-Deposits",
+                "https://www.canarabank.bank.in/deposit-interest-rate",
+                "https://www.canarabank.bank.in/Fixed-Deposit",
             ],
             savingsUrls: [
-                "https://new.canarabank.com/Savings-Bank-Account",
-                "https://www.canarabank.com/Savings-Bank-Account",
+                "https://www.canarabank.bank.in/Savings-Bank-Account",
+                "https://www.canarabank.bank.in/deposit-interest-rate",
             ],
         });
     }

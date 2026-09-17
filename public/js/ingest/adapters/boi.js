@@ -15,13 +15,14 @@ export class BoiAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "boi",
-            // Confirmed live page (the bare /interest-rate hub 403s, so omit it).
             fdUrl: [
+                "https://bankofindia.bank.in/interest-rate/rupee-term-deposit-rate",
+                "https://bankofindia.bank.in/interest-rate",
                 "https://bankofindia.co.in/interest-rate/rupee-term-deposit-rate",
             ],
             savingsUrls: [
-                "https://bankofindia.co.in/interest-rate-saving-bank-deposit-rates",
-                "https://bankofindia.co.in/interest-rate/saving-bank-deposit-rate",
+                "https://bankofindia.bank.in/interest-rate-saving-bank-deposit-rates",
+                "https://bankofindia.bank.in/interest-rate/saving-bank-deposit-rate",
             ],
             schemeNamer: (t) => /\b400\b/.test(t) ? "400-day Special" : defaultScheme(t),
         });

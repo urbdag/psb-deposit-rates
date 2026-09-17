@@ -8,13 +8,13 @@ export class UcoAdapter extends TableRateAdapter {
         super({
             bankId: "uco",
             fdUrl: [
-                "https://www.ucobank.com/en/interest-rate-on-domestic-term-deposit",
-                "https://www.ucobank.com/InterestRate",
-                "https://www.ucobank.com/en/deposit-interest-rates",
+                "https://www.uco.bank.in/en/interest-rate-on-domestic-term-deposit",
+                "https://www.uco.bank.in/en/deposit-interest-rates",
+                "https://www.uco.bank.in/en/interest-rates",
             ],
             savingsUrls: [
-                "https://www.ucobank.com/en/interest-rate-on-saving-deposit",
-                "https://www.ucobank.com/en/interest-rate-on-domestic-term-deposit",
+                "https://www.uco.bank.in/en/interest-rate-on-saving-deposit",
+                "https://www.uco.bank.in/en/interest-rate-on-domestic-term-deposit",
             ],
             schemeNamer: (t) => /\b444\b/.test(t) ? "444-day Special" : defaultScheme(t),
         });

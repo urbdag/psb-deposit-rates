@@ -8,13 +8,13 @@ export class IobAdapter extends TableRateAdapter {
         super({
             bankId: "iob",
             fdUrl: [
-                "https://www.iob.in/Interest_Rate_Deposit.aspx",
-                "https://www.iob.in/Domestic_Term_Deposits",
-                "https://www.iob.in/RupeeDeposit.aspx",
+                "https://www.iob.bank.in/en/Interest_Rate_Deposit",
+                "https://www.iob.bank.in/en/domestic-term-deposit",
+                "https://www.iob.bank.in/en/interest-rates",
             ],
             savingsUrls: [
-                "https://www.iob.in/Savings_Bank_Interest_Rate",
-                "https://www.iob.in/Interest_Rate_Deposit.aspx",
+                "https://www.iob.bank.in/en/Savings_Bank_Interest_Rate",
+                "https://www.iob.bank.in/en/interest-rates",
             ],
             schemeNamer: (t) => /\b444\b/.test(t) ? "444-day Special" : defaultScheme(t),
         });

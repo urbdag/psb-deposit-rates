@@ -9,11 +9,12 @@ export class CentralAdapter extends TableRateAdapter {
     super({
       bankId: "central",
       fdUrl: [
+        "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
-        "https://centralbankofindia.co.in/en/interest-rates-on-deposit",
       ],
       savingsUrls: [
-        "https://www.centralbankofindia.co.in/en/saving-account-interest-rate",
+        "https://www.centralbank.bank.in/en/saving-account-interest-rate",
+        "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
       ],
     });

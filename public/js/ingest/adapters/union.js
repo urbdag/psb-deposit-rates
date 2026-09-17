@@ -8,13 +8,13 @@ export class UnionAdapter extends TableRateAdapter {
         super({
             bankId: "union",
             fdUrl: [
-                "https://www.unionbankofindia.co.in/en/Interest-Rate-Deposit",
-                "https://www.unionbankofindia.co.in/english/interest-rate-deposit.aspx",
-                "https://www.unionbankofindia.co.in/en/interest-rates",
+                "https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit",
+                "https://www.unionbankofindia.bank.in/en/interest-rates",
+                "https://www.unionbankofindia.bank.in/en/home/interest-rate-deposit",
             ],
             savingsUrls: [
-                "https://www.unionbankofindia.co.in/en/Interest-Rate-Saving-Bank",
-                "https://www.unionbankofindia.co.in/en/Interest-Rate-Deposit",
+                "https://www.unionbankofindia.bank.in/en/Interest-Rate-Saving-Bank",
+                "https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit",
             ],
             schemeNamer: (t) => (/\b555\b/.test(t) ? "555-day Special" : undefined),
         });

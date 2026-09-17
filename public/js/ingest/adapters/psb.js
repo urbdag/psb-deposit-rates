@@ -8,13 +8,13 @@ export class PsbAdapter extends TableRateAdapter {
         super({
             bankId: "psb",
             fdUrl: [
-                "https://punjabandsindbank.co.in/content/domestic-term-deposit",
-                "https://punjabandsindbank.co.in/content/interest-rates",
-                "https://www.psbindia.com/content/domestic-term-deposit",
+                "https://punjabandsind.bank.in/content/domestic-term-deposit",
+                "https://punjabandsind.bank.in/content/interest-rates",
+                "https://punjabandsind.bank.in/term-deposit-interest-rates",
             ],
             savingsUrls: [
-                "https://punjabandsindbank.co.in/content/saving-deposit",
-                "https://punjabandsindbank.co.in/content/interest-rates",
+                "https://punjabandsind.bank.in/content/saving-deposit",
+                "https://punjabandsind.bank.in/content/interest-rates",
             ],
         });
     }

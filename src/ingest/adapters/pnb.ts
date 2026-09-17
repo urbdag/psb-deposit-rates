@@ -10,13 +10,14 @@ export class PnbAdapter extends TableRateAdapter {
     super({
       bankId: "pnb",
       fdUrl: [
+        "https://pnb.bank.in/interest-rates-deposit.html",
+        "https://pnb.bank.in/Interest-Rates-Deposit.aspx",
         "https://www.pnbindia.in/interest-rates-deposit.html",
-        "https://www.pnbindia.in/Interest-Rates-Deposit.aspx",
       ],
       savingsUrls: [
-        "https://www.pnbindia.in/saving-fund-account.html",
-        "https://www.pnbindia.in/interest-rates-saving.html",
-        "https://www.pnbindia.in/interest-rates-deposit.html",
+        "https://pnb.bank.in/saving-fund-account.html",
+        "https://pnb.bank.in/interest-rates-saving.html",
+        "https://pnb.bank.in/interest-rates-deposit.html",
       ],
     });
   }

@@ -8,13 +8,13 @@ export class MahaAdapter extends TableRateAdapter {
         super({
             bankId: "maha",
             fdUrl: [
-                "https://www.bankofmaharashtra.in/interest-rate-on-deposits",
-                "https://bankofmaharashtra.in/interest-rate-on-deposits",
-                "https://www.bankofmaharashtra.in/personal-banking/deposits/term-deposit",
+                "https://bankofmaharashtra.bank.in/interest-rate-on-deposits",
+                "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+                "https://bankofmaharashtra.bank.in/personal-banking/deposits/term-deposit",
             ],
             savingsUrls: [
-                "https://www.bankofmaharashtra.in/interest-rate-on-deposits",
-                "https://www.bankofmaharashtra.in/savings-account",
+                "https://bankofmaharashtra.bank.in/interest-rate-on-deposits",
+                "https://bankofmaharashtra.bank.in/savings-account",
             ],
         });
     }

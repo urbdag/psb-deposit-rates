@@ -17,13 +17,13 @@ export class BobAdapter extends TableRateAdapter {
         super({
             bankId: "bob",
             fdUrl: [
-                "https://www.bankofbaroda.in/interest-rates-and-charges/deposits-interest-rates",
-                "https://www.bankofbaroda.in/interest-rate-and-service-charges/deposits-interest-rates",
-                "https://www.bankofbaroda.in/personal-banking/accounts/deposits/fixed-deposits",
+                "https://bankofbaroda.bank.in/interest-rates-and-charges/deposits-interest-rates",
+                "https://bankofbaroda.bank.in/personal-banking/accounts/deposits/fixed-deposits",
+                "https://bankofbaroda.bank.in/deposits-interest-rates",
             ],
             savingsUrls: [
-                "https://www.bankofbaroda.in/interest-rates-and-charges/deposits-interest-rates",
-                "https://www.bankofbaroda.in/personal-banking/accounts/saving-accounts",
+                "https://bankofbaroda.bank.in/interest-rates-and-charges/deposits-interest-rates",
+                "https://bankofbaroda.bank.in/personal-banking/accounts/saving-accounts",
             ],
             schemeNamer: (t) => {
                 if (/golden goal/i.test(t) || /\b555\b/.test(t))
