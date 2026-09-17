@@ -30,12 +30,29 @@ export async function fetchRendered(
       viewport: { width: 1280, height: 900 },
     });
     const page = await context.newPage();
-    await page.goto(url, { waitUntil: "networkidle", timeout: timeoutMs });
-    // Give client-side rate tables a beat to populate, then prefer a table.
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
+    // Wait for the network to settle (lazy API-loaded rate data).
     try {
-      await page.waitForSelector("table", { timeout: 8000 });
+      await page.waitForLoadState("networkidle", { timeout: 15000 });
     } catch {
-      // no table appeared; return whatever rendered so the caller can decide
+      /* keep going */
+    }
+    // Nudge lazy-loaded / on-scroll content, then wait for a table OR a
+    // rate-like percentage to appear in the body text.
+    try {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    } catch {
+      /* ignore */
+    }
+    try {
+      await page.waitForFunction(
+        () =>
+          document.querySelector("table") !== null ||
+          /\b\d{1,2}\.\d{2}\s*%/.test(document.body?.innerText ?? ""),
+        { timeout: 12000 },
+      );
+    } catch {
+      /* return whatever rendered so the caller can decide */
     }
     return await page.content();
   } finally {

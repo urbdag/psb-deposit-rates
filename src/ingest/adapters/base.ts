@@ -384,9 +384,10 @@ export function defaultScheme(tenureText: string): string {
  */
 export function diagnoseHtml(html: string): string {
   const tables = extractTables(html);
+  const pctSamples = (htmlToText(html).match(/\d{1,2}\.\d{1,2}\s*%/g) ?? []).slice(0, 6);
   if (tables.length === 0) {
     const pdfLinks = (html.match(/href="[^"]*\.pdf[^"]*"/gi) ?? []).slice(0, 3);
-    return `no <table>; ${html.length} chars; pdf-links=[${pdfLinks.join(", ")}]`;
+    return `no <table>; ${html.length} chars; pcts=[${pctSamples.join(",")}]; pdf-links=[${pdfLinks.join(", ")}]`;
   }
   const parts = tables.slice(0, 6).map((t, i) => {
     const rows = extractRows(t);
