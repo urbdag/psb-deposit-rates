@@ -101,27 +101,45 @@ async function main() {
     fetchedByBank.get(r.bankId).push(r);
   }
 
-  const refreshed = [];
+  const refreshed = []; // "bank:PRODUCT,PRODUCT" summaries
   const fellBack = [...failed];
   const finalRates = [];
 
   for (const bank of BANKS) {
+    const prior = existingByBank.get(bank.id) ?? [];
     const scraped = fetchedByBank.get(bank.id);
-    if (scraped) {
-      const errs = validateBankRates(bank.id, scraped);
-      if (errs.length === 0) {
-        finalRates.push(...scraped);
-        refreshed.push(bank.id);
-        continue;
-      }
+
+    if (!scraped) {
+      // Adapter didn't run / threw (in `failed`) or produced nothing for this
+      // bank — retain everything we had.
+      finalRates.push(...prior);
+      continue;
+    }
+
+    const errs = validateBankRates(bank.id, scraped);
+    if (errs.length > 0) {
       console.warn(
         `✗ ${bank.id}: validation failed (${errs.join("; ")}) — keeping last-known-good`,
       );
       if (!fellBack.includes(bank.id)) fellBack.push(bank.id);
+      finalRates.push(...prior);
+      continue;
     }
-    // Fallback: retain existing rates for this bank (if any).
-    const prior = existingByBank.get(bank.id) ?? [];
-    finalRates.push(...prior);
+
+    // MERGE BY PRODUCT: only replace the product types this scrape covers.
+    // Products the adapter didn't return keep their last-known-good rows, so a
+    // partial scraper (e.g. FD-only) never drops a bank's Savings/RD data.
+    const scrapedProducts = new Set(scraped.map((r) => r.product));
+    const retained = prior.filter((r) => !scrapedProducts.has(r.product));
+    finalRates.push(...scraped, ...retained);
+
+    const retainedProducts = [...new Set(retained.map((r) => r.product))];
+    refreshed.push(
+      `${bank.id}:${[...scrapedProducts].sort().join("+")}` +
+        (retainedProducts.length
+          ? ` (kept ${retainedProducts.sort().join("+")})`
+          : ""),
+    );
   }
 
   // Guard against unknown bank ids sneaking in.

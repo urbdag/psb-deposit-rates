@@ -1,22 +1,27 @@
 import { fetchText } from "../http.js";
-import { extractRows, extractTables, parsePercent } from "../html.js";
+import { extractRows, extractTables, parsePercent, stripTags, } from "../html.js";
 import { parseTenure } from "../tenure.js";
 /**
- * State Bank of India adapter — scrapes the official retail (below ₹3 crore)
- * domestic term-deposit rate page.
+ * State Bank of India adapter — scrapes official rates for all three products:
+ *   - FD  : retail (< ₹3 crore) domestic term-deposit table, incl. the 444-day
+ *           "Amrit Vrishti" special tenure that SBI lists inline in that table.
+ *   - RD  : SBI sets Recurring Deposit rates equal to the FD "card rate" for the
+ *           matching tenure, so RD rows are derived from the scraped FD buckets.
+ *   - SAVINGS : flat rate read from SBI's savings-account page.
  *
  * Design notes
  * ------------
- * - No external deps: uses global fetch + the dependency-free HTML helpers, so
- *   it runs in CI with no install step.
- * - Resilient table location: SBI's page has several tables; we pick the one
- *   whose rows parse as (tenure, general%, senior%) rather than matching CSS
- *   classes that break on redesigns.
- * - `fetchAndParse` is split from `parse` so the parser is unit-testable with
- *   fixture HTML (no network). See scripts/test-sbi-adapter.mjs.
+ * - No external deps: global fetch + dependency-free HTML helpers → runs in CI
+ *   with no install step.
+ * - Resilient table location: pick the table whose rows parse as
+ *   (tenure, general%, senior%), not brittle CSS selectors.
+ * - Pure parsers (`parseFdRd`, `parseSavings`) are split from network fetches so
+ *   they are unit-testable with fixture HTML. See scripts/test-sbi-adapter.mjs.
  *
- * If SBI restructures the page, `parse` returns [] and the ingest runner keeps
- * the last-known-good SBI rates rather than publishing nothing.
+ * Per-product resilience: each product is fetched independently and failures are
+ * swallowed per product (returning [] for that product) so a change to, say, the
+ * savings page never blocks the FD scrape. The ingest runner then merges by
+ * product and keeps last-known-good for any product that yields nothing.
  */
 export class SbiAdapter {
     constructor() {
@@ -26,20 +31,47 @@ export class SbiAdapter {
             maxAmount: 30000000,
             label: "Below ₹3 crore (retail)",
         };
+        this.anyAmount = {
+            minAmount: 0,
+            maxAmount: null,
+            label: "Any amount",
+        };
+        this.allBalances = {
+            minAmount: 0,
+            maxAmount: null,
+            label: "All balances",
+        };
     }
     async fetchRates() {
-        const html = await fetchText(SbiAdapter.URL);
-        const effectiveDate = extractEffectiveDate(html) ?? today();
-        const rates = this.parse(html, effectiveDate);
-        if (rates.length === 0) {
-            throw new Error("SbiAdapter: no rates parsed (page structure may have changed)");
+        const out = [];
+        // FD + RD (RD derived from FD). Failure here is a hard failure for the bank
+        // (FD is the core product) — throw so the runner keeps last-known-good.
+        const fdHtml = await fetchText(SbiAdapter.FD_URL);
+        const fdEff = extractEffectiveDate(fdHtml) ?? today();
+        const fdRd = this.parseFdRd(fdHtml, fdEff);
+        if (fdRd.length === 0) {
+            throw new Error("SbiAdapter: no FD rates parsed (page structure may have changed)");
         }
-        return rates;
+        out.push(...fdRd);
+        // Savings — best-effort; never let it break the FD/RD scrape.
+        try {
+            const savHtml = await fetchText(SbiAdapter.SAVINGS_URL);
+            const savEff = extractEffectiveDate(savHtml) ?? fdEff;
+            out.push(...this.parseSavings(savHtml, savEff));
+        }
+        catch {
+            // Leave savings to last-known-good via the ingest merge.
+        }
+        return out;
     }
-    /** Pure parser: HTML + effective date → RateEntry[]. Unit-testable. */
-    parse(html, effectiveDate) {
+    /**
+     * Pure parser for FD (+ derived RD) from the retail term-deposit page.
+     * Standard multi-day buckets become FD + RD; single-day tenures (e.g. the
+     * 444-day Amrit Vrishti) become FD-only special-scheme rows.
+     */
+    parseFdRd(html, effectiveDate) {
         const source = {
-            url: SbiAdapter.URL,
+            url: SbiAdapter.FD_URL,
             effectiveDate,
             quality: "OFFICIAL",
         };
@@ -51,30 +83,76 @@ export class SbiAdapter {
             const tenure = parseTenure(row.tenureText);
             if (!tenure)
                 continue;
-            // FD general
-            out.push({
-                bankId: this.bankId,
-                product: "FD",
-                customer: "GENERAL",
-                ratePercent: row.general,
-                tenure,
-                amount: this.retail,
-                source,
-            });
-            // FD senior
-            if (row.senior != null) {
-                out.push({
-                    bankId: this.bankId,
-                    product: "FD",
-                    customer: "SENIOR",
-                    ratePercent: row.senior,
-                    tenure,
-                    amount: this.retail,
-                    source,
-                });
+            const isSpecial = isSingleDayTenure(tenure);
+            const scheme = isSpecial ? detectScheme(row.tenureText) : undefined;
+            // FD (general + senior)
+            out.push(this.fd("GENERAL", row.general, tenure, source, scheme));
+            if (row.senior != null)
+                out.push(this.fd("SENIOR", row.senior, tenure, source, scheme));
+            // RD tracks the FD card rate for the SAME standard tenure (not specials).
+            // SBI offers RD for tenures of 1 year and above.
+            if (!isSpecial && tenure.minDays >= 365) {
+                out.push(this.rd("GENERAL", row.general, tenure, source));
+                if (row.senior != null)
+                    out.push(this.rd("SENIOR", row.senior, tenure, source));
             }
         }
         return out;
+    }
+    /** Pure parser: extract the flat SBI savings rate from the savings page. */
+    parseSavings(html, effectiveDate) {
+        const source = {
+            url: SbiAdapter.SAVINGS_URL,
+            effectiveDate,
+            quality: "OFFICIAL",
+        };
+        const rate = extractSavingsRate(html);
+        if (rate == null)
+            return [];
+        // SBI savings is a single flat rate across all balances, no senior add-on.
+        return [
+            {
+                bankId: this.bankId,
+                product: "SAVINGS",
+                customer: "GENERAL",
+                ratePercent: rate,
+                tenure: { minDays: 0, maxDays: null, label: "Any tenure" },
+                amount: this.allBalances,
+                source,
+            },
+            {
+                bankId: this.bankId,
+                product: "SAVINGS",
+                customer: "SENIOR",
+                ratePercent: rate,
+                tenure: { minDays: 0, maxDays: null, label: "Any tenure" },
+                amount: this.allBalances,
+                source,
+            },
+        ];
+    }
+    fd(customer, ratePercent, tenure, source, scheme) {
+        return {
+            bankId: this.bankId,
+            product: "FD",
+            customer,
+            ratePercent,
+            tenure,
+            amount: this.retail,
+            ...(scheme ? { scheme } : {}),
+            source,
+        };
+    }
+    rd(customer, ratePercent, tenure, source) {
+        return {
+            bankId: this.bankId,
+            product: "RD",
+            customer,
+            ratePercent,
+            tenure,
+            amount: this.anyAmount,
+            source,
+        };
     }
     /**
      * Scan all tables; return the first whose data rows look like
@@ -90,7 +168,6 @@ export class SbiAdapter {
                 const tenure = parseTenure(cells[0]);
                 if (!tenure)
                     continue; // header rows / non-tenure rows skipped
-                // Find the first two percentage-looking cells after the tenure cell.
                 const pcts = cells
                     .slice(1)
                     .map((c) => parsePercent(c))
@@ -109,9 +186,33 @@ export class SbiAdapter {
         return null;
     }
 }
-// Official retail domestic term-deposit rates (below ₹3 crore).
-SbiAdapter.URL = "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits";
-/** Try to read an "w.e.f. <date>" / "effective <date>" string off the page. */
+SbiAdapter.FD_URL = "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits";
+SbiAdapter.SAVINGS_URL = "https://sbi.co.in/web/interest-rates/deposit-rates/savings-bank-rate";
+function isSingleDayTenure(t) {
+    return t.maxDays != null && t.minDays === t.maxDays;
+}
+/** Name known SBI special schemes from the tenure label; generic otherwise. */
+function detectScheme(tenureText) {
+    const t = tenureText.toLowerCase();
+    if (t.includes("amrit vrishti") || /\b444\b/.test(t))
+        return "Amrit Vrishti 444 days";
+    const m = tenureText.match(/(\d+)\s*days?/i);
+    return m ? `${m[1]}-day Special` : "Special Tenure";
+}
+/**
+ * Extract the flat savings rate. SBI states it in prose / a small table like
+ * "2.50% p.a.". Take the first plausible savings percentage (0.5–5%).
+ */
+function extractSavingsRate(html) {
+    const text = stripTags(html);
+    // Prefer a value adjacent to "p.a." to avoid grabbing unrelated numbers.
+    const near = text.match(/(\d(?:\.\d{1,2})?)\s*%\s*p\.?\s*a\.?/i);
+    const candidate = near ? parsePercent(near[0]) : parsePercent(text);
+    if (candidate == null)
+        return null;
+    return candidate >= 0.5 && candidate <= 5 ? candidate : null;
+}
+/** Read an "w.e.f. <date>" / "effective <date>" string off the page. */
 function extractEffectiveDate(html) {
     const text = html.replace(/<[^>]*>/g, " ");
     const m = text.match(/(?:w\.?e\.?f\.?|effective(?:\s+from)?)\s*:?\s*(\d{1,2})[.\-/\s]([A-Za-z]+|\d{1,2})[.\-/\s](\d{2,4})/i);

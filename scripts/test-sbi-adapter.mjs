@@ -1,5 +1,5 @@
-// Unit test for the SBI adapter's pure parser, using fixture HTML shaped like
-// SBI's retail term-deposit page. No network required.
+// Unit tests for the SBI adapter's pure parsers (FD+RD, savings) and for the
+// ingest merge-by-product logic. No network required.
 //
 //   node scripts/test-sbi-adapter.mjs
 //
@@ -13,25 +13,6 @@ const { SbiAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/sbi.js")
 );
 
-// Fixture: SBI-style retail rate table (rates illustrative). Includes a decoy
-// table first, an effective-date string, and the real rate table.
-const FIXTURE = `
-<html><body>
-  <p>Interest Rates w.e.f. 15 Aug 2026</p>
-  <table><tr><th>Some other data</th><th>X</th></tr><tr><td>Foo</td><td>Bar</td></tr></table>
-  <table>
-    <tr><th>Tenors</th><th>General Public (%)</th><th>Senior Citizens (%)</th></tr>
-    <tr><td>7 days to 45 days</td><td>3.05</td><td>3.55</td></tr>
-    <tr><td>46 days to 179 days</td><td>5.00</td><td>5.50</td></tr>
-    <tr><td>180 days to 210 days</td><td>5.75</td><td>6.25</td></tr>
-    <tr><td>211 days to less than 1 year</td><td>6.00</td><td>6.50</td></tr>
-    <tr><td>1 Year to less than 2 years</td><td>6.25%</td><td>6.75%</td></tr>
-    <tr><td>2 years to less than 3 years</td><td>6.60</td><td>7.10</td></tr>
-    <tr><td>3 years to less than 5 years</td><td>6.60</td><td>7.10</td></tr>
-    <tr><td>5 years and up to 10 years</td><td>6.45</td><td>7.05</td></tr>
-  </table>
-</body></html>`;
-
 let failures = 0;
 const assert = (cond, msg) => {
   if (!cond) {
@@ -42,18 +23,44 @@ const assert = (cond, msg) => {
   }
 };
 
+// ---------------------------------------------------------------------------
+// Fixture: SBI-style retail term-deposit table, incl. the 444-day special row.
+// ---------------------------------------------------------------------------
+const FD_FIXTURE = `
+<html><body>
+  <p>Interest Rates w.e.f. 15 Aug 2026</p>
+  <table><tr><th>Other</th><th>X</th></tr><tr><td>Foo</td><td>Bar</td></tr></table>
+  <table>
+    <tr><th>Tenors</th><th>General Public (%)</th><th>Senior Citizens (%)</th></tr>
+    <tr><td>7 days to 45 days</td><td>3.05</td><td>3.55</td></tr>
+    <tr><td>46 days to 179 days</td><td>5.00</td><td>5.50</td></tr>
+    <tr><td>180 days to 210 days</td><td>5.75</td><td>6.25</td></tr>
+    <tr><td>211 days to less than 1 year</td><td>6.00</td><td>6.50</td></tr>
+    <tr><td>1 Year to less than 2 years</td><td>6.25%</td><td>6.75%</td></tr>
+    <tr><td>2 years to less than 3 years</td><td>6.60</td><td>7.10</td></tr>
+    <tr><td>3 years to less than 5 years</td><td>6.60</td><td>7.10</td></tr>
+    <tr><td>5 years and up to 10 years</td><td>6.45</td><td>7.05</td></tr>
+    <tr><td>444 days (Amrit Vrishti)</td><td>6.45</td><td>6.95</td></tr>
+  </table>
+</body></html>`;
+
+const SAVINGS_FIXTURE = `
+<html><body><table>
+  <tr><th>Savings Bank Deposit</th><th>Rate of Interest (% p.a.)</th></tr>
+  <tr><td>Savings Bank balance</td><td>2.50% p.a.</td></tr>
+</table></body></html>`;
+
+console.log("== FD + RD parser ==");
 const adapter = new SbiAdapter();
-const rates = adapter.parse(FIXTURE, "2026-08-15");
+const fdRd = adapter.parseFdRd(FD_FIXTURE, "2026-08-15");
 
-console.log(`Parsed ${rates.length} rate entries`);
+const fd = fdRd.filter((r) => r.product === "FD");
+const rd = fdRd.filter((r) => r.product === "RD");
 
-assert(rates.length === 16, "16 entries (8 tenures × general+senior)");
+// 9 tenures × (general+senior) = 18 FD entries
+assert(fd.length === 18, `18 FD entries (got ${fd.length})`);
 assert(
-  rates.every((r) => r.bankId === "sbi" && r.product === "FD"),
-  "all entries are SBI FD",
-);
-assert(
-  rates.every(
+  fdRd.every(
     (r) =>
       r.source.quality === "OFFICIAL" &&
       r.source.effectiveDate === "2026-08-15",
@@ -61,47 +68,108 @@ assert(
   "all stamped OFFICIAL with effective date",
 );
 
-const oneYr = rates.find(
+const oneYr = fd.find(
   (r) =>
     r.customer === "GENERAL" &&
     r.tenure.minDays === 365 &&
     r.tenure.maxDays === 729,
 );
-assert(
-  oneYr?.ratePercent === 6.25,
-  "1yr general = 6.25 (with % sign stripped)",
-);
+assert(oneYr?.ratePercent === 6.25, "FD 1yr general = 6.25");
 
-const oneYrSr = rates.find(
-  (r) =>
-    r.customer === "SENIOR" &&
-    r.tenure.minDays === 365 &&
-    r.tenure.maxDays === 729,
-);
-assert(oneYrSr?.ratePercent === 6.75, "1yr senior = 6.75");
-
-const longest = rates.find(
+const longest = fd.find(
   (r) => r.customer === "GENERAL" && r.tenure.minDays === 1825,
 );
 assert(
   longest?.ratePercent === 6.45 && longest?.tenure.maxDays === 3650,
-  "5–10yr general = 6.45, maxDays 3650",
+  "FD 5–10yr general = 6.45, maxDays 3650",
 );
 
-const short = rates.find(
-  (r) => r.customer === "GENERAL" && r.tenure.minDays === 7,
+// Special 444-day row: FD-only, tagged with scheme, NOT emitted as RD.
+const special = fd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 444,
 );
-assert(short?.tenure.maxDays === 45, "7–45 days parsed to maxDays 45");
-
-// Empty/garbage HTML → no rows (triggers last-known-good fallback upstream).
 assert(
-  adapter.parse("<html><body>no tables here</body></html>", "2026-01-01")
-    .length === 0,
-  "garbage HTML → 0 entries",
+  special?.tenure.maxDays === 444,
+  "444-day special is a single-day tenure",
+);
+assert(
+  special?.scheme === "Amrit Vrishti 444 days",
+  "444-day tagged as Amrit Vrishti scheme",
+);
+assert(special?.ratePercent === 6.45, "444-day general = 6.45");
+
+// RD: derived from standard buckets with minDays >= 365 (1yr,2yr,3yr,5yr) × 2 = 8
+assert(
+  rd.length === 8,
+  `8 RD entries derived from >=1yr buckets (got ${rd.length})`,
+);
+assert(
+  rd.every((r) => r.tenure.minDays >= 365),
+  "RD only for tenures >= 1 year",
+);
+assert(
+  !rd.some((r) => r.tenure.minDays === 444),
+  "RD not created for the 444-day special",
+);
+const rd2yr = rd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 730,
+);
+assert(rd2yr?.ratePercent === 7.1, "RD 2yr senior tracks FD card rate 7.10");
+
+console.log("== Savings parser ==");
+const sav = adapter.parseSavings(SAVINGS_FIXTURE, "2026-08-15");
+assert(sav.length === 2, "2 savings entries (general + senior)");
+assert(
+  sav.every((r) => r.product === "SAVINGS" && r.ratePercent === 2.5),
+  "savings rate = 2.50%",
+);
+
+console.log("== Resilience ==");
+assert(
+  adapter.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "garbage FD HTML → 0",
+);
+assert(
+  adapter.parseSavings("<html>no rate</html>", "2026-01-01").length === 0,
+  "garbage savings HTML → 0",
+);
+
+// ---------------------------------------------------------------------------
+// Merge-by-product logic (mirrors scripts/ingest.mjs). A partial scrape (FD+RD
+// only) must NOT drop a bank's existing SAVINGS rows.
+// ---------------------------------------------------------------------------
+console.log("== Merge by product ==");
+function mergeByProduct(prior, scraped) {
+  const scrapedProducts = new Set(scraped.map((r) => r.product));
+  const retained = prior.filter((r) => !scrapedProducts.has(r.product));
+  return [...scraped, ...retained];
+}
+const prior = [
+  { bankId: "sbi", product: "FD", ratePercent: 6.0 },
+  { bankId: "sbi", product: "SAVINGS", ratePercent: 2.7 },
+  { bankId: "sbi", product: "RD", ratePercent: 6.5 },
+];
+const scrapedFdOnly = [{ bankId: "sbi", product: "FD", ratePercent: 6.25 }];
+const merged = mergeByProduct(prior, scrapedFdOnly);
+assert(
+  merged.filter((r) => r.product === "FD").length === 1,
+  "FD replaced by scrape",
+);
+assert(
+  merged.find((r) => r.product === "FD").ratePercent === 6.25,
+  "FD uses new scraped rate",
+);
+assert(
+  merged.some((r) => r.product === "SAVINGS" && r.ratePercent === 2.7),
+  "SAVINGS retained (last-known-good)",
+);
+assert(
+  merged.some((r) => r.product === "RD" && r.ratePercent === 6.5),
+  "RD retained (last-known-good)",
 );
 
 if (failures === 0) {
-  console.log("\nAll SBI adapter parser tests passed.");
+  console.log("\nAll SBI adapter + merge tests passed.");
   process.exit(0);
 } else {
   console.error(`\n${failures} assertion(s) failed.`);
