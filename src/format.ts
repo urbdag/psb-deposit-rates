@@ -59,3 +59,41 @@ export function formatDate(iso: string): string {
     day: "numeric",
   });
 }
+
+/** Data-freshness assessment for the whole dataset. */
+export type FreshnessLevel = "fresh" | "aging" | "stale" | "unknown";
+
+export interface Freshness {
+  level: FreshnessLevel;
+  ageDays: number | null;
+  label: string;
+}
+
+/**
+ * Classify how old the dataset is based on its `generatedAt` timestamp.
+ * A stale result is the signal that the daily ingestion may have stalled.
+ * Thresholds: fresh < 2 days, aging 2–7 days, stale > 7 days.
+ */
+export function assessFreshness(
+  generatedAtIso: string,
+  now: Date = new Date(),
+): Freshness {
+  const t = new Date(generatedAtIso).getTime();
+  if (Number.isNaN(t))
+    return { level: "unknown", ageDays: null, label: "Update time unknown" };
+  const ageDays = Math.floor((now.getTime() - t) / 86400000);
+  if (ageDays <= 1)
+    return { level: "fresh", ageDays, label: relativeLabel(ageDays) };
+  if (ageDays <= 7)
+    return { level: "aging", ageDays, label: relativeLabel(ageDays) };
+  return { level: "stale", ageDays, label: relativeLabel(ageDays) };
+}
+
+function relativeLabel(ageDays: number): string {
+  if (ageDays <= 0) return "updated today";
+  if (ageDays === 1) return "updated yesterday";
+  if (ageDays < 7) return `updated ${ageDays} days ago`;
+  if (ageDays < 14) return "updated over a week ago";
+  if (ageDays < 60) return `updated ${Math.floor(ageDays / 7)} weeks ago`;
+  return `updated ${Math.floor(ageDays / 30)} months ago`;
+}

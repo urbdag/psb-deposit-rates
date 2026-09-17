@@ -13,6 +13,7 @@ import {
 } from "./query.js";
 import {
   amountLabel,
+  assessFreshness,
   formatDate,
   formatINR,
   formatRate,
@@ -77,6 +78,30 @@ function renderShell(): void {
     ]),
   ]);
   root.append(header);
+
+  // Freshness indicator — makes a stalled daily ingestion visible at a glance.
+  const fresh = assessFreshness(dataset.generatedAt);
+  const freshTitle: Record<string, string> = {
+    fresh: `Data ${fresh.label}`,
+    aging: `Data ${fresh.label}`,
+    stale: `Data ${fresh.label} — the daily auto-update may have stalled`,
+    unknown: fresh.label,
+  };
+  root.append(
+    el("div", { class: "container" }, [
+      el(
+        "div",
+        { class: `freshness freshness-${fresh.level}`, id: "freshness" },
+        [
+          el("span", { class: "freshness-dot" }),
+          el("span", {}, [freshTitle[fresh.level]]),
+          el("span", { class: "freshness-meta" }, [
+            `· ${dataset.rates.length} rates · ${dataset.banks.length} banks`,
+          ]),
+        ],
+      ),
+    ]),
+  );
 
   if (dataset.containsSampleData) {
     root.append(
