@@ -591,6 +591,48 @@
       }
     },
     {
+      "bankId": "sbi",
+      "product": "SAVINGS",
+      "customer": "GENERAL",
+      "ratePercent": 2.5,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "All balances"
+      },
+      "source": {
+        "url": "https://bank.sbi/web/interest-rates/savings-bank-deposits",
+        "effectiveDate": "2025-06-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
+      "product": "SAVINGS",
+      "customer": "SENIOR",
+      "ratePercent": 2.5,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "All balances"
+      },
+      "source": {
+        "url": "https://bank.sbi/web/interest-rates/savings-bank-deposits",
+        "effectiveDate": "2025-06-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
       "bankId": "pnb",
       "product": "FD",
       "customer": "GENERAL",
@@ -7519,6 +7561,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:16:33.192Z",
+  "generatedAt": "2026-09-17T15:18:40.373Z",
   "containsSampleData": false
 }
