@@ -16,6 +16,7 @@ export class PsbAdapter extends TableRateAdapter {
                 "https://punjabandsind.bank.in/content/saving-deposit",
                 "https://punjabandsind.bank.in/content/interest-rates",
             ],
+            renderJs: true,
         });
     }
 }

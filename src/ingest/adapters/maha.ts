@@ -17,6 +17,7 @@ export class MahaAdapter extends TableRateAdapter {
         "https://bankofmaharashtra.bank.in/interest-rate-on-deposits",
         "https://bankofmaharashtra.bank.in/savings-account",
       ],
+      renderJs: true,
     });
   }
 }

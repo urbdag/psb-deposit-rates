@@ -24,6 +24,7 @@ export class BoiAdapter extends TableRateAdapter {
                 "https://bankofindia.bank.in/interest-rate-saving-bank-deposit-rates",
                 "https://bankofindia.bank.in/interest-rate/saving-bank-deposit-rate",
             ],
+            renderJs: true,
             schemeNamer: (t) => /\b400\b/.test(t) ? "400-day Special" : defaultScheme(t),
         });
     }

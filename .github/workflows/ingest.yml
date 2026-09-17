@@ -30,6 +30,11 @@ jobs:
       - name: Test adapter parsers
         run: node scripts/test-adapters.mjs
 
+      - name: Install Playwright + Chromium (for JS-rendered bank pages)
+        run: |
+          npm install playwright@1.48.0
+          npx playwright install --with-deps chromium
+
       - name: Run ingestion (adapters -> validate -> dataset.json)
         run: node scripts/ingest.mjs
 

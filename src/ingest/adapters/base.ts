@@ -6,6 +6,7 @@ import type {
   TenureRange,
 } from "../../types.js";
 import { fetchText } from "../http.js";
+import { fetchRendered } from "../render.js";
 import {
   extractRows,
   extractTables,
@@ -44,6 +45,12 @@ export interface TableAdapterConfig {
   rdMinDays?: number;
   /** Map a special single-day tenure label → a scheme name. */
   schemeNamer?: (tenureText: string) => string | undefined;
+  /**
+   * If true, when a plain HTTP fetch of a URL yields no rate table, retry that
+   * URL with a headless browser (Playwright) to render client-side content.
+   * Requires Playwright to be installed (it is in the ingest CI job).
+   */
+  renderJs?: boolean;
 }
 
 const RETAIL: AmountThreshold = {
@@ -92,18 +99,40 @@ export class TableRateAdapter implements BankRateAdapter {
     let fdRd: RateEntry[] = [];
     const attempts: string[] = [];
     for (const url of fdUrls) {
+      // 1) Plain HTTP fetch first (fast, no browser).
       try {
         const fdHtml = await fetchText(url);
-        const fdEff = extractEffectiveDate(fdHtml) ?? today();
-        const parsed = this.parseFdRd(fdHtml, fdEff, url);
-        if (parsed.length === 0)
-          attempts.push(`${url} -> 0 rows (no rate table found)`);
+        const parsed = this.parseFdRd(
+          fdHtml,
+          extractEffectiveDate(fdHtml) ?? today(),
+          url,
+        );
         if (parsed.length > 0) {
           fdRd = parsed;
           break;
         }
+        attempts.push(`${url} -> 0 rows (http)`);
       } catch (e) {
-        attempts.push(`${url} -> ${String(e)}`);
+        attempts.push(`${url} -> ${String(e)} (http)`);
+      }
+      // 2) If configured, retry with a headless browser (renders JS, passes
+      //    many bot checks). Only reached when plain HTTP didn't yield rows.
+      if (this.cfg.renderJs) {
+        try {
+          const fdHtml = await fetchRendered(url);
+          const parsed = this.parseFdRd(
+            fdHtml,
+            extractEffectiveDate(fdHtml) ?? today(),
+            url,
+          );
+          if (parsed.length > 0) {
+            fdRd = parsed;
+            break;
+          }
+          attempts.push(`${url} -> 0 rows (rendered)`);
+        } catch (e) {
+          attempts.push(`${url} -> ${String(e)} (rendered)`);
+        }
       }
     }
     if (fdRd.length === 0) {
@@ -116,17 +145,38 @@ export class TableRateAdapter implements BankRateAdapter {
     const fdEff = fdRd[0].source.effectiveDate;
 
     for (const url of this.cfg.savingsUrls ?? []) {
+      let done = false;
       try {
         const savHtml = await fetchText(url);
-        const savEff = extractEffectiveDate(savHtml) ?? fdEff;
-        const savings = this.parseSavings(savHtml, savEff, url);
+        const savings = this.parseSavings(
+          savHtml,
+          extractEffectiveDate(savHtml) ?? fdEff,
+          url,
+        );
         if (savings.length > 0) {
           out.push(...savings);
-          break;
+          done = true;
         }
       } catch {
-        // try next candidate; ingest keeps last-known-good if all fail
+        // fall through to rendered attempt / next candidate
       }
+      if (!done && this.cfg.renderJs) {
+        try {
+          const savHtml = await fetchRendered(url);
+          const savings = this.parseSavings(
+            savHtml,
+            extractEffectiveDate(savHtml) ?? fdEff,
+            url,
+          );
+          if (savings.length > 0) {
+            out.push(...savings);
+            done = true;
+          }
+        } catch {
+          // ingest keeps last-known-good if all candidates fail
+        }
+      }
+      if (done) break;
     }
 
     return out;

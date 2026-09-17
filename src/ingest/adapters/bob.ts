@@ -26,6 +26,7 @@ export class BobAdapter extends TableRateAdapter {
         "https://bankofbaroda.bank.in/interest-rates-and-charges/deposits-interest-rates",
         "https://bankofbaroda.bank.in/personal-banking/accounts/saving-accounts",
       ],
+      renderJs: true,
       schemeNamer: (t) => {
         if (/golden goal/i.test(t) || /\b555\b/.test(t))
           return "bob Golden Goal 555 days";

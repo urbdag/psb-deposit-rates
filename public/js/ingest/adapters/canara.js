@@ -17,6 +17,7 @@ export class CanaraAdapter extends TableRateAdapter {
                 "https://www.canarabank.bank.in/Savings-Bank-Account",
                 "https://www.canarabank.bank.in/deposit-interest-rate",
             ],
+            renderJs: true,
         });
     }
 }

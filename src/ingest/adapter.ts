@@ -54,7 +54,9 @@ export async function runAdapters(
     } else {
       failed.push(adapters[i].bankId);
       // Surface WHY an adapter failed so URL/parse issues are debuggable in CI.
-      console.warn(`  adapter ${adapters[i].bankId} failed: ${String(r.reason)}`);
+      console.warn(
+        `  adapter ${adapters[i].bankId} failed: ${String(r.reason)}`,
+      );
     }
   }
 

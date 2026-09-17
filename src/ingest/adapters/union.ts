@@ -17,6 +17,7 @@ export class UnionAdapter extends TableRateAdapter {
         "https://www.unionbankofindia.bank.in/en/Interest-Rate-Saving-Bank",
         "https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit",
       ],
+      renderJs: true,
       schemeNamer: (t) => (/\b555\b/.test(t) ? "555-day Special" : undefined),
     });
   }
