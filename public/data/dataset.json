@@ -94,7 +94,7 @@
       "tenure": {
         "minDays": 7,
         "maxDays": 45,
-        "label": "7–45 days"
+        "label": "7 days to 45 days"
       },
       "amount": {
         "minAmount": 0,
@@ -102,8 +102,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -111,11 +111,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 3.55,
+      "ratePercent": 3.05,
       "tenure": {
         "minDays": 7,
         "maxDays": 45,
-        "label": "7–45 days"
+        "label": "7 days to 45 days"
       },
       "amount": {
         "minAmount": 0,
@@ -123,29 +123,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 3.65,
-      "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -153,11 +132,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 5,
+      "ratePercent": 4.9,
       "tenure": {
         "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "maxDays": 179,
+        "label": "46 days to 179 days"
       },
       "amount": {
         "minAmount": 0,
@@ -165,8 +144,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -174,11 +153,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 5.5,
+      "ratePercent": 4.9,
       "tenure": {
         "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "maxDays": 179,
+        "label": "46 days to 179 days"
       },
       "amount": {
         "minAmount": 0,
@@ -186,29 +165,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 5.6,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -216,11 +174,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 5.75,
+      "ratePercent": 5.65,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 180,
+        "maxDays": 210,
+        "label": "180 days to 210 days"
       },
       "amount": {
         "minAmount": 0,
@@ -228,8 +186,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -237,11 +195,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.25,
+      "ratePercent": 5.65,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 180,
+        "maxDays": 210,
+        "label": "180 days to 210 days"
       },
       "amount": {
         "minAmount": 0,
@@ -249,29 +207,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.35,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -279,11 +216,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.25,
+      "ratePercent": 5.9,
       "tenure": {
-        "minDays": 181,
+        "minDays": 211,
         "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "label": "211 days to less than 1 year"
       },
       "amount": {
         "minAmount": 0,
@@ -291,8 +228,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -300,11 +237,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.75,
+      "ratePercent": 5.9,
       "tenure": {
-        "minDays": 181,
+        "minDays": 211,
         "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "label": "211 days to less than 1 year"
       },
       "amount": {
         "minAmount": 0,
@@ -312,29 +249,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.85,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -346,7 +262,7 @@
       "tenure": {
         "minDays": 365,
         "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "label": "1 Year to less than 2 years"
       },
       "amount": {
         "minAmount": 0,
@@ -354,8 +270,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -363,11 +279,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.75,
+      "ratePercent": 6.25,
       "tenure": {
         "minDays": 365,
         "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "label": "1 Year to less than 2 years"
       },
       "amount": {
         "minAmount": 0,
@@ -375,155 +291,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.85,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.2,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.2,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -533,9 +302,9 @@
       "customer": "GENERAL",
       "ratePercent": 6.45,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
       },
       "amount": {
         "minAmount": 0,
@@ -543,8 +312,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -552,11 +321,11 @@
       "bankId": "sbi",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.95,
+      "ratePercent": 6.4,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
       },
       "amount": {
         "minAmount": 0,
@@ -564,20 +333,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "sbi",
       "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.05,
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 1095,
+        "maxDays": 1824,
+        "label": "3 years to less than 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -585,218 +354,71 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "sbi",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.8,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "RD",
+      "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7.3,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.5,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.75,
+      "ratePercent": 6.3,
       "tenure": {
         "minDays": 1095,
         "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "label": "3 years to less than 5 years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "sbi",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.25,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "RD",
+      "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 6.05,
       "tenure": {
         "minDays": 1825,
         "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "label": "5 years and up to 10 years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "sbi",
-      "product": "RD",
+      "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 6.05,
       "tenure": {
         "minDays": 1825,
         "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "label": "5 years and up to 10 years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "SAVINGS",
-      "customer": "GENERAL",
-      "ratePercent": 2.5,
-      "tenure": {
-        "minDays": 0,
-        "maxDays": null,
-        "label": "Any tenure"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "All balances"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "sbi",
-      "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.5,
-      "tenure": {
-        "minDays": 0,
-        "maxDays": null,
-        "label": "Any tenure"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "All balances"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/",
-        "effectiveDate": "2026-08-15",
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
         "quality": "OFFICIAL"
       }
     },
@@ -7729,6 +7351,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:05:44.602Z",
+  "generatedAt": "2026-09-17T15:06:41.854Z",
   "containsSampleData": false
 }
