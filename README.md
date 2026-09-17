@@ -180,9 +180,26 @@ with `quality: OFFICIAL`, then register it in `scripts/ingest.mjs`.
 - If the page structure changes and nothing parses, it throws → the ingest
   runner keeps SBI's last-known-good rates.
 
-Note: adapters need a deployment with outbound internet to the banks' sites —
-they run in the GitHub Actions `ingest` workflow, **not** in a restricted
-sandbox. Use `SbiAdapter` as the template for the other 11 banks.
+Adapters share a config-driven base (`TableRateAdapter` in `adapters/base.ts`):
+a new bank is usually just URLs + optional special-scheme name hints. They run
+in the GitHub Actions `ingest` workflow (which has internet), **not** in a
+restricted sandbox.
+
+**Live adapter coverage (verified):**
+
+| Bank | Status | Notes |
+|--|--|--|
+| SBI | ✅ scraping FD + RD + Savings | from `sbi.co.in` / `bank.sbi` |
+| PNB | ✅ scraping FD + RD + Savings | from `pnbindia.in` |
+| Bank of Baroda | ⚠️ falls back | rate page URL not resolvable by a plain HTTP scraper (JS-rendered) |
+| Bank of India | ⚠️ falls back | rate page returns HTTP 403 to non-browser clients (anti-bot) |
+| Other 7 banks | ⏳ not yet built | aggregator-sourced data in the meantime |
+
+Banks that "fall back" keep their last-known-good (aggregator) rates — the merge
+logic guarantees a failed scrape never removes data. BoB/BoI need a
+headless-browser fetch (e.g. Playwright in CI) to get past JS-rendering /
+bot-blocking; their adapters stay registered and will activate automatically if
+a scrapeable endpoint becomes available.
 
 ## Data model notes
 

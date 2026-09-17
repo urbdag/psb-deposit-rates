@@ -1,9 +1,16 @@
 import { TableRateAdapter, defaultScheme } from "./base.js";
 /**
  * Bank of Baroda adapter.
- * Scrapes BoB's retail domestic term-deposit rates (below ₹3 crore) and savings
- * rate. BoB runs named special-tenure schemes (e.g. the 555-day "Golden Goal"
- * and 444-day "Square Drive"), tagged from the tenure label when present.
+ * Targets BoB's retail domestic term-deposit rates (below ₹3 crore) + savings.
+ * Tags named special-tenure schemes (555-day "Golden Goal", 444-day "Square
+ * Drive") from the tenure label when present.
+ *
+ * KNOWN LIMITATION: BoB's published rate table is served from a URL/rendering
+ * this dependency-free HTTP scraper could not resolve (candidate paths 404;
+ * the live page appears to be JS-rendered). Until a working URL or a headless-
+ * browser fetch is added, this adapter fails and the ingest runner keeps BoB's
+ * last-known-good (aggregator-sourced) rates. Kept registered so it activates
+ * automatically once a scrapeable endpoint is wired in.
  */
 export class BobAdapter extends TableRateAdapter {
     constructor() {
