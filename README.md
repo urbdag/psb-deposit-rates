@@ -6,10 +6,15 @@ Compare **Fixed Deposits, Savings accounts, and Recurring Deposits** by
 **tenure, deposit amount, and customer category** (general / senior / super
 senior), with a live leaderboard and a full ranked comparison table.
 
-> ⚠️ **The bundled data is SAMPLE data.** The rates shipped in this repo are
-> realistic-but-fictional placeholders so the product works end to end. They are
-> **not** scraped from the banks and must **not** be used for financial
-> decisions. See [Loading real rates](#loading-real-rates) to make it live.
+> ℹ️ **Data provenance.** The rates currently loaded were compiled from
+> third-party **aggregator and news sources** (PolicyBazaar, BankBazaar,
+> ETMoney, Business Today, Economic Times, CNBC-TV18, etc.) in September 2026 —
+> **not** scraped from the banks' own pages — and some per-tenure figures are
+> interpolated between cited anchor points. Each rate carries its source URL and
+> effective date. **Verify against each bank's official schedule before making
+> financial decisions.** Regenerate with `node scripts/gen-real-data.mjs` and
+> re-import; for authoritative data, implement the per-bank adapters
+> (see [Loading real rates](#loading-real-rates)).
 
 ---
 

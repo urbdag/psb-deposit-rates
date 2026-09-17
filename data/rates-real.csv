@@ -1,0 +1,364 @@
+bankId,product,customer,ratePercent,minDays,maxDays,tenureLabel,minAmount,maxAmount,amountLabel,scheme,sourceUrl,effectiveDate
+sbi,FD,GENERAL,3.05,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,3.55,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,3.65,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,5.5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,5.6,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,5.75,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,6.25,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,6.35,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,6.25,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,6.75,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,6.85,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,6.25,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,6.75,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,6.85,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,7.2,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,6.6,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,7.1,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,7.2,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,GENERAL,6.45,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SENIOR,6.95,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,FD,SUPER_SENIOR,7.05,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,GENERAL,6.8,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,SENIOR,7.3,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,GENERAL,7,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,SENIOR,7.5,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,GENERAL,6.75,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,SENIOR,7.25,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,SAVINGS,GENERAL,2.5,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+sbi,SAVINGS,SENIOR,2.5,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/state-bank-of-india-fd-rates/,2026-08-15
+bob,FD,GENERAL,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,4.1,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,4.75,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,5.25,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,5.35,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,5.75,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,6.25,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,6.35,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,6.25,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,6.75,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,6.85,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,6.25,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,6.75,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,6.85,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,6.7,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,7.2,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,7.3,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,6.75,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,7.25,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,7.35,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,7.1,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,GENERAL,6.45,444,444,444 days (bob Square Drive),0,30000000,Below ₹3 crore (retail),bob Square Drive 444 days,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SENIOR,6.95,444,444,444 days (bob Square Drive),0,30000000,Below ₹3 crore (retail),bob Square Drive 444 days,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,FD,SUPER_SENIOR,7.05,444,444,444 days (bob Square Drive),0,30000000,Below ₹3 crore (retail),bob Square Drive 444 days,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,GENERAL,6.25,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,SENIOR,6.75,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,GENERAL,6.7,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,SENIOR,7.2,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,GENERAL,6.75,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,SENIOR,7.25,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+bob,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/,2026-06-12
+pnb,FD,GENERAL,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,4.75,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,5.25,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,5.75,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,6.25,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,6.25,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,6.75,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,6.25,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,6.75,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,GENERAL,6.25,365,729,1 year to < 2 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,SENIOR,6.75,365,729,1 year to < 2 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,GENERAL,6.6,730,1094,2 years to < 3 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,SENIOR,7.1,730,1094,2 years to < 3 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,SENIOR,7,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,SAVINGS,GENERAL,2.7,0,,Any tenure,0,,All balances,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+pnb,SAVINGS,SENIOR,2.7,0,,Any tenure,0,,All balances,,https://www.paisabazaar.com/fixed-deposit/,2026-09-11
+canara,FD,GENERAL,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,4.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,5.25,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,5.75,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,6.15,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,6.65,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,6.6,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,7.1,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,6.15,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,6.65,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,6,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,6.5,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,6,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,GENERAL,6.6,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,FD,SENIOR,7.1,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,GENERAL,6.6,365,729,1 year to < 2 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,SENIOR,7.1,365,729,1 year to < 2 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,GENERAL,6.15,730,1094,2 years to < 3 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,SENIOR,6.65,730,1094,2 years to < 3 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,GENERAL,6,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,SENIOR,6.5,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,GENERAL,6,1825,3650,5 years to 10 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,RD,SENIOR,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,SAVINGS,GENERAL,2.7,0,,Any tenure,0,,All balances,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+canara,SAVINGS,SENIOR,2.7,0,,Any tenure,0,,All balances,,https://www.businesstoday.in/personal-finance/story/sbi-fd-rates-vs-bank-of-baroda-vs-canara-bank-which-bank-offers-higher-returns-in-2026-550710-2026-08-22,2026-08-22
+union,FD,GENERAL,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,4.75,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,5.25,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,6.3,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,6.8,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,6.65,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,7.15,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,GENERAL,6.65,456,456,456 days special,0,30000000,Below ₹3 crore (retail),456-day Special,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,FD,SENIOR,7.15,456,456,456 days special,0,30000000,Below ₹3 crore (retail),456-day Special,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,GENERAL,6.65,365,729,1 year to < 2 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,SENIOR,7.15,365,729,1 year to < 2 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,GENERAL,6.6,730,1094,2 years to < 3 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,SENIOR,7.1,730,1094,2 years to < 3 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,SENIOR,7,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+union,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://www.zeebiz.com/personal-finance/news-bank-fd-rates-june-2026-sbi-hdfc-bank-icici-bank-pnb-compared-which-bank-offers-the-highest-returns-396804,2026-06-01
+boi,FD,GENERAL,3,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,4.5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,6,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,6.5,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,6.5,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,7,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,6.7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,7.2,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,GENERAL,6.85,400,400,400 days special,0,30000000,Below ₹3 crore (retail),400-day Special,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,FD,SENIOR,7.35,400,400,400 days special,0,30000000,Below ₹3 crore (retail),400-day Special,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,GENERAL,6.5,365,729,1 year to < 2 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,SENIOR,7,365,729,1 year to < 2 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,GENERAL,6.6,730,1094,2 years to < 3 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,SENIOR,7.1,730,1094,2 years to < 3 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,GENERAL,6.7,1095,1824,3 years to < 5 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,SENIOR,7.2,1095,1824,3 years to < 5 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+boi,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://m.economictimes.indiatimes.com/wealth/invest/bank-of-india-hikes-fd-interest-rates-on-select-tenures-senior-citizens-to-earn-up-to-7-45-rate/articleshow/131171360.cms,2026-09-14
+indian,FD,GENERAL,3,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,3.75,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,4.5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,5.25,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,5.25,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,5.75,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,6.1,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,6.6,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,6.85,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,6.5,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,7,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,7.25,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,7.35,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,6.25,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,6.75,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,6.25,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,6.75,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,GENERAL,6.6,444,444,444 days (IND SECURE),0,30000000,Below ₹3 crore (retail),IND SECURE 444 days,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SENIOR,7.1,444,444,444 days (IND SECURE),0,30000000,Below ₹3 crore (retail),IND SECURE 444 days,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,FD,SUPER_SENIOR,7.35,444,444,444 days (IND SECURE),0,30000000,Below ₹3 crore (retail),IND SECURE 444 days,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,GENERAL,6.5,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,SENIOR,7,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,GENERAL,6.6,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,SENIOR,7.1,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,GENERAL,6.25,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,SENIOR,6.75,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,GENERAL,6.25,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,RD,SENIOR,6.75,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+indian,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/,2026-05-01
+central,FD,GENERAL,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,4.75,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,5.25,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,6.25,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,6.75,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,6.5,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,7,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,6.65,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,7.15,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,GENERAL,6.75,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,FD,SENIOR,7.25,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,GENERAL,6.5,365,729,1 year to < 2 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,SENIOR,7,365,729,1 year to < 2 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,GENERAL,6.65,730,1094,2 years to < 3 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,SENIOR,7.15,730,1094,2 years to < 3 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,SENIOR,7,1095,1824,3 years to < 5 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,SAVINGS,GENERAL,2.8,0,,Any tenure,0,,All balances,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+central,SAVINGS,SENIOR,2.8,0,,Any tenure,0,,All balances,,https://m.economictimes.indiatimes.com/wealth/invest/444-day-fd-with-highest-interest-rates-which-psu-bank-provides-highest-maturity-on-rs-5-lakh-investment-check-here/articleshow/133392759.cms,2026-05-10
+iob,FD,GENERAL,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,4.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,4.75,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,5.5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,5.75,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,6.25,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,6.3,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,6.8,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,7.05,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,6.7,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,7.2,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,7.45,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,7.35,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,7.25,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,7.25,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,GENERAL,6.75,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SENIOR,7.2,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,FD,SUPER_SENIOR,7.45,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,GENERAL,6.7,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,SENIOR,7.2,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,GENERAL,6.6,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,SENIOR,7.1,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,SENIOR,7,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+iob,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/,2026-05-15
+uco,FD,GENERAL,2.9,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,3.4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,4.5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,5,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,6,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,6.5,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,6.5,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,7,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,6.6,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,7.1,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,6.3,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,6.8,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,6.2,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,6.7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,GENERAL,6.45,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,FD,SENIOR,6.95,444,444,444 days special,0,30000000,Below ₹3 crore (retail),444-day Special,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,GENERAL,6.5,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,SENIOR,7,365,729,1 year to < 2 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,GENERAL,6.6,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,SENIOR,7.1,730,1094,2 years to < 3 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,GENERAL,6.3,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,SENIOR,6.8,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,GENERAL,6.2,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,RD,SENIOR,6.7,1825,3650,5 years to 10 years,0,,Any amount,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+uco,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/,2026-05-01
+maha,FD,GENERAL,3.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,4.6,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,5.1,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,5.5,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,6,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,6.25,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,6.75,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,6.5,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,7,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,6.65,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,7.15,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,7,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,GENERAL,6.5,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,FD,SENIOR,7,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,GENERAL,6.5,365,729,1 year to < 2 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,SENIOR,7,365,729,1 year to < 2 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,GENERAL,6.65,730,1094,2 years to < 3 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,SENIOR,7.15,730,1094,2 years to < 3 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,GENERAL,6.5,1095,1824,3 years to < 5 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,SENIOR,7,1095,1824,3 years to < 5 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,GENERAL,6.5,1825,3650,5 years to 10 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,RD,SENIOR,7,1825,3650,5 years to 10 years,0,,Any amount,,https://fdinterestcalculator.in/,2026-06-01
+maha,SAVINGS,GENERAL,2.75,0,,Any tenure,0,,All balances,,https://fdinterestcalculator.in/,2026-06-01
+maha,SAVINGS,SENIOR,2.75,0,,Any tenure,0,,All balances,,https://fdinterestcalculator.in/,2026-06-01
+psb,FD,GENERAL,4,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,4.5,7,45,7–45 days,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,5.05,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,5.55,46,90,46–90 days,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,5.75,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,6.25,91,180,91–180 days,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,6.3,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,6.8,181,364,181 days to < 1 year,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,6.6,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,7.1,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,6.85,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,7.35,730,1094,2 years to < 3 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,6.4,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,6.9,1095,1824,3 years to < 5 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,GENERAL,6.3,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,FD,SENIOR,6.8,1825,3650,5 years to 10 years,0,30000000,Below ₹3 crore (retail),,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,GENERAL,6.6,365,729,1 year to < 2 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,SENIOR,7.1,365,729,1 year to < 2 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,GENERAL,6.85,730,1094,2 years to < 3 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,SENIOR,7.35,730,1094,2 years to < 3 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,GENERAL,6.4,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,SENIOR,6.9,1095,1824,3 years to < 5 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,GENERAL,6.3,1825,3650,5 years to 10 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,RD,SENIOR,6.8,1825,3650,5 years to 10 years,0,,Any amount,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,SAVINGS,GENERAL,2.8,0,,Any tenure,0,,All balances,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
+psb,SAVINGS,SENIOR,2.8,0,,Any tenure,0,,All balances,,https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507,2026-09-11
