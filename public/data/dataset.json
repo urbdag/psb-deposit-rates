@@ -891,8 +891,7 @@
     {
       "bankId": "pnb",
       "product": "SAVINGS",
-      "customer": "GENERAL",
-      "ratePercent": 2.7,
+      "ratePercent": 2.5,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -904,16 +903,16 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
-      }
+      },
+      "customer": "GENERAL"
     },
     {
       "bankId": "pnb",
       "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.7,
+      "ratePercent": 2.5,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -925,10 +924,11 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.paisabazaar.com/fixed-deposit/",
-        "effectiveDate": "2026-09-11",
+        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
-      }
+      },
+      "customer": "SENIOR"
     },
     {
       "bankId": "bob",
@@ -7313,6 +7313,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:26:34.873Z",
+  "generatedAt": "2026-09-17T15:29:07.417Z",
   "containsSampleData": false
 }
