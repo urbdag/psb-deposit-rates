@@ -35,6 +35,9 @@ jobs:
           npm install playwright@1.48.0
           npx playwright install --with-deps chromium
 
+      - name: Install pdf-parse (for PDF rate cards)
+        run: npm install pdf-parse@1.1.1
+
       - name: Run ingestion (adapters -> validate -> dataset.json)
         run: node scripts/ingest.mjs
 

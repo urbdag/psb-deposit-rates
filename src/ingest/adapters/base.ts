@@ -7,6 +7,8 @@ import type {
 } from "../../types.js";
 import { fetchText } from "../http.js";
 import { fetchRendered } from "../render.js";
+import { fetchPdfText } from "../pdf.js";
+import { parsePdfRates } from "../pdf-rates.js";
 import {
   extractRows,
   extractTables,
@@ -51,6 +53,12 @@ export interface TableAdapterConfig {
    * Requires Playwright to be installed (it is in the ingest CI job).
    */
   renderJs?: boolean;
+  /**
+   * PDF rate-card URL(s), tried in order. Used when a bank publishes rates only
+   * as a linked PDF (so the HTML page has no table). Tried AFTER html/render
+   * candidates fail. Requires `pdf-parse` (installed in the ingest CI job).
+   */
+  pdfUrl?: string | string[];
 }
 
 const RETAIL: AmountThreshold = {
@@ -135,6 +143,27 @@ export class TableRateAdapter implements BankRateAdapter {
         }
       }
     }
+
+    // 3) PDF rate-card fallback: if no HTML/rendered URL yielded rows, try any
+    //    configured PDF rate cards.
+    if (fdRd.length === 0 && this.cfg.pdfUrl) {
+      const pdfUrls = Array.isArray(this.cfg.pdfUrl)
+        ? this.cfg.pdfUrl
+        : [this.cfg.pdfUrl];
+      for (const url of pdfUrls) {
+        try {
+          const parsed = await this.fetchPdfFdRd(url);
+          if (parsed.length > 0) {
+            fdRd = parsed;
+            break;
+          }
+          attempts.push(`${url} -> 0 rows (pdf)`);
+        } catch (e) {
+          attempts.push(`${url} -> ${String(e)} (pdf)`);
+        }
+      }
+    }
+
     if (fdRd.length === 0) {
       throw new Error(
         `${this.bankId}: no FD rates from any candidate URL:\n    ` +
@@ -180,6 +209,28 @@ export class TableRateAdapter implements BankRateAdapter {
     }
 
     return out;
+  }
+
+  /** Fetch a PDF rate card and parse FD (+ derived RD) rows from its text. */
+  async fetchPdfFdRd(url: string): Promise<RateEntry[]> {
+    const text = await fetchPdfText(url);
+    return this.parsePdfFdRd(text, url);
+  }
+
+  /** Pure parser: FD (+ derived RD) from PDF rate-card text. Unit-testable. */
+  parsePdfFdRd(text: string, url: string, effectiveDate?: string): RateEntry[] {
+    const source: RateSource = {
+      url,
+      effectiveDate: effectiveDate ?? extractEffectiveDate(text) ?? today(),
+      quality: "OFFICIAL",
+    };
+    return parsePdfRates(text, {
+      bankId: this.bankId,
+      source,
+      amount: RETAIL,
+      rdMinDays: this.cfg.deriveRdFromFd ? this.cfg.rdMinDays : 0,
+      schemeNamer: this.cfg.schemeNamer,
+    });
   }
 
   /** Pure parser: FD (+ derived RD) from a term-deposit page. Unit-testable. */

@@ -18,6 +18,10 @@ export class UnionAdapter extends TableRateAdapter {
         "https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit",
       ],
       renderJs: true,
+      pdfUrl: [
+        "https://www.unionbankofindia.bank.in/pdf/Domestic-Term-Deposit-Rates.pdf",
+        "https://www.unionbankofindia.bank.in/en/pdf/interest-rate-deposit.pdf",
+      ],
       schemeNamer: (t) => (/\b555\b/.test(t) ? "555-day Special" : undefined),
     });
   }

@@ -22,6 +22,10 @@ export class IndianAdapter extends TableRateAdapter {
         "https://indianbank.bank.in/en/interest-rates/",
       ],
       renderJs: true,
+      pdfUrl: [
+        "https://indianbank.bank.in/documents/interest-rates/domestic-term-deposit.pdf",
+        "https://indianbank.bank.in/en/wp-content/uploads/domestic-deposit-rates.pdf",
+      ],
       schemeNamer: (t) =>
         /ind secure/i.test(t) || /\b444\b/.test(t)
           ? "IND SECURE 444 days"

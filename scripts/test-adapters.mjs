@@ -233,8 +233,95 @@ assert(
   "RD retained (last-known-good)",
 );
 
+// ---------------------------------------------------------------------------
+// PDF rate-card parser: text extracted from a PDF loses table structure, so a
+// row arrives as one line mixing tenure + rate figures. Verify we recover them.
+// ---------------------------------------------------------------------------
+console.log("== PDF rate-card parser ==");
+const { parsePdfRates } = await import(
+  resolve(root, "public/js/ingest/pdf-rates.js")
+);
+
+const PDF_TEXT = [
+  "BANK OF BARODA — Domestic Term Deposit Rates (w.e.f. 12 Jun 2026)",
+  "Tenure                          General   Senior Citizen",
+  "7 days to 45 days               3.50%     4.00%",
+  "1 year to less than 2 years     6.25%     6.75%",
+  "2 years to less than 3 years    6.60%     7.10%",
+  "3 years to less than 5 years    6.50%     7.00%",
+  "555 Days (bob Golden Goal)      6.75%     7.25%",
+  "* Rates are indicative. TDS applicable as per IT Act.",
+].join("\n");
+
+const pdfRows = parsePdfRates(PDF_TEXT, {
+  bankId: "bob",
+  source: {
+    url: "https://x/rates.pdf",
+    effectiveDate: "2026-06-12",
+    quality: "OFFICIAL",
+  },
+  amount: {
+    minAmount: 0,
+    maxAmount: 30000000,
+    label: "Below ₹3 crore (retail)",
+  },
+  rdMinDays: 365,
+  schemeNamer: (t) =>
+    /golden goal/i.test(t) || /\b555\b/.test(t)
+      ? "bob Golden Goal 555 days"
+      : undefined,
+});
+
+const pdfFd = pdfRows.filter((r) => r.product === "FD");
+assert(pdfFd.length >= 8, `PDF: parsed >=8 FD rows (got ${pdfFd.length})`);
+const pdf1y = pdfFd.find(
+  (r) =>
+    r.customer === "GENERAL" &&
+    r.tenure.minDays === 365 &&
+    r.tenure.maxDays === 729,
+);
+assert(pdf1y?.ratePercent === 6.25, "PDF: 1yr general = 6.25");
+const pdf1ySr = pdfFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 365,
+);
+assert(pdf1ySr?.ratePercent === 6.75, "PDF: 1yr senior = 6.75");
+const pdfSpecial = pdfFd.find(
+  (r) => r.tenure.minDays === 555 && r.customer === "GENERAL",
+);
+assert(
+  pdfSpecial?.scheme === "bob Golden Goal 555 days",
+  "PDF: 555d tagged Golden Goal",
+);
+assert(pdfSpecial?.ratePercent === 6.75, "PDF: 555d general = 6.75");
+const pdfRd = pdfRows.filter((r) => r.product === "RD");
+assert(
+  pdfRd.length >= 6 && !pdfRd.some((r) => r.tenure.minDays === 555),
+  "PDF: RD derived, excludes 555d special",
+);
+assert(
+  parsePdfRates("Just some footnote text, no rates here.", {
+    bankId: "bob",
+    source: { url: "x", effectiveDate: "", quality: "OFFICIAL" },
+    amount: { minAmount: 0, maxAmount: null, label: "x" },
+  }).length === 0,
+  "PDF: non-rate text -> 0 rows",
+);
+
+// Bare-decimal variant (no % signs, as some PDFs render).
+const pdfBare = parsePdfRates("1 year to less than 2 years 6.40 6.90", {
+  bankId: "union",
+  source: { url: "x", effectiveDate: "", quality: "OFFICIAL" },
+  amount: { minAmount: 0, maxAmount: 30000000, label: "retail" },
+  rdMinDays: 365,
+});
+assert(
+  pdfBare.find((r) => r.product === "FD" && r.customer === "GENERAL")
+    ?.ratePercent === 6.4,
+  "PDF: bare decimals (no %) parsed -> 6.40",
+);
+
 if (failures === 0) {
-  console.log("\nAll SBI adapter + merge tests passed.");
+  console.log("\nAll adapter + merge + PDF tests passed.");
   process.exit(0);
 } else {
   console.error(`\n${failures} assertion(s) failed.`);

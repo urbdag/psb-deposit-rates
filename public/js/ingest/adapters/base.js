@@ -1,5 +1,7 @@
 import { fetchText } from "../http.js";
 import { fetchRendered } from "../render.js";
+import { fetchPdfText } from "../pdf.js";
+import { parsePdfRates } from "../pdf-rates.js";
 import { extractRows, extractTables, parsePercent, stripTags, } from "../html.js";
 import { parseTenure } from "../tenure.js";
 const RETAIL = {
@@ -66,6 +68,26 @@ export class TableRateAdapter {
                 }
             }
         }
+        // 3) PDF rate-card fallback: if no HTML/rendered URL yielded rows, try any
+        //    configured PDF rate cards.
+        if (fdRd.length === 0 && this.cfg.pdfUrl) {
+            const pdfUrls = Array.isArray(this.cfg.pdfUrl)
+                ? this.cfg.pdfUrl
+                : [this.cfg.pdfUrl];
+            for (const url of pdfUrls) {
+                try {
+                    const parsed = await this.fetchPdfFdRd(url);
+                    if (parsed.length > 0) {
+                        fdRd = parsed;
+                        break;
+                    }
+                    attempts.push(`${url} -> 0 rows (pdf)`);
+                }
+                catch (e) {
+                    attempts.push(`${url} -> ${String(e)} (pdf)`);
+                }
+            }
+        }
         if (fdRd.length === 0) {
             throw new Error(`${this.bankId}: no FD rates from any candidate URL:\n    ` +
                 attempts.join("\n    "));
@@ -102,6 +124,26 @@ export class TableRateAdapter {
                 break;
         }
         return out;
+    }
+    /** Fetch a PDF rate card and parse FD (+ derived RD) rows from its text. */
+    async fetchPdfFdRd(url) {
+        const text = await fetchPdfText(url);
+        return this.parsePdfFdRd(text, url);
+    }
+    /** Pure parser: FD (+ derived RD) from PDF rate-card text. Unit-testable. */
+    parsePdfFdRd(text, url, effectiveDate) {
+        const source = {
+            url,
+            effectiveDate: effectiveDate ?? extractEffectiveDate(text) ?? today(),
+            quality: "OFFICIAL",
+        };
+        return parsePdfRates(text, {
+            bankId: this.bankId,
+            source,
+            amount: RETAIL,
+            rdMinDays: this.cfg.deriveRdFromFd ? this.cfg.rdMinDays : 0,
+            schemeNamer: this.cfg.schemeNamer,
+        });
     }
     /** Pure parser: FD (+ derived RD) from a term-deposit page. Unit-testable. */
     parseFdRd(html, effectiveDate, url) {
