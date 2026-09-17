@@ -8,10 +8,8 @@ export class BoiAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "boi",
-            fdUrl: [
-                "https://bankofindia.co.in/interest-rate/rupee-term-deposit-rate",
-                "https://bankofindia.co.in/interest-rate",
-            ],
+            // Confirmed live page (the bare /interest-rate hub 403s, so omit it).
+            fdUrl: ["https://bankofindia.co.in/interest-rate/rupee-term-deposit-rate"],
             savingsUrls: [
                 "https://bankofindia.co.in/interest-rate-saving-bank-deposit-rates",
                 "https://bankofindia.co.in/interest-rate/saving-bank-deposit-rate",
