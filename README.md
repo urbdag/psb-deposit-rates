@@ -163,11 +163,26 @@ scratch.
 ### 2. Per-bank scraper adapters (durable)
 
 Implement the `BankRateAdapter` interface (`src/ingest/adapter.ts`), one per
-bank, fetching and parsing the bank's published rate page/PDF into `RateEntry[]`
-with `quality: OFFICIAL`. `src/ingest/adapters/sbi.example.ts` is a starting
-template. Note: this requires a deployment environment with outbound internet
-access to the banks' sites (and typically an HTML/PDF parsing library such as
-`cheerio` / `pdf-parse`). Run adapters on a schedule to keep rates fresh.
+bank, fetching and parsing the bank's published rate page into `RateEntry[]`
+with `quality: OFFICIAL`, then register it in `scripts/ingest.mjs`.
+
+**A complete reference implementation ships for SBI** —
+`src/ingest/adapters/sbi.ts`:
+
+- Fetches SBI's official retail (below ₹3 crore) term-deposit page.
+- **Zero external dependencies** — uses global `fetch` plus dependency-free HTML
+  helpers (`src/ingest/html.ts`, `tenure.ts`), so it runs in CI with no install.
+- Locates the rate table by its **content** (rows that parse as tenure + two
+  percentages), not brittle CSS selectors, so minor redesigns don't break it.
+- Splits `fetchRates()` (network) from `parse()` (pure), so the parser is unit
+  tested against fixture HTML with no network: `npm test`
+  (`scripts/test-sbi-adapter.mjs`).
+- If the page structure changes and nothing parses, it throws → the ingest
+  runner keeps SBI's last-known-good rates.
+
+Note: adapters need a deployment with outbound internet to the banks' sites —
+they run in the GitHub Actions `ingest` workflow, **not** in a restricted
+sandbox. Use `SbiAdapter` as the template for the other 11 banks.
 
 ## Data model notes
 

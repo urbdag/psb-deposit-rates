@@ -49,19 +49,65 @@ for (const b of BANKS) {
   for (const [min, max, label] of FD_BUCKETS) {
     for (const cust of ["GENERAL", "SENIOR"]) {
       rows.push(
-        [b.id, "FD", cust, "", min, max, q(label), RETAIL.min, RETAIL.max, q(RETAIL.label), "", src, EFF].join(","),
+        [
+          b.id,
+          "FD",
+          cust,
+          "",
+          min,
+          max,
+          q(label),
+          RETAIL.min,
+          RETAIL.max,
+          q(RETAIL.label),
+          "",
+          src,
+          EFF,
+        ].join(","),
       );
     }
   }
   // RD: general + senior for each RD bucket (any amount)
   for (const [min, max, label] of RD_BUCKETS) {
     for (const cust of ["GENERAL", "SENIOR"]) {
-      rows.push([b.id, "RD", cust, "", min, max, q(label), 0, "", "Any amount", "", src, EFF].join(","));
+      rows.push(
+        [
+          b.id,
+          "RD",
+          cust,
+          "",
+          min,
+          max,
+          q(label),
+          0,
+          "",
+          "Any amount",
+          "",
+          src,
+          EFF,
+        ].join(","),
+      );
     }
   }
   // Savings: general per slab
   for (const [min, max, label] of SAVINGS_SLABS) {
-    rows.push([b.id, "SAVINGS", "GENERAL", "", 0, "", "Any tenure", min, max, q(label), "", src, EFF].join(","));
+    rows.push(
+      [
+        b.id,
+        "SAVINGS",
+        "GENERAL",
+        "",
+        0,
+        "",
+        "Any tenure",
+        min,
+        max,
+        q(label),
+        "",
+        src,
+        EFF,
+      ].join(","),
+    );
   }
 }
 

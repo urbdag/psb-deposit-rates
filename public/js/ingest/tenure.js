@@ -1,0 +1,60 @@
+/**
+ * Parse the free-text tenure descriptions Indian banks use into day ranges.
+ *
+ * Handles the common shapes seen on PSU bank rate pages, e.g.:
+ *   "7 days to 45 days"
+ *   "46 days to 179 days"
+ *   "180 days to 210 days"
+ *   "211 days to less than 1 year"
+ *   "1 Year to less than 2 years"
+ *   "1 year to 2 years"
+ *   "5 years and up to 10 years"
+ *   "444 days" (single special tenure)
+ *
+ * Returns null if the text doesn't look like a tenure at all (e.g. a header).
+ */
+export function parseTenure(text) {
+    const t = text.toLowerCase().replace(/\s+/g, " ").trim();
+    if (!/\d/.test(t))
+        return null;
+    if (!/(day|year|yr|month|mon)/.test(t))
+        return null;
+    const toDays = (value, unit) => {
+        if (/year|yr/.test(unit))
+            return Math.round(value * 365);
+        if (/month|mon/.test(unit))
+            return Math.round(value * 30);
+        return Math.round(value); // days
+    };
+    // Grab up to two "<number> <unit>" pairs in order.
+    const pairRe = /(\d+(?:\.\d+)?)\s*(years?|yrs?|months?|mons?|days?)/g;
+    const pairs = [];
+    let m;
+    while ((m = pairRe.exec(t)) !== null) {
+        pairs.push({ value: Number(m[1]), unit: m[2] });
+    }
+    if (pairs.length === 0)
+        return null;
+    // "less than" / "below" / "<" are EXCLUSIVE of the upper bound.
+    // "up to" / "upto" are INCLUSIVE, so they must NOT trigger the -1 adjustment.
+    const hasLessThan = /less than|below|</.test(t);
+    // Single value: either a single-day special ("444 days") or an open bound.
+    if (pairs.length === 1) {
+        const days = toDays(pairs[0].value, pairs[0].unit);
+        // "X and above" / "above X"
+        if (/above|onwards|and above|\+/.test(t)) {
+            return { minDays: days, maxDays: null, label: cap(text) };
+        }
+        // A specific special tenure like "444 days" → single-day exact bucket.
+        return { minDays: days, maxDays: days, label: cap(text) };
+    }
+    // Two values → a range [a, b]. If "less than b", cap at b-1.
+    const a = toDays(pairs[0].value, pairs[0].unit);
+    let b = toDays(pairs[1].value, pairs[1].unit);
+    if (hasLessThan && b > a)
+        b -= 1;
+    return { minDays: a, maxDays: b, label: cap(text) };
+}
+function cap(s) {
+    return s.replace(/\s+/g, " ").trim();
+}

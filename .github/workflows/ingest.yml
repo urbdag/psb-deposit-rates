@@ -27,6 +27,9 @@ jobs:
       - name: Compile (adapters + ingest deps)
         run: tsc -p tsconfig.json
 
+      - name: Test adapter parsers
+        run: node scripts/test-sbi-adapter.mjs
+
       - name: Run ingestion (adapters -> validate -> dataset.json)
         run: node scripts/ingest.mjs
 
