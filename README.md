@@ -110,15 +110,32 @@ paths:
 
 ### 1. CSV import (fastest)
 
-1. Copy `data/rates-template.csv` and fill in official figures (one row per rate;
-   leave `maxDays` / `maxAmount` blank for "and above").
-2. Build once so the importer's compiled code exists, then import:
+A **ready-to-fill scaffold** covering all 12 banks across the standard tenure
+buckets (FD + RD, general & senior) and savings slabs is generated at
+`data/rates-to-fill.csv` — 312 rows with blank `ratePercent` / `effectiveDate`
+cells. Regenerate it any time with:
+
+```bash
+npm run build            # ensures compiled JS exists
+node scripts/gen-template.mjs > data/rates-to-fill.csv
+```
+
+Then:
+
+1. Open `data/rates-to-fill.csv` and fill the `ratePercent` column (and
+   `effectiveDate`, `YYYY-MM-DD`) from each bank's official rate page. Delete
+   rows for products a bank doesn't offer; add rows for special schemes (set the
+   `scheme` column and a single-day tenure, e.g. `minDays`/`maxDays` both 444).
+   Leave `maxDays` / `maxAmount` blank for "and above".
+2. Import:
    ```bash
-   npm run build
-   node scripts/import-csv.mjs data/your-rates.csv
+   node scripts/import-csv.mjs data/rates-to-fill.csv
    ```
    Imported rows are stamped `quality: OFFICIAL`, and the site's "sample data"
    banner disappears automatically once no sample rows remain.
+
+`data/rates-template.csv` is a tiny 3-row example if you'd rather start from
+scratch.
 
 ### 2. Per-bank scraper adapters (durable)
 
