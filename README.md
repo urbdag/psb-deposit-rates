@@ -185,21 +185,34 @@ a new bank is usually just URLs + optional special-scheme name hints. They run
 in the GitHub Actions `ingest` workflow (which has internet), **not** in a
 restricted sandbox.
 
-**Live adapter coverage (verified):**
+**Live adapter coverage (verified against the banks' live sites in CI).**
+All 12 banks have a registered adapter. Those that scrape successfully publish
+`OFFICIAL` rates; the rest fall back to last-known-good (aggregator) data via the
+merge-by-product logic, so a failed scrape never removes data.
 
-| Bank | Status | Notes |
+| Bank | Status | Reason it isn't live-scraped |
 |--|--|--|
-| SBI | ✅ scraping FD + RD + Savings | from `sbi.co.in` / `bank.sbi` |
-| PNB | ✅ scraping FD + RD + Savings | from `pnbindia.in` |
-| Bank of Baroda | ⚠️ falls back | rate page URL not resolvable by a plain HTTP scraper (JS-rendered) |
-| Bank of India | ⚠️ falls back | rate page returns HTTP 403 to non-browser clients (anti-bot) |
-| Other 7 banks | ⏳ not yet built | aggregator-sourced data in the meantime |
+| **SBI** | ✅ FD + RD + Savings | — (from `sbi.co.in` / `bank.sbi`) |
+| **PNB** | ✅ FD + RD + Savings | — (from `pnbindia.in`) |
+| **Central Bank of India** | ✅ FD + RD + Savings | — (from `centralbankofindia.co.in`) |
+| Bank of Baroda | ⚠️ fallback | page is JS-rendered (no table in raw HTML) |
+| Bank of India | ⚠️ fallback | HTTP 403 (anti-bot) |
+| Canara | ⚠️ fallback | rate table on a JS-rendered / unreachable page |
+| Union Bank | ⚠️ fallback | JS-rendered (page loads, no table in HTML) |
+| Indian Bank | ⚠️ fallback | JS-rendered / bot-reject on some paths |
+| Indian Overseas Bank | ⚠️ fallback | rate-page path not resolved (404s) |
+| UCO Bank | ⚠️ fallback | host unreachable from runner (`fetch failed`) |
+| Bank of Maharashtra | ⚠️ fallback | host unreachable from runner (`fetch failed`) |
+| Punjab & Sind Bank | ⚠️ fallback | JS-rendered (no table in HTML) |
 
-Banks that "fall back" keep their last-known-good (aggregator) rates — the merge
-logic guarantees a failed scrape never removes data. BoB/BoI need a
-headless-browser fetch (e.g. Playwright in CI) to get past JS-rendering /
-bot-blocking; their adapters stay registered and will activate automatically if
-a scrapeable endpoint becomes available.
+**Why the fallbacks:** the remaining 9 banks either render their rate tables
+client-side (so the table isn't in the fetched HTML — logged as "0 rows"),
+actively block non-browser requests (403), or weren't reachable from the CI
+runner. None is fixable with a plain HTTP fetch + a URL tweak. Scraping them
+reliably needs a **headless browser (e.g. Playwright) in the ingest job** to
+render JS and pass bot checks. Every adapter stays registered and logs the exact
+per-URL failure (see the ingest workflow logs), so any that becomes reachable
+starts working automatically.
 
 ## Data model notes
 
