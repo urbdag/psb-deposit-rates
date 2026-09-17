@@ -29,24 +29,33 @@ const { runAdapters } = await import(
 );
 
 // -------------------------------------------------------------------------
-// Registered per-bank adapters. Add more as they are implemented.
-const { SbiAdapter } = await import(
-  resolve(root, "public/js/ingest/adapters/sbi.js")
-);
-const { PnbAdapter } = await import(
-  resolve(root, "public/js/ingest/adapters/pnb.js")
-);
-const { BobAdapter } = await import(
-  resolve(root, "public/js/ingest/adapters/bob.js")
-);
-const { BoiAdapter } = await import(
-  resolve(root, "public/js/ingest/adapters/boi.js")
-);
+// Registered per-bank adapters (all 12 PSU banks).
+const A = "public/js/ingest/adapters";
+const { SbiAdapter } = await import(resolve(root, `${A}/sbi.js`));
+const { PnbAdapter } = await import(resolve(root, `${A}/pnb.js`));
+const { BobAdapter } = await import(resolve(root, `${A}/bob.js`));
+const { BoiAdapter } = await import(resolve(root, `${A}/boi.js`));
+const { CanaraAdapter } = await import(resolve(root, `${A}/canara.js`));
+const { UnionAdapter } = await import(resolve(root, `${A}/union.js`));
+const { CentralAdapter } = await import(resolve(root, `${A}/central.js`));
+const { IndianAdapter } = await import(resolve(root, `${A}/indian.js`));
+const { IobAdapter } = await import(resolve(root, `${A}/iob.js`));
+const { UcoAdapter } = await import(resolve(root, `${A}/uco.js`));
+const { MahaAdapter } = await import(resolve(root, `${A}/maha.js`));
+const { PsbAdapter } = await import(resolve(root, `${A}/psb.js`));
 const ADAPTERS = [
   new SbiAdapter(),
   new PnbAdapter(),
   new BobAdapter(),
   new BoiAdapter(),
+  new CanaraAdapter(),
+  new UnionAdapter(),
+  new CentralAdapter(),
+  new IndianAdapter(),
+  new IobAdapter(),
+  new UcoAdapter(),
+  new MahaAdapter(),
+  new PsbAdapter(),
 ];
 // -------------------------------------------------------------------------
 
