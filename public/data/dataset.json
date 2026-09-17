@@ -649,7 +649,7 @@
       },
       "scheme": "Special Tenure",
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -671,7 +671,7 @@
       },
       "scheme": "Special Tenure",
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -692,7 +692,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -713,7 +713,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -734,7 +734,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -755,7 +755,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -777,7 +777,7 @@
       },
       "scheme": "1895-day Special",
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -799,7 +799,7 @@
       },
       "scheme": "1895-day Special",
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -820,7 +820,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -841,7 +841,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -862,7 +862,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -883,7 +883,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       }
@@ -903,7 +903,7 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       },
@@ -924,7 +924,7 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.pnbindia.in/interest-rates-deposit.html",
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
         "quality": "OFFICIAL"
       },
@@ -4277,7 +4277,7 @@
       },
       "scheme": "14-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4299,7 +4299,7 @@
       },
       "scheme": "14-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4321,7 +4321,7 @@
       },
       "scheme": "30-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4343,7 +4343,7 @@
       },
       "scheme": "30-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4365,7 +4365,7 @@
       },
       "scheme": "45-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4387,7 +4387,7 @@
       },
       "scheme": "45-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4409,7 +4409,7 @@
       },
       "scheme": "59-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4431,7 +4431,7 @@
       },
       "scheme": "59-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4453,7 +4453,7 @@
       },
       "scheme": "90-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4475,7 +4475,7 @@
       },
       "scheme": "90-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4497,7 +4497,7 @@
       },
       "scheme": "179-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4519,7 +4519,7 @@
       },
       "scheme": "179-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4541,7 +4541,7 @@
       },
       "scheme": "270-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4563,7 +4563,7 @@
       },
       "scheme": "270-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4585,7 +4585,7 @@
       },
       "scheme": "364-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4607,7 +4607,7 @@
       },
       "scheme": "364-day Special",
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4628,7 +4628,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4649,7 +4649,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4670,7 +4670,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4691,7 +4691,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4712,7 +4712,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4733,7 +4733,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4754,7 +4754,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4775,7 +4775,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4796,7 +4796,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4817,7 +4817,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4838,7 +4838,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4859,7 +4859,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4880,7 +4880,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4901,7 +4901,7 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4922,7 +4922,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4943,7 +4943,7 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       }
@@ -4963,7 +4963,7 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       },
@@ -4984,7 +4984,7 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.centralbankofindia.co.in/en/interest-rates-on-deposit",
+        "url": "https://www.centralbank.bank.in/en/interest-rates-on-deposit",
         "effectiveDate": "2025-09-10",
         "quality": "OFFICIAL"
       },
@@ -7453,6 +7453,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:48:27.267Z",
+  "generatedAt": "2026-09-17T15:54:20.599Z",
   "containsSampleData": false
 }
