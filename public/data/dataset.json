@@ -6364,20 +6364,153 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 3.5,
+      "ratePercent": 2.6,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 30,
+        "maxDays": 30,
+        "label": "7- 30 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "30-day Special",
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 2.6,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 30,
+        "label": "7- 30 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "30-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 45,
+        "maxDays": 45,
+        "label": "31-45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "45-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 45,
+        "maxDays": 45,
+        "label": "31-45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "45-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.75,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 90,
+        "label": "46-90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "90-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.75,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 90,
+        "label": "46-90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "90-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 119,
+        "maxDays": 119,
+        "label": "91-119 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "119-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6387,18 +6520,19 @@
       "customer": "SENIOR",
       "ratePercent": 4,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 119,
+        "maxDays": 119,
+        "label": "91-119 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "119-day Special",
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6406,20 +6540,21 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 4.6,
+      "ratePercent": 4.75,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 180,
+        "maxDays": 180,
+        "label": "120-180 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "180-day Special",
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6427,20 +6562,21 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 5.1,
+      "ratePercent": 5,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 180,
+        "maxDays": 180,
+        "label": "120-180 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "180-day Special",
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6448,11 +6584,248 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 270,
+        "maxDays": 270,
+        "label": "181 - 270 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "270-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.25,
+      "tenure": {
+        "minDays": 270,
+        "maxDays": 270,
+        "label": "181 - 270 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "270-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.25,
+      "tenure": {
+        "minDays": 364,
+        "maxDays": 364,
+        "label": "271 - 364 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "364-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.75,
+      "tenure": {
+        "minDays": 364,
+        "maxDays": 364,
+        "label": "271 - 364 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "364-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "365 days/ One Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "365-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "365 days/ One Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "365-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.15,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 730,
+        "label": "Above 1 year to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 730,
+        "label": "Above 1 year to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.15,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 730,
+        "label": "Above 1 year to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 730,
+        "label": "Above 1 year to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.25,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": "Above 2 years to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "FD",
+      "customer": "SENIOR",
       "ratePercent": 5.5,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": "Above 2 years to 3 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6460,155 +6833,50 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "maha",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "FD",
+      "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.65,
+      "ratePercent": 5.25,
       "tenure": {
         "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "maxDays": 1095,
+        "label": "Above 2 years to 3 years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
+        "maxAmount": null,
+        "label": "Any amount"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "maha",
-      "product": "FD",
+      "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7.15,
+      "ratePercent": 5.5,
       "tenure": {
         "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "maxDays": 1095,
+        "label": "Above 2 years to 3 years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
+        "maxAmount": null,
+        "label": "Any amount"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6616,11 +6884,11 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 5,
       "tenure": {
         "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "maxDays": 1825,
+        "label": "Above 3 years to 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6628,8 +6896,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6637,11 +6905,11 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 5.25,
       "tenure": {
         "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "maxDays": 1825,
+        "label": "Above 3 years to 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6649,8 +6917,50 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Above 3 years to 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 5.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Above 3 years to 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6658,11 +6968,11 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 5,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": null,
+        "label": "Above 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6670,8 +6980,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6679,11 +6989,11 @@
       "bankId": "maha",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 5.25,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": null,
+        "label": "Above 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6691,8 +7001,8 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6700,137 +7010,11 @@
       "bankId": "maha",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.65,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.15,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "maha",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 5,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": null,
+        "label": "Above 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6838,8 +7022,8 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -6847,11 +7031,11 @@
       "bankId": "maha",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 5.25,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": null,
+        "label": "Above 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -6859,8 +7043,8 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://fdinterestcalculator.in/",
-        "effectiveDate": "2026-06-01",
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
         "quality": "OFFICIAL"
       }
     },
@@ -7453,6 +7637,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:54:20.599Z",
+  "generatedAt": "2026-09-17T16:00:09.172Z",
   "containsSampleData": false
 }
