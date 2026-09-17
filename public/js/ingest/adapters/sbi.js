@@ -53,14 +53,20 @@ export class SbiAdapter {
             throw new Error("SbiAdapter: no FD rates parsed (page structure may have changed)");
         }
         out.push(...fdRd);
-        // Savings — best-effort; never let it break the FD/RD scrape.
-        try {
-            const savHtml = await fetchText(SbiAdapter.SAVINGS_URL);
-            const savEff = extractEffectiveDate(savHtml) ?? fdEff;
-            out.push(...this.parseSavings(savHtml, savEff));
-        }
-        catch {
-            // Leave savings to last-known-good via the ingest merge.
+        // Savings — best-effort across candidate URLs; never break the FD/RD scrape.
+        for (const url of SbiAdapter.SAVINGS_URLS) {
+            try {
+                const savHtml = await fetchText(url);
+                const savEff = extractEffectiveDate(savHtml) ?? fdEff;
+                const savings = this.parseSavings(savHtml, savEff, url);
+                if (savings.length > 0) {
+                    out.push(...savings);
+                    break;
+                }
+            }
+            catch {
+                // Try the next candidate; if all fail, ingest keeps last-known-good.
+            }
         }
         return out;
     }
@@ -100,9 +106,9 @@ export class SbiAdapter {
         return out;
     }
     /** Pure parser: extract the flat SBI savings rate from the savings page. */
-    parseSavings(html, effectiveDate) {
+    parseSavings(html, effectiveDate, url = SbiAdapter.SAVINGS_URLS[0]) {
         const source = {
-            url: SbiAdapter.SAVINGS_URL,
+            url,
             effectiveDate,
             quality: "OFFICIAL",
         };
@@ -187,7 +193,13 @@ export class SbiAdapter {
     }
 }
 SbiAdapter.FD_URL = "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits";
-SbiAdapter.SAVINGS_URL = "https://sbi.co.in/web/interest-rates/deposit-rates/savings-bank-rate";
+// Savings rate is published on the interest-rates hub / a dedicated page.
+// We try several known locations (SBI has shuffled these), first hit wins.
+SbiAdapter.SAVINGS_URLS = [
+    "https://bank.sbi/web/interest-rates/savings-bank-deposits",
+    "https://sbi.co.in/web/interest-rates/savings-bank-deposits",
+    "https://sbi.co.in/web/interest-rates/deposit-rates/savings-bank-rate",
+];
 function isSingleDayTenure(t) {
     return t.maxDays != null && t.minDays === t.maxDays;
 }

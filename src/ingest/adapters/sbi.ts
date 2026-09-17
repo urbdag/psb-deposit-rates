@@ -41,8 +41,13 @@ export class SbiAdapter implements BankRateAdapter {
 
   static readonly FD_URL =
     "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits";
-  static readonly SAVINGS_URL =
-    "https://sbi.co.in/web/interest-rates/deposit-rates/savings-bank-rate";
+  // Savings rate is published on the interest-rates hub / a dedicated page.
+  // We try several known locations (SBI has shuffled these), first hit wins.
+  static readonly SAVINGS_URLS = [
+    "https://bank.sbi/web/interest-rates/savings-bank-deposits",
+    "https://sbi.co.in/web/interest-rates/savings-bank-deposits",
+    "https://sbi.co.in/web/interest-rates/deposit-rates/savings-bank-rate",
+  ];
 
   private readonly retail: AmountThreshold = {
     minAmount: 0,
@@ -75,13 +80,19 @@ export class SbiAdapter implements BankRateAdapter {
     }
     out.push(...fdRd);
 
-    // Savings — best-effort; never let it break the FD/RD scrape.
-    try {
-      const savHtml = await fetchText(SbiAdapter.SAVINGS_URL);
-      const savEff = extractEffectiveDate(savHtml) ?? fdEff;
-      out.push(...this.parseSavings(savHtml, savEff));
-    } catch {
-      // Leave savings to last-known-good via the ingest merge.
+    // Savings — best-effort across candidate URLs; never break the FD/RD scrape.
+    for (const url of SbiAdapter.SAVINGS_URLS) {
+      try {
+        const savHtml = await fetchText(url);
+        const savEff = extractEffectiveDate(savHtml) ?? fdEff;
+        const savings = this.parseSavings(savHtml, savEff, url);
+        if (savings.length > 0) {
+          out.push(...savings);
+          break;
+        }
+      } catch {
+        // Try the next candidate; if all fail, ingest keeps last-known-good.
+      }
     }
 
     return out;
@@ -126,9 +137,13 @@ export class SbiAdapter implements BankRateAdapter {
   }
 
   /** Pure parser: extract the flat SBI savings rate from the savings page. */
-  parseSavings(html: string, effectiveDate: string): RateEntry[] {
+  parseSavings(
+    html: string,
+    effectiveDate: string,
+    url: string = SbiAdapter.SAVINGS_URLS[0],
+  ): RateEntry[] {
     const source: RateSource = {
-      url: SbiAdapter.SAVINGS_URL,
+      url,
       effectiveDate,
       quality: "OFFICIAL",
     };
