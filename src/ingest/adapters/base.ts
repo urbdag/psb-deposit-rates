@@ -12,6 +12,7 @@ import { parsePdfRates } from "../pdf-rates.js";
 import {
   extractRows,
   extractTables,
+  htmlToText,
   parsePercent,
   stripTags,
 } from "../html.js";
@@ -137,6 +138,18 @@ export class TableRateAdapter implements BankRateAdapter {
             fdRd = parsed;
             break;
           }
+          // Table parse failed — some banks lay rates out in <div>s, not a
+          // <table>. Fall back to the flat-text (PDF-style) line parser on the
+          // rendered page's visible text.
+          const textParsed = this.parseTextFdRd(
+            htmlToText(fdHtml),
+            url,
+            extractEffectiveDate(fdHtml) ?? today(),
+          );
+          if (textParsed.length > 0) {
+            fdRd = textParsed;
+            break;
+          }
           attempts.push(`${url} -> 0 rows (rendered); ${diagnoseHtml(fdHtml)}`);
         } catch (e) {
           attempts.push(`${url} -> ${String(e)} (rendered)`);
@@ -211,14 +224,15 @@ export class TableRateAdapter implements BankRateAdapter {
     return out;
   }
 
-  /** Fetch a PDF rate card and parse FD (+ derived RD) rows from its text. */
-  async fetchPdfFdRd(url: string): Promise<RateEntry[]> {
-    const text = await fetchPdfText(url);
-    return this.parsePdfFdRd(text, url);
-  }
-
-  /** Pure parser: FD (+ derived RD) from PDF rate-card text. Unit-testable. */
-  parsePdfFdRd(text: string, url: string, effectiveDate?: string): RateEntry[] {
+  /**
+   * Pure parser: FD (+ derived RD) from flat page/PDF text using the
+   * line-based parser. Used for div-based pages (no <table>) and PDFs.
+   */
+  parseTextFdRd(
+    text: string,
+    url: string,
+    effectiveDate?: string,
+  ): RateEntry[] {
     const source: RateSource = {
       url,
       effectiveDate: effectiveDate ?? extractEffectiveDate(text) ?? today(),
@@ -231,6 +245,17 @@ export class TableRateAdapter implements BankRateAdapter {
       rdMinDays: this.cfg.deriveRdFromFd ? this.cfg.rdMinDays : 0,
       schemeNamer: this.cfg.schemeNamer,
     });
+  }
+
+  /** Fetch a PDF rate card and parse FD (+ derived RD) rows from its text. */
+  async fetchPdfFdRd(url: string): Promise<RateEntry[]> {
+    const text = await fetchPdfText(url);
+    return this.parsePdfFdRd(text, url);
+  }
+
+  /** Pure parser: FD (+ derived RD) from PDF rate-card text. Unit-testable. */
+  parsePdfFdRd(text: string, url: string, effectiveDate?: string): RateEntry[] {
+    return this.parseTextFdRd(text, url, effectiveDate);
   }
 
   /** Pure parser: FD (+ derived RD) from a term-deposit page. Unit-testable. */
@@ -366,7 +391,9 @@ export function diagnoseHtml(html: string): string {
   const parts = tables.slice(0, 6).map((t, i) => {
     const rows = extractRows(t);
     const first = rows[0]?.slice(0, 4).join(" | ").slice(0, 80) ?? "";
-    const mid = rows[Math.floor(rows.length / 2)]?.slice(0, 4).join(" | ").slice(0, 80) ?? "";
+    const mid =
+      rows[Math.floor(rows.length / 2)]?.slice(0, 4).join(" | ").slice(0, 80) ??
+      "";
     return `T${i}(${rows.length}r): [${first}]${mid ? ` mid:[${mid}]` : ""}`;
   });
   return `${tables.length} tables: ` + parts.join(" ;; ");

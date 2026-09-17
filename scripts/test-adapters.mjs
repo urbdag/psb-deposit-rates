@@ -320,8 +320,40 @@ assert(
   "PDF: bare decimals (no %) parsed -> 6.40",
 );
 
+// ---------------------------------------------------------------------------
+// Div-based page (no <table>): htmlToText -> line parser should still work.
+// ---------------------------------------------------------------------------
+console.log("== Div-based page (htmlToText + line parser) ==");
+const { htmlToText } = await import(resolve(root, "public/js/ingest/html.js"));
+const DIV_HTML = `
+<html><body>
+  <div class="rates">
+    <div class="row"><span>1 year to less than 2 years</span><span>6.25%</span><span>6.75%</span></div>
+    <div class="row"><span>2 years to less than 3 years</span><span>6.60%</span><span>7.10%</span></div>
+    <div class="row"><span>3 years to less than 5 years</span><span>6.50%</span><span>7.00%</span></div>
+  </div>
+</body></html>`;
+const bobAdapter = new BobAdapter();
+const divRows = bobAdapter.parseTextFdRd(
+  htmlToText(DIV_HTML),
+  "https://x/deposits",
+  "2026-06-12",
+);
+const divFd = divRows.filter((r) => r.product === "FD");
+assert(divFd.length >= 6, `div page: parsed >=6 FD rows (got ${divFd.length})`);
+assert(
+  divFd.find((r) => r.customer === "GENERAL" && r.tenure.minDays === 365)
+    ?.ratePercent === 6.25,
+  "div page: 1yr general = 6.25",
+);
+assert(
+  divFd.find((r) => r.customer === "SENIOR" && r.tenure.minDays === 730)
+    ?.ratePercent === 7.1,
+  "div page: 2yr senior = 7.10",
+);
+
 if (failures === 0) {
-  console.log("\nAll adapter + merge + PDF tests passed.");
+  console.log("\nAll adapter + merge + PDF + div tests passed.");
   process.exit(0);
 } else {
   console.error(`\n${failures} assertion(s) failed.`);

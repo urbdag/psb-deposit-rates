@@ -2,7 +2,7 @@ import { fetchText } from "../http.js";
 import { fetchRendered } from "../render.js";
 import { fetchPdfText } from "../pdf.js";
 import { parsePdfRates } from "../pdf-rates.js";
-import { extractRows, extractTables, parsePercent, stripTags, } from "../html.js";
+import { extractRows, extractTables, htmlToText, parsePercent, stripTags, } from "../html.js";
 import { parseTenure } from "../tenure.js";
 const RETAIL = {
     minAmount: 0,
@@ -59,6 +59,14 @@ export class TableRateAdapter {
                     const parsed = this.parseFdRd(fdHtml, extractEffectiveDate(fdHtml) ?? today(), url);
                     if (parsed.length > 0) {
                         fdRd = parsed;
+                        break;
+                    }
+                    // Table parse failed — some banks lay rates out in <div>s, not a
+                    // <table>. Fall back to the flat-text (PDF-style) line parser on the
+                    // rendered page's visible text.
+                    const textParsed = this.parseTextFdRd(htmlToText(fdHtml), url, extractEffectiveDate(fdHtml) ?? today());
+                    if (textParsed.length > 0) {
+                        fdRd = textParsed;
                         break;
                     }
                     attempts.push(`${url} -> 0 rows (rendered); ${diagnoseHtml(fdHtml)}`);
@@ -125,13 +133,11 @@ export class TableRateAdapter {
         }
         return out;
     }
-    /** Fetch a PDF rate card and parse FD (+ derived RD) rows from its text. */
-    async fetchPdfFdRd(url) {
-        const text = await fetchPdfText(url);
-        return this.parsePdfFdRd(text, url);
-    }
-    /** Pure parser: FD (+ derived RD) from PDF rate-card text. Unit-testable. */
-    parsePdfFdRd(text, url, effectiveDate) {
+    /**
+     * Pure parser: FD (+ derived RD) from flat page/PDF text using the
+     * line-based parser. Used for div-based pages (no <table>) and PDFs.
+     */
+    parseTextFdRd(text, url, effectiveDate) {
         const source = {
             url,
             effectiveDate: effectiveDate ?? extractEffectiveDate(text) ?? today(),
@@ -144,6 +150,15 @@ export class TableRateAdapter {
             rdMinDays: this.cfg.deriveRdFromFd ? this.cfg.rdMinDays : 0,
             schemeNamer: this.cfg.schemeNamer,
         });
+    }
+    /** Fetch a PDF rate card and parse FD (+ derived RD) rows from its text. */
+    async fetchPdfFdRd(url) {
+        const text = await fetchPdfText(url);
+        return this.parsePdfFdRd(text, url);
+    }
+    /** Pure parser: FD (+ derived RD) from PDF rate-card text. Unit-testable. */
+    parsePdfFdRd(text, url, effectiveDate) {
+        return this.parseTextFdRd(text, url, effectiveDate);
     }
     /** Pure parser: FD (+ derived RD) from a term-deposit page. Unit-testable. */
     parseFdRd(html, effectiveDate, url) {
@@ -256,7 +271,8 @@ export function diagnoseHtml(html) {
     const parts = tables.slice(0, 6).map((t, i) => {
         const rows = extractRows(t);
         const first = rows[0]?.slice(0, 4).join(" | ").slice(0, 80) ?? "";
-        const mid = rows[Math.floor(rows.length / 2)]?.slice(0, 4).join(" | ").slice(0, 80) ?? "";
+        const mid = rows[Math.floor(rows.length / 2)]?.slice(0, 4).join(" | ").slice(0, 80) ??
+            "";
         return `T${i}(${rows.length}r): [${first}]${mid ? ` mid:[${mid}]` : ""}`;
     });
     return `${tables.length} tables: ` + parts.join(" ;; ");

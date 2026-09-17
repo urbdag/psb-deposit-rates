@@ -53,3 +53,30 @@ export function parsePercent(text) {
     const n = Number(m[1]);
     return Number.isFinite(n) && n >= 0 && n <= 20 ? n : null;
 }
+/**
+ * Convert HTML to newline-separated text, treating row/block boundaries as line
+ * breaks so a "tenure … rate … rate" row stays on ONE line. Used for pages that
+ * lay rates out in <div>s instead of a <table>, so the flat-text (PDF-style)
+ * line parser can read them.
+ */
+export function htmlToText(html) {
+    return (html
+        // drop non-content elements entirely
+        .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
+        .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+        // row/block/heading ends → newline; cells → space
+        .replace(/<\/(tr|div|li|p|h[1-6]|section|article)>/gi, "\n")
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/<\/(td|th|span)>/gi, " ")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/&nbsp;/gi, " ")
+        .replace(/&amp;/gi, "&")
+        .replace(/&lt;/gi, "<")
+        .replace(/&gt;/gi, ">")
+        .replace(/&#39;|&rsquo;/gi, "'")
+        // collapse spaces within lines, keep newlines
+        .split(/\n+/)
+        .map((l) => l.replace(/[ \t]+/g, " ").trim())
+        .filter(Boolean)
+        .join("\n"));
+}
