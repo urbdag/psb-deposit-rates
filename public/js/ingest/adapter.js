@@ -17,6 +17,8 @@ export async function runAdapters(adapters) {
         }
         else {
             failed.push(adapters[i].bankId);
+            // Surface WHY an adapter failed so URL/parse issues are debuggable in CI.
+            console.warn(`  adapter ${adapters[i].bankId} failed: ${String(r.reason)}`);
         }
     }
     return { rates, failed };
