@@ -298,6 +298,48 @@
     },
     {
       "bankId": "sbi",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "1 Year to less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "1 Year to less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
       "product": "FD",
       "customer": "GENERAL",
       "ratePercent": 6.45,
@@ -340,6 +382,48 @@
     },
     {
       "bankId": "sbi",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.45,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
       "product": "FD",
       "customer": "GENERAL",
       "ratePercent": 6.3,
@@ -382,6 +466,48 @@
     },
     {
       "bankId": "sbi",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1824,
+        "label": "3 years to less than 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1824,
+        "label": "3 years to less than 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
       "product": "FD",
       "customer": "GENERAL",
       "ratePercent": 6.05,
@@ -415,6 +541,48 @@
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.05,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 years and up to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
+        "effectiveDate": "2025-07-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "sbi",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.05,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 years and up to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
       },
       "source": {
         "url": "https://sbi.co.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits",
@@ -7351,6 +7519,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T15:06:41.854Z",
+  "generatedAt": "2026-09-17T15:16:33.192Z",
   "containsSampleData": false
 }
