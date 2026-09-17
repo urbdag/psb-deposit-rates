@@ -33,7 +33,21 @@ const { runAdapters } = await import(
 const { SbiAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/sbi.js")
 );
-const ADAPTERS = [new SbiAdapter()];
+const { PnbAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/pnb.js")
+);
+const { BobAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/bob.js")
+);
+const { BoiAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/boi.js")
+);
+const ADAPTERS = [
+  new SbiAdapter(),
+  new PnbAdapter(),
+  new BobAdapter(),
+  new BoiAdapter(),
+];
 // -------------------------------------------------------------------------
 
 const DRY_RUN = process.argv.includes("--dry-run");

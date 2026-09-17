@@ -12,6 +12,15 @@ const root = resolve(here, "..");
 const { SbiAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/sbi.js")
 );
+const { PnbAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/pnb.js")
+);
+const { BobAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/bob.js")
+);
+const { BoiAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/boi.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -138,6 +147,62 @@ assert(
 // Merge-by-product logic (mirrors scripts/ingest.mjs). A partial scrape (FD+RD
 // only) must NOT drop a bank's existing SAVINGS rows.
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Shared base drives the other bank adapters. A generic PSU-style FD table
+// should parse for PNB/BoB/BoI, and BoB's scheme namer should tag specials.
+// ---------------------------------------------------------------------------
+console.log("== PNB / BoB / BoI (shared base) ==");
+
+const GENERIC_FD_FIXTURE = `
+<html><body>
+  <p>Rates effective 12 Jun 2026</p>
+  <table>
+    <tr><th>Tenor</th><th>General (%)</th><th>Senior Citizen (%)</th></tr>
+    <tr><td>7 days to 45 days</td><td>3.50</td><td>4.00</td></tr>
+    <tr><td>1 year</td><td>6.25</td><td>6.75</td></tr>
+    <tr><td>2 years to less than 3 years</td><td>6.60</td><td>7.10</td></tr>
+    <tr><td>3 years to less than 5 years</td><td>6.50</td><td>7.00</td></tr>
+    <tr><td>555 days (Golden Goal)</td><td>6.75</td><td>7.25</td></tr>
+  </table>
+</body></html>`;
+
+for (const Adapter of [PnbAdapter, BobAdapter, BoiAdapter]) {
+  const a = new Adapter();
+  const rows = a.parseFdRd(GENERIC_FD_FIXTURE, "2026-06-12");
+  assert(rows.length > 0, `${a.bankId}: parses a generic PSU FD table`);
+  assert(
+    rows.every((r) => r.bankId === a.bankId && r.source.quality === "OFFICIAL"),
+    `${a.bankId}: rows tagged with bankId + OFFICIAL`,
+  );
+  const oneYr = rows.find(
+    (r) =>
+      r.product === "FD" &&
+      r.customer === "GENERAL" &&
+      r.tenure.minDays === 365,
+  );
+  assert(oneYr?.ratePercent === 6.25, `${a.bankId}: 1yr general = 6.25`);
+}
+
+// BoB tags the 555-day special as Golden Goal; PNB uses the generic namer.
+const bobRows = new BobAdapter().parseFdRd(GENERIC_FD_FIXTURE, "2026-06-12");
+const bobSpecial = bobRows.find(
+  (r) => r.tenure.minDays === 555 && r.customer === "GENERAL",
+);
+assert(
+  bobSpecial?.scheme === "bob Golden Goal 555 days",
+  "BoB 555d tagged as Golden Goal",
+);
+assert(bobSpecial?.ratePercent === 6.75, "BoB Golden Goal general = 6.75");
+
+const pnbRows = new PnbAdapter().parseFdRd(GENERIC_FD_FIXTURE, "2026-06-12");
+const pnbSpecial = pnbRows.find(
+  (r) => r.tenure.minDays === 555 && r.customer === "GENERAL",
+);
+assert(
+  pnbSpecial?.scheme === "555-day Special",
+  "PNB 555d uses generic scheme name",
+);
+
 console.log("== Merge by product ==");
 function mergeByProduct(prior, scraped) {
   const scrapedProducts = new Set(scraped.map((r) => r.product));
