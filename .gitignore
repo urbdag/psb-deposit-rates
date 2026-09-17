@@ -1,0 +1,10 @@
+# dependencies (none required at runtime; kept for future tooling)
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+*.log
+.kiro/
+
+# NOTE: public/js/ (compiled TS) and public/data/dataset.json are committed on
+# purpose so the static site runs on any host with no build step.

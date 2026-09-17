@@ -1,0 +1,9 @@
+# PSB Deposit Rates — CSV import template
+# Fill one row per rate figure. Leave maxDays / maxAmount blank for "and above".
+# product: FD | SAVINGS | RD    customer: GENERAL | SENIOR | SUPER_SENIOR
+# Amounts are in Rupees (e.g. 3 crore = 30000000).  ratePercent e.g. 7.25
+# Import with:  node scripts/import-csv.mjs data/your-file.csv
+bankId,product,customer,ratePercent,minDays,maxDays,tenureLabel,minAmount,maxAmount,amountLabel,scheme,sourceUrl,effectiveDate
+sbi,FD,GENERAL,6.80,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://sbi.co.in,2026-01-01
+sbi,FD,SENIOR,7.30,365,729,1 year to < 2 years,0,30000000,Below ₹3 crore (retail),,https://sbi.co.in,2026-01-01
+sbi,SAVINGS,GENERAL,2.70,0,,Any tenure,0,10000000,Below ₹1 crore,,https://sbi.co.in,2026-01-01

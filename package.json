@@ -1,0 +1,14 @@
+{
+  "name": "psb-deposit-rates",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Compare Fixed Deposit, Savings, and Recurring Deposit rates across India's 12 public sector banks (SBI + nationalized banks).",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build-data.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "data": "node scripts/build-data.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "license": "MIT"
+}
