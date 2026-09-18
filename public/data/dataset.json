@@ -5974,250 +5974,394 @@
       "customer": "GENERAL",
       "ratePercent": 2.9,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 14,
+        "maxDays": 14,
+        "label": "7-14 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "14-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 3.4,
+      "ratePercent": 2.9,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 14,
+        "maxDays": 14,
+        "label": "7-14 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "14-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 4.5,
+      "ratePercent": 2.9,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 29,
+        "maxDays": 29,
+        "label": "15-29 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "29-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "SENIOR",
+      "ratePercent": 2.9,
+      "tenure": {
+        "minDays": 29,
+        "maxDays": 29,
+        "label": "15-29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "29-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 45,
+        "maxDays": 45,
+        "label": "30-45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "45-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 45,
+        "maxDays": 45,
+        "label": "30-45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "45-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 60,
+        "maxDays": 60,
+        "label": "46-60 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "60-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 60,
+        "maxDays": 60,
+        "label": "46-60 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "60-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 90,
+        "label": "61-90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "90-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 90,
+        "label": "61-90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "90-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 120,
+        "maxDays": 120,
+        "label": "91-120 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "120-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 120,
+        "maxDays": 120,
+        "label": "91-120 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "120-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 150,
+        "maxDays": 150,
+        "label": "121-150 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "150-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.26,
+      "tenure": {
+        "minDays": 150,
+        "maxDays": 150,
+        "label": "121-150 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "150-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 180,
+        "label": "151-180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "180-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.77,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 180,
+        "label": "151-180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "180-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
       "ratePercent": 5,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 332,
+        "maxDays": 332,
+        "label": "181-332 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "332-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5.5,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6,
+      "ratePercent": 5.03,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 332,
+        "maxDays": 332,
+        "label": "181-332 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "332-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -6226,51 +6370,53 @@
       "customer": "GENERAL",
       "ratePercent": 6.3,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 333,
+        "maxDays": 333,
+        "label": "333 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "333-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.8,
+      "ratePercent": 6.44,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 333,
+        "maxDays": 333,
+        "label": "333 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "333-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.2,
+      "ratePercent": 5,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 334,
+        "maxDays": 364,
+        "label": "334 days-364 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6278,20 +6424,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.7,
+      "ratePercent": 5.09,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 334,
+        "maxDays": 364,
+        "label": "334 days-364 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6299,9 +6445,137 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.24,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "Above 1 year-443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.24,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "Above 1 year-443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "Above 1 year-443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.24,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "Above 1 year-443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -6312,7 +6586,7 @@
       "tenure": {
         "minDays": 444,
         "maxDays": 444,
-        "label": "444 days special"
+        "label": "444 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6321,9 +6595,560 @@
       },
       "scheme": "444-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.83,
+      "tenure": {
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 534,
+        "label": "445 days to 534 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.64,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 534,
+        "label": "445 days to 534 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 534,
+        "label": "445 days to 534 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.64,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 534,
+        "label": "445 days to 534 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.6,
+      "tenure": {
+        "minDays": 535,
+        "maxDays": 535,
+        "label": "535 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "535-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.88,
+      "tenure": {
+        "minDays": 535,
+        "maxDays": 535,
+        "label": "535 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "535-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 536,
+        "maxDays": 730,
+        "label": "536 days to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.34,
+      "tenure": {
+        "minDays": 536,
+        "maxDays": 730,
+        "label": "536 days to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 536,
+        "maxDays": 730,
+        "label": "536 days to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.34,
+      "tenure": {
+        "minDays": 536,
+        "maxDays": 730,
+        "label": "536 days to 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 999,
+        "label": "Above 2 years - 999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.33,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 999,
+        "label": "Above 2 years - 999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 999,
+        "label": "Above 2 years - 999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.33,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 999,
+        "label": "Above 2 years - 999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 1000,
+        "maxDays": 1000,
+        "label": "1000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.71,
+      "tenure": {
+        "minDays": 1000,
+        "maxDays": 1000,
+        "label": "1000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1001,
+        "maxDays": 1095,
+        "label": "1001 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.48,
+      "tenure": {
+        "minDays": 1001,
+        "maxDays": 1095,
+        "label": "1001 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1001,
+        "maxDays": 1095,
+        "label": "1001 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.48,
+      "tenure": {
+        "minDays": 1001,
+        "maxDays": 1095,
+        "label": "1001 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Above 3 years - 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.53,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Above 3 years - 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Above 3 years - 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.53,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Above 3 years - 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1999,
+        "label": "Above 5 years - 1999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -6332,31 +7157,30 @@
       "customer": "SENIOR",
       "ratePercent": 6.95,
       "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days special"
+        "minDays": 1825,
+        "maxDays": 1999,
+        "label": "Above 5 years - 1999 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "444-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 6,
       "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "minDays": 1825,
+        "maxDays": 1999,
+        "label": "Above 5 years - 1999 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6364,20 +7188,20 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 6.95,
       "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "minDays": 1825,
+        "maxDays": 1999,
+        "label": "Above 5 years - 1999 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6385,104 +7209,106 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.3,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 6.8,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "uco",
-      "product": "RD",
+      "product": "FD",
       "customer": "GENERAL",
       "ratePercent": 6.2,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 2000,
+        "maxDays": 2000,
+        "label": "2000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "2000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.33,
+      "tenure": {
+        "minDays": 2000,
+        "maxDays": 2000,
+        "label": "2000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "2000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 2001,
+        "maxDays": 2999,
+        "label": "2001 days to 2999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.06,
+      "tenure": {
+        "minDays": 2001,
+        "maxDays": 2999,
+        "label": "2001 days to 2999 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 2001,
+        "maxDays": 2999,
+        "label": "2001 days to 2999 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6490,20 +7316,20 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 6.7,
+      "ratePercent": 7.06,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 2001,
+        "maxDays": 2999,
+        "label": "2001 days to 2999 days"
       },
       "amount": {
         "minAmount": 0,
@@ -6511,37 +7337,143 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
-      "product": "SAVINGS",
+      "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 2.75,
+      "ratePercent": 6.2,
       "tenure": {
-        "minDays": 0,
+        "minDays": 3000,
+        "maxDays": 3000,
+        "label": "3000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "3000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 8.04,
+      "tenure": {
+        "minDays": 3000,
+        "maxDays": 3000,
+        "label": "3000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "3000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 3000,
         "maxDays": null,
-        "label": "Any tenure"
+        "label": "Above 3000 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.71,
+      "tenure": {
+        "minDays": 3000,
+        "maxDays": null,
+        "label": "Above 3000 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 3000,
+        "maxDays": null,
+        "label": "Above 3000 days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": null,
-        "label": "All balances"
+        "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.71,
+      "tenure": {
+        "minDays": 3000,
+        "maxDays": null,
+        "label": "Above 3000 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "uco",
       "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.75,
+      "ratePercent": 2,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -6553,10 +7485,32 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/uco-bank-fd-rates/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      },
+      "customer": "GENERAL"
+    },
+    {
+      "bankId": "uco",
+      "product": "SAVINGS",
+      "ratePercent": 2,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "All balances"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      },
+      "customer": "SENIOR"
     },
     {
       "bankId": "maha",
@@ -7292,221 +8246,209 @@
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 4,
+      "ratePercent": 2.85,
       "tenure": {
-        "minDays": 7,
+        "minDays": 14,
+        "maxDays": 14,
+        "label": "7 – 14 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "14-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.85,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 30,
+        "label": "15 – 30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "30-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.85,
+      "tenure": {
+        "minDays": 45,
         "maxDays": 45,
-        "label": "7–45 days"
+        "label": "31 – 45 Days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "45-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 4.5,
-      "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 5.05,
+      "ratePercent": 3.35,
       "tenure": {
-        "minDays": 46,
+        "minDays": 90,
         "maxDays": 90,
-        "label": "46–90 days"
+        "label": "46 – 90 Days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "90-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 5.55,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 5.75,
+      "ratePercent": 3.35,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 120,
+        "maxDays": 120,
+        "label": "91 – 120 Days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "120-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.3,
+      "ratePercent": 3.35,
       "tenure": {
-        "minDays": 181,
+        "minDays": 150,
+        "maxDays": 150,
+        "label": "121 – 150 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "150-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.85,
+      "tenure": {
+        "minDays": 179,
+        "maxDays": 179,
+        "label": "151 – 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "179-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.85,
+      "tenure": {
+        "minDays": 364,
         "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "label": "180 – 364 Days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "364-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.8,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.6,
+      "ratePercent": 5.85,
       "tenure": {
         "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "maxDays": 365,
+        "label": "1 Year"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "Special Tenure",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.85,
+      "ratePercent": 5.6,
       "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "minDays": 365,
+        "maxDays": 374,
+        "label": ">1 Year – 374 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -7514,30 +8456,30 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.35,
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.6,
       "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "minDays": 365,
+        "maxDays": 374,
+        "label": ">1 Year – 374 Days"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
+        "maxAmount": null,
+        "label": "Any amount"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -7546,72 +8488,119 @@
       "customer": "GENERAL",
       "ratePercent": 6.4,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 375,
+        "maxDays": 375,
+        "label": "375 Days (Callable)"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "375-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.9,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.3,
+      "ratePercent": 6.5,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 375,
+        "maxDays": 375,
+        "label": "375 Days (Non‑Callable*)"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "375-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "FD",
-      "customer": "SENIOR",
+      "customer": "GENERAL",
+      "ratePercent": 5.6,
+      "tenure": {
+        "minDays": 443,
+        "maxDays": 443,
+        "label": "376 – 443 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "443-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
       "ratePercent": 6.8,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 Days (Callable)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 Days (Non‑Callable*)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 665,
+        "label": "445 Days – 665 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -7619,20 +8608,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.6,
+      "ratePercent": 5.85,
       "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "minDays": 445,
+        "maxDays": 665,
+        "label": "445 Days – 665 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -7640,83 +8629,173 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "RD",
+      "product": "FD",
       "customer": "GENERAL",
       "ratePercent": 6.85,
       "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "minDays": 666,
+        "maxDays": 666,
+        "label": "666 Days (Callable)"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "666-day Special",
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.35,
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.95,
       "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "minDays": 666,
+        "maxDays": 666,
+        "label": "666 Days (Non‑Callable*)"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "666-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 660,
+        "maxDays": 660,
+        "label": "22 Month (PSB Green Earth)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 660,
+        "maxDays": 660,
+        "label": "> 22 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 776,
+        "maxDays": 776,
+        "label": "2Y-776 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "776-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 777,
+        "maxDays": 777,
+        "label": "777 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "777-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 778,
+        "maxDays": 998,
+        "label": "778 Days -998 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.4,
+      "ratePercent": 5.85,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 778,
+        "maxDays": 998,
+        "label": "778 Days -998 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -7724,41 +8803,173 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 6.9,
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 999,
+        "maxDays": 999,
+        "label": "999 Days (Callable)"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "999-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.05,
+      "tenure": {
+        "minDays": 999,
+        "maxDays": 999,
+        "label": "999 Days(Non‑Callable*)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "999-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 1000,
+        "maxDays": 1000,
+        "label": "1000 Days -"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1000-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 1320,
+        "maxDays": 1320,
+        "label": "44 Month (PSB Green Earth)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1320,
+        "maxDays": 1320,
+        "label": "> 44 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 1980,
+        "maxDays": 1980,
+        "label": "66 Months (PSB Green Earth)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1980,
+        "maxDays": 3650,
+        "label": ">66 Month- 10 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.3,
+      "ratePercent": 5.85,
       "tenure": {
-        "minDays": 1825,
+        "minDays": 1980,
         "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "label": ">66 Month- 10 Year"
       },
       "amount": {
         "minAmount": 0,
@@ -7766,37 +8977,15 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 6.8,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "psb",
       "product": "SAVINGS",
-      "customer": "GENERAL",
-      "ratePercent": 2.8,
+      "ratePercent": 3,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -7808,16 +8997,16 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      },
+      "customer": "GENERAL"
     },
     {
       "bankId": "psb",
       "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.8,
+      "ratePercent": 3,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -7829,12 +9018,13 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.news9live.com/business/personal-finance/sbi-pnb-bob-canara-bank-which-one-is-offering-the-highest-returns-on-fd-this-month-3007507",
-        "effectiveDate": "2026-09-11",
-        "quality": "AGGREGATOR"
-      }
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      },
+      "customer": "SENIOR"
     }
   ],
-  "generatedAt": "2026-09-18T05:31:56.635Z",
+  "generatedAt": "2026-09-18T05:40:09.907Z",
   "containsSampleData": false
 }
