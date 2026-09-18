@@ -28,6 +28,14 @@ function readStateFromUrl() {
     const ten = Number(p.get("tenure"));
     if (Number.isFinite(ten) && ten > 0)
         state.tenureDays = ten;
+    const sort = p.get("sort");
+    if (sort) {
+        const [key, dir] = sort.split(".");
+        if (key === "rate" || key === "name" || key === "effective")
+            state.sortKey = key;
+        if (dir === "asc" || dir === "desc")
+            state.sortDir = dir;
+    }
 }
 /** Reflect current state into the URL (replaceState, no history spam). */
 function syncUrl() {
@@ -37,6 +45,9 @@ function syncUrl() {
     p.set("amount", String(state.amount));
     if (state.product !== "SAVINGS")
         p.set("tenure", String(state.tenureDays));
+    // Only include sort when it deviates from the default (rate.desc).
+    if (!(state.sortKey === "rate" && state.sortDir === "desc"))
+        p.set("sort", `${state.sortKey}.${state.sortDir}`);
     const url = `${location.pathname}?${p.toString()}`;
     history.replaceState(null, "", url);
 }
@@ -229,10 +240,20 @@ async function shareCurrentView(btn, bankId) {
         }
     }
     toast(ok ? "Link copied to clipboard" : "Copy this link:\n" + url, ok);
-    if (btn.classList) {
-        btn.classList.add("copied");
-        setTimeout(() => btn.classList.remove("copied"), 1400);
-    }
+    flashCopied(btn);
+}
+/** Briefly swap a share button's label to "Copied!" for inline feedback. */
+function flashCopied(btn) {
+    btn.classList.add("copied");
+    const label = btn.querySelector(".share-label");
+    const prev = label?.textContent ?? null;
+    if (label)
+        label.textContent = "Copied!";
+    setTimeout(() => {
+        btn.classList.remove("copied");
+        if (label && prev !== null)
+            label.textContent = prev;
+    }, 1500);
 }
 async function copyText(text) {
     try {
@@ -626,6 +647,7 @@ function sortableTh(label, key, num = false) {
             state.sortDir = key === "name" ? "asc" : "desc";
         }
         renderTable();
+        syncUrl();
     };
     th.addEventListener("click", onSort);
     th.addEventListener("keydown", (e) => {
@@ -812,27 +834,64 @@ function openBankDetail(bankId) {
         body,
         sourceLine,
     ]);
-    const overlay = el("div", { class: "modal-overlay", id: "modal-overlay" }, [
-        modal,
-    ]);
+    const overlay = el("div", {
+        class: "modal-overlay",
+        id: "modal-overlay",
+        role: "dialog",
+        "aria-modal": "true",
+        "aria-label": `${bank.name} deposit rates`,
+    }, [modal]);
     overlay.addEventListener("click", (e) => {
         if (e.target === overlay)
             closeModal();
     });
-    document.addEventListener("keydown", escToClose);
+    // Remember what had focus so we can restore it on close (a11y).
+    modalReturnFocus = document.activeElement;
+    document.addEventListener("keydown", onModalKeydown, true);
     document.body.appendChild(overlay);
     document.body.style.overflow = "hidden";
+    // Move focus into the modal (the close button).
+    modal.querySelector(".modal-close")?.focus();
 }
-function escToClose(e) {
-    if (e.key === "Escape")
+let modalReturnFocus = null;
+/** Esc to close + Tab focus trap within the open modal. */
+function onModalKeydown(e) {
+    if (e.key === "Escape") {
+        e.preventDefault();
         closeModal();
+        return;
+    }
+    if (e.key !== "Tab")
+        return;
+    const modal = document.querySelector("#modal-overlay .modal-card");
+    if (!modal)
+        return;
+    const focusables = Array.from(modal.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])')).filter((n) => n.offsetParent !== null || n === document.activeElement);
+    if (focusables.length === 0)
+        return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+    }
+    else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+    }
 }
 function closeModal() {
     const o = document.getElementById("modal-overlay");
     if (o)
         o.remove();
-    document.removeEventListener("keydown", escToClose);
+    document.removeEventListener("keydown", onModalKeydown, true);
     document.body.style.overflow = "";
+    // Restore focus to whatever opened the modal.
+    if (modalReturnFocus && document.contains(modalReturnFocus)) {
+        modalReturnFocus.focus();
+    }
+    modalReturnFocus = null;
 }
 boot().catch((err) => {
     const root = document.getElementById("app");
