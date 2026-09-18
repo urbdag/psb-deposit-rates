@@ -189,6 +189,16 @@ async function main() {
   await mkdir(dirname(DATASET_PATH), { recursive: true });
   await writeFile(DATASET_PATH, JSON.stringify(dataset, null, 2), "utf8");
   console.log(`Wrote ${DATASET_PATH}`);
+
+  // Append a dated snapshot to the rate-history file (powers the movements page
+  // + trend badges). Idempotent per day; skipped if nothing changed.
+  try {
+    const { appendSnapshot } = await import(resolve(here, "history.mjs"));
+    const h = await appendSnapshot(dataset, dataset.generatedAt);
+    console.log(`History: ${h.snapshots.length} snapshot(s) on file.`);
+  } catch (e) {
+    console.warn("History snapshot skipped:", String(e));
+  }
   return 0;
 }
 

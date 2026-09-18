@@ -110,6 +110,7 @@ function renderShell() {
                 navLink("savings-account/", "Savings", "savings"),
                 navLink("recurring-deposit/", "Recurring", "rd"),
                 navLink("banks/", "Banks", "banks"),
+                navLink("rate-movements/", "Movements", "movements"),
             ]),
             el("div", { class: "nav-right" }, [
                 el("span", {
@@ -142,6 +143,8 @@ function renderShell() {
             navLink("recurring-deposit/", "Recurring Deposit rates", "rd"),
             el("div", { class: "drawer-group" }, ["Banks"]),
             navLink("banks/", "All banks", "banks"),
+            el("div", { class: "drawer-group" }, ["Insights"]),
+            navLink("rate-movements/", "Rate movements", "movements"),
         ]),
     ]));
     // ---- Hero ----

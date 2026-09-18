@@ -1177,6 +1177,25 @@ a.bank-link:hover {
 }
 
 /* ==========================================================================
+   Rate movements
+   ========================================================================== */
+.move-delta {
+  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 14px;
+  white-space: nowrap;
+}
+.move-up {
+  color: #10b981;
+}
+.move-down {
+  color: #ef4444;
+}
+.move-empty-emoji {
+  font-size: 44px;
+}
+
+/* ==========================================================================
    Banks directory page
    ========================================================================== */
 .dir-search-wrap {

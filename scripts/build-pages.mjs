@@ -30,6 +30,16 @@ const { BANKS: BANK_META } = await import(
   DATASET.banks = DATASET.banks.map((b) => ({ ...metaById.get(b.id), ...b }));
 }
 
+// Ensure a baseline history snapshot exists so the movements page has data to
+// work with, then load history + recent changes for rendering.
+const { appendSnapshot, loadHistory, recentChanges } = await import(
+  resolve(here, "history.mjs")
+);
+await appendSnapshot(DATASET, DATASET.generatedAt);
+const HISTORY = await loadHistory();
+const CHANGES = recentChanges(HISTORY);
+const bankById = new Map(DATASET.banks.map((b) => [b.id, b]));
+
 const TENURE_PAGES = [
   { slug: "6-months", label: "6 months", days: 182 },
   { slug: "1-year", label: "1 year", days: 365 },
@@ -376,6 +386,7 @@ function navBar(base, active = "") {
         ${link("savings-account/", "Savings", "savings")}
         ${link("recurring-deposit/", "Recurring", "rd")}
         ${link("banks/", "Banks", "banks")}
+        ${link("rate-movements/", "Movements", "movements")}
       </div>
       <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -392,6 +403,8 @@ function navBar(base, active = "") {
       ${link("recurring-deposit/", "Recurring Deposit rates", "rd")}
       <div class="drawer-group">Banks</div>
       ${link("banks/", "All banks", "banks")}
+      <div class="drawer-group">Insights</div>
+      ${link("rate-movements/", "Rate movements", "movements")}
     </div>
   </nav>`;
 }
@@ -714,11 +727,88 @@ function banksDirectoryPage() {
   return { slug: "banks", html };
 }
 
+function tenureLabelFromKey(minDays, maxDays) {
+  if (!minDays) return "Any tenure";
+  const tp = TENURE_PAGES.find((t) => String(t.days) === String(minDays));
+  if (tp) return tp.label;
+  if (maxDays && minDays === maxDays) return `${minDays} days`;
+  return `${minDays}${maxDays ? "–" + maxDays : "+"} days`;
+}
+
+function movementsPage() {
+  const base = "../";
+  const nSnaps = HISTORY.snapshots.length;
+  const first = HISTORY.snapshots[0]?.date;
+  const last = HISTORY.snapshots[nSnaps - 1]?.date;
+
+  let sections;
+  if (CHANGES.length === 0) {
+    sections = `<section class="block"><div class="panel" style="padding:32px;text-align:center">
+      <div class="move-empty-emoji">📈</div>
+      <h2 class="section-title" style="margin:8px 0">Tracking has started</h2>
+      <p class="muted" style="max-width:520px;margin:0 auto">We record a daily snapshot of every rate${first ? ` (since ${esc(fmt.formatDate(first))})` : ""}. As banks raise or cut rates, the changes appear here — which bank moved, by how much, and when.</p>
+    </div></section>`;
+  } else {
+    const rows = CHANGES.slice(0, 60)
+      .map((c) => {
+        const bank = bankById.get(c.bankId);
+        if (!bank) return "";
+        const up = c.delta > 0;
+        const parts = c.key.split("|");
+        const tenure = tenureLabelFromKey(parts[3], parts[4]);
+        return `<tr>
+          <td><a class="bank-name bank-link" href="${base}bank/${bank.id}/">${esc(bank.name)}</a>
+              <div class="bank-short muted">${esc(fmt.productLabel(c.product))} · ${esc(tenure)} · ${c.customer === "SENIOR" ? "Senior" : "General"}</div></td>
+          <td class="num muted">${fmt.formatRate(c.from)}</td>
+          <td class="num rate-cell" style="color:${bank.color}">${fmt.formatRate(c.to)}</td>
+          <td class="num"><span class="move-delta ${up ? "move-up" : "move-down"}">${up ? "▲" : "▼"} ${Math.abs(c.delta).toFixed(2)}%</span></td>
+          <td class="muted">${esc(fmt.formatDate(c.date))}</td>
+        </tr>`;
+      })
+      .join("");
+    const ups = CHANGES.filter((c) => c.delta > 0).length;
+    const downs = CHANGES.filter((c) => c.delta < 0).length;
+    sections = `<section class="block">
+      <div class="headline-card" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="hl-cell feature" style="background:linear-gradient(135deg,#4f46e5,#6d28d9)">
+          <div class="hl-label">Rate changes tracked</div><div class="hl-value">${CHANGES.length}</div>
+          <div class="hl-sub">across ${nSnaps} daily snapshots</div></div>
+        <div class="hl-cell"><div class="hl-label">Hikes</div><div class="hl-value" style="color:#10b981">${ups}</div><div class="hl-sub">rates raised</div></div>
+        <div class="hl-cell"><div class="hl-label">Cuts</div><div class="hl-value" style="color:#ef4444">${downs}</div><div class="hl-sub">rates lowered</div></div>
+      </div></section>
+      <section class="block"><div class="section-head"><div>
+        <h2 class="section-title">Recent rate changes</h2>
+        <p class="section-note">Biggest moves first${first && last ? ` · ${esc(fmt.formatDate(first))}–${esc(fmt.formatDate(last))}` : ""}</p></div></div>
+        <div class="table-wrap"><table class="rate-table">
+          <thead><tr><th>Bank &amp; product</th><th class="num">Was</th><th class="num">Now</th><th class="num">Change</th><th>On</th></tr></thead>
+          <tbody>${rows}</tbody></table></div></section>`;
+  }
+
+  const title = `Deposit Rate Movements ${YEAR} — Who Raised or Cut FD Rates | RateRadar`;
+  const desc = `Track which of India's public sector banks recently raised or cut their fixed deposit, savings and recurring deposit rates, and by how much.`;
+  return {
+    slug: "rate-movements",
+    html: landingShell({
+      base,
+      title,
+      desc,
+      canonical: `rate-movements/`,
+      h1Html: `Who <span class="grad">raised or cut</span> deposit rates`,
+      sub: `A daily-tracked log of rate changes across India's public sector banks — hikes and cuts, ranked by how much they moved.`,
+      active: "movements",
+      sections,
+      appLink: "",
+      crumbs: [{ label: "Home", href: "" }, { label: "Rate movements" }],
+    }),
+  };
+}
+
 // ---- write pages + a favicon + sitemap ------------------------------------
 let count = 0;
 const sitemapUrls = [
   "",
   "banks/",
+  "rate-movements/",
   ...DATASET.banks.map((b) => `bank/${b.id}/`),
 ];
 for (const bank of DATASET.banks) {
@@ -731,6 +821,15 @@ for (const bank of DATASET.banks) {
 // Banks directory (scales to any number of banks; searchable)
 {
   const { slug, html } = banksDirectoryPage();
+  const dir = resolve(root, "public", slug);
+  await mkdir(dir, { recursive: true });
+  await writeFile(resolve(dir, "index.html"), html, "utf8");
+  count++;
+}
+
+// Rate movements page
+{
+  const { slug, html } = movementsPage();
   const dir = resolve(root, "public", slug);
   await mkdir(dir, { recursive: true });
   await writeFile(resolve(dir, "index.html"), html, "utf8");

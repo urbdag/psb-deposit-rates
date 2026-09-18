@@ -1,5 +1,6 @@
 
 banks/
+rate-movements/
 bank/sbi/
 bank/pnb/
 bank/bob/
