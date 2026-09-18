@@ -364,8 +364,19 @@ export class TableRateAdapter implements BankRateAdapter {
 
 // --- shared helpers --------------------------------------------------------
 
+/**
+ * A "special" single-value tenure is an exact day-count that is NOT a standard
+ * round tenure. Banks quote plain "1 Year" / "2 Years" as single values too;
+ * those parse to 365/730 and must NOT be treated as special schemes. Only odd
+ * day counts (e.g. 400, 444, 555, 999) are genuine special-tenure products.
+ */
 export function isSingleDayTenure(t: TenureRange): boolean {
-  return t.maxDays != null && t.minDays === t.maxDays;
+  if (t.maxDays == null || t.minDays !== t.maxDays) return false;
+  const d = t.minDays;
+  // Standard round tenures: whole months (×30) or whole years (×365).
+  const isRoundYear = d % 365 === 0;
+  const isRoundMonth = d % 30 === 0;
+  return !(isRoundYear || isRoundMonth);
 }
 
 /** Generic special-scheme namer from a tenure label. */
@@ -384,7 +395,9 @@ export function defaultScheme(tenureText: string): string {
  */
 export function diagnoseHtml(html: string): string {
   const tables = extractTables(html);
-  const pctSamples = (htmlToText(html).match(/\d{1,2}\.\d{1,2}\s*%/g) ?? []).slice(0, 6);
+  const pctSamples = (
+    htmlToText(html).match(/\d{1,2}\.\d{1,2}\s*%/g) ?? []
+  ).slice(0, 6);
   if (tables.length === 0) {
     const pdfLinks = (html.match(/href="[^"]*\.pdf[^"]*"/gi) ?? []).slice(0, 3);
     return `no <table>; ${html.length} chars; pcts=[${pctSamples.join(",")}]; pdf-links=[${pdfLinks.join(", ")}]`;
