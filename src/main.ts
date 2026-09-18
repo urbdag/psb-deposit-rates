@@ -93,8 +93,9 @@ function clampAmount(n: number): number {
 async function boot(): Promise<void> {
   const res = await fetch("data/dataset.json");
   dataset = (await res.json()) as Dataset;
-  // Capture the deep-link bank BEFORE syncUrl() rewrites the query string.
+  // Capture deep-link params BEFORE syncUrl() rewrites the query string.
   const bankParam = new URLSearchParams(location.search).get("bank");
+  const compareParam = new URLSearchParams(location.search).get("compare");
   readStateFromUrl();
   renderShell();
   renderAll();
@@ -104,6 +105,16 @@ async function boot(): Promise<void> {
   // Deep-link: ?bank=<id> opens that bank's detail modal on load.
   if (bankParam && dataset.banks.some((b) => b.id === bankParam)) {
     openBankDetail(bankParam);
+  }
+  // Deep-link: ?compare=sbi,pnb opens the compare view.
+  if (compareParam) {
+    const [a, b] = compareParam.split(",");
+    if (
+      dataset.banks.some((x) => x.id === a) &&
+      dataset.banks.some((x) => x.id === b)
+    ) {
+      openCompare(a, b);
+    }
   }
 }
 
@@ -1114,6 +1125,22 @@ function renderExplore(): HTMLElement {
   );
   section.append(tchips);
 
+  // Compare-two-banks launcher
+  section.append(el("div", { class: "explore-label muted" }, ["Head to head"]));
+  const cmpRow = el("div", { class: "compare-launch" }, [
+    el("span", { class: "muted" }, [
+      "Compare any two banks side by side across every tenure.",
+    ]),
+    (() => {
+      const b = el("button", { class: "reveal-btn", type: "button" }, [
+        "Compare two banks",
+      ]);
+      b.addEventListener("click", () => openCompare());
+      return b;
+    })(),
+  ]);
+  section.append(cmpRow);
+
   // Bank grid
   section.append(
     el("div", { class: "explore-label muted" }, ["Browse by bank"]),
@@ -1153,6 +1180,162 @@ function renderExplore(): HTMLElement {
   );
   section.append(bgrid);
   return section;
+}
+
+// ---- Compare two banks ----------------------------------------------------
+
+const compareState = { a: "", b: "", product: "FD" as ProductType };
+
+function openCompare(a?: string, b?: string): void {
+  const banks = dataset.banks;
+  compareState.a = a || compareState.a || banks[0].id;
+  compareState.b = b || compareState.b || banks[1].id;
+
+  const overlay = el(
+    "div",
+    {
+      class: "modal-overlay",
+      id: "modal-overlay",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": "Compare two banks",
+    },
+    [],
+  );
+  const card = el("div", { class: "modal-card compare-card" });
+  overlay.append(card);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+  modalReturnFocus = document.activeElement as HTMLElement | null;
+  document.addEventListener("keydown", onModalKeydown, true);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = "hidden";
+
+  const bankSelect = (which: "a" | "b") => {
+    const sel = el("select", {
+      class: "cmp-select",
+      "aria-label": `Bank ${which}`,
+    }) as HTMLSelectElement;
+    for (const bk of banks) {
+      const opt = el("option", { value: bk.id }, [
+        bk.name,
+      ]) as HTMLOptionElement;
+      if (bk.id === compareState[which]) opt.selected = true;
+      sel.append(opt);
+    }
+    sel.addEventListener("change", () => {
+      compareState[which] = sel.value;
+      draw();
+    });
+    return sel;
+  };
+
+  const prodSeg = el("div", { class: "segment" });
+  const drawProd = () => {
+    prodSeg.innerHTML = "";
+    for (const p of ["FD", "RD", "SAVINGS"] as ProductType[]) {
+      const btn = el(
+        "button",
+        {
+          class: `seg-btn${compareState.product === p ? " active" : ""}`,
+          type: "button",
+        },
+        [productLabel(p)],
+      );
+      btn.addEventListener("click", () => {
+        compareState.product = p;
+        draw();
+      });
+      prodSeg.append(btn);
+    }
+  };
+
+  function draw(): void {
+    drawProd();
+    const bankA = banks.find((x) => x.id === compareState.a)!;
+    const bankB = banks.find((x) => x.id === compareState.b)!;
+    const rowsFor = (id: string) =>
+      dataset.rates.filter(
+        (r) =>
+          r.bankId === id &&
+          r.product === compareState.product &&
+          r.customer === "GENERAL",
+      );
+    const ra = rowsFor(bankA.id);
+    const rb = rowsFor(bankB.id);
+    // union of tenures, sorted
+    const tkeys = new Map<string, { min: number; label: string }>();
+    for (const r of [...ra, ...rb])
+      tkeys.set(`${r.tenure.minDays}-${r.tenure.maxDays}-${r.scheme || ""}`, {
+        min: r.tenure.minDays,
+        label: r.tenure.label + (r.scheme ? ` · ${r.scheme}` : ""),
+      });
+    const keys = [...tkeys.entries()].sort((x, y) => x[1].min - y[1].min);
+    const rateAt = (rows: typeof ra, key: string) => {
+      const r = rows.find(
+        (x) =>
+          `${x.tenure.minDays}-${x.tenure.maxDays}-${x.scheme || ""}` === key,
+      );
+      return r ? r.ratePercent : null;
+    };
+    const body = keys
+      .map(([key, meta]) => {
+        const va = rateAt(ra, key);
+        const vb = rateAt(rb, key);
+        const win =
+          va != null && vb != null ? (va > vb ? "a" : vb > va ? "b" : "") : "";
+        return `<tr>
+          <td class="muted">${meta.label}</td>
+          <td class="num rate-cell ${win === "a" ? "cmp-win" : ""}" style="color:${bankA.color}">${va != null ? formatRate(va) : "—"}</td>
+          <td class="num rate-cell ${win === "b" ? "cmp-win" : ""}" style="color:${bankB.color}">${vb != null ? formatRate(vb) : "—"}</td>
+        </tr>`;
+      })
+      .join("");
+
+    card.innerHTML = "";
+    const head = el("div", { class: "modal-head" }, [
+      el("div", { class: "modal-title" }, ["Compare two banks"]),
+    ]);
+    const close = el(
+      "button",
+      { class: "modal-close", "aria-label": "Close" },
+      ["✕"],
+    );
+    close.addEventListener("click", closeModal);
+    head.append(close);
+    card.append(head);
+
+    const pickers = el("div", { class: "cmp-pickers" }, [
+      bankSelect("a"),
+      el("span", { class: "cmp-vs" }, ["vs"]),
+      bankSelect("b"),
+    ]);
+    card.append(pickers, el("div", { class: "cmp-prod" }, [prodSeg]));
+
+    const table = el("div", {
+      class: "table-wrap",
+      html: `<table class="rate-table"><thead><tr>
+        <th>Tenure</th>
+        <th class="num"><span class="bank-dot" style="background:${bankA.color}"></span> ${escapeHtml(bankA.shortName)}</th>
+        <th class="num"><span class="bank-dot" style="background:${bankB.color}"></span> ${escapeHtml(bankB.shortName)}</th>
+      </tr></thead><tbody>${body || `<tr><td colspan="3" class="muted" style="text-align:center;padding:24px">No matching rates.</td></tr>`}</tbody></table>`,
+    });
+    card.append(table);
+    card.append(
+      el("div", { class: "modal-source" }, [
+        el("span", { class: "muted" }, [
+          "General public · below ₹3 crore · winning rate highlighted",
+        ]),
+      ]),
+    );
+  }
+
+  draw();
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 // ---- Per-bank detail modal -----------------------------------------------

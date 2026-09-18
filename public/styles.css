@@ -292,7 +292,10 @@ body {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px);
-  transition: opacity 0.16s var(--ease), transform 0.16s var(--ease), visibility 0.16s;
+  transition:
+    opacity 0.16s var(--ease),
+    transform 0.16s var(--ease),
+    visibility 0.16s;
   z-index: 60;
 }
 .nav-dd:hover .nav-dd-menu,
@@ -343,7 +346,9 @@ body {
   margin: 0 auto;
   background: var(--ink);
   border-radius: 2px;
-  transition: transform 0.25s var(--ease), opacity 0.2s;
+  transition:
+    transform 0.25s var(--ease),
+    opacity 0.2s;
 }
 .nav.drawer-open .nav-burger span:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
@@ -1098,7 +1103,10 @@ a.bank-link:hover {
   text-decoration: none;
   color: var(--ink);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s;
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    border-color 0.2s;
 }
 .explore-card:hover {
   transform: translateY(-3px);
@@ -1177,6 +1185,77 @@ a.bank-link:hover {
 }
 
 /* ==========================================================================
+   Compare two banks
+   ========================================================================== */
+.compare-launch {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.compare-card {
+  width: min(680px, 100%);
+}
+/* Compare table must fit the modal (no horizontal scroll hiding column 2). */
+.compare-card .table-wrap {
+  overflow-x: visible;
+}
+.compare-card .rate-table {
+  min-width: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+.compare-card .rate-table th.num,
+.compare-card .rate-table td.num {
+  width: 26%;
+}
+.compare-card .rate-table th:first-child,
+.compare-card .rate-table td:first-child {
+  width: 48%;
+}
+.cmp-pickers {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cmp-select {
+  flex: 1;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  cursor: pointer;
+}
+.cmp-select:focus {
+  border-color: var(--brand);
+}
+.cmp-vs {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 13px;
+}
+.cmp-prod {
+  margin-bottom: 16px;
+}
+.cmp-win {
+  position: relative;
+}
+.cmp-win::after {
+  content: "★";
+  font-size: 10px;
+  margin-left: 5px;
+  color: var(--gold);
+  vertical-align: 2px;
+}
+
+/* ==========================================================================
    Rate movements
    ========================================================================== */
 .move-delta {
@@ -1233,7 +1312,10 @@ a.bank-link:hover {
   text-decoration: none;
   color: var(--ink);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s;
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    border-color 0.2s;
   overflow: hidden;
 }
 .dir-card::before {
