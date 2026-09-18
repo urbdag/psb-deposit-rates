@@ -998,11 +998,11 @@
       "bankId": "bob",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 3.5,
+      "ratePercent": 5,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 360,
+        "maxDays": null,
+        "label": "For Deposits not remained with the Bank for 12 months or having Deposits Amount above Rs."
       },
       "amount": {
         "minAmount": 0,
@@ -1010,20 +1010,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/fixed-deposits-tax-saving",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "bob",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 4,
+      "ratePercent": 1,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 360,
+        "maxDays": null,
+        "label": "For Deposits not remained with the Bank for 12 months or having Deposits Amount above Rs."
       },
       "amount": {
         "minAmount": 0,
@@ -1031,41 +1031,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 4.1,
-      "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/fixed-deposits-tax-saving",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "bob",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 4.75,
+      "ratePercent": 1.5,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 31,
+        "maxDays": null,
+        "label": "Premature closure of Deposits of Rs. 1.00 Crore and above is allowed only with 31 days prior notice, and Penalty @"
       },
       "amount": {
         "minAmount": 0,
@@ -1073,496 +1052,52 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/fixed-deposits-tax-saving",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 5.25,
+      "product": "SAVINGS",
+      "ratePercent": 1,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
+        "maxAmount": null,
+        "label": "All balances"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/savings-bank-deposits",
+        "effectiveDate": "2025-08-22",
+        "quality": "OFFICIAL"
+      },
+      "customer": "GENERAL"
     },
     {
       "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 5.35,
+      "product": "SAVINGS",
+      "ratePercent": 1,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
+        "maxAmount": null,
+        "label": "All balances"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5.75,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/savings-bank-deposits",
+        "effectiveDate": "2025-08-22",
+        "quality": "OFFICIAL"
       },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.35,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.85,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.85,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.7,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.2,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.3,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.25,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.35,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.45,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days (bob Square Drive)"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "bob Square Drive 444 days",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.95,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days (bob Square Drive)"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "bob Square Drive 444 days",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.05,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days (bob Square Drive)"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "bob Square Drive 444 days",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
+      "customer": "SENIOR"
     },
     {
       "bankId": "bob",
@@ -1725,48 +1260,6 @@
         "minAmount": 0,
         "maxAmount": null,
         "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "SAVINGS",
-      "customer": "GENERAL",
-      "ratePercent": 2.75,
-      "tenure": {
-        "minDays": 0,
-        "maxDays": null,
-        "label": "Any tenure"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "All balances"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.75,
-      "tenure": {
-        "minDays": 0,
-        "maxDays": null,
-        "label": "Any tenure"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "All balances"
       },
       "source": {
         "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
@@ -9417,6 +8910,6 @@
       "customer": "SENIOR"
     }
   ],
-  "generatedAt": "2026-09-18T14:33:01.278Z",
+  "generatedAt": "2026-09-18T14:57:38.324Z",
   "containsSampleData": false
 }
