@@ -20,6 +20,16 @@ const DATASET = JSON.parse(
 const { rankBanks } = await import(resolve(root, "public/js/query.js"));
 const fmt = await import(resolve(root, "public/js/format.js"));
 
+const TENURE_PAGES = [
+  { slug: "6-months", label: "6 months", days: 182 },
+  { slug: "1-year", label: "1 year", days: 365 },
+  { slug: "2-year", label: "2 years", days: 730 },
+  { slug: "3-year", label: "3 years", days: 1095 },
+  { slug: "5-year", label: "5 years", days: 1825 },
+];
+
+const SITE_ORIGIN = "https://urbdag.github.io/psb-deposit-rates";
+
 const OFFICIAL_RE = /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia/;
 const esc = (s) =>
   String(s)
@@ -345,10 +355,22 @@ function navBar(base, active = "") {
       </a>
       <div class="nav-links" id="nav-links">
         ${link("", "Compare", "home")}
-        ${link("fixed-deposit/", "Fixed Deposits", "fd")}
+        <div class="nav-dd">
+          <a class="nav-link${active === "fd" ? " nav-active" : ""}" href="${base}fixed-deposit/" aria-haspopup="true">Fixed Deposits ${caretSvg()}</a>
+          <div class="nav-dd-menu">
+            <a class="nav-dd-item" href="${base}fixed-deposit/">All FD rates</a>
+            ${TENURE_PAGES.map((t) => `<a class="nav-dd-item" href="${base}fixed-deposit/${t.slug}/">${esc(t.label)}</a>`).join("")}
+            <a class="nav-dd-item" href="${base}senior-citizen-fd-rates/">Senior citizen FD</a>
+          </div>
+        </div>
         ${link("savings-account/", "Savings", "savings")}
         ${link("recurring-deposit/", "Recurring", "rd")}
-        ${link("senior-citizen-fd-rates/", "Senior citizen", "senior")}
+        <div class="nav-dd">
+          <a class="nav-link${active === "banks" ? " nav-active" : ""}" href="${base}#banks" aria-haspopup="true">Banks ${caretSvg()}</a>
+          <div class="nav-dd-menu nav-dd-menu-2col">
+            ${DATASET.banks.map((b) => `<a class="nav-dd-item" href="${base}bank/${b.id}/">${esc(b.name)}</a>`).join("")}
+          </div>
+        </div>
       </div>
       <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -356,12 +378,21 @@ function navBar(base, active = "") {
     </div>
     <div class="nav-drawer" id="nav-drawer">
       ${link("", "Compare all", "home")}
-      ${link("fixed-deposit/", "Fixed Deposit rates", "fd")}
+      <div class="drawer-group">Fixed Deposits</div>
+      ${link("fixed-deposit/", "All FD rates", "fd")}
+      ${TENURE_PAGES.map((t) => `<a class="nav-link nav-sub" href="${base}fixed-deposit/${t.slug}/">${esc(t.label)}</a>`).join("")}
+      ${link("senior-citizen-fd-rates/", "Senior citizen FD", "senior")}
+      <div class="drawer-group">Other products</div>
       ${link("savings-account/", "Savings account rates", "savings")}
       ${link("recurring-deposit/", "Recurring Deposit rates", "rd")}
-      ${link("senior-citizen-fd-rates/", "Senior citizen FD", "senior")}
+      <div class="drawer-group">Banks</div>
+      ${DATASET.banks.map((b) => `<a class="nav-link nav-sub" href="${base}bank/${b.id}/">${esc(b.name)}</a>`).join("")}
     </div>
   </nav>`;
+}
+
+function caretSvg() {
+  return `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:2px"><path d="M6 9l6 6 6-6"/></svg>`;
 }
 
 /** Small script (inlined on every generated page) for scroll + mobile drawer. */
@@ -426,6 +457,8 @@ function landingShell({
   active,
   sections,
   appLink,
+  crumbs,
+  ogImage,
 }) {
   const jsonld = {
     "@context": "https://schema.org",
@@ -433,6 +466,17 @@ function landingShell({
     name: title,
     description: desc,
   };
+  const crumbHtml =
+    crumbs && crumbs.length
+      ? `<nav class="breadcrumbs" aria-label="Breadcrumb"><div class="container">${crumbs
+          .map((c, i) =>
+            c.href
+              ? `<a href="${base}${c.href}">${esc(c.label)}</a><span class="crumb-sep">/</span>`
+              : `<span class="crumb-current">${esc(c.label)}</span>`,
+          )
+          .join("")}</div></nav>`
+      : "";
+  const og = `${SITE_ORIGIN}/${ogImage || "og/default.png"}`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -445,7 +489,9 @@ function landingShell({
   <meta property="og:type" content="website" />
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(desc)}" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="${og}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="${og}" />
   <link rel="icon" href="${base}favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -455,6 +501,7 @@ function landingShell({
 </head>
 <body>
   ${navBar(base, active)}
+  ${crumbHtml}
   <header class="hero" style="padding-bottom:20px">
     <div class="hero-bg"></div>
     <div class="container"><div class="hero-inner">
@@ -568,6 +615,12 @@ function tenureLandingPage(tp) {
       active: "fd",
       sections,
       appLink: `?product=FD&tenure=${tp.days}`,
+      crumbs: [
+        { label: "Home", href: "" },
+        { label: "Fixed Deposits", href: "fixed-deposit/" },
+        { label: `${tp.label} FD` },
+      ],
+      ogImage: `og/fd-${tp.slug}.png`,
     }),
   };
 }
@@ -603,14 +656,6 @@ function seniorLandingPage() {
     }),
   };
 }
-
-const TENURE_PAGES = [
-  { slug: "6-months", label: "6 month", days: 182 },
-  { slug: "1-year", label: "1 year", days: 365 },
-  { slug: "2-year", label: "2 year", days: 730 },
-  { slug: "3-year", label: "3 year", days: 1095 },
-  { slug: "5-year", label: "5 year", days: 1825 },
-];
 
 // ---- write pages + a favicon + sitemap ------------------------------------
 let count = 0;
@@ -659,11 +704,98 @@ await writeFile(
   "utf8",
 );
 
-// sitemap.xml (relative-friendly; host is filled by deploy if desired)
+// ---- OG social-preview images (branded SVG) -------------------------------
+// SVG is what we can generate offline (no rasteriser). Rendered by browsers and
+// accepted by several crawlers; provides a branded 1200x630 card per key page.
+function ogSvg(headline, sub) {
+  const wrap = (s, n) => {
+    const words = String(s).split(" ");
+    const lines = [];
+    let cur = "";
+    for (const w of words) {
+      if ((cur + " " + w).trim().length > n) {
+        lines.push(cur.trim());
+        cur = w;
+      } else cur += " " + w;
+    }
+    if (cur.trim()) lines.push(cur.trim());
+    return lines.slice(0, 3);
+  };
+  const lines = wrap(headline, 22);
+  const tspans = lines
+    .map((l, i) => `<tspan x="80" dy="${i === 0 ? 0 : 74}">${esc(l)}</tspan>`)
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0b1020"/><stop offset="1" stop-color="#1e1b4b"/></linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1050" cy="120" r="320" fill="#4f46e5" opacity="0.18"/>
+  <g transform="translate(80,90)">
+    <rect width="64" height="64" rx="16" fill="url(#acc)"/>
+    <path d="M46 44 A16 16 0 0 1 72 24" transform="translate(-28,-8)" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="44" cy="44" r="5" fill="white"/>
+    <text x="82" y="42" font-family="Sora,Arial,sans-serif" font-size="30" font-weight="800" fill="#fff">RateRadar</text>
+  </g>
+  <text y="300" font-family="Sora,Arial,sans-serif" font-size="66" font-weight="800" fill="#ffffff">${tspans}</text>
+  <text x="80" y="540" font-family="Inter,Arial,sans-serif" font-size="30" fill="#c7d2fe">${esc(sub)}</text>
+</svg>`;
+}
+
+const ogDir = resolve(root, "public/og");
+await mkdir(ogDir, { recursive: true });
+await writeFile(
+  resolve(ogDir, "default.png"),
+  ogSvg(
+    "Best deposit rates across India's public sector banks",
+    "FD · Savings · RD · all 12 PSU banks, ranked",
+  ),
+  "utf8",
+);
+for (const tp of TENURE_PAGES) {
+  const top = rankBanks(DATASET, {
+    product: "FD",
+    customer: "GENERAL",
+    amount: 500000,
+    tenureDays: tp.days,
+  })[0];
+  await writeFile(
+    resolve(ogDir, `fd-${tp.slug}.png`),
+    ogSvg(
+      `Best ${tp.label} FD rates`,
+      top
+        ? `Up to ${fmt.formatRate(top.entry.ratePercent)} · ${top.bank.name}`
+        : "Public sector banks, ranked",
+    ),
+    "utf8",
+  );
+}
+
+// ---- sitemap.xml + robots.txt --------------------------------------------
+const lastmod = new Date().toISOString().slice(0, 10);
+const xml =
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+  sitemapUrls
+    .map(
+      (u) =>
+        `  <url><loc>${SITE_ORIGIN}/${u}</loc><lastmod>${lastmod}</lastmod></url>`,
+    )
+    .join("\n") +
+  `\n</urlset>\n`;
+await writeFile(resolve(root, "public/sitemap.xml"), xml, "utf8");
+await writeFile(
+  resolve(root, "public/robots.txt"),
+  `User-agent: *\nAllow: /\nSitemap: ${SITE_ORIGIN}/sitemap.xml\n`,
+  "utf8",
+);
+// keep the plain-text sitemap too (harmless)
 await writeFile(
   resolve(root, "public/sitemap.txt"),
   sitemapUrls.join("\n") + "\n",
   "utf8",
 );
 
-console.log(`Wrote ${count} bank profile pages + favicon.svg + sitemap.txt`);
+console.log(
+  `Wrote ${count} pages + favicon + ${TENURE_PAGES.length + 1} OG images + sitemap.xml + robots.txt`,
+);

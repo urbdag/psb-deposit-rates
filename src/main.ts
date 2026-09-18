@@ -145,10 +145,22 @@ function renderShell(): void {
         ]),
         el("div", { class: "nav-links" }, [
           navLink("./", "Compare", "home"),
-          navLink("fixed-deposit/", "Fixed Deposits", "fd"),
+          navDropdown("Fixed Deposits", "fixed-deposit/", [
+            { href: "fixed-deposit/", label: "All FD rates" },
+            ...TENURE_LINKS,
+            { href: "senior-citizen-fd-rates/", label: "Senior citizen FD" },
+          ]),
           navLink("savings-account/", "Savings", "savings"),
           navLink("recurring-deposit/", "Recurring", "rd"),
-          navLink("senior-citizen-fd-rates/", "Senior citizen", "senior"),
+          navDropdown(
+            "Banks",
+            "#",
+            dataset.banks.map((b) => ({
+              href: `bank/${b.id}/`,
+              label: b.name,
+            })),
+            true,
+          ),
         ]),
         el("div", { class: "nav-right" }, [
           el(
@@ -180,10 +192,21 @@ function renderShell(): void {
       ]),
       el("div", { class: "nav-drawer", id: "nav-drawer" }, [
         navLink("./", "Compare all", "home"),
-        navLink("fixed-deposit/", "Fixed Deposit rates", "fd"),
+        el("div", { class: "drawer-group" }, ["Fixed Deposits"]),
+        navLink("fixed-deposit/", "All FD rates", "fd"),
+        ...TENURE_LINKS.map((t) =>
+          el("a", { class: "nav-link nav-sub", href: t.href }, [t.label]),
+        ),
+        navLink("senior-citizen-fd-rates/", "Senior citizen FD", "senior"),
+        el("div", { class: "drawer-group" }, ["Other products"]),
         navLink("savings-account/", "Savings account rates", "savings"),
         navLink("recurring-deposit/", "Recurring Deposit rates", "rd"),
-        navLink("senior-citizen-fd-rates/", "Senior citizen FD", "senior"),
+        el("div", { class: "drawer-group" }, ["Banks"]),
+        ...dataset.banks.map((b) =>
+          el("a", { class: "nav-link nav-sub", href: `bank/${b.id}/` }, [
+            b.name,
+          ]),
+        ),
       ]),
     ]),
   );
@@ -267,6 +290,40 @@ function renderShell(): void {
   );
 
   renderControls();
+}
+
+const TENURE_LINKS = [
+  { href: "fixed-deposit/6-months/", label: "6 months" },
+  { href: "fixed-deposit/1-year/", label: "1 year" },
+  { href: "fixed-deposit/2-year/", label: "2 years" },
+  { href: "fixed-deposit/3-year/", label: "3 years" },
+  { href: "fixed-deposit/5-year/", label: "5 years" },
+];
+
+function caretSvg(): string {
+  return `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:2px"><path d="M6 9l6 6 6-6"/></svg>`;
+}
+
+/** A hover/focus dropdown nav item. */
+function navDropdown(
+  label: string,
+  href: string,
+  items: { href: string; label: string }[],
+  twoCol = false,
+): HTMLElement {
+  const trigger = el("a", {
+    class: "nav-link",
+    href,
+    "aria-haspopup": "true",
+    html: `${label} ${caretSvg()}`,
+  });
+  const menu = el("div", {
+    class: `nav-dd-menu${twoCol ? " nav-dd-menu-2col" : ""}`,
+  });
+  for (const it of items) {
+    menu.append(el("a", { class: "nav-dd-item", href: it.href }, [it.label]));
+  }
+  return el("div", { class: "nav-dd" }, [trigger, menu]);
 }
 
 /** Distinctive radar-arc brand mark (matches the favicon). */

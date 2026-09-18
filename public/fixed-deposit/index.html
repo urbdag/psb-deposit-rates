@@ -10,7 +10,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Best Fixed Deposit Rates 2026 — Public Sector Banks | RateRadar" />
   <meta property="og:description" content="Compare the best Fixed Deposit interest rates across India's 12 public sector banks — up to 6.70% at IOB. Updated September 2026." />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="https://urbdag.github.io/psb-deposit-rates/og/default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://urbdag.github.io/psb-deposit-rates/og/default.png" />
   <link rel="icon" href="../favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,10 +29,22 @@
       </a>
       <div class="nav-links" id="nav-links">
         <a class="nav-link" href="../">Compare</a>
-        <a class="nav-link nav-active" href="../fixed-deposit/">Fixed Deposits</a>
+        <div class="nav-dd">
+          <a class="nav-link nav-active" href="../fixed-deposit/" aria-haspopup="true">Fixed Deposits <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:2px"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-dd-menu">
+            <a class="nav-dd-item" href="../fixed-deposit/">All FD rates</a>
+            <a class="nav-dd-item" href="../fixed-deposit/6-months/">6 months</a><a class="nav-dd-item" href="../fixed-deposit/1-year/">1 year</a><a class="nav-dd-item" href="../fixed-deposit/2-year/">2 years</a><a class="nav-dd-item" href="../fixed-deposit/3-year/">3 years</a><a class="nav-dd-item" href="../fixed-deposit/5-year/">5 years</a>
+            <a class="nav-dd-item" href="../senior-citizen-fd-rates/">Senior citizen FD</a>
+          </div>
+        </div>
         <a class="nav-link" href="../savings-account/">Savings</a>
         <a class="nav-link" href="../recurring-deposit/">Recurring</a>
-        <a class="nav-link" href="../senior-citizen-fd-rates/">Senior citizen</a>
+        <div class="nav-dd">
+          <a class="nav-link" href="../#banks" aria-haspopup="true">Banks <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:2px"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="nav-dd-menu nav-dd-menu-2col">
+            <a class="nav-dd-item" href="../bank/sbi/">State Bank of India</a><a class="nav-dd-item" href="../bank/pnb/">Punjab National Bank</a><a class="nav-dd-item" href="../bank/bob/">Bank of Baroda</a><a class="nav-dd-item" href="../bank/canara/">Canara Bank</a><a class="nav-dd-item" href="../bank/union/">Union Bank of India</a><a class="nav-dd-item" href="../bank/boi/">Bank of India</a><a class="nav-dd-item" href="../bank/indian/">Indian Bank</a><a class="nav-dd-item" href="../bank/central/">Central Bank of India</a><a class="nav-dd-item" href="../bank/iob/">Indian Overseas Bank</a><a class="nav-dd-item" href="../bank/uco/">UCO Bank</a><a class="nav-dd-item" href="../bank/maha/">Bank of Maharashtra</a><a class="nav-dd-item" href="../bank/psb/">Punjab &amp; Sind Bank</a>
+          </div>
+        </div>
       </div>
       <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -38,12 +52,18 @@
     </div>
     <div class="nav-drawer" id="nav-drawer">
       <a class="nav-link" href="../">Compare all</a>
-      <a class="nav-link nav-active" href="../fixed-deposit/">Fixed Deposit rates</a>
+      <div class="drawer-group">Fixed Deposits</div>
+      <a class="nav-link nav-active" href="../fixed-deposit/">All FD rates</a>
+      <a class="nav-link nav-sub" href="../fixed-deposit/6-months/">6 months</a><a class="nav-link nav-sub" href="../fixed-deposit/1-year/">1 year</a><a class="nav-link nav-sub" href="../fixed-deposit/2-year/">2 years</a><a class="nav-link nav-sub" href="../fixed-deposit/3-year/">3 years</a><a class="nav-link nav-sub" href="../fixed-deposit/5-year/">5 years</a>
+      <a class="nav-link" href="../senior-citizen-fd-rates/">Senior citizen FD</a>
+      <div class="drawer-group">Other products</div>
       <a class="nav-link" href="../savings-account/">Savings account rates</a>
       <a class="nav-link" href="../recurring-deposit/">Recurring Deposit rates</a>
-      <a class="nav-link" href="../senior-citizen-fd-rates/">Senior citizen FD</a>
+      <div class="drawer-group">Banks</div>
+      <a class="nav-link nav-sub" href="../bank/sbi/">State Bank of India</a><a class="nav-link nav-sub" href="../bank/pnb/">Punjab National Bank</a><a class="nav-link nav-sub" href="../bank/bob/">Bank of Baroda</a><a class="nav-link nav-sub" href="../bank/canara/">Canara Bank</a><a class="nav-link nav-sub" href="../bank/union/">Union Bank of India</a><a class="nav-link nav-sub" href="../bank/boi/">Bank of India</a><a class="nav-link nav-sub" href="../bank/indian/">Indian Bank</a><a class="nav-link nav-sub" href="../bank/central/">Central Bank of India</a><a class="nav-link nav-sub" href="../bank/iob/">Indian Overseas Bank</a><a class="nav-link nav-sub" href="../bank/uco/">UCO Bank</a><a class="nav-link nav-sub" href="../bank/maha/">Bank of Maharashtra</a><a class="nav-link nav-sub" href="../bank/psb/">Punjab &amp; Sind Bank</a>
     </div>
   </nav>
+  
   <header class="hero" style="padding-bottom:20px">
     <div class="hero-bg"></div>
     <div class="container"><div class="hero-inner">
@@ -129,19 +149,19 @@
       <h2 class="section-title">Best FD rate by tenure</h2>
       <p class="section-note">Tap a tenure for the full ranking</p></div></div>
       <div class="tenure-grid"><a class="tenure-card" href="../fixed-deposit/6-months/" style="text-decoration:none">
-        <div class="tenure-label">6 month</div>
+        <div class="tenure-label">6 months</div>
         <div class="tenure-rate" style="color:#1f6fb2">6.30%</div>
         <div class="tenure-bank">IOB</div></a><a class="tenure-card" href="../fixed-deposit/1-year/" style="text-decoration:none">
         <div class="tenure-label">1 year</div>
         <div class="tenure-rate" style="color:#1f6fb2">6.70%</div>
         <div class="tenure-bank">IOB</div></a><a class="tenure-card" href="../fixed-deposit/2-year/" style="text-decoration:none">
-        <div class="tenure-label">2 year</div>
+        <div class="tenure-label">2 years</div>
         <div class="tenure-rate" style="color:#f37021">6.70%</div>
         <div class="tenure-bank">BoB</div></a><a class="tenure-card" href="../fixed-deposit/3-year/" style="text-decoration:none">
-        <div class="tenure-label">3 year</div>
+        <div class="tenure-label">3 years</div>
         <div class="tenure-rate" style="color:#f37021">6.75%</div>
         <div class="tenure-bank">BoB</div></a><a class="tenure-card" href="../fixed-deposit/5-year/" style="text-decoration:none">
-        <div class="tenure-label">5 year</div>
+        <div class="tenure-label">5 years</div>
         <div class="tenure-rate" style="color:#f37021">6.50%</div>
         <div class="tenure-bank">BoB</div></a></div></section>
     <section class="block"><div class="panel" style="padding:22px">

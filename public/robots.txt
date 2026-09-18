@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://urbdag.github.io/psb-deposit-rates/sitemap.xml
