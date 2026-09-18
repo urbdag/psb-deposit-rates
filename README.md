@@ -196,28 +196,36 @@ a per-rate **official / aggregator** badge.
 |--|--|--|
 | **SBI** | ✅ OFFICIAL | plain HTTP (`sbi.co.in` / `bank.sbi`) |
 | **PNB** | ✅ OFFICIAL | plain HTTP (`pnb.bank.in`) |
+| **Indian Bank** | ✅ OFFICIAL | rendered (`indianbank.bank.in/en/deposit-rates`) |
 | **Central Bank of India** | ✅ OFFICIAL | plain HTTP (`centralbank.bank.in`) |
-| **Bank of Maharashtra** | ✅ OFFICIAL | via Playwright render (`bankofmaharashtra.bank.in`) |
-| Bank of Baroda | aggregator | rate page rendered but exposes no HTML table (likely PDF/canvas) |
+| **UCO Bank** | ✅ OFFICIAL | rendered (`uco.bank.in/.../interest-rates-on-deposit-schemes`) |
+| **Bank of Maharashtra** | ✅ OFFICIAL | rendered (`bankofmaharashtra.bank.in`) |
+| **Punjab & Sind Bank** | ✅ OFFICIAL | rendered (`punjabandsind.bank.in/content/interestdom`) |
+| Bank of Baroda | aggregator | rates load via a click-triggered JS widget; not in the DOM |
 | Bank of India | aggregator | HTTP 403 even via headless browser (hard anti-bot) |
-| Canara | aggregator | rate-page path not found (404) / product page has no table |
-| Union Bank | aggregator | page renders but no HTML rate table |
-| Indian Bank | aggregator | page renders but no HTML rate table |
-| Indian Overseas Bank | aggregator | rate-page path not found (404) |
-| UCO Bank | aggregator | rate-page path not found (404) |
-| Punjab & Sind Bank | aggregator | rate-page path not found (404) / no table |
+| Canara | aggregator | only publishes product-info tables; no rate schedule on a static page |
+| Union Bank | aggregator | pages error out under headless automation |
+| Indian Overseas Bank | aggregator | rates load via a JS widget/API; not in the DOM |
 
-**Ingestion uses a two-stage fetch:** plain HTTP first, then (for adapters with
-`renderJs: true`) a **Playwright headless-Chromium** render that executes the
-page's JavaScript and behaves like a real browser. This unlocked Bank of
-Maharashtra. The remaining 8 fail for reasons a headless browser can't fix from
-a plain page fetch: some serve rates only as **PDF rate cards** or non-HTML
-widgets, one (BoI) blocks bots outright, and a few need a rate-page URL that
-couldn't be confirmed without loading the site. Every adapter stays registered
-and logs the exact per-URL outcome (see the ingest workflow logs), so any that
-becomes scrapeable activates automatically. **Next steps to raise coverage:**
-add a PDF-rate-card parser, and confirm the exact `.bank.in` rate-page paths for
-the 404 banks.
+**Ingestion uses a multi-stage fetch:** plain HTTP → **Playwright headless
+Chromium** render (executes JS, passes many bot checks) → HTML table parse →
+div-based text parse → PDF rate-card parse. This got **7 of 12** banks scraping
+their official rates.
+
+**How the working URLs were found:** a CI diagnostic
+(`scripts/diagnose-page.mjs` + the `diagnose` workflow) loads a page in a real
+browser and dumps the rendered DOM, iframes, captured network JSON, and all
+rate-related links as an artifact — so the true page structure and correct
+rate-page URL can be inspected instead of guessed.
+
+**The remaining 5** were each inspected and confirmed hard: BoB and IOB build
+their rate tables client-side via a widget/API (nothing in the DOM), BoI blocks
+bots outright (403), Canara exposes only product-info tables (no rate schedule
+on any discoverable static page), and Union's pages error under automation.
+Cracking these needs bespoke per-bank work (scripting the widget interaction and
+capturing its API response, or locating a PDF), so they use clearly-labelled
+aggregator data for now. Every adapter stays registered and logs its exact
+per-URL outcome, so any that becomes scrapeable activates automatically.
 
 ## Data model notes
 
