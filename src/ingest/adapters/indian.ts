@@ -12,15 +12,13 @@ export class IndianAdapter extends TableRateAdapter {
   constructor() {
     super({
       bankId: "indian",
+      // Confirmed via diagnostics: /en/deposit-rates has 10 rate tables in the
+      // rendered HTML (Liferay/JS site, so renderJs is required).
       fdUrl: [
-        "https://indianbank.bank.in/en/departments/fixed-deposit/",
-        "https://indianbank.bank.in/en/interest-rates/",
-        "https://indianbank.bank.in/departments/fixed-deposit/",
+        "https://indianbank.bank.in/en/deposit-rates",
+        "https://indianbank.bank.in/en/term-deposits",
       ],
-      savingsUrls: [
-        "https://indianbank.bank.in/en/departments/savings-bank/",
-        "https://indianbank.bank.in/en/interest-rates/",
-      ],
+      savingsUrls: ["https://indianbank.bank.in/en/deposit-rates"],
       renderJs: true,
       pdfUrl: [
         "https://indianbank.bank.in/documents/interest-rates/domestic-term-deposit.pdf",
