@@ -35,7 +35,7 @@ export function parseTenure(text) {
     // as a single 14-day bucket). Requires the range to precede the unit with no
     // other unit between the numbers.
     const shared = t.match(/(\d+(?:\.\d+)?)\s*(?:-|–|to)\s*(\d+(?:\.\d+)?)\s*(years?|yrs?|months?|mons?|days?)\b/);
-    if (shared) {
+    if (shared && shared.index != null) {
         const between = t.slice(shared.index, shared.index + shared[0].length);
         // ensure no unit word sits between the two numbers (so "1 year to 2 years"
         // is NOT matched here — that's handled by the pair matcher below)
