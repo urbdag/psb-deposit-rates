@@ -996,6 +996,48 @@
     },
     {
       "bankId": "bob",
+      "product": "SAVINGS",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "All balances"
+      },
+      "source": {
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/savings-bank-deposits",
+        "effectiveDate": "2025-08-22",
+        "quality": "OFFICIAL"
+      },
+      "customer": "GENERAL"
+    },
+    {
+      "bankId": "bob",
+      "product": "SAVINGS",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "All balances"
+      },
+      "source": {
+        "url": "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/savings-bank-deposits",
+        "effectiveDate": "2025-08-22",
+        "quality": "OFFICIAL"
+      },
+      "customer": "SENIOR"
+    },
+    {
+      "bankId": "bob",
       "product": "FD",
       "customer": "GENERAL",
       "ratePercent": 3.5,
@@ -1725,48 +1767,6 @@
         "minAmount": 0,
         "maxAmount": null,
         "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "SAVINGS",
-      "customer": "GENERAL",
-      "ratePercent": 2.75,
-      "tenure": {
-        "minDays": 0,
-        "maxDays": null,
-        "label": "Any tenure"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "All balances"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
-        "effectiveDate": "2026-06-12",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "bob",
-      "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.75,
-      "tenure": {
-        "minDays": 0,
-        "maxDays": null,
-        "label": "Any tenure"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "All balances"
       },
       "source": {
         "url": "https://www.policybazaar.com/fd-interest-rates/bank-of-baroda-fd-rates/",
@@ -9417,6 +9417,6 @@
       "customer": "SENIOR"
     }
   ],
-  "generatedAt": "2026-09-18T15:59:03.142Z",
+  "generatedAt": "2026-09-18T16:19:30.736Z",
   "containsSampleData": false
 }
