@@ -5,84 +5,108 @@
       "name": "State Bank of India",
       "shortName": "SBI",
       "color": "#22409a",
-      "website": "https://sbi.co.in"
+      "website": "https://sbi.co.in",
+      "headquarters": "Mumbai",
+      "established": 1955
     },
     {
       "id": "pnb",
       "name": "Punjab National Bank",
       "shortName": "PNB",
       "color": "#a01e2e",
-      "website": "https://www.pnbindia.in"
+      "website": "https://www.pnbindia.in",
+      "headquarters": "New Delhi",
+      "established": 1894
     },
     {
       "id": "bob",
       "name": "Bank of Baroda",
       "shortName": "BoB",
       "color": "#f37021",
-      "website": "https://www.bankofbaroda.in"
+      "website": "https://www.bankofbaroda.in",
+      "headquarters": "Vadodara",
+      "established": 1908
     },
     {
       "id": "canara",
       "name": "Canara Bank",
       "shortName": "Canara",
       "color": "#00548e",
-      "website": "https://canarabank.com"
+      "website": "https://canarabank.com",
+      "headquarters": "Bengaluru",
+      "established": 1906
     },
     {
       "id": "union",
       "name": "Union Bank of India",
       "shortName": "Union",
       "color": "#c2202f",
-      "website": "https://www.unionbankofindia.co.in"
+      "website": "https://www.unionbankofindia.co.in",
+      "headquarters": "Mumbai",
+      "established": 1919
     },
     {
       "id": "boi",
       "name": "Bank of India",
       "shortName": "BoI",
       "color": "#f58220",
-      "website": "https://bankofindia.co.in"
+      "website": "https://bankofindia.co.in",
+      "headquarters": "Mumbai",
+      "established": 1906
     },
     {
       "id": "indian",
       "name": "Indian Bank",
       "shortName": "Indian",
       "color": "#0b6b3a",
-      "website": "https://www.indianbank.in"
+      "website": "https://www.indianbank.in",
+      "headquarters": "Chennai",
+      "established": 1907
     },
     {
       "id": "central",
       "name": "Central Bank of India",
       "shortName": "Central",
       "color": "#8a1f6a",
-      "website": "https://www.centralbankofindia.co.in"
+      "website": "https://www.centralbankofindia.co.in",
+      "headquarters": "Mumbai",
+      "established": 1911
     },
     {
       "id": "iob",
       "name": "Indian Overseas Bank",
       "shortName": "IOB",
       "color": "#1f6fb2",
-      "website": "https://www.iob.in"
+      "website": "https://www.iob.in",
+      "headquarters": "Chennai",
+      "established": 1937
     },
     {
       "id": "uco",
       "name": "UCO Bank",
       "shortName": "UCO",
       "color": "#0a4f8b",
-      "website": "https://www.ucobank.com"
+      "website": "https://www.ucobank.com",
+      "headquarters": "Kolkata",
+      "established": 1943
     },
     {
       "id": "maha",
       "name": "Bank of Maharashtra",
       "shortName": "Maharashtra",
       "color": "#b8860b",
-      "website": "https://bankofmaharashtra.in"
+      "website": "https://bankofmaharashtra.in",
+      "headquarters": "Pune",
+      "established": 1935
     },
     {
       "id": "psb",
       "name": "Punjab & Sind Bank",
       "shortName": "P&S",
       "color": "#005baa",
-      "website": "https://punjabandsindbank.co.in"
+      "website": "https://punjabandsindbank.co.in",
+      "headquarters": "New Delhi",
+      "established": 1908
     }
   ],
   "rates": [
@@ -5192,21 +5216,330 @@
       "bankId": "iob",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 4,
+      "ratePercent": 3.5,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 14,
+        "maxDays": 14,
+        "label": "7-14 Days*"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "14-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 14,
+        "maxDays": 14,
+        "label": "7-14 Days*"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "14-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 29,
+        "maxDays": 29,
+        "label": "15-29 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "29-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 29,
+        "maxDays": 29,
+        "label": "15-29 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "29-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 45,
+        "maxDays": 45,
+        "label": "30-45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "45-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 45,
+        "maxDays": 45,
+        "label": "30-45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "45-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 60,
+        "maxDays": 60,
+        "label": "46-60 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "60-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 60,
+        "maxDays": 60,
+        "label": "46-60 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "60-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 90,
+        "label": "61-90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "90-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 90,
+        "label": "61-90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "90-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 120,
+        "maxDays": 120,
+        "label": "91-120 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "120-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 120,
+        "maxDays": 120,
+        "label": "91-120 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "120-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.9,
+      "tenure": {
+        "minDays": 179,
+        "maxDays": 179,
+        "label": "121-179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "179-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 2.9,
+      "tenure": {
+        "minDays": 179,
+        "maxDays": 179,
+        "label": "121-179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "179-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 269,
+        "maxDays": 269,
+        "label": "180-269 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "269-day Special",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -5215,103 +5548,20 @@
       "customer": "SENIOR",
       "ratePercent": 4.5,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 269,
+        "maxDays": 269,
+        "label": "180-269 Days"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "269-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 4.75,
-      "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 5.5,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 5.75,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -5320,9 +5570,9 @@
       "customer": "GENERAL",
       "ratePercent": 5.5,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 270,
+        "maxDays": 364,
+        "label": "270 Days to < 1 Year"
       },
       "amount": {
         "minAmount": 0,
@@ -5330,20 +5580,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6,
+      "ratePercent": 5.5,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 270,
+        "maxDays": 364,
+        "label": "270 Days to < 1 Year"
       },
       "amount": {
         "minAmount": 0,
@@ -5351,104 +5601,64 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.3,
+      "ratePercent": 6.5,
       "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "Special Tenure",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.8,
+      "ratePercent": 6.5,
       "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "Special Tenure",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.05,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.7,
+      "ratePercent": 6.4,
       "tenure": {
         "minDays": 365,
         "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "label": "> 1 Year to < 2 Years (Except 444 Days)"
       },
       "amount": {
         "minAmount": 0,
@@ -5456,20 +5666,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7.2,
+      "ratePercent": 6.4,
       "tenure": {
         "minDays": 365,
         "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "label": "> 1 Year to < 2 Years (Except 444 Days)"
       },
       "amount": {
         "minAmount": 0,
@@ -5477,30 +5687,51 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.45,
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
       "tenure": {
         "minDays": 365,
         "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "label": "> 1 Year to < 2 Years (Except 444 Days)"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
+        "maxAmount": null,
+        "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "> 1 Year to < 2 Years (Except 444 Days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -5509,198 +5740,9 @@
       "customer": "GENERAL",
       "ratePercent": 6.6,
       "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.35,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.25,
-      "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.25,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.75,
-      "tenure": {
         "minDays": 444,
         "maxDays": 444,
-        "label": "444 days special"
+        "label": "444 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -5709,148 +5751,84 @@
       },
       "scheme": "444-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 7.2,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days special"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "444-day Special",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.45,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days special"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "444-day Special",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.7,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.2,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
-        "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "iob",
-      "product": "RD",
-      "customer": "GENERAL",
       "ratePercent": 6.6,
       "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 Days"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "444-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
       "tenure": {
         "minDays": 730,
         "maxDays": 1094,
-        "label": "2 years to < 3 years"
+        "label": "2 Years to < 3 Years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 Years to < 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 6.4,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 Years to < 3 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -5858,20 +5836,20 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 6.4,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 Years to < 3 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -5879,20 +5857,62 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": null,
+        "label": "3 Years and above"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": null,
+        "label": "3 Years and above"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
+      "ratePercent": 6.1,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 1095,
+        "maxDays": null,
+        "label": "3 Years and above"
       },
       "amount": {
         "minAmount": 0,
@@ -5900,20 +5920,20 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "iob",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7,
+      "ratePercent": 6.1,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "minDays": 1095,
+        "maxDays": null,
+        "label": "3 Years and above"
       },
       "amount": {
         "minAmount": 0,
@@ -5921,9 +5941,9 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-overseas-bank-fd-rates/",
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
-        "quality": "AGGREGATOR"
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -9025,6 +9045,6 @@
       "customer": "SENIOR"
     }
   ],
-  "generatedAt": "2026-09-18T07:35:10.032Z",
+  "generatedAt": "2026-09-18T13:28:09.124Z",
   "containsSampleData": false
 }
