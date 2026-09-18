@@ -29,6 +29,7 @@ export async function fetchRendered(url, timeoutMs = 60000) {
         // Block heavy/irrelevant resources so slow pages still reach a usable state
         // (bank sites load lots of fonts/images/trackers that stall networkidle).
         try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             await page.route("**/*", (route) => {
                 const type = route.request().resourceType();
                 if (type === "image" || type === "media" || type === "font") {
