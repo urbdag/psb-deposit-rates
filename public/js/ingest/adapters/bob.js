@@ -5,23 +5,19 @@ import { TableRateAdapter, defaultScheme } from "./base.js";
  * Tags named special-tenure schemes (555-day "Golden Goal", 444-day "Square
  * Drive") from the tenure label when present.
  *
- * KNOWN LIMITATION: BoB's published rate table is served from a URL/rendering
- * this dependency-free HTTP scraper could not resolve (candidate paths 404;
- * the live page appears to be JS-rendered). Until a working URL or a headless-
- * browser fetch is added, this adapter fails and the ingest runner keeps BoB's
- * last-known-good (aggregator-sourced) rates. Kept registered so it activates
- * automatically once a scrapeable endpoint is wired in.
+ * Uses the specific FD and savings sub-pages (the /deposits-interest-rates hub
+ * rendered to an empty shell; the sub-pages expose the actual tables).
  */
 export class BobAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "bob",
             fdUrl: [
+                "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/fixed-deposits-tax-saving",
                 "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates",
             ],
             savingsUrls: [
                 "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates/savings-bank-deposits",
-                "https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates",
             ],
             renderJs: true,
             schemeNamer: (t) => {
