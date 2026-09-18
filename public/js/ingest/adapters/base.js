@@ -399,7 +399,24 @@ export function extractSavingsRate(html) {
  * A single-band table (one distinct rate) is not a multi-slab table; we return
  * null so the ordinary savings-row / prose heuristics handle it (that keeps the
  * simple SBI-style "Savings Bank balance 2.50%" single-row case at 2.50).
+ *
+ * Soundness guard: `clusters[1]` is only accepted as the headline rate when it
+ * sits within `MAX_SLAB_STEP` of the base band `clusters[0]` — i.e. it is a
+ * genuine "one small step above base" band, not a large institutional jump.
+ * BoB's step (2.50 -> 2.75) is exactly 0.25, so the threshold is 0.25. Without
+ * this, a slab table whose second band is itself an institutional jump inside
+ * the 2..4.5 window (e.g. base 2.50 then 3.50, or 2.50 then 4.50) would ship
+ * that higher band as an ordinary customer's OFFICIAL "standard" savings rate.
+ * This path is shared by all 12 bank adapters and runs first on every scrape,
+ * so the guard prevents any bank from silently publishing a mis-tiered rate.
  */
+/**
+ * Maximum gap (percentage points) between the base slab band and the band we
+ * publish as the headline savings rate. A larger gap signals an institutional
+ * jump, not the ordinary "one step above base" retail band, so we reject it.
+ * BoB's real step is 0.25 (2.50 -> 2.75); keep this >= 0.25 to preserve BoB.
+ */
+const MAX_SLAB_STEP = 0.25;
 function extractSlabSavingsRate(html, inBand, isStandardBand) {
     for (const table of extractTables(html)) {
         const rows = extractRows(table);
@@ -450,11 +467,20 @@ function extractSlabSavingsRate(html, inBand, isStandardBand) {
         if (clusters.length < 2)
             continue;
         // The headline rate is the cluster just above the base band, provided it is
-        // still a plausible standard retail rate (guards against a table whose
-        // second band is already a large-balance jump).
+        // (a) a plausible standard retail rate AND (b) only a small step above the
+        // base band. The absolute `isStandardBand` window (2..4.5) alone is NOT a
+        // sufficient guard: a second cluster that is itself a large institutional
+        // jump can land inside it (e.g. base 2.50 then 3.50/4.50) and would then be
+        // published as an ordinary customer's OFFICIAL "standard" rate. Requiring
+        // the step from the base band to be <= MAX_SLAB_STEP keeps clusters[1] a
+        // genuine "one step above base" band. BoB's step (2.50 -> 2.75 = 0.25) is
+        // exactly at the threshold, so BoB still resolves to 2.75; a mis-tiered
+        // institutional second band is rejected and falls through to null.
+        const base = clusters[0];
         const headline = clusters[1];
-        if (isStandardBand(headline))
+        if (isStandardBand(headline) && headline - base <= MAX_SLAB_STEP) {
             return headline;
+        }
     }
     return null;
 }

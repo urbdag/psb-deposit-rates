@@ -170,6 +170,68 @@ assert(
   "BoB savings: standard rate = 2.75%, OFFICIAL (not 2.50 / 3.50 / 4.50 / 4.75)",
 );
 
+// ---------------------------------------------------------------------------
+// Mis-tiering guard (soundness of the shared slab path). The slab helper runs
+// first for ALL 12 banks. `clusters[1]` must be a genuine "one small step above
+// the base band" rate, NOT a large institutional jump that merely happens to
+// land inside the 2..4.5 window. If the second distinct band is an institutional
+// slab (e.g. base 2.50 then 3.50/4.50), the slab path must REJECT it so no bank
+// ships a mis-tiered OFFICIAL "standard" savings rate. Rejection returns null
+// from the slab path; parseSavings then falls through to the row/prose
+// heuristics (here there is no 'saving' row and no '% p.a.' prose, so the whole
+// extractor yields null -> 0 rows, i.e. the bank keeps last-known-good rather
+// than publishing a wrong rate). The delta threshold is 0.25 (== BoB's real
+// step), so BoB's 2.50->2.75 is kept but any larger jump is rejected.
+// ---------------------------------------------------------------------------
+console.log("== Mis-tiering guard (institutional second band rejected) ==");
+
+// Base 2.50, second (institutional) band 4.50 -> must NOT publish 4.50.
+const MISTIER_BIGJUMP_FIXTURE = `
+<html><body><table>
+  <tr><th>Present SB Interest Rate Slab on O/s Balance</th><th>Interest Rates</th></tr>
+  <tr><td>upto Rs. 1.00 Lakh</td><td>2.50 %</td></tr>
+  <tr><td>Above Rs 1.00 Lakh to less than Rs. 50 Lakh</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 50 Lakh and less than Rs. 10 Crores</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 500 Crores and above to less than Rs. 1,000 Crores</td><td>4.50 %</td></tr>
+  <tr><td>Rs. 1,000 Crores and above</td><td>4.75 %</td></tr>
+</table></body></html>`;
+const mistierBig = new BobAdapter().parseSavings(
+  MISTIER_BIGJUMP_FIXTURE,
+  "2026-01-01",
+);
+assert(
+  mistierBig.length === 0,
+  "mis-tier (2.50 then 4.50 institutional): slab path rejects -> 0 rows (no wrong OFFICIAL rate)",
+);
+assert(
+  !mistierBig.some((r) => r.ratePercent === 4.5),
+  "mis-tier: never publishes the 4.50 institutional slab as standard",
+);
+
+// Base 2.50, second band 3.50 — a jump of 1.0, still inside the 2..4.5 window
+// (so the old absolute-only guard would have shipped it) but far above the
+// 0.25 step, so it must be rejected too.
+const MISTIER_MIDJUMP_FIXTURE = `
+<html><body><table>
+  <tr><th>Present SB Interest Rate Slab on O/s Balance</th><th>Interest Rates</th></tr>
+  <tr><td>upto Rs. 1.00 Lakh</td><td>2.50 %</td></tr>
+  <tr><td>Above Rs 1.00 Lakh to less than Rs. 50 Lakh</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 50 Lakh and less than Rs. 10 Crores</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 100 Crores and above</td><td>3.50 %</td></tr>
+</table></body></html>`;
+const mistierMid = new BobAdapter().parseSavings(
+  MISTIER_MIDJUMP_FIXTURE,
+  "2026-01-01",
+);
+assert(
+  mistierMid.length === 0,
+  "mis-tier (2.50 then 3.50 inside 2..4.5): slab path rejects -> 0 rows",
+);
+assert(
+  !mistierMid.some((r) => r.ratePercent === 3.5),
+  "mis-tier: never publishes the 3.50 institutional slab as standard",
+);
+
 console.log("== Resilience ==");
 assert(
   adapter.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
