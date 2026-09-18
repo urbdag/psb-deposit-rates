@@ -10,7 +10,7 @@
  * the ingest CI job (which installs it), never in the browser bundle or the
  * unit tests. The import is dynamic so type-check / build succeed without it.
  */
-export async function fetchRendered(url, timeoutMs = 45000) {
+export async function fetchRendered(url, timeoutMs = 60000) {
     // Dynamic, untyped import so the project builds/tests without Playwright
     // installed (it's only present in the ingest CI job). The module specifier is
     // built at runtime so the compiler doesn't try to resolve types for it.
@@ -26,10 +26,37 @@ export async function fetchRendered(url, timeoutMs = 45000) {
             viewport: { width: 1280, height: 900 },
         });
         const page = await context.newPage();
-        await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
-        // Wait for the network to settle (lazy API-loaded rate data).
+        // Block heavy/irrelevant resources so slow pages still reach a usable state
+        // (bank sites load lots of fonts/images/trackers that stall networkidle).
         try {
-            await page.waitForLoadState("networkidle", { timeout: 15000 });
+            await page.route("**/*", (route) => {
+                const type = route.request().resourceType();
+                if (type === "image" || type === "media" || type === "font") {
+                    route.abort();
+                }
+                else {
+                    route.continue();
+                }
+            });
+        }
+        catch {
+            /* routing optional */
+        }
+        // "commit" resolves as soon as the response starts — robust against slow
+        // pages. We then wait for content heuristics below. Swallow goto timeouts.
+        try {
+            await page.goto(url, { waitUntil: "domcontentloaded", timeout: timeoutMs });
+        }
+        catch {
+            try {
+                await page.goto(url, { waitUntil: "commit", timeout: timeoutMs });
+            }
+            catch {
+                /* proceed with whatever loaded */
+            }
+        }
+        try {
+            await page.waitForLoadState("networkidle", { timeout: 10000 });
         }
         catch {
             /* keep going */
@@ -44,7 +71,7 @@ export async function fetchRendered(url, timeoutMs = 45000) {
         }
         try {
             await page.waitForFunction(() => document.querySelector("table") !== null ||
-                /\b\d{1,2}\.\d{2}\s*%/.test(document.body?.innerText ?? ""), { timeout: 12000 });
+                /\b\d{1,2}\.\d{2}\s*%/.test(document.body?.innerText ?? ""), { timeout: 15000 });
         }
         catch {
             /* return whatever rendered so the caller can decide */
