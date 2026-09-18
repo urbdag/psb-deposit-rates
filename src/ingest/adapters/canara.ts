@@ -9,14 +9,15 @@ export class CanaraAdapter extends TableRateAdapter {
   constructor() {
     super({
       bankId: "canara",
+      // Discovered via diagnostics (lowercase Liferay paths on .bank.in).
       fdUrl: [
-        "https://www.canarabank.bank.in/Domestic-Deposits",
-        "https://www.canarabank.bank.in/deposit-interest-rate",
-        "https://www.canarabank.bank.in/Fixed-Deposit",
+        "https://www.canarabank.bank.in/fixed-deposit",
+        "https://www.canarabank.bank.in/444-days-deposit",
+        "https://www.canarabank.bank.in/kamadhenu-deposit",
       ],
       savingsUrls: [
-        "https://www.canarabank.bank.in/Savings-Bank-Account",
-        "https://www.canarabank.bank.in/deposit-interest-rate",
+        "https://www.canarabank.bank.in/method-of-calculation-of-interest-on-deposits",
+        "https://www.canarabank.bank.in/fixed-deposit",
       ],
       renderJs: true,
     });

@@ -7,13 +7,14 @@ export class PsbAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "psb",
+            // Discovered via diagnostics: /content/interestdom = domestic deposit rates.
             fdUrl: [
-                "https://punjabandsind.bank.in/content/domestic-term-deposit",
+                "https://punjabandsind.bank.in/content/interestdom",
+                "https://punjabandsind.bank.in/content/interestdom-cir",
                 "https://punjabandsind.bank.in/content/interest-rates",
-                "https://punjabandsind.bank.in/term-deposit-interest-rates",
             ],
             savingsUrls: [
-                "https://punjabandsind.bank.in/content/saving-deposit",
+                "https://punjabandsind.bank.in/content/interestdom",
                 "https://punjabandsind.bank.in/content/interest-rates",
             ],
             renderJs: true,
