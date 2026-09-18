@@ -25,6 +25,7 @@ interface UiState {
   customer: CustomerCategory;
   amount: number;
   tenureDays: number;
+  showAll: boolean;
 }
 
 const state: UiState = {
@@ -32,6 +33,7 @@ const state: UiState = {
   customer: "GENERAL",
   amount: 500000,
   tenureDays: 365,
+  showAll: false,
 };
 
 let dataset: Dataset;
@@ -41,6 +43,7 @@ async function boot(): Promise<void> {
   dataset = (await res.json()) as Dataset;
   renderShell();
   renderAll();
+  wireScroll();
 }
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -62,78 +65,107 @@ function el<K extends keyof HTMLElementTagNameMap>(
 function renderShell(): void {
   const root = document.getElementById("app")!;
   root.innerHTML = "";
+  const fresh = assessFreshness(dataset.generatedAt);
 
-  // Header
-  const header = el("header", { class: "site-header" }, [
-    el("div", { class: "container header-inner" }, [
-      el("div", { class: "brand" }, [
-        el("span", { class: "brand-mark", html: "₹" }),
-        el("div", {}, [
-          el("h1", { class: "brand-title" }, ["PSB Deposit Rates"]),
-          el("p", { class: "brand-sub" }, [
-            "Best FD, Savings & RD rates across India's 12 public sector banks",
+  // ---- Sticky nav ----
+  root.append(
+    el("nav", { class: "nav", id: "nav" }, [
+      el("div", { class: "container nav-inner" }, [
+        el("div", { class: "brand" }, [
+          el("span", { class: "brand-mark", html: "₹" }),
+          el("span", {}, ["RateRadar"]),
+        ]),
+        el("div", { class: "nav-right" }, [
+          el(
+            "span",
+            {
+              class: `nav-pill hide-sm freshness-${fresh.level}`,
+              title: fresh.label,
+            },
+            [
+              el("span", { class: "freshness-dot" }),
+              fresh.level === "fresh" ? "Live" : capitalize(fresh.label),
+            ],
+          ),
+          el("span", { class: "nav-pill" }, [
+            el("span", { class: "live-dot" }),
+            `${dataset.banks.length} banks tracked`,
           ]),
         ]),
       ]),
     ]),
-  ]);
-  root.append(header);
-
-  // Freshness indicator — makes a stalled daily ingestion visible at a glance.
-  const fresh = assessFreshness(dataset.generatedAt);
-  const freshTitle: Record<string, string> = {
-    fresh: `Data ${fresh.label}`,
-    aging: `Data ${fresh.label}`,
-    stale: `Data ${fresh.label} — the daily auto-update may have stalled`,
-    unknown: fresh.label,
-  };
-  root.append(
-    el("div", { class: "container" }, [
-      el(
-        "div",
-        { class: `freshness freshness-${fresh.level}`, id: "freshness" },
-        [
-          el("span", { class: "freshness-dot" }),
-          el("span", {}, [freshTitle[fresh.level]]),
-          el("span", { class: "freshness-meta" }, [
-            `· ${dataset.rates.length} rates · ${dataset.banks.length} banks`,
-          ]),
-        ],
-      ),
-    ]),
   );
+
+  // ---- Hero ----
+  const hero = el("header", { class: "hero" }, [
+    el("div", { class: "hero-bg" }),
+  ]);
+  const heroInner = el("div", { class: "container" }, [
+    el("div", { class: "hero-inner rise rise-1" }, [
+      el("span", { class: "eyebrow" }, [
+        el("span", { class: "live-dot" }),
+        "Updated " + fresh.label.replace("updated ", ""),
+      ]),
+      el("h1", {
+        html: `Find the <span class="grad">highest deposit rate</span> across India's public sector banks.`,
+      }),
+      el("p", { class: "hero-sub" }, [
+        "Compare Fixed Deposit, Savings and Recurring Deposit rates for all 12 nationalised banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
+      ]),
+    ]),
+    el("div", { class: "headline-card rise rise-2", id: "headline-region" }),
+  ]);
+  hero.append(heroInner);
+  root.append(hero);
 
   if (dataset.containsSampleData) {
     root.append(
       el("div", { class: "container" }, [
         el("div", { class: "banner banner-warn", id: "sample-banner" }, [
           el("strong", {}, ["Sample data. "]),
-          "Rates shown are representative placeholders for demonstration and are not sourced from the banks. Do not use for financial decisions — see the README to load official rates.",
+          "Rates shown are placeholders for demonstration — not for financial decisions.",
         ]),
       ]),
     );
   }
 
-  // Controls
-  const controls = el("section", { class: "container" }, [
-    el("div", { class: "controls", id: "controls" }),
-  ]);
-  root.append(controls);
+  // ---- Controls ----
+  root.append(
+    el("section", { class: "container block rise rise-3" }, [
+      el("div", { class: "panel controls", id: "controls" }),
+    ]),
+  );
 
-  // Content regions
-  root.append(el("section", { class: "container", id: "headline-region" }));
-  root.append(el("section", { class: "container", id: "leaderboard-region" }));
-  root.append(el("section", { class: "container", id: "table-region" }));
+  // ---- Podium / results ----
+  root.append(el("section", { class: "container block", id: "podium-region" }));
+  root.append(
+    el("section", { class: "container block", id: "leaderboard-region" }),
+  );
+  root.append(el("section", { class: "container block", id: "table-region" }));
 
-  // Footer
+  // ---- Footer ----
   root.append(
     el("footer", { class: "site-footer" }, [
       el("div", { class: "container" }, [
-        el("p", {}, [
-          `Dataset generated ${formatDate(dataset.generatedAt)} · ${dataset.banks.length} banks · ${dataset.rates.length} rate entries`,
-        ]),
-        el("p", { class: "muted" }, [
-          "Scope: State Bank of India + the 11 nationalised banks. Verify all rates on the bank's official website before investing.",
+        el("div", { class: "footer-grid" }, [
+          el("div", {}, [
+            el("div", { class: "brand", style: "margin-bottom:10px" }, [
+              el("span", { class: "brand-mark", html: "₹" }),
+              el("span", {}, ["RateRadar"]),
+            ]),
+            el("p", { class: "muted" }, [
+              "Deposit rates for State Bank of India and the 11 nationalised banks. Informational only — always verify on the bank's official website before investing.",
+            ]),
+          ]),
+          el("div", {}, [
+            el("div", { class: "legend" }, [
+              legendItem("tag-official", "official", "scraped from the bank"),
+              legendItem("tag-aggregator", "aggregator", "third-party source"),
+            ]),
+            el("p", { class: "muted", style: "margin-top:14px" }, [
+              `Updated ${formatDate(dataset.generatedAt)} · ${dataset.rates.length} rate entries`,
+            ]),
+          ]),
         ]),
       ]),
     ]),
@@ -142,113 +174,127 @@ function renderShell(): void {
   renderControls();
 }
 
+function legendItem(cls: string, label: string, desc: string): HTMLElement {
+  return el("span", {}, [
+    el("span", { class: `tag ${cls}` }, [label]),
+    el("span", { class: "muted" }, [desc]),
+  ]);
+}
+
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function wireScroll(): void {
+  const nav = document.getElementById("nav");
+  if (!nav) return;
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+}
+
 function renderControls(): void {
   const host = document.getElementById("controls")!;
   host.innerHTML = "";
 
-  // Product segmented control
   const products: ProductType[] = ["FD", "RD", "SAVINGS"];
-  const productGroup = el("div", { class: "control" }, [
-    el("label", {}, ["Product"]),
-  ]);
-  const seg = el("div", { class: "segment" });
-  for (const p of products) {
-    const b = el(
-      "button",
-      {
-        class: `seg-btn${state.product === p ? " active" : ""}`,
-        type: "button",
+  host.append(
+    segControl(
+      "Product",
+      products.map((p) => ({ v: p, label: productLabel(p) })),
+      state.product,
+      (v) => {
+        state.product = v as ProductType;
+        state.showAll = false;
+        renderControls();
+        renderAll();
       },
-      [productLabel(p)],
-    );
-    b.addEventListener("click", () => {
-      state.product = p;
-      renderControls();
-      renderAll();
-    });
-    seg.append(b);
-  }
-  productGroup.append(seg);
-  host.append(productGroup);
+    ),
+  );
 
-  // Customer segmented control
-  const customers: { c: CustomerCategory; label: string }[] = [
-    { c: "GENERAL", label: "General" },
-    { c: "SENIOR", label: "Senior (60+)" },
-    { c: "SUPER_SENIOR", label: "Super senior (80+)" },
+  const customers = [
+    { v: "GENERAL", label: "General" },
+    { v: "SENIOR", label: "Senior (60+)" },
+    { v: "SUPER_SENIOR", label: "Super senior" },
   ];
-  const custGroup = el("div", { class: "control" }, [
-    el("label", {}, ["Customer"]),
-  ]);
-  const custSeg = el("div", { class: "segment" });
-  for (const { c, label } of customers) {
-    const b = el(
-      "button",
-      {
-        class: `seg-btn${state.customer === c ? " active" : ""}`,
-        type: "button",
-      },
-      [label],
-    );
-    b.addEventListener("click", () => {
-      state.customer = c;
+  host.append(
+    segControl("Customer", customers, state.customer, (v) => {
+      state.customer = v as CustomerCategory;
       renderControls();
       renderAll();
-    });
-    custSeg.append(b);
-  }
-  custGroup.append(custSeg);
-  host.append(custGroup);
+    }),
+  );
 
-  // Amount
+  // Amount chips
   const amtGroup = el("div", { class: "control" }, [
     el("label", {}, ["Deposit amount"]),
   ]);
   const amtChips = el("div", { class: "chips" });
   for (const preset of AMOUNT_PRESETS) {
-    const b = el(
-      "button",
-      {
-        class: `chip${state.amount === preset.amount ? " active" : ""}`,
-        type: "button",
-      },
-      [preset.label],
+    amtChips.append(
+      chip(preset.label, state.amount === preset.amount, () => {
+        state.amount = preset.amount;
+        renderControls();
+        renderAll();
+      }),
     );
-    b.addEventListener("click", () => {
-      state.amount = preset.amount;
-      renderControls();
-      renderAll();
-    });
-    amtChips.append(b);
   }
   amtGroup.append(amtChips);
   host.append(amtGroup);
 
-  // Tenure (hidden for savings)
+  // Tenure chips (hidden for savings)
   if (state.product !== "SAVINGS") {
     const tenGroup = el("div", { class: "control" }, [
       el("label", {}, ["Tenure"]),
     ]);
     const tenChips = el("div", { class: "chips" });
     for (const preset of TENURE_PRESETS) {
-      const b = el(
-        "button",
-        {
-          class: `chip${state.tenureDays === preset.days ? " active" : ""}`,
-          type: "button",
-        },
-        [preset.label],
+      tenChips.append(
+        chip(preset.label, state.tenureDays === preset.days, () => {
+          state.tenureDays = preset.days;
+          renderControls();
+          renderAll();
+        }),
       );
-      b.addEventListener("click", () => {
-        state.tenureDays = preset.days;
-        renderControls();
-        renderAll();
-      });
-      tenChips.append(b);
     }
     tenGroup.append(tenChips);
     host.append(tenGroup);
   }
+}
+
+function segControl(
+  label: string,
+  opts: { v: string; label: string }[],
+  active: string,
+  onPick: (v: string) => void,
+): HTMLElement {
+  const group = el("div", { class: "control" }, [el("label", {}, [label])]);
+  const seg = el("div", { class: "segment" });
+  for (const o of opts) {
+    const b = el(
+      "button",
+      { class: `seg-btn${active === o.v ? " active" : ""}`, type: "button" },
+      [o.label],
+    );
+    b.addEventListener("click", () => onPick(o.v));
+    seg.append(b);
+  }
+  group.append(seg);
+  return group;
+}
+
+function chip(
+  label: string,
+  active: boolean,
+  onClick: () => void,
+): HTMLElement {
+  const b = el(
+    "button",
+    { class: `chip${active ? " active" : ""}`, type: "button" },
+    [label],
+  );
+  b.addEventListener("click", onClick);
+  return b;
 }
 
 function query(): RateQuery {
@@ -262,81 +308,168 @@ function query(): RateQuery {
 
 function renderAll(): void {
   renderHeadline();
+  renderPodium();
   renderLeaderboard();
   renderTable();
 }
 
+// ---- Hero headline strip ----
 function renderHeadline(): void {
   const host = document.getElementById("headline-region")!;
   host.innerHTML = "";
   const top = rankBanks(dataset, query())[0];
   const overall = headlineRate(dataset, state.product, state.customer);
 
-  const cards = el("div", { class: "headline-grid" });
-
-  if (top) {
-    cards.append(
-      statCard(
-        "Top rate for your selection",
-        formatRate(top.entry.ratePercent),
-        `${top.bank.name}${top.entry.scheme ? ` · ${top.entry.scheme}` : ""}`,
-        top.bank.color,
-      ),
-    );
-  } else {
-    cards.append(
-      statCard(
-        "Top rate for your selection",
-        "—",
-        "No matching product",
-        "#888",
-      ),
-    );
-  }
-
-  cards.append(
-    statCard(
-      `Overall best ${productLabel(state.product)}`,
-      overall ? formatRate(overall.entry.ratePercent) : "—",
-      overall ? `${overall.bank.name} · ${overall.entry.tenure.label}` : "—",
-      overall ? overall.bank.color : "#888",
+  const feature = el("div", { class: "hl-cell feature" }, [
+    el("div", { class: "hl-label" }, ["Top rate for your selection"]),
+    el(
+      "div",
+      {
+        class: "hl-value",
+        "data-count": top ? String(top.entry.ratePercent) : "0",
+      },
+      [top ? "0.00%" : "—"],
     ),
-  );
-
-  cards.append(
-    statCard(
-      "Banks compared",
-      String(dataset.banks.length),
-      "State Bank of India + nationalised banks",
-      "#334155",
-    ),
-  );
-
-  host.append(el("h2", { class: "section-title" }, ["Overview"]), cards);
-}
-
-function statCard(
-  label: string,
-  value: string,
-  sub: string,
-  color: string,
-): HTMLElement {
-  return el("div", { class: "stat-card", style: `--accent:${color}` }, [
-    el("div", { class: "stat-label" }, [label]),
-    el("div", { class: "stat-value" }, [value]),
-    el("div", { class: "stat-sub" }, [sub]),
+    el("div", { class: "hl-sub" }, [
+      top
+        ? `${top.bank.name}${top.entry.scheme ? " · " + top.entry.scheme : ""}`
+        : "No matching product",
+    ]),
   ]);
+
+  const overallCell = el("div", { class: "hl-cell" }, [
+    el("div", { class: "hl-label" }, [
+      `Best ${productLabel(state.product)} overall`,
+    ]),
+    el(
+      "div",
+      {
+        class: "hl-value",
+        style: overall ? `color:${overall.bank.color}` : "",
+      },
+      [overall ? formatRate(overall.entry.ratePercent) : "—"],
+    ),
+    el("div", { class: "hl-sub" }, [
+      overall
+        ? `${overall.bank.shortName} · ${overall.entry.tenure.label}`
+        : "—",
+    ]),
+  ]);
+
+  const officialCount = new Set(
+    dataset.rates
+      .filter(
+        (r) =>
+          r.source.quality === "OFFICIAL" &&
+          /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia/.test(
+            r.source.url,
+          ),
+      )
+      .map((r) => r.bankId),
+  ).size;
+  const trustCell = el("div", { class: "hl-cell" }, [
+    el("div", { class: "hl-label" }, ["Verified from source"]),
+    el("div", { class: "hl-value" }, [
+      `${officialCount}/${dataset.banks.length}`,
+    ]),
+    el("div", { class: "hl-sub" }, ["banks scraped from official sites"]),
+  ]);
+
+  host.append(feature, overallCell, trustCell);
+  if (top)
+    countUp(
+      feature.querySelector(".hl-value") as HTMLElement,
+      top.entry.ratePercent,
+    );
 }
 
+function countUp(node: HTMLElement, target: number): void {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    node.textContent = formatRate(target);
+    return;
+  }
+  const dur = 700;
+  const start = performance.now();
+  const tick = (now: number) => {
+    const t = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - t, 3);
+    node.textContent = (target * eased).toFixed(2) + "%";
+    if (t < 1) requestAnimationFrame(tick);
+    else node.textContent = formatRate(target);
+  };
+  requestAnimationFrame(tick);
+}
+
+// ---- Podium (top 3) ----
+function renderPodium(): void {
+  const host = document.getElementById("podium-region")!;
+  host.innerHTML = "";
+  const ranked = rankBanks(dataset, query());
+  if (ranked.length === 0) return;
+
+  host.append(
+    el("div", { class: "section-head" }, [
+      el("div", {}, [
+        el("h2", { class: "section-title" }, ["Top picks for you"]),
+        el("p", { class: "section-note" }, [contextLine()]),
+      ]),
+    ]),
+  );
+
+  const podium = el("div", { class: "podium" });
+  ranked.slice(0, 3).forEach((r) => {
+    const card = el(
+      "div",
+      {
+        class: `podium-card${r.rank === 1 ? " first" : ""}`,
+        style: `--bank:${r.bank.color}`,
+      },
+      [
+        el("div", { class: "podium-rank" }, [
+          el("span", { class: `medal medal-${r.rank}` }, [String(r.rank)]),
+          r.rank === 1 ? "Best rate" : `#${r.rank}`,
+        ]),
+        el("div", { class: "podium-bank" }, [
+          el("span", { class: "bank-dot" }),
+          el("span", { class: "podium-bankname" }, [r.bank.name]),
+        ]),
+        el("div", { class: "podium-rate" }, [formatRate(r.entry.ratePercent)]),
+        el("div", { class: "podium-detail" }, [
+          r.entry.scheme
+            ? `${r.entry.tenure.label} · ${r.entry.scheme}`
+            : r.entry.tenure.label,
+        ]),
+      ],
+    );
+    podium.append(card);
+  });
+  host.append(podium);
+}
+
+function contextLine(): string {
+  const amt = formatINR(state.amount);
+  const cust = customerLabel(state.customer);
+  if (state.product === "SAVINGS")
+    return `${productLabel(state.product)} · ${cust} · balance ${amt}`;
+  const ten =
+    TENURE_PRESETS.find((t) => t.days === state.tenureDays)?.label ?? "";
+  return `${productLabel(state.product)} · ${cust} · ${amt} · ${ten}`;
+}
+
+// ---- Tenure strip ----
 function renderLeaderboard(): void {
   const host = document.getElementById("leaderboard-region")!;
   host.innerHTML = "";
-  if (state.product === "SAVINGS") return; // tenure leaderboard not meaningful for savings
+  if (state.product === "SAVINGS") return;
 
-  host.append(el("h2", { class: "section-title" }, ["Best rate by tenure"]));
   host.append(
-    el("p", { class: "section-note" }, [
-      `${productLabel(state.product)} · ${customerLabel(state.customer)} · ${formatINR(state.amount)}`,
+    el("div", { class: "section-head" }, [
+      el("div", {}, [
+        el("h2", { class: "section-title" }, ["Best rate by tenure"]),
+        el("p", { class: "section-note" }, [
+          `${productLabel(state.product)} · ${customerLabel(state.customer)} · ${formatINR(state.amount)}`,
+        ]),
+      ]),
     ]),
   );
 
@@ -374,7 +507,6 @@ function customerLabel(c: CustomerCategory): string {
       : "Super senior";
 }
 
-/** A small source-quality badge for a rate row (official / aggregator / sample). */
 function qualityTag(quality: string): Node | string {
   if (quality === "OFFICIAL")
     return el("span", { class: "tag tag-official" }, ["official"]);
@@ -384,17 +516,18 @@ function qualityTag(quality: string): Node | string {
   return "";
 }
 
+// ---- Full comparison table (collapsed to top 5 until expanded) ----
 function renderTable(): void {
   const host = document.getElementById("table-region")!;
   host.innerHTML = "";
   const ranked = rankBanks(dataset, query());
 
-  host.append(el("h2", { class: "section-title" }, ["Bank comparison"]));
   host.append(
-    el("p", { class: "section-note" }, [
-      state.product === "SAVINGS"
-        ? `${productLabel(state.product)} · ${customerLabel(state.customer)} · balance ${formatINR(state.amount)}`
-        : `${productLabel(state.product)} · ${customerLabel(state.customer)} · ${formatINR(state.amount)} · ${TENURE_PRESETS.find((t) => t.days === state.tenureDays)?.label ?? ""}`,
+    el("div", { class: "section-head" }, [
+      el("div", {}, [
+        el("h2", { class: "section-title" }, ["All banks compared"]),
+        el("p", { class: "section-note" }, [contextLine()]),
+      ]),
     ]),
   );
 
@@ -407,36 +540,38 @@ function renderTable(): void {
     return;
   }
 
+  const rows = state.showAll ? ranked : ranked.slice(0, 5);
+
   const table = el("table", { class: "rate-table" });
-  const thead = el("thead", {}, [
-    el("tr", {}, [
-      el("th", {}, ["#"]),
-      el("th", {}, ["Bank"]),
-      el("th", { class: "num" }, ["Rate"]),
-      el("th", {}, ["Applies to"]),
-      el("th", {}, ["Effective"]),
+  table.append(
+    el("thead", {}, [
+      el("tr", {}, [
+        el("th", {}, ["#"]),
+        el("th", {}, ["Bank"]),
+        el("th", { class: "num" }, ["Rate"]),
+        el("th", {}, ["Applies to"]),
+        el("th", {}, ["Effective"]),
+      ]),
     ]),
-  ]);
-  table.append(thead);
+  );
 
   const tbody = el("tbody");
-  for (const r of ranked) {
+  for (const r of rows) {
     const detail = r.entry.scheme
       ? `${r.entry.tenure.label} · ${amountLabel(r.entry.amount)} · ${r.entry.scheme}`
       : `${r.entry.tenure.label} · ${amountLabel(r.entry.amount)}`;
-    const badge =
-      r.rank <= 3
-        ? el("span", { class: `medal medal-${r.rank}` }, [String(r.rank)])
-        : el("span", { class: "rank" }, [String(r.rank)]);
-
     tbody.append(
       el("tr", { class: r.rank === 1 ? "top-row" : "" }, [
-        el("td", {}, [badge]),
+        el("td", {}, [
+          r.rank <= 3
+            ? el("span", { class: `medal medal-${r.rank}` }, [String(r.rank)])
+            : el("span", { class: "rank" }, [String(r.rank)]),
+        ]),
         el("td", {}, [
           el("div", { class: "bank-cell" }, [
             el("span", {
               class: "bank-dot",
-              style: `background:${r.bank.color}`,
+              style: `--bank:${r.bank.color};background:${r.bank.color}`,
             }),
             el("div", {}, [
               el("div", { class: "bank-name" }, [r.bank.name]),
@@ -444,7 +579,9 @@ function renderTable(): void {
             ]),
           ]),
         ]),
-        el("td", { class: "num rate-cell" }, [formatRate(r.entry.ratePercent)]),
+        el("td", { class: "num rate-cell", style: `color:${r.bank.color}` }, [
+          formatRate(r.entry.ratePercent),
+        ]),
         el("td", { class: "muted" }, [detail]),
         el("td", { class: "muted" }, [
           formatDate(r.entry.source.effectiveDate),
@@ -455,6 +592,17 @@ function renderTable(): void {
   }
   table.append(tbody);
   host.append(el("div", { class: "table-wrap" }, [table]));
+
+  if (ranked.length > 5) {
+    const btn = el("button", { class: "reveal-btn", type: "button" }, [
+      state.showAll ? "Show top 5 only" : `Show all ${ranked.length} banks`,
+    ]);
+    btn.addEventListener("click", () => {
+      state.showAll = !state.showAll;
+      renderTable();
+    });
+    host.append(el("div", { class: "reveal-wrap" }, [btn]));
+  }
 }
 
 boot().catch((err) => {
