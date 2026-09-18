@@ -193,6 +193,15 @@ export class TableRateAdapter {
                     out.push(this.rd("SENIOR", row.senior, tenure, source));
             }
         }
+        // Sanity guard: a genuine FD rate card has several tenure buckets. If we
+        // parsed fewer than 4 distinct FD tenures, we almost certainly latched onto
+        // the wrong table (e.g. a footnotes/terms table). Reject so the ingest
+        // runner keeps last-known-good instead of publishing junk as "official".
+        const fdTenures = new Set(out
+            .filter((r) => r.product === "FD")
+            .map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`));
+        if (fdTenures.size < 4)
+            return [];
         return out;
     }
     /** Pure parser: flat savings rate. Unit-testable. */

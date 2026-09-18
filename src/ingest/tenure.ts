@@ -19,6 +19,14 @@ export function parseTenure(text: string): TenureRange | null {
   const t = text.toLowerCase().replace(/\s+/g, " ").trim();
   if (!/\d/.test(t)) return null;
   if (!/(day|year|yr|month|mon)/.test(t)) return null;
+  // Real tenure labels are short ("1 year to < 2 years", "444 days"). Reject
+  // long prose (penalty/terms footnotes) that merely happen to contain a number
+  // and a time word — these are not rate rows.
+  if (t.length > 60) return null;
+  if (
+    /(premature|penalty|notice|closure|remained|w\.e\.f|prior notice)/.test(t)
+  )
+    return null;
 
   const toDays = (value: number, unit: string): number => {
     if (/year|yr/.test(unit)) return Math.round(value * 365);
