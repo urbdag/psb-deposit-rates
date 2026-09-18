@@ -43,6 +43,27 @@ const HISTORY = await loadHistory();
 const CHANGES = recentChanges(HISTORY);
 const bankById = new Map(DATASET.banks.map((b) => [b.id, b]));
 
+/**
+ * Average headline 1-year GENERAL FD rate across all PSU banks (rounded 2dp).
+ * Uses the same ranked query fdRankSummary relies on so the per-bank rate and
+ * the peer average are directly comparable. Computed once and reused per page.
+ */
+function computePsuFdAverage() {
+  const ranked = rankBanks(DATASET, {
+    product: "FD",
+    customer: "GENERAL",
+    amount: 500000,
+    tenureDays: 365,
+  });
+  const rates = ranked
+    .map((r) => r.entry.ratePercent)
+    .filter((n) => Number.isFinite(n));
+  if (!rates.length) return null;
+  const avg = rates.reduce((a, b) => a + b, 0) / rates.length;
+  return Math.round(avg * 100) / 100;
+}
+const PSU_FD_AVERAGE = computePsuFdAverage();
+
 const TENURE_PAGES = [
   { slug: "6-months", label: "6 months", days: 182 },
   { slug: "1-year", label: "1 year", days: 365 },
@@ -217,6 +238,151 @@ function shade(hex) {
   return `rgb(${r},${g},${b})`;
 }
 
+/** Effective date from a bank's first rate source (mirrors sourceLine). */
+function effectiveDateFor(bankId) {
+  return DATASET.rates.find((r) => r.bankId === bankId)?.source?.effectiveDate;
+}
+
+/** Format an approximate ₹-crore figure into lakh-crore / crore prose. */
+function croreLabel(crore) {
+  if (!Number.isFinite(crore)) return null;
+  if (crore >= 100000) {
+    const lc = crore / 100000;
+    const s = Number.isInteger(lc) ? String(lc) : lc.toFixed(1);
+    return `₹${s} lakh crore`;
+  }
+  return `₹${Math.round(crore).toLocaleString("en-IN")} crore`;
+}
+
+/** Signed delta description of a bank's rate vs the PSU peer average. */
+function deltaVsPeer(rate) {
+  if (PSU_FD_AVERAGE == null || !Number.isFinite(rate)) return null;
+  const delta = Math.round((rate - PSU_FD_AVERAGE) * 100) / 100;
+  const avgStr = fmt.formatRate(PSU_FD_AVERAGE);
+  if (Math.abs(delta) < 0.03) {
+    return { delta, sign: "flat", text: `in line with the PSU average of ${avgStr}` };
+  }
+  const signed = `${delta > 0 ? "+" : "−"}${Math.abs(delta).toFixed(2)}%`;
+  const word = delta > 0 ? "above" : "below";
+  return { delta, sign: delta > 0 ? "up" : "down", text: `${signed} ${word} the PSU average of ${avgStr}` };
+}
+
+/**
+ * 2–3 sentence templated intro built ONLY from real metadata + computed
+ * figures. Clauses whose source field is missing are omitted gracefully.
+ */
+function bankIntro(bank) {
+  const s1parts = [`${esc(bank.name)} (${esc(bank.shortName)}) is a nationalised public sector bank`];
+  if (bank.headquarters) s1parts.push(`headquartered in ${esc(bank.headquarters)}`);
+  if (bank.established) s1parts.push(`established in ${bank.established}`);
+  const sentence1 = s1parts.join(", ") + ".";
+
+  const sentences = [sentence1];
+  const rk = fdRankSummary(bank.id);
+  const d = rk ? deltaVsPeer(rk.rate) : null;
+  if (rk && d) {
+    sentences.push(
+      `Its headline 1-year FD rate of ${fmt.formatRate(rk.rate)} is ${d.text}, ranking #${rk.rank} of ${rk.of} public sector banks.`,
+    );
+  }
+  return `<p class="bank-intro">${sentences.join(" ")}</p>`;
+}
+
+/** A small grid of only the present, clearly-approximate institution facts. */
+function institutionSnapshot(bank) {
+  const items = [];
+  if (bank.headquarters)
+    items.push(instItem("Headquarters", esc(bank.headquarters)));
+  if (bank.established)
+    items.push(instItem("Established", String(bank.established)));
+  if (Number.isFinite(bank.branches))
+    items.push(instItem("Branches", `~${bank.branches.toLocaleString("en-IN")}`, true));
+  if (Number.isFinite(bank.atms))
+    items.push(instItem("ATMs", `~${bank.atms.toLocaleString("en-IN")}`, true));
+  if (Number.isFinite(bank.totalBusinessCrore)) {
+    const lbl = croreLabel(bank.totalBusinessCrore);
+    if (lbl) items.push(instItem("Total business", `~${lbl}`, true));
+  }
+  if (bank.ownership) items.push(instItem("Ownership", esc(bank.ownership)));
+  if (!items.length) return "";
+
+  const hasApprox = Number.isFinite(bank.branches) ||
+    Number.isFinite(bank.atms) ||
+    Number.isFinite(bank.totalBusinessCrore);
+  const asOf = bank.statsAsOf && hasApprox
+    ? `<p class="inst-note muted">Figures marked “approx.” are rounded public estimates as of ${bank.statsAsOf}.</p>`
+    : "";
+  return `<div class="inst-snapshot">
+    <div class="inst-grid">${items.join("")}</div>
+    ${asOf}
+  </div>`;
+}
+
+function instItem(label, value, approx = false) {
+  return `<div class="inst-item">
+    <div class="inst-label">${esc(label)}</div>
+    <div class="inst-value">${value}${approx ? ' <span class="inst-approx">approx.</span>' : ""}</div>
+  </div>`;
+}
+
+/** Part B: how this bank compares — signed delta, rank, movement, trust line. */
+function compareStrip(bank) {
+  const rk = fdRankSummary(bank.id);
+  const items = [];
+
+  if (rk) {
+    const d = deltaVsPeer(rk.rate);
+    const deltaClass = d ? `delta-${d.sign}` : "";
+    items.push(`<div class="compare-item">
+      <div class="compare-label">1-year FD rate</div>
+      <div class="compare-value" style="color:${bank.color}">${fmt.formatRate(rk.rate)}</div>
+      <div class="compare-sub ${deltaClass}">${d ? esc(d.text) : "PSU average unavailable"}</div>
+    </div>`);
+    items.push(`<div class="compare-item">
+      <div class="compare-label">Peer rank</div>
+      <div class="compare-value">#${rk.rank}</div>
+      <div class="compare-sub muted">of ${rk.of} PSU banks</div>
+    </div>`);
+  }
+
+  // Movement indicator — gated exactly like productSection().
+  const showTrend = HISTORY.snapshots.length >= 2;
+  const headline = bestFor(bank.id, "FD", "GENERAL");
+  let movePill = `<span class="move-pill move-new">Tracking started</span>`;
+  if (showTrend && headline) {
+    const series = seriesForKey(HISTORY, rateKey(headline));
+    if (series.length >= 2) {
+      const first = series[0];
+      const last = series[series.length - 1];
+      const diff = Math.round((last - first) * 100) / 100;
+      const spark = sparklineSvg(series, bank.color);
+      if (diff > 0) {
+        movePill = `<span class="move-pill move-rose">${triUp()} rose ${Math.abs(diff).toFixed(2)}%</span>${spark}`;
+      } else if (diff < 0) {
+        movePill = `<span class="move-pill move-fell">${triDown()} fell ${Math.abs(diff).toFixed(2)}%</span>${spark}`;
+      } else {
+        movePill = `<span class="move-pill move-flat">unchanged</span>${spark}`;
+      }
+    }
+  }
+  items.push(`<div class="compare-item">
+    <div class="compare-label">Recent movement</div>
+    <div class="compare-move">${movePill}</div>
+  </div>`);
+
+  const official = bankIsOfficial(bank.id);
+  const eff = effectiveDateFor(bank.id);
+  const freshness = eff
+    ? `Rates as of ${esc(fmt.formatDate(eff))}, verified from ${official ? "official source" : "aggregated sources"}.`
+    : `Rates ${official ? "verified from official source" : "from aggregated sources"}.`;
+  const trust = `<span class="trust-strong">Majority Government-of-India owned</span> — deposits insured by DICGC up to ₹5,00,000.`;
+
+  return `<div class="compare-strip">
+    <div class="compare-items">${items.join("")}</div>
+    <p class="trust-line">${freshness} ${trust}</p>
+  </div>`;
+}
+
 function page(bank) {
   const official = bankIsOfficial(bank.id);
   const src = DATASET.rates.find((r) => r.bankId === bank.id)?.source;
@@ -295,6 +461,17 @@ function page(bank) {
   </header>
 
   <div class="container">
+    <section class="block">
+      <div class="panel overview-panel" style="padding:24px">
+        <div class="section-head" style="margin-bottom:6px"><div>
+          <h2 class="section-title">Overview</h2>
+          <p class="section-note">${esc(bank.shortName)} at a glance and how it compares with its PSU peers</p>
+        </div></div>
+        ${bankIntro(bank)}
+        ${institutionSnapshot(bank)}
+        ${compareStrip(bank)}
+      </div>
+    </section>
     ${maturityCalc(bank, defaultRate)}
     ${productSection(bank, "FD", "Fixed Deposit rates")}
     ${productSection(bank, "RD", "Recurring Deposit rates")}

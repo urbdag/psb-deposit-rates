@@ -3,6 +3,7 @@
  * other nationalised banks (post the 2019–2020 mega-mergers).
  * headquarters + established are sourced public facts (used on profile pages).
  */
+const GOI_OWNERSHIP = "Government of India (majority stakeholder)";
 export const BANKS = [
     {
         id: "sbi",
@@ -12,6 +13,11 @@ export const BANKS = [
         website: "https://sbi.co.in",
         headquarters: "Mumbai",
         established: 1955,
+        branches: 22500,
+        atms: 65000,
+        totalBusinessCrore: 8400000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "pnb",
@@ -21,6 +27,11 @@ export const BANKS = [
         website: "https://www.pnbindia.in",
         headquarters: "New Delhi",
         established: 1894,
+        branches: 10000,
+        atms: 12000,
+        totalBusinessCrore: 2400000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "bob",
@@ -30,6 +41,11 @@ export const BANKS = [
         website: "https://www.bankofbaroda.in",
         headquarters: "Vadodara",
         established: 1908,
+        branches: 8200,
+        atms: 11000,
+        totalBusinessCrore: 2400000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "canara",
@@ -39,6 +55,11 @@ export const BANKS = [
         website: "https://canarabank.com",
         headquarters: "Bengaluru",
         established: 1906,
+        branches: 9500,
+        atms: 10000,
+        totalBusinessCrore: 2200000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "union",
@@ -48,6 +69,11 @@ export const BANKS = [
         website: "https://www.unionbankofindia.co.in",
         headquarters: "Mumbai",
         established: 1919,
+        branches: 8500,
+        atms: 9000,
+        totalBusinessCrore: 2100000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "boi",
@@ -57,6 +83,10 @@ export const BANKS = [
         website: "https://bankofindia.co.in",
         headquarters: "Mumbai",
         established: 1906,
+        branches: 5100,
+        totalBusinessCrore: 1300000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "indian",
@@ -66,6 +96,10 @@ export const BANKS = [
         website: "https://www.indianbank.in",
         headquarters: "Chennai",
         established: 1907,
+        branches: 5800,
+        totalBusinessCrore: 1200000,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "central",
@@ -75,6 +109,9 @@ export const BANKS = [
         website: "https://www.centralbankofindia.co.in",
         headquarters: "Mumbai",
         established: 1911,
+        branches: 4500,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "iob",
@@ -84,6 +121,9 @@ export const BANKS = [
         website: "https://www.iob.in",
         headquarters: "Chennai",
         established: 1937,
+        branches: 3200,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "uco",
@@ -93,6 +133,9 @@ export const BANKS = [
         website: "https://www.ucobank.com",
         headquarters: "Kolkata",
         established: 1943,
+        branches: 3200,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "maha",
@@ -102,6 +145,9 @@ export const BANKS = [
         website: "https://bankofmaharashtra.in",
         headquarters: "Pune",
         established: 1935,
+        branches: 2500,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
     {
         id: "psb",
@@ -111,5 +157,8 @@ export const BANKS = [
         website: "https://punjabandsindbank.co.in",
         headquarters: "New Delhi",
         established: 1908,
+        branches: 1500,
+        ownership: GOI_OWNERSHIP,
+        statsAsOf: 2024,
     },
 ];

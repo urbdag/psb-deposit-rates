@@ -35,6 +35,38 @@ export interface Bank {
   headquarters?: string;
   /** Year the bank was established/founded (sourced fact). */
   established?: number;
+  /**
+   * Approximate branch count. A rounded, widely-published public figure used
+   * only for the profile-page "institution snapshot"; NOT an exact number.
+   * Omit for banks where a confident figure is not known.
+   */
+  branches?: number;
+  /**
+   * Approximate ATM/cash-recycler count. A rounded, widely-published public
+   * figure used only for the profile-page snapshot; NOT exact. Omit if unknown.
+   */
+  atms?: number;
+  /**
+   * Approximate total business (deposits + advances) in Rs crore. The commonly
+   * published PSU headline figure; rounded and approximate, used only for the
+   * profile-page snapshot. Omit for banks where a confident figure is unknown.
+   */
+  totalBusinessCrore?: number;
+  /**
+   * Approximate total assets in Rs crore. Optional companion to
+   * totalBusinessCrore; rounded, approximate public figure. Omit if unknown.
+   */
+  assetsCrore?: number;
+  /**
+   * Ownership descriptor, e.g. "Government of India (majority stakeholder)".
+   * A definitional fact for the 12 PSU banks (not a guessed figure).
+   */
+  ownership?: string;
+  /**
+   * The year the approximate snapshot figures (branches/atms/totalBusinessCrore)
+   * are "as of", surfaced in the UI so readers know their vintage.
+   */
+  statsAsOf?: number;
 }
 
 /**
