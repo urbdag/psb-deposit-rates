@@ -236,17 +236,7 @@ function page(bank) {
   <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>
 <body>
-  <nav class="nav" id="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="../../" style="text-decoration:none;color:inherit">
-        <span class="brand-mark">${brandMark()}</span>
-        <span class="brand-word">Rate<span class="brand-accent">Radar</span></span>
-      </a>
-      <div class="nav-right">
-        <a class="nav-pill" href="../../">← All banks</a>
-      </div>
-    </div>
-  </nav>
+  ${navBar("../../", "")}
 
   <header class="hero" style="padding-bottom:24px">
     <div class="hero-bg" style="background:radial-gradient(55% 55% at 20% 8%, ${bank.color}55, transparent 70%)"></div>
@@ -283,7 +273,7 @@ function page(bank) {
       <div class="footer-grid">
         <div>
           <div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
-          <p class="muted">Deposit rates across India's 12 public sector banks. <a class="modal-link" href="../../">Compare all banks →</a></p>
+          <p class="muted">Deposit rates across India's 12 public sector banks. <a class="modal-link" href="../../">Compare all banks ${arrowSvg()}</a></p>
         </div>
         <div>
           <p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p>
@@ -293,9 +283,8 @@ function page(bank) {
   </footer>
 
   <script>
+  ${navScript()}
   (function(){
-    var nav=document.getElementById('nav');
-    addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)},{passive:true});
     var amt=document.getElementById('mc-amount'), rate=document.getElementById('mc-rate'),
         ten=document.getElementById('mc-tenure'), out=document.getElementById('mc-out'), earn=document.getElementById('mc-earn');
     function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
@@ -340,6 +329,46 @@ function brandMark() {
   return `<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><path d="M28 66 A24 24 0 0 1 66 34" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.5"/><path d="M34 66 A18 18 0 0 1 60 41" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.85"/><circle cx="66" cy="66" r="7.5" fill="white"/></svg>`;
 }
 
+/**
+ * Shared responsive nav. `base` is the relative prefix to site root
+ * (e.g. "../../" for /bank/sbi/, "../" for /fixed-deposit/, "" for root pages).
+ * `active` marks the current section.
+ */
+function navBar(base, active = "") {
+  const link = (href, label, key) =>
+    `<a class="nav-link${active === key ? " nav-active" : ""}" href="${base}${href}">${label}</a>`;
+  return `<nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="${base || "./"}">
+        <span class="brand-mark">${brandMark()}</span>
+        <span class="brand-word">Rate<span class="brand-accent">Radar</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        ${link("", "Compare", "home")}
+        ${link("fixed-deposit/", "Fixed Deposits", "fd")}
+        ${link("savings-account/", "Savings", "savings")}
+        ${link("recurring-deposit/", "Recurring", "rd")}
+        ${link("senior-citizen-fd-rates/", "Senior citizen", "senior")}
+      </div>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-drawer" id="nav-drawer">
+      ${link("", "Compare all", "home")}
+      ${link("fixed-deposit/", "Fixed Deposit rates", "fd")}
+      ${link("savings-account/", "Savings account rates", "savings")}
+      ${link("recurring-deposit/", "Recurring Deposit rates", "rd")}
+      ${link("senior-citizen-fd-rates/", "Senior citizen FD", "senior")}
+    </div>
+  </nav>`;
+}
+
+/** Small script (inlined on every generated page) for scroll + mobile drawer. */
+function navScript() {
+  return `(function(){var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)},{passive:true});var b=document.getElementById('nav-burger'),d=document.getElementById('nav-drawer');if(b&&d){b.addEventListener('click',function(){var open=nav.classList.toggle('drawer-open');b.setAttribute('aria-expanded',open?'true':'false')});d.addEventListener('click',function(e){if(e.target.closest('a'))nav.classList.remove('drawer-open')})}})();`;
+}
+
 function checkSvg() {
   return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M20 6L9 17l-5-5"/></svg>`;
 }
@@ -348,6 +377,241 @@ function extLinkSvg() {
   return `<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;
 }
 
+function arrowSvg() {
+  return `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>`;
+}
+
+// ==========================================================================
+//  Landing pages: per-product + per-FD-tenure + senior-citizen FD
+// ==========================================================================
+
+const YEAR = new Date().getFullYear();
+const MONTH = new Date().toLocaleDateString("en-IN", {
+  month: "long",
+  year: "numeric",
+});
+
+/** A ranked leaderboard table (rank, bank→profile link, rate, applies-to). */
+function leaderboardTable(ranked, base) {
+  const rows = ranked
+    .map((r, i) => {
+      const badge =
+        i < 3
+          ? `<span class="medal medal-${i + 1}">${i + 1}</span>`
+          : `<span class="rank">${i + 1}</span>`;
+      const detail = r.entry.scheme
+        ? `${esc(r.entry.tenure.label)} · ${esc(r.entry.scheme)}`
+        : esc(r.entry.tenure.label);
+      return `<tr>
+        <td>${badge}</td>
+        <td><a class="bank-name bank-link" href="${base}bank/${r.bank.id}/">${esc(r.bank.name)}</a>
+            <div class="bank-short muted">${esc(r.bank.shortName)}</div></td>
+        <td class="num rate-cell" style="color:${r.bank.color}">${fmt.formatRate(r.entry.ratePercent)}</td>
+        <td class="muted">${detail}</td>
+      </tr>`;
+    })
+    .join("");
+  return `<div class="table-wrap"><table class="rate-table">
+    <thead><tr><th>#</th><th>Bank</th><th class="num">Rate</th><th>Applies to</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+
+function landingShell({
+  base,
+  title,
+  desc,
+  canonical,
+  h1Html,
+  sub,
+  active,
+  sections,
+  appLink,
+}) {
+  const jsonld = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description: desc,
+  };
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#4f46e5" />
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(desc)}" />
+  <link rel="canonical" href="${canonical}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="${esc(title)}" />
+  <meta property="og:description" content="${esc(desc)}" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="${base}favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="${base}styles.css" />
+  <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
+</head>
+<body>
+  ${navBar(base, active)}
+  <header class="hero" style="padding-bottom:20px">
+    <div class="hero-bg"></div>
+    <div class="container"><div class="hero-inner">
+      <span class="eyebrow"><span class="live-dot"></span> Updated ${esc(MONTH)}</span>
+      <h1 style="font-size:clamp(30px,5vw,50px)">${h1Html}</h1>
+      <p class="hero-sub">${esc(sub)}</p>
+      <div style="margin-top:18px"><a class="reveal-btn" href="${base}${appLink}">Open interactive comparison ${arrowSvg()}</a></div>
+    </div></div>
+  </header>
+  <div class="container">
+    ${sections}
+    <section class="block"><div class="panel" style="padding:22px">
+      <h2 class="section-title" style="margin-bottom:10px">About these rates</h2>
+      <p class="muted" style="margin:0">Rates are compiled across India's 12 public sector banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
+    </div></section>
+  </div>
+  <footer class="site-footer"><div class="container"><div class="footer-grid">
+    <div><div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
+      <p class="muted">Best deposit rates across India's public sector banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
+    <div><p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p></div>
+  </div></div></footer>
+  <script>${navScript()}</script>
+</body>
+</html>`;
+}
+
+function productLandingPage(product) {
+  const base = "../";
+  const name = fmt.productLabel(product);
+  const slug =
+    product === "FD"
+      ? "fixed-deposit"
+      : product === "RD"
+        ? "recurring-deposit"
+        : "savings-account";
+  const q = { product, customer: "GENERAL", amount: 500000, tenureDays: 365 };
+  const ranked = rankBanks(DATASET, q);
+  const top = ranked[0];
+  const sub =
+    product === "SAVINGS"
+      ? `Compare savings account interest rates across all 12 public sector banks.`
+      : `The highest ${name} rates across all 12 public sector banks, ranked. Amounts below ₹3 crore, general public.`;
+  let sections = `<section class="block">
+    <div class="section-head"><div><h2 class="section-title">Best ${esc(name)} rates${product !== "SAVINGS" ? " (1 year)" : ""}</h2>
+    <p class="section-note">Ranked across public sector banks · ${MONTH}</p></div></div>
+    ${leaderboardTable(ranked, base)}</section>`;
+
+  // For FD/RD, add a "best by tenure" quick grid with links to tenure pages.
+  if (product === "FD") {
+    const cells = TENURE_PAGES.map((tp) => {
+      const r = rankBanks(DATASET, {
+        product,
+        customer: "GENERAL",
+        amount: 500000,
+        tenureDays: tp.days,
+      })[0];
+      return `<a class="tenure-card" href="${base}fixed-deposit/${tp.slug}/" style="text-decoration:none">
+        <div class="tenure-label">${esc(tp.label)}</div>
+        <div class="tenure-rate" style="color:${r ? r.bank.color : "#888"}">${r ? fmt.formatRate(r.entry.ratePercent) : "—"}</div>
+        <div class="tenure-bank">${r ? esc(r.bank.shortName) : ""}</div></a>`;
+    }).join("");
+    sections += `<section class="block"><div class="section-head"><div>
+      <h2 class="section-title">Best FD rate by tenure</h2>
+      <p class="section-note">Tap a tenure for the full ranking</p></div></div>
+      <div class="tenure-grid">${cells}</div></section>`;
+  }
+
+  const title = `Best ${name} Rates ${YEAR} — Public Sector Banks | RateRadar`;
+  const desc = `Compare the best ${name} interest rates across India's 12 public sector banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
+  return {
+    slug,
+    html: landingShell({
+      base,
+      title,
+      desc,
+      canonical: `${slug}/`,
+      h1Html: `Best <span class="grad">${esc(name)}</span> rates`,
+      sub,
+      active: product === "FD" ? "fd" : product === "RD" ? "rd" : "savings",
+      sections,
+      appLink: `?product=${product}`,
+    }),
+  };
+}
+
+function tenureLandingPage(tp) {
+  const base = "../../";
+  const q = {
+    product: "FD",
+    customer: "GENERAL",
+    amount: 500000,
+    tenureDays: tp.days,
+  };
+  const ranked = rankBanks(DATASET, q);
+  const top = ranked[0];
+  const title = `Best ${tp.label} FD Rates ${YEAR} — Public Sector Banks | RateRadar`;
+  const desc = `Highest ${tp.label} fixed deposit rates across India's 12 public sector banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
+  const sections = `<section class="block">
+    <div class="section-head"><div><h2 class="section-title">Best ${esc(tp.label)} FD rates</h2>
+    <p class="section-note">General public · below ₹3 crore · ${MONTH}</p></div></div>
+    ${leaderboardTable(ranked, base)}</section>`;
+  return {
+    slug: tp.slug,
+    html: landingShell({
+      base,
+      title,
+      desc,
+      canonical: `fixed-deposit/${tp.slug}/`,
+      h1Html: `Best <span class="grad">${esc(tp.label)}</span> FD rates`,
+      sub: `The public sector banks offering the highest fixed-deposit rate for a ${tp.label} tenure, ranked.`,
+      active: "fd",
+      sections,
+      appLink: `?product=FD&tenure=${tp.days}`,
+    }),
+  };
+}
+
+function seniorLandingPage() {
+  const base = "../";
+  const q = {
+    product: "FD",
+    customer: "SENIOR",
+    amount: 500000,
+    tenureDays: 365,
+  };
+  const ranked = rankBanks(DATASET, q);
+  const top = ranked[0];
+  const title = `Senior Citizen FD Rates ${YEAR} — Public Sector Banks | RateRadar`;
+  const desc = `Best senior citizen fixed deposit rates across India's 12 public sector banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Seniors typically earn +0.50% over general rates. Updated ${MONTH}.`;
+  const sections = `<section class="block">
+    <div class="section-head"><div><h2 class="section-title">Best senior citizen FD rates (1 year)</h2>
+    <p class="section-note">Age 60+ · below ₹3 crore · ${MONTH}</p></div></div>
+    ${leaderboardTable(ranked, base)}</section>`;
+  return {
+    slug: "senior-citizen-fd-rates",
+    html: landingShell({
+      base,
+      title,
+      desc,
+      canonical: `senior-citizen-fd-rates/`,
+      h1Html: `Best <span class="grad">senior citizen</span> FD rates`,
+      sub: `Public sector banks give senior citizens (60+) an extra ~0.50% p.a. Here are the highest senior FD rates, ranked.`,
+      active: "senior",
+      sections,
+      appLink: `?product=FD&customer=SENIOR`,
+    }),
+  };
+}
+
+const TENURE_PAGES = [
+  { slug: "6-months", label: "6 month", days: 182 },
+  { slug: "1-year", label: "1 year", days: 365 },
+  { slug: "2-year", label: "2 year", days: 730 },
+  { slug: "3-year", label: "3 year", days: 1095 },
+  { slug: "5-year", label: "5 year", days: 1825 },
+];
+
 // ---- write pages + a favicon + sitemap ------------------------------------
 let count = 0;
 const sitemapUrls = ["", ...DATASET.banks.map((b) => `bank/${b.id}/`)];
@@ -355,6 +619,36 @@ for (const bank of DATASET.banks) {
   const dir = resolve(root, "public/bank", bank.id);
   await mkdir(dir, { recursive: true });
   await writeFile(resolve(dir, "index.html"), page(bank), "utf8");
+  count++;
+}
+
+// Product landing pages
+for (const product of ["FD", "SAVINGS", "RD"]) {
+  const { slug, html } = productLandingPage(product);
+  const dir = resolve(root, "public", slug);
+  await mkdir(dir, { recursive: true });
+  await writeFile(resolve(dir, "index.html"), html, "utf8");
+  sitemapUrls.push(`${slug}/`);
+  count++;
+}
+
+// FD tenure landing pages
+for (const tp of TENURE_PAGES) {
+  const { slug, html } = tenureLandingPage(tp);
+  const dir = resolve(root, "public/fixed-deposit", slug);
+  await mkdir(dir, { recursive: true });
+  await writeFile(resolve(dir, "index.html"), html, "utf8");
+  sitemapUrls.push(`fixed-deposit/${slug}/`);
+  count++;
+}
+
+// Senior-citizen FD landing page
+{
+  const { slug, html } = seniorLandingPage();
+  const dir = resolve(root, "public", slug);
+  await mkdir(dir, { recursive: true });
+  await writeFile(resolve(dir, "index.html"), html, "utf8");
+  sitemapUrls.push(`${slug}/`);
   count++;
 }
 

@@ -128,16 +128,27 @@ function renderShell(): void {
   root.innerHTML = "";
   const fresh = assessFreshness(dataset.generatedAt);
 
-  // ---- Sticky nav ----
+  // ---- Sticky nav (with responsive hamburger drawer) ----
+  const navLink = (href: string, label: string, key: string) =>
+    el("a", { class: `nav-link${key === "home" ? " nav-active" : ""}`, href }, [
+      label,
+    ]);
   root.append(
     el("nav", { class: "nav", id: "nav" }, [
       el("div", { class: "container nav-inner" }, [
-        el("div", { class: "brand" }, [
+        el("a", { class: "brand", href: "./" }, [
           el("span", { class: "brand-mark", html: brandMarkSvg() }),
           el("span", {
             class: "brand-word",
             html: `Rate<span class="brand-accent">Radar</span>`,
           }),
+        ]),
+        el("div", { class: "nav-links" }, [
+          navLink("./", "Compare", "home"),
+          navLink("fixed-deposit/", "Fixed Deposits", "fd"),
+          navLink("savings-account/", "Savings", "savings"),
+          navLink("recurring-deposit/", "Recurring", "rd"),
+          navLink("senior-citizen-fd-rates/", "Senior citizen", "senior"),
         ]),
         el("div", { class: "nav-right" }, [
           el(
@@ -151,12 +162,28 @@ function renderShell(): void {
               fresh.level === "fresh" ? "Live" : capitalize(fresh.label),
             ],
           ),
-          el("span", { class: "nav-pill hide-sm" }, [
-            el("span", { class: "live-dot" }),
-            `${dataset.banks.length} banks tracked`,
-          ]),
           shareButton(),
         ]),
+        (() => {
+          const b = el(
+            "button",
+            {
+              class: "nav-burger",
+              id: "nav-burger",
+              "aria-label": "Menu",
+              "aria-expanded": "false",
+            },
+            [el("span", {}), el("span", {}), el("span", {})],
+          );
+          return b;
+        })(),
+      ]),
+      el("div", { class: "nav-drawer", id: "nav-drawer" }, [
+        navLink("./", "Compare all", "home"),
+        navLink("fixed-deposit/", "Fixed Deposit rates", "fd"),
+        navLink("savings-account/", "Savings account rates", "savings"),
+        navLink("recurring-deposit/", "Recurring Deposit rates", "rd"),
+        navLink("senior-citizen-fd-rates/", "Senior citizen FD", "senior"),
       ]),
     ]),
   );
@@ -268,6 +295,20 @@ function wireScroll(): void {
   const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  // Mobile hamburger drawer.
+  const burger = document.getElementById("nav-burger");
+  const drawer = document.getElementById("nav-drawer");
+  if (burger && drawer) {
+    burger.addEventListener("click", () => {
+      const open = nav.classList.toggle("drawer-open");
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    drawer.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a"))
+        nav.classList.remove("drawer-open");
+    });
+  }
 }
 
 // ---- Share ----------------------------------------------------------------
@@ -1031,9 +1072,11 @@ function openBankDetail(bankId: string): void {
           el("span", { class: "muted" }, [" · "]),
         ]
       : []),
-    el("a", { class: "modal-link", href: `bank/${bank.id}/` }, [
-      "Full profile →",
-    ]),
+    el("a", {
+      class: "modal-link",
+      href: `bank/${bank.id}/`,
+      html: `Full profile <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>`,
+    }),
   ]);
 
   const modal = el(

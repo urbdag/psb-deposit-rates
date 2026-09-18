@@ -242,6 +242,101 @@ body {
   align-items: center;
   gap: 10px;
 }
+
+/* Primary nav links (desktop) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  margin-right: 10px;
+}
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  transition: all 0.15s var(--ease);
+  white-space: nowrap;
+}
+.nav-link:hover {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+.nav-link.nav-active {
+  color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 10%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  .nav-link.nav-active {
+    color: var(--accent-2);
+  }
+}
+
+/* Hamburger + mobile drawer */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+  cursor: pointer;
+  margin-left: auto;
+}
+.nav-burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform 0.25s var(--ease), opacity 0.2s;
+}
+.nav.drawer-open .nav-burger span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.nav.drawer-open .nav-burger span:nth-child(2) {
+  opacity: 0;
+}
+.nav.drawer-open .nav-burger span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+.nav-drawer {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 20px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.nav.drawer-open .nav-drawer {
+  display: flex;
+  animation: fadeIn 0.2s var(--ease) both;
+}
+.nav-drawer .nav-link {
+  padding: 13px 12px;
+  font-size: 15px;
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 760px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-burger {
+    display: flex;
+  }
+  /* hide the informational pills on mobile so the burger fits */
+  .nav-right .nav-pill.hide-sm {
+    display: none;
+  }
+}
 .nav-pill {
   display: inline-flex;
   align-items: center;

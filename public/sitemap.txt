@@ -11,3 +11,12 @@ bank/iob/
 bank/uco/
 bank/maha/
 bank/psb/
+fixed-deposit/
+savings-account/
+recurring-deposit/
+fixed-deposit/6-months/
+fixed-deposit/1-year/
+fixed-deposit/2-year/
+fixed-deposit/3-year/
+fixed-deposit/5-year/
+senior-citizen-fd-rates/
