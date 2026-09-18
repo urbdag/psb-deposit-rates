@@ -1,0 +1,13 @@
+
+bank/sbi/
+bank/pnb/
+bank/bob/
+bank/canara/
+bank/union/
+bank/boi/
+bank/indian/
+bank/central/
+bank/iob/
+bank/uco/
+bank/maha/
+bank/psb/

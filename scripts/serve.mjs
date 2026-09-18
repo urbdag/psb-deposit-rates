@@ -21,12 +21,16 @@ const MIME = {
 const server = createServer(async (req, res) => {
   try {
     let urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
-    if (urlPath === "/") urlPath = "/index.html";
-    const filePath = join(publicDir, normalize(urlPath));
+    // Directory-style paths ("/" or "/bank/sbi/") serve their index.html,
+    // matching GitHub Pages behaviour.
+    if (urlPath.endsWith("/")) urlPath += "index.html";
+    let filePath = join(publicDir, normalize(urlPath));
     if (!filePath.startsWith(publicDir)) {
       res.writeHead(403).end("Forbidden");
       return;
     }
+    // Extensionless path with no trailing slash -> try /index.html under it.
+    if (!extname(filePath)) filePath = join(filePath, "index.html");
     const body = await readFile(filePath);
     res.writeHead(200, {
       "Content-Type": MIME[extname(filePath)] || "application/octet-stream",

@@ -3,6 +3,7 @@ import type { Bank } from "../types.js";
 /**
  * India's 12 public sector banks as of 2026: State Bank of India plus the 11
  * other nationalised banks (post the 2019–2020 mega-mergers).
+ * headquarters + established are sourced public facts (used on profile pages).
  */
 export const BANKS: Bank[] = [
   {
@@ -11,6 +12,8 @@ export const BANKS: Bank[] = [
     shortName: "SBI",
     color: "#22409a",
     website: "https://sbi.co.in",
+    headquarters: "Mumbai",
+    established: 1955,
   },
   {
     id: "pnb",
@@ -18,6 +21,8 @@ export const BANKS: Bank[] = [
     shortName: "PNB",
     color: "#a01e2e",
     website: "https://www.pnbindia.in",
+    headquarters: "New Delhi",
+    established: 1894,
   },
   {
     id: "bob",
@@ -25,6 +30,8 @@ export const BANKS: Bank[] = [
     shortName: "BoB",
     color: "#f37021",
     website: "https://www.bankofbaroda.in",
+    headquarters: "Vadodara",
+    established: 1908,
   },
   {
     id: "canara",
@@ -32,6 +39,8 @@ export const BANKS: Bank[] = [
     shortName: "Canara",
     color: "#00548e",
     website: "https://canarabank.com",
+    headquarters: "Bengaluru",
+    established: 1906,
   },
   {
     id: "union",
@@ -39,6 +48,8 @@ export const BANKS: Bank[] = [
     shortName: "Union",
     color: "#c2202f",
     website: "https://www.unionbankofindia.co.in",
+    headquarters: "Mumbai",
+    established: 1919,
   },
   {
     id: "boi",
@@ -46,6 +57,8 @@ export const BANKS: Bank[] = [
     shortName: "BoI",
     color: "#f58220",
     website: "https://bankofindia.co.in",
+    headquarters: "Mumbai",
+    established: 1906,
   },
   {
     id: "indian",
@@ -53,6 +66,8 @@ export const BANKS: Bank[] = [
     shortName: "Indian",
     color: "#0b6b3a",
     website: "https://www.indianbank.in",
+    headquarters: "Chennai",
+    established: 1907,
   },
   {
     id: "central",
@@ -60,6 +75,8 @@ export const BANKS: Bank[] = [
     shortName: "Central",
     color: "#8a1f6a",
     website: "https://www.centralbankofindia.co.in",
+    headquarters: "Mumbai",
+    established: 1911,
   },
   {
     id: "iob",
@@ -67,6 +84,8 @@ export const BANKS: Bank[] = [
     shortName: "IOB",
     color: "#1f6fb2",
     website: "https://www.iob.in",
+    headquarters: "Chennai",
+    established: 1937,
   },
   {
     id: "uco",
@@ -74,6 +93,8 @@ export const BANKS: Bank[] = [
     shortName: "UCO",
     color: "#0a4f8b",
     website: "https://www.ucobank.com",
+    headquarters: "Kolkata",
+    established: 1943,
   },
   {
     id: "maha",
@@ -81,6 +102,8 @@ export const BANKS: Bank[] = [
     shortName: "Maharashtra",
     color: "#b8860b",
     website: "https://bankofmaharashtra.in",
+    headquarters: "Pune",
+    established: 1935,
   },
   {
     id: "psb",
@@ -88,5 +111,7 @@ export const BANKS: Bank[] = [
     shortName: "P&S",
     color: "#005baa",
     website: "https://punjabandsindbank.co.in",
+    headquarters: "New Delhi",
+    established: 1908,
   },
 ];

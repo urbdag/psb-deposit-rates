@@ -29,13 +29,14 @@ jobs:
       - name: Install TypeScript
         run: npm install -g typescript
 
-      - name: Build (compile TS only)
+      - name: Build (compile TS + generate bank profile pages)
         # NOTE: we do NOT regenerate public/data/dataset.json here. The committed
         # dataset.json is the source of truth for what's published (it holds the
-        # real imported / daily-ingested rates). Regenerating would overwrite it
-        # with the sample seed. Use `npm run data` locally only to (re)create the
-        # SAMPLE dataset from scratch.
-        run: tsc -p tsconfig.json
+        # real imported / daily-ingested rates). build-pages.mjs READS that
+        # committed dataset (never the sample seed) to emit /bank/<id>/ pages.
+        run: |
+          tsc -p tsconfig.json
+          node scripts/build-pages.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

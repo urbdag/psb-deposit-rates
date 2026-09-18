@@ -714,6 +714,16 @@ section.block {
 .bank-name {
   font-weight: 700;
 }
+a.bank-link {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+a.bank-link:hover {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .bank-short {
   font-size: 12px;
 }

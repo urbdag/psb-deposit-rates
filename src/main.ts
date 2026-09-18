@@ -910,7 +910,11 @@ function renderTable(): void {
               style: `--bank:${r.bank.color};background:${r.bank.color}`,
             }),
             el("div", {}, [
-              el("div", { class: "bank-name" }, [r.bank.name]),
+              el(
+                "a",
+                { class: "bank-name bank-link", href: `bank/${r.bank.id}/` },
+                [r.bank.name],
+              ),
               el("div", { class: "bank-short muted" }, [r.bank.shortName]),
             ]),
           ]),
@@ -924,6 +928,10 @@ function renderTable(): void {
           qualityTag(r.entry.source.quality),
         ]),
       ],
+    );
+    // Row opens the quick modal; the bank-name link navigates to the full page.
+    tr.querySelector(".bank-link")?.addEventListener("click", (e) =>
+      e.stopPropagation(),
     );
     tr.addEventListener("click", () => openBankDetail(r.bank.id));
     tbody.append(tr);
@@ -1003,24 +1011,30 @@ function openBankDetail(bankId: string): void {
     body.append(el("div", { class: "table-wrap" }, [t]));
   }
 
-  const sourceLine = src
-    ? el("div", { class: "modal-source" }, [
-        qualityTag(src.quality),
-        el("span", { class: "muted" }, [
-          ` Effective ${formatDate(src.effectiveDate)} · `,
-        ]),
-        el(
-          "a",
-          {
-            href: src.url,
-            target: "_blank",
-            rel: "noopener",
-            class: "modal-link",
-          },
-          ["View source ↗"],
-        ),
-      ])
-    : el("span", {});
+  const sourceLine = el("div", { class: "modal-source" }, [
+    ...(src
+      ? [
+          qualityTag(src.quality),
+          el("span", { class: "muted" }, [
+            ` Effective ${formatDate(src.effectiveDate)} · `,
+          ]),
+          el(
+            "a",
+            {
+              href: src.url,
+              target: "_blank",
+              rel: "noopener",
+              class: "modal-link",
+            },
+            ["View source ↗"],
+          ),
+          el("span", { class: "muted" }, [" · "]),
+        ]
+      : []),
+    el("a", { class: "modal-link", href: `bank/${bank.id}/` }, [
+      "Full profile →",
+    ]),
+  ]);
 
   const modal = el(
     "div",

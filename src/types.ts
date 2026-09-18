@@ -31,6 +31,10 @@ export interface Bank {
   color: string;
   /** Official website (informational only). */
   website: string;
+  /** City of headquarters (sourced fact). */
+  headquarters?: string;
+  /** Year the bank was established/founded (sourced fact). */
+  established?: number;
 }
 
 /**

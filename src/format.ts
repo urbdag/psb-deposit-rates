@@ -123,3 +123,28 @@ export function parseAmountInput(raw: string): number | null {
 export function formatINRFull(amount: number): string {
   return "₹" + amount.toLocaleString("en-IN");
 }
+
+/**
+ * FD maturity value with quarterly compounding (the Indian bank convention for
+ * cumulative FDs). principal in ₹, annual rate in %, tenure in days.
+ * Returns the maturity amount rounded to the nearest rupee.
+ */
+export function maturityValue(
+  principal: number,
+  annualRatePercent: number,
+  tenureDays: number,
+): number {
+  const years = tenureDays / 365;
+  const r = annualRatePercent / 100;
+  const n = 4; // quarterly
+  return Math.round(principal * Math.pow(1 + r / n, n * years));
+}
+
+/** Interest earned = maturity - principal. */
+export function interestEarned(
+  principal: number,
+  annualRatePercent: number,
+  tenureDays: number,
+): number {
+  return maturityValue(principal, annualRatePercent, tenureDays) - principal;
+}
