@@ -215,7 +215,6 @@ function renderControls(): void {
   const customers = [
     { v: "GENERAL", label: "General" },
     { v: "SENIOR", label: "Senior (60+)" },
-    { v: "SUPER_SENIOR", label: "Super senior" },
   ];
   host.append(
     segControl("Customer", customers, state.customer, (v) => {
