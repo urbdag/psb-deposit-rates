@@ -9,6 +9,7 @@
 // Requires Playwright (installed in the ingest CI job).
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { extractTables, extractRows } from "../public/js/ingest/html.js";
 
 const url = process.argv[2];
 const outDir = resolve(process.argv[3] || "diagnostics");
@@ -109,12 +110,26 @@ try {
     return out.filter((l) => (seen.has(l.href) ? false : (seen.add(l.href), true))).slice(0, 40);
   });
 
+  // Per-table cell-level layout: reuse the same forgiving extractors the
+  // adapters use so what we see here matches what the parser sees. Truncate
+  // cells and cap rows so this stays readable in the CI stdout log (artifacts
+  // are not downloadable in some environments — the log is the source of truth).
+  const CELL_MAX = 60;
+  const ROW_CAP = 40;
+  const tableRows = extractTables(mainHtml).map((t) => {
+    const rows = extractRows(t);
+    return rows
+      .slice(0, ROW_CAP)
+      .map((row) => row.map((cell) => (cell.length > CELL_MAX ? cell.slice(0, CELL_MAX) + "…" : cell)));
+  });
+
   const summary = {
     url,
     mainHtmlLen: mainHtml.length,
     tables: (mainHtml.match(/<table\b/gi) || []).length,
     iframes: frameInfo,
     bodyPctSamples: pctSamples,
+    tableRows,
     rateLinks,
     networkHits: captured.map((c) => ({ url: c.url, ct: c.ct, len: c.len, hasPct: c.hasPct })),
     promising: captured.filter((c) => c.hasPct).map((c) => c.url),
