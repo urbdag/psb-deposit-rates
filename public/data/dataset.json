@@ -671,7 +671,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
       "source": {
         "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
@@ -693,7 +692,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://pnb.bank.in/interest-rates-deposit.html",
         "effectiveDate": "2026-03-01",
@@ -3855,7 +3895,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "300-day Special",
       "source": {
         "url": "https://indianbank.bank.in/en/deposit-rates",
         "effectiveDate": "2026-08-04",
@@ -3877,7 +3916,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "300-day Special",
       "source": {
         "url": "https://indianbank.bank.in/en/deposit-rates",
         "effectiveDate": "2026-08-04",
@@ -3899,7 +3937,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
       "source": {
         "url": "https://indianbank.bank.in/en/deposit-rates",
         "effectiveDate": "2026-08-04",
@@ -3921,7 +3958,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://indianbank.bank.in/en/deposit-rates",
         "effectiveDate": "2026-08-04",
@@ -4327,7 +4405,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
       "source": {
         "url": "https://indianbank.bank.in/en/deposit-rates",
         "effectiveDate": "2026-08-04",
@@ -4349,7 +4426,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://indianbank.bank.in/en/deposit-rates",
         "effectiveDate": "2026-08-04",
@@ -5589,7 +5707,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
       "source": {
         "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
@@ -5611,7 +5728,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
+        "effectiveDate": "2026-05-15",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "iob",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
         "effectiveDate": "2026-05-15",
@@ -6435,7 +6593,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
       "source": {
         "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
         "effectiveDate": "2025-06-23",
@@ -6457,7 +6614,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.24,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
         "effectiveDate": "2025-06-23",
@@ -7327,7 +7525,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "3000-day Special",
       "source": {
         "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
         "effectiveDate": "2025-06-23",
@@ -7349,7 +7546,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "3000-day Special",
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 3000,
+        "maxDays": 3000,
+        "label": "3000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
+        "effectiveDate": "2025-06-23",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "uco",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 8.04,
+      "tenure": {
+        "minDays": 3000,
+        "maxDays": 3000,
+        "label": "3000 days (Green Deposit)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://www.uco.bank.in/en/web/guest/interest-rates-on-deposit-schemes",
         "effectiveDate": "2025-06-23",
@@ -7791,7 +8029,6 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "365-day Special",
       "source": {
         "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
         "effectiveDate": "2026-09-14",
@@ -7813,7 +8050,48 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "365-day Special",
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "365 days/ One Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
+        "effectiveDate": "2026-09-14",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "maha",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "365 days/ One Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://bankofmaharashtra.bank.in/domestic-term-deposits",
         "effectiveDate": "2026-09-14",
@@ -8381,7 +8659,27 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -8661,7 +8959,27 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 660,
+        "maxDays": 660,
+        "label": "22 Month (PSB Green Earth)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -8683,7 +9001,27 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 660,
+        "maxDays": 660,
+        "label": "> 22 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -8857,7 +9195,27 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 1320,
+        "maxDays": 1320,
+        "label": "44 Month (PSB Green Earth)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -8879,7 +9237,27 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1320,
+        "maxDays": 1320,
+        "label": "> 44 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -8901,7 +9279,27 @@
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 1980,
+        "maxDays": 1980,
+        "label": "66 Months (PSB Green Earth)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -8993,6 +9391,6 @@
       "customer": "SENIOR"
     }
   ],
-  "generatedAt": "2026-09-18T13:32:53.274Z",
+  "generatedAt": "2026-09-18T13:37:04.541Z",
   "containsSampleData": false
 }
