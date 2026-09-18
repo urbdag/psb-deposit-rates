@@ -21,6 +21,9 @@ const { BobAdapter } = await import(
 const { BoiAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/boi.js")
 );
+const { CanaraAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/canara.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -530,6 +533,208 @@ try {
 assert(threw, "total washout: fetchRates throws");
 
 globalThis.fetch = realFetch;
+
+// ---------------------------------------------------------------------------
+// Canara retail term-deposit page: the live retail (Less than Rs.3 Crore) table
+// is a multi-column grid where each data row is
+//   [tenure,
+//    Callable-GenPub-RoI, Callable-GenPub-AnnualisedYield,
+//    Callable-SrCit-RoI, Callable-SrCit-AnnualisedYield,
+//    NonCallable-GenPub-RoI, NonCallable-GenPub-Yield,
+//    NonCallable-SrCit-RoI, NonCallable-SrCit-Yield]
+// The correct retail rates are cells[1] (general RoI) and cells[3] (senior
+// RoI); cells[2]/cells[4] are ANNUALISED YIELDS and must be skipped (a generic
+// (tenure,%,%) parser would wrongly take the yield as the senior rate). The
+// bespoke Canara parser must map the RoI columns, tag 444/555 as single-day
+// specials, DROP the broken 60-char 'Except 555 days' row (max<min), derive RD
+// for standard >=1yr buckets, and never pick a bulk (>=3 crore) slab table.
+// ---------------------------------------------------------------------------
+console.log("== Canara retail FD/RD (multi-column RoI vs yield) ==");
+
+const CANARA_FD_FIXTURE = `
+<html><body>
+  <p>Domestic Term Deposit Rates (Less than Rs.3 Crore) w.e.f. 10 Sep 2026</p>
+  <table>
+    <tr>
+      <th rowspan="2">Period</th>
+      <th colspan="4">Callable</th>
+      <th colspan="4">Non-Callable</th>
+    </tr>
+    <tr>
+      <th>Gen RoI</th><th>Gen Yield</th><th>Sr RoI</th><th>Sr Yield</th>
+      <th>Gen RoI</th><th>Gen Yield</th><th>Sr RoI</th><th>Sr Yield</th>
+    </tr>
+    <tr><td>7 Days to 45 Days*</td><td>3.00</td><td>3.00</td><td>3.00</td><td>3.00</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td></tr>
+    <tr><td>46 Days to 90 Days</td><td>4.00</td><td>4.00</td><td>4.00</td><td>4.00</td><td>NA</td><td>NA</td><td>NA</td><td>NA</td></tr>
+    <tr><td>180 Days to 269 Days</td><td>5.25</td><td>5.35</td><td>5.75</td><td>5.87</td><td>5.30</td><td>5.41</td><td>5.80</td><td>5.93</td></tr>
+    <tr><td>270 Days to less than 1 Year</td><td>5.50</td><td>5.62</td><td>6.00</td><td>6.14</td><td>5.55</td><td>5.67</td><td>6.05</td><td>6.19</td></tr>
+    <tr><td>1 Year &amp; above to 1 year 3 months Only (Except 444 days)</td><td>6.25</td><td>6.40</td><td>6.75</td><td>6.92</td><td>6.30</td><td>6.45</td><td>6.80</td><td>6.98</td></tr>
+    <tr><td>444 Days ##</td><td>6.50</td><td>6.66</td><td>7.00</td><td>7.19</td><td>6.55</td><td>6.71</td><td>7.05</td><td>7.24</td></tr>
+    <tr><td>555 Days ##</td><td>6.60</td><td>6.77</td><td>7.10</td><td>7.29</td><td>6.65</td><td>6.82</td><td>7.15</td><td>7.34</td></tr>
+    <tr><td>Above 1 Year 3 months to less than 2 Years (Except 555 days)</td><td>6.25</td><td>6.40</td><td>6.75</td><td>6.92</td><td>6.30</td><td>6.45</td><td>6.80</td><td>6.98</td></tr>
+    <tr><td>2 Years &amp; above to less than 3 Years</td><td>6.25</td><td>6.40</td><td>6.75</td><td>6.92</td><td>6.30</td><td>6.45</td><td>6.80</td><td>6.98</td></tr>
+    <tr><td>3 Years &amp; above to less than 5 Years</td><td>6.25</td><td>6.40</td><td>6.75</td><td>6.92</td><td>6.30</td><td>6.45</td><td>6.80</td><td>6.98</td></tr>
+    <tr><td>5 Years &amp; above to 10 Years</td><td>6.25</td><td>6.40</td><td>6.75</td><td>6.92</td><td>6.30</td><td>6.45</td><td>6.80</td><td>6.98</td></tr>
+  </table>
+</body></html>`;
+
+const canara = new CanaraAdapter();
+const canaraRows = canara.parseFdRd(
+  CANARA_FD_FIXTURE,
+  "2026-09-10",
+  "https://www.canarabank.bank.in/term-deposits-rate-of-interest-p.a.",
+);
+const canaraFd = canaraRows.filter((r) => r.product === "FD");
+const canaraRd = canaraRows.filter((r) => r.product === "RD");
+
+// (1) General comes from the RoI column, NOT the annualised-yield column.
+const c180 = canaraFd.filter(
+  (r) => r.tenure.minDays === 180 && r.tenure.maxDays === 269,
+);
+const c180gen = c180.find((r) => r.customer === "GENERAL");
+const c180sr = c180.find((r) => r.customer === "SENIOR");
+assert(
+  c180gen?.ratePercent === 5.25,
+  "Canara 180-269d general = 5.25 (RoI, not the 5.35 yield)",
+);
+assert(
+  c180sr?.ratePercent === 5.75,
+  "Canara 180-269d senior = 5.75 (senior RoI, not the 5.87 yield)",
+);
+
+// (2) Senior = the senior RoI column (cells[3]), e.g. 1yr general 6.25 / senior 6.75.
+const c1y = canaraFd.filter(
+  (r) => r.tenure.minDays === 365 && r.tenure.maxDays === 365,
+);
+const c1ygen = c1y.find((r) => r.customer === "GENERAL");
+const c1ysr = c1y.find((r) => r.customer === "SENIOR");
+assert(c1ygen?.ratePercent === 6.25, "Canara 1yr general = 6.25");
+assert(c1ysr?.ratePercent === 6.75, "Canara 1yr senior = 6.75 (senior RoI)");
+
+// (3) 444 & 555 Days are FD-only single-day specials, tagged with a scheme, no RD.
+const c444 = canaraFd.find(
+  (r) => r.tenure.minDays === 444 && r.customer === "GENERAL",
+);
+const c555 = canaraFd.find(
+  (r) => r.tenure.minDays === 555 && r.customer === "GENERAL",
+);
+assert(
+  c444?.tenure.maxDays === 444 && c444?.ratePercent === 6.5,
+  "Canara 444 Days is a single-day FD special, general = 6.50",
+);
+assert(
+  c444?.scheme === "Canara 444 Days Deposit",
+  "Canara 444 Days tagged with a scheme",
+);
+assert(
+  c555?.tenure.maxDays === 555 && c555?.ratePercent === 6.6,
+  "Canara 555 Days is a single-day FD special, general = 6.60",
+);
+assert(
+  c555?.scheme === "Canara 555 Days Deposit",
+  "Canara 555 Days tagged with a scheme",
+);
+assert(
+  !canaraRd.some((r) => r.tenure.minDays === 444 || r.tenure.minDays === 555),
+  "Canara 444/555 Days specials are NOT emitted as RD",
+);
+
+// (4) RD derived for standard >=1yr buckets, OFFICIAL, canarabank.bank.in source.
+const canaraRd2y = canaraRd.find(
+  (r) =>
+    r.customer === "SENIOR" &&
+    r.tenure.minDays === 730 &&
+    r.tenure.maxDays === 1094,
+);
+assert(
+  canaraRd2y?.ratePercent === 6.75,
+  "Canara RD 2-3yr senior derived from FD senior RoI = 6.75",
+);
+assert(
+  canaraRd.length > 0 &&
+    canaraRd.every(
+      (r) =>
+        r.source.quality === "OFFICIAL" &&
+        /canarabank\.bank\.in/.test(r.source.url) &&
+        r.tenure.minDays >= 365,
+    ),
+  "Canara RD rows are OFFICIAL, sourced from canarabank.bank.in, >=1yr",
+);
+
+// (5) The broken 60-char 'Except 555 days' row (max<min) is dropped.
+assert(
+  canaraFd.every((r) => r.tenure.maxDays == null || r.tenure.maxDays >= r.tenure.minDays),
+  "Canara: no row with maxDays<minDays (broken 'Except 555 days' row dropped)",
+);
+
+// (6) All emitted rows are OFFICIAL from the user's page.
+assert(
+  canaraRows.every(
+    (r) =>
+      r.source.quality === "OFFICIAL" &&
+      r.source.url ===
+        "https://www.canarabank.bank.in/term-deposits-rate-of-interest-p.a.",
+  ),
+  "Canara: all rows OFFICIAL with the term-deposit page source url",
+);
+
+// (7) >=4 distinct FD tenures parsed (base sanity guard satisfied).
+const canaraFdTenures = new Set(
+  canaraFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(
+  canaraFdTenures.size >= 4,
+  `Canara: >=4 distinct FD tenures (got ${canaraFdTenures.size})`,
+);
+
+// Bulk (>=3 crore) slab table must NOT be scraped as retail rates.
+console.log("== Canara bulk (>=3 crore) slab NOT parsed as retail ==");
+const CANARA_BULK_FIXTURE = `
+<html><body>
+  <p>Bulk Deposits (Rs.3 Crore &amp; above) - Callable</p>
+  <table>
+    <tr><th>Period</th><th>Rs.3 Crore &amp; above to less than Rs.10 Crore</th><th>Rs.10 Crore &amp; above</th></tr>
+    <tr><td>7 Days to 45 Days</td><td>5.00</td><td>5.10</td></tr>
+    <tr><td>46 Days to 90 Days</td><td>5.25</td><td>5.35</td></tr>
+    <tr><td>180 Days to 269 Days</td><td>6.00</td><td>6.10</td></tr>
+    <tr><td>1 Year &amp; above to less than 2 Years</td><td>6.50</td><td>6.60</td></tr>
+    <tr><td>2 Years &amp; above to less than 3 Years</td><td>6.40</td><td>6.50</td></tr>
+  </table>
+</body></html>`;
+const canaraBulk = canara.parseFdRd(
+  CANARA_BULK_FIXTURE,
+  "2026-09-10",
+  "https://www.canarabank.bank.in/term-deposits-rate-of-interest-p.a.",
+);
+assert(
+  canaraBulk.length === 0,
+  "Canara bulk (>=3 crore) slab fixture yields 0 retail rows",
+);
+
+// When both tables are present, only the retail table is scraped (bulk ignored).
+const CANARA_BOTH_FIXTURE = CANARA_BULK_FIXTURE.replace(
+  "</body></html>",
+  CANARA_FD_FIXTURE.replace(/^[\s\S]*?<table>/, "<table>").replace(
+    /<\/body><\/html>\s*$/,
+    "",
+  ) + "</body></html>",
+);
+const canaraBoth = canara.parseFdRd(
+  CANARA_BOTH_FIXTURE,
+  "2026-09-10",
+  "https://www.canarabank.bank.in/term-deposits-rate-of-interest-p.a.",
+);
+const both1y = canaraBoth.find(
+  (r) =>
+    r.product === "FD" &&
+    r.customer === "GENERAL" &&
+    r.tenure.minDays === 365 &&
+    r.tenure.maxDays === 365,
+);
+assert(
+  both1y?.ratePercent === 6.25,
+  "Canara: with bulk+retail present, retail 1yr general = 6.25 (bulk 6.50 ignored)",
+);
 
 if (failures === 0) {
   console.log("\nAll adapter + merge + PDF + div tests passed.");
