@@ -29,14 +29,19 @@ jobs:
       - name: Install TypeScript
         run: npm install -g typescript
 
-      - name: Build (compile TS + generate bank profile pages)
+      - name: Build (compile TS + generate pages)
         # NOTE: we do NOT regenerate public/data/dataset.json here. The committed
         # dataset.json is the source of truth for what's published (it holds the
         # real imported / daily-ingested rates). build-pages.mjs READS that
-        # committed dataset (never the sample seed) to emit /bank/<id>/ pages.
+        # committed dataset (never the sample seed) to emit the pages.
         run: |
           tsc -p tsconfig.json
           node scripts/build-pages.mjs
+
+      - name: Rasterize OG images to PNG (for social previews)
+        run: |
+          npm install sharp@0.33.5
+          node scripts/rasterize-og.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

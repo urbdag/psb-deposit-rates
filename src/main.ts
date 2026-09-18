@@ -258,6 +258,9 @@ function renderShell(): void {
   );
   root.append(el("section", { class: "container block", id: "table-region" }));
 
+  // ---- Explore (discoverable landing pages) ----
+  root.append(renderExplore());
+
   // ---- Footer ----
   root.append(
     el("footer", { class: "site-footer" }, [
@@ -1047,6 +1050,97 @@ function renderTable(): void {
     });
     host.append(el("div", { class: "reveal-wrap" }, [btn]));
   }
+}
+
+// ---- Explore section (links to the generated landing/profile pages) -------
+
+function renderExplore(): HTMLElement {
+  const section = el("section", { class: "container block", id: "explore" });
+  section.append(
+    el("div", { class: "section-head" }, [
+      el("div", {}, [
+        el("h2", { class: "section-title" }, ["Explore rate pages"]),
+        el("p", { class: "section-note" }, [
+          "Dedicated, shareable pages for each product, tenure and bank.",
+        ]),
+      ]),
+    ]),
+  );
+
+  // Product cards
+  const products: {
+    href: string;
+    title: string;
+    sub: string;
+    key: ProductType;
+  }[] = [
+    {
+      href: "fixed-deposit/",
+      title: "Fixed Deposits",
+      sub: "Best FD rates, all tenures",
+      key: "FD",
+    },
+    {
+      href: "savings-account/",
+      title: "Savings accounts",
+      sub: "Savings interest rates",
+      key: "SAVINGS",
+    },
+    {
+      href: "recurring-deposit/",
+      title: "Recurring Deposits",
+      sub: "Best RD rates",
+      key: "RD",
+    },
+  ];
+  const pgrid = el("div", { class: "explore-products" });
+  for (const p of products) {
+    const top = headlineRate(dataset, p.key, "GENERAL");
+    pgrid.append(
+      el("a", { class: "explore-card", href: p.href }, [
+        el("div", { class: "explore-card-title" }, [p.title]),
+        el("div", { class: "explore-card-sub muted" }, [p.sub]),
+        el("div", { class: "explore-card-rate" }, [
+          top ? `up to ${formatRate(top.entry.ratePercent)}` : "",
+        ]),
+      ]),
+    );
+  }
+  section.append(pgrid);
+
+  // Tenure chips
+  section.append(
+    el("div", { class: "explore-label muted" }, ["Best FD by tenure"]),
+  );
+  const tchips = el("div", { class: "chips" });
+  for (const t of TENURE_LINKS) {
+    tchips.append(el("a", { class: "chip", href: t.href }, [t.label]));
+  }
+  tchips.append(
+    el("a", { class: "chip", href: "senior-citizen-fd-rates/" }, [
+      "Senior citizen",
+    ]),
+  );
+  section.append(tchips);
+
+  // Bank grid
+  section.append(
+    el("div", { class: "explore-label muted" }, ["Browse by bank"]),
+  );
+  const bgrid = el("div", { class: "explore-banks" });
+  for (const b of dataset.banks) {
+    bgrid.append(
+      el("a", { class: "explore-bank", href: `bank/${b.id}/`, title: b.name }, [
+        el("span", {
+          class: "bank-dot",
+          style: `--bank:${b.color};background:${b.color}`,
+        }),
+        el("span", {}, [b.shortName]),
+      ]),
+    );
+  }
+  section.append(bgrid);
+  return section;
 }
 
 // ---- Per-bank detail modal -----------------------------------------------

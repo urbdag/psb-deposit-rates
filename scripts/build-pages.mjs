@@ -743,33 +743,40 @@ function ogSvg(headline, sub) {
 </svg>`;
 }
 
+// Write OG images as .svg SOURCES + a .png fallback (the SVG bytes). CI
+// (scripts/rasterize-og.mjs, which has sharp) overwrites the .png files with
+// true rasters so social platforms accept them.
 const ogDir = resolve(root, "public/og");
 await mkdir(ogDir, { recursive: true });
-await writeFile(
-  resolve(ogDir, "default.png"),
-  ogSvg(
-    "Best deposit rates across India's public sector banks",
-    "FD · Savings · RD · all 12 PSU banks, ranked",
-  ),
-  "utf8",
-);
-for (const tp of TENURE_PAGES) {
-  const top = rankBanks(DATASET, {
-    product: "FD",
-    customer: "GENERAL",
-    amount: 500000,
-    tenureDays: tp.days,
-  })[0];
-  await writeFile(
-    resolve(ogDir, `fd-${tp.slug}.png`),
+const ogPairs = [
+  [
+    "default",
     ogSvg(
-      `Best ${tp.label} FD rates`,
-      top
-        ? `Up to ${fmt.formatRate(top.entry.ratePercent)} · ${top.bank.name}`
-        : "Public sector banks, ranked",
+      "Best deposit rates across India's public sector banks",
+      "FD · Savings · RD · all 12 PSU banks, ranked",
     ),
-    "utf8",
-  );
+  ],
+  ...TENURE_PAGES.map((tp) => {
+    const top = rankBanks(DATASET, {
+      product: "FD",
+      customer: "GENERAL",
+      amount: 500000,
+      tenureDays: tp.days,
+    })[0];
+    return [
+      `fd-${tp.slug}`,
+      ogSvg(
+        `Best ${tp.label} FD rates`,
+        top
+          ? `Up to ${fmt.formatRate(top.entry.ratePercent)} · ${top.bank.name}`
+          : "Public sector banks, ranked",
+      ),
+    ];
+  }),
+];
+for (const [name, svg] of ogPairs) {
+  await writeFile(resolve(ogDir, `${name}.svg`), svg, "utf8");
+  await writeFile(resolve(ogDir, `${name}.png`), svg, "utf8"); // fallback
 }
 
 // ---- sitemap.xml + robots.txt --------------------------------------------

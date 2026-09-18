@@ -1082,6 +1082,90 @@ a.bank-link:hover {
 }
 
 /* ==========================================================================
+   Explore section (links to landing/profile pages)
+   ========================================================================== */
+.explore-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.explore-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s;
+}
+.explore-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--line));
+}
+.explore-card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+}
+.explore-card-sub {
+  font-size: 13px;
+  margin-top: 2px;
+}
+.explore-card-rate {
+  margin-top: 12px;
+  font-weight: 700;
+  color: var(--brand);
+  font-size: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  .explore-card-rate {
+    color: var(--accent-2);
+  }
+}
+.explore-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 24px 0 10px;
+}
+.chips a.chip {
+  text-decoration: none;
+}
+.explore-banks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.explore-bank {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.15s var(--ease);
+}
+.explore-bank:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--bank) 55%, var(--line));
+  transform: translateY(-1px);
+}
+@media (max-width: 700px) {
+  .explore-products {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
    Amount control (input + slider + presets)
    ========================================================================== */
 .control-amount {
