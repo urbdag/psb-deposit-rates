@@ -7,20 +7,14 @@ export class UnionAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "union",
+            // Confirmed rates page (rates & charges hub).
             fdUrl: [
-                "https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit",
-                "https://www.unionbankofindia.bank.in/en/interest-rates",
-                "https://www.unionbankofindia.bank.in/en/home/interest-rate-deposit",
+                "https://www.unionbankofindia.bank.in/en/common/rates-and-charges",
             ],
             savingsUrls: [
-                "https://www.unionbankofindia.bank.in/en/Interest-Rate-Saving-Bank",
-                "https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit",
+                "https://www.unionbankofindia.bank.in/en/common/rates-and-charges",
             ],
             renderJs: true,
-            pdfUrl: [
-                "https://www.unionbankofindia.bank.in/pdf/Domestic-Term-Deposit-Rates.pdf",
-                "https://www.unionbankofindia.bank.in/en/pdf/interest-rate-deposit.pdf",
-            ],
             schemeNamer: (t) => (/\b555\b/.test(t) ? "555-day Special" : undefined),
         });
     }
