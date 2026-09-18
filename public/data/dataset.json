@@ -3484,11 +3484,11 @@
       "bankId": "indian",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 3,
+      "ratePercent": 2.8,
       "tenure": {
         "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "maxDays": 14,
+        "label": "7 days to 14 days"
       },
       "amount": {
         "minAmount": 0,
@@ -3496,9 +3496,177 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 2.8,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 days to 14 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.8,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 29,
+        "label": "15 days to 29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 2.8,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 29,
+        "label": "15 days to 29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 45,
+        "label": "30 days to 45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 45,
+        "label": "30 days to 45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.25,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.25,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 120,
+        "label": "91 days to 120 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -3507,9 +3675,9 @@
       "customer": "SENIOR",
       "ratePercent": 3.5,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 91,
+        "maxDays": 120,
+        "label": "91 days to 120 days"
       },
       "amount": {
         "minAmount": 0,
@@ -3517,20 +3685,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 3.75,
+      "customer": "GENERAL",
+      "ratePercent": 3.85,
       "tenure": {
-        "minDays": 7,
-        "maxDays": 45,
-        "label": "7–45 days"
+        "minDays": 121,
+        "maxDays": 180,
+        "label": "121 days to 180 days"
       },
       "amount": {
         "minAmount": 0,
@@ -3538,9 +3706,30 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.85,
+      "tenure": {
+        "minDays": 121,
+        "maxDays": 180,
+        "label": "121 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -3549,9 +3738,9 @@
       "customer": "GENERAL",
       "ratePercent": 4.5,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 181,
+        "maxDays": 269,
+        "label": "181 days to less than 9 months"
       },
       "amount": {
         "minAmount": 0,
@@ -3559,20 +3748,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 5,
+      "ratePercent": 4.5,
       "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
+        "minDays": 181,
+        "maxDays": 269,
+        "label": "181 days to less than 9 months"
       },
       "amount": {
         "minAmount": 0,
@@ -3580,41 +3769,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 5.25,
-      "tenure": {
-        "minDays": 46,
-        "maxDays": 90,
-        "label": "46–90 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 5.25,
+      "ratePercent": 4.75,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 270,
+        "maxDays": 364,
+        "label": "9 months to less than 1 year"
       },
       "amount": {
         "minAmount": 0,
@@ -3622,20 +3790,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 5.75,
+      "ratePercent": 4.75,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 270,
+        "maxDays": 364,
+        "label": "9 months to less than 1 year"
       },
       "amount": {
         "minAmount": 0,
@@ -3643,30 +3811,53 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6,
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
       "tenure": {
-        "minDays": 91,
-        "maxDays": 180,
-        "label": "91–180 days"
+        "minDays": 300,
+        "maxDays": 300,
+        "label": "IND Supreme 2.0(300 days)"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "300-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 300,
+        "maxDays": 300,
+        "label": "IND Supreme 2.0(300 days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "300-day Special",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -3675,9 +3866,53 @@
       "customer": "GENERAL",
       "ratePercent": 6.1,
       "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "Above 1 year to less than 2 years"
       },
       "amount": {
         "minAmount": 0,
@@ -3685,9 +3920,266 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "Above 1 year to less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "Above 1 year to less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.2,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 729,
+        "label": "Above 1 year to less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 500,
+        "maxDays": 500,
+        "label": "Ind Green (500 Days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "500-day Special",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 500,
+        "maxDays": 500,
+        "label": "Ind Green (500 Days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "500-day Special",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 555,
+        "maxDays": 555,
+        "label": "Ind Grow (555 Days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "555-day Special",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.65,
+      "tenure": {
+        "minDays": 555,
+        "maxDays": 555,
+        "label": "Ind Grow (555 Days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "555-day Special",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.15,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.15,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.15,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.15,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years to less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 777,
+        "maxDays": 777,
+        "label": "Ind Prosper(777 Days)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "777-day Special",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
@@ -3696,177 +4188,31 @@
       "customer": "SENIOR",
       "ratePercent": 6.6,
       "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
+        "minDays": 777,
+        "maxDays": 777,
+        "label": "Ind Prosper(777 Days)"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
+      "scheme": "777-day Special",
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 6.85,
-      "tenure": {
-        "minDays": 181,
-        "maxDays": 364,
-        "label": "181 days to < 1 year"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.25,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.35,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.25,
+      "ratePercent": 6.05,
       "tenure": {
         "minDays": 1095,
         "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "label": "3 years to less than 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -3874,20 +4220,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.75,
+      "ratePercent": 6.05,
       "tenure": {
         "minDays": 1095,
         "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "label": "3 years to less than 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -3895,170 +4241,20 @@
         "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7,
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.05,
       "tenure": {
         "minDays": 1095,
         "maxDays": 1824,
-        "label": "3 years to < 5 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.25,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days (IND SECURE)"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "IND SECURE 444 days",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days (IND SECURE)"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "IND SECURE 444 days",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "FD",
-      "customer": "SUPER_SENIOR",
-      "ratePercent": 7.35,
-      "tenure": {
-        "minDays": 444,
-        "maxDays": 444,
-        "label": "444 days (IND SECURE)"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "IND SECURE 444 days",
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.5,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
+        "label": "3 years to less than 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -4066,83 +4262,20 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 7,
-      "tenure": {
-        "minDays": 365,
-        "maxDays": 729,
-        "label": "1 year to < 2 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.6,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 7.1,
-      "tenure": {
-        "minDays": 730,
-        "maxDays": 1094,
-        "label": "2 years to < 3 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
-    },
-    {
-      "bankId": "indian",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6.25,
+      "ratePercent": 6.05,
       "tenure": {
         "minDays": 1095,
         "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "label": "3 years to less than 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -4150,41 +4283,106 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 6.75,
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
       "tenure": {
-        "minDays": 1095,
-        "maxDays": 1824,
-        "label": "3 years to < 5 years"
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 year"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Special Tenure",
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": null,
+        "label": "Above 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "indian",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": null,
+        "label": "Above 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "RD",
       "customer": "GENERAL",
-      "ratePercent": 6.25,
+      "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": null,
+        "label": "Above 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -4192,20 +4390,20 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 6.75,
+      "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 3650,
-        "label": "5 years to 10 years"
+        "maxDays": null,
+        "label": "Above 5 years"
       },
       "amount": {
         "minAmount": 0,
@@ -4213,16 +4411,15 @@
         "label": "Any amount"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
       }
     },
     {
       "bankId": "indian",
       "product": "SAVINGS",
-      "customer": "GENERAL",
-      "ratePercent": 2.75,
+      "ratePercent": 0.5,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -4234,16 +4431,16 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      },
+      "customer": "GENERAL"
     },
     {
       "bankId": "indian",
       "product": "SAVINGS",
-      "customer": "SENIOR",
-      "ratePercent": 2.75,
+      "ratePercent": 0.5,
       "tenure": {
         "minDays": 0,
         "maxDays": null,
@@ -4255,10 +4452,11 @@
         "label": "All balances"
       },
       "source": {
-        "url": "https://www.policybazaar.com/fd-interest-rates/indian-bank-fd-rates/444-days-fd-scheme/",
-        "effectiveDate": "2026-05-01",
-        "quality": "AGGREGATOR"
-      }
+        "url": "https://indianbank.bank.in/en/deposit-rates",
+        "effectiveDate": "2026-08-04",
+        "quality": "OFFICIAL"
+      },
+      "customer": "SENIOR"
     },
     {
       "bankId": "central",
@@ -7637,6 +7835,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-17T18:02:05.774Z",
+  "generatedAt": "2026-09-18T05:31:56.635Z",
   "containsSampleData": false
 }
