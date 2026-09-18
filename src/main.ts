@@ -22,12 +22,15 @@ import {
   productLabel,
 } from "./format.js";
 
+type SortKey = "rate" | "name" | "effective";
 interface UiState {
   product: ProductType;
   customer: CustomerCategory;
   amount: number;
   tenureDays: number;
   showAll: boolean;
+  sortKey: SortKey;
+  sortDir: "asc" | "desc";
 }
 
 const MIN_AMOUNT = 1000;
@@ -39,6 +42,8 @@ const state: UiState = {
   amount: 500000,
   tenureDays: 365,
   showAll: false,
+  sortKey: "rate",
+  sortDir: "desc",
 };
 
 let dataset: Dataset;
@@ -78,11 +83,18 @@ function clampAmount(n: number): number {
 async function boot(): Promise<void> {
   const res = await fetch("data/dataset.json");
   dataset = (await res.json()) as Dataset;
+  // Capture the deep-link bank BEFORE syncUrl() rewrites the query string.
+  const bankParam = new URLSearchParams(location.search).get("bank");
   readStateFromUrl();
   renderShell();
   renderAll();
   syncUrl();
   wireScroll();
+
+  // Deep-link: ?bank=<id> opens that bank's detail modal on load.
+  if (bankParam && dataset.banks.some((b) => b.id === bankParam)) {
+    openBankDetail(bankParam);
+  }
 }
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -129,10 +141,11 @@ function renderShell(): void {
               fresh.level === "fresh" ? "Live" : capitalize(fresh.label),
             ],
           ),
-          el("span", { class: "nav-pill" }, [
+          el("span", { class: "nav-pill hide-sm" }, [
             el("span", { class: "live-dot" }),
             `${dataset.banks.length} banks tracked`,
           ]),
+          shareButton(),
         ]),
       ]),
     ]),
@@ -245,6 +258,98 @@ function wireScroll(): void {
   const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+}
+
+// ---- Share ----------------------------------------------------------------
+
+function shareButton(): HTMLElement {
+  const btn = el(
+    "button",
+    {
+      class: "nav-pill share-btn",
+      type: "button",
+      title: "Copy a link to this view",
+    },
+    [
+      el("span", { class: "share-icon", html: shareIconSvg() }),
+      el("span", { class: "share-label" }, ["Share"]),
+    ],
+  );
+  btn.addEventListener("click", () => shareCurrentView(btn));
+  return btn;
+}
+
+function shareIconSvg(): string {
+  return `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>`;
+}
+
+async function shareCurrentView(
+  btn: HTMLElement,
+  bankId?: string,
+): Promise<void> {
+  syncUrl();
+  let url = location.href;
+  if (bankId) {
+    const p = new URLSearchParams(location.search);
+    p.set("bank", bankId);
+    url = `${location.origin}${location.pathname}?${p.toString()}`;
+  }
+  const ok = await copyText(url);
+  if (navigator.share && !ok) {
+    try {
+      await navigator.share({ title: "RateRadar", url });
+      return;
+    } catch {
+      /* user cancelled */
+    }
+  }
+  toast(ok ? "Link copied to clipboard" : "Copy this link:\n" + url, ok);
+  if (btn.classList) {
+    btn.classList.add("copied");
+    setTimeout(() => btn.classList.remove("copied"), 1400);
+  }
+}
+
+async function copyText(text: string): Promise<boolean> {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    /* fall through */
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
+function toast(msg: string, success = true): void {
+  document.getElementById("toast")?.remove();
+  const t = el(
+    "div",
+    { class: `toast${success ? " toast-ok" : ""}`, id: "toast" },
+    [
+      success ? el("span", { class: "toast-check" }, ["✓"]) : "",
+      el("span", {}, [msg]),
+    ],
+  );
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add("show"));
+  setTimeout(() => {
+    t.classList.remove("show");
+    setTimeout(() => t.remove(), 300);
+  }, 2600);
 }
 
 function renderControls(): void {
@@ -660,6 +765,62 @@ function qualityTag(quality: string): Node | string {
   return "";
 }
 
+// ---- Sorting --------------------------------------------------------------
+
+function sortRanked(
+  ranked: ReturnType<typeof rankBanks>,
+): ReturnType<typeof rankBanks> {
+  const dir = state.sortDir === "asc" ? 1 : -1;
+  const copy = [...ranked];
+  copy.sort((a, b) => {
+    let cmp = 0;
+    if (state.sortKey === "rate")
+      cmp = a.entry.ratePercent - b.entry.ratePercent;
+    else if (state.sortKey === "name")
+      cmp = a.bank.name.localeCompare(b.bank.name);
+    else if (state.sortKey === "effective")
+      cmp = a.entry.source.effectiveDate.localeCompare(
+        b.entry.source.effectiveDate,
+      );
+    return cmp * dir;
+  });
+  return copy;
+}
+
+function sortableTh(label: string, key: SortKey, num = false): HTMLElement {
+  const active = state.sortKey === key;
+  const arrow = active ? (state.sortDir === "asc" ? " ↑" : " ↓") : "";
+  const th = el(
+    "th",
+    {
+      class: `sortable${num ? " num" : ""}${active ? " sort-active" : ""}`,
+      role: "button",
+      tabindex: "0",
+      title: `Sort by ${label.toLowerCase()}`,
+    },
+    [label + arrow],
+  );
+  const onSort = () => {
+    if (state.sortKey === key) {
+      state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
+    } else {
+      state.sortKey = key;
+      // sensible default direction per column
+      state.sortDir = key === "name" ? "asc" : "desc";
+    }
+    renderTable();
+  };
+  th.addEventListener("click", onSort);
+  th.addEventListener("keydown", (e) => {
+    const k = (e as KeyboardEvent).key;
+    if (k === "Enter" || k === " ") {
+      e.preventDefault();
+      onSort();
+    }
+  });
+  return th;
+}
+
 // ---- Full comparison table (collapsed to top 5 until expanded) ----
 function renderTable(): void {
   const host = document.getElementById("table-region")!;
@@ -684,37 +845,43 @@ function renderTable(): void {
     return;
   }
 
-  const rows = state.showAll ? ranked : ranked.slice(0, 5);
+  // Apply sort. Default (rate desc) preserves the ranked order & medals.
+  const sorted = sortRanked(ranked);
+  const rows = state.showAll ? sorted : sorted.slice(0, 5);
 
   const table = el("table", { class: "rate-table" });
   table.append(
     el("thead", {}, [
       el("tr", {}, [
         el("th", {}, ["#"]),
-        el("th", {}, ["Bank"]),
-        el("th", { class: "num" }, ["Rate"]),
+        sortableTh("Bank", "name"),
+        sortableTh("Rate", "rate", true),
         el("th", {}, ["Applies to"]),
-        el("th", {}, ["Effective"]),
+        sortableTh("Effective", "effective"),
       ]),
     ]),
   );
 
+  // Medals (rate-rank badges) only make sense in the default rate-desc view.
+  const showMedals = state.sortKey === "rate" && state.sortDir === "desc";
   const tbody = el("tbody");
-  for (const r of rows) {
+  rows.forEach((r, i) => {
     const detail = r.entry.scheme
       ? `${r.entry.tenure.label} · ${amountLabel(r.entry.amount)} · ${r.entry.scheme}`
       : `${r.entry.tenure.label} · ${amountLabel(r.entry.amount)}`;
     const tr = el(
       "tr",
       {
-        class: `row-clickable${r.rank === 1 ? " top-row" : ""}`,
+        class: `row-clickable${showMedals && r.rank === 1 ? " top-row" : ""}`,
         title: `View all ${r.bank.name} rates`,
       },
       [
         el("td", {}, [
-          r.rank <= 3
+          showMedals && r.rank <= 3
             ? el("span", { class: `medal medal-${r.rank}` }, [String(r.rank)])
-            : el("span", { class: "rank" }, [String(r.rank)]),
+            : el("span", { class: "rank" }, [
+                String(showMedals ? r.rank : i + 1),
+              ]),
         ]),
         el("td", {}, [
           el("div", { class: "bank-cell" }, [
@@ -740,7 +907,7 @@ function renderTable(): void {
     );
     tr.addEventListener("click", () => openBankDetail(r.bank.id));
     tbody.append(tr);
-  }
+  });
   table.append(tbody);
   host.append(el("div", { class: "table-wrap" }, [table]));
 
@@ -853,13 +1020,27 @@ function openBankDetail(bankId: string): void {
           ]),
         ]),
         (() => {
+          const actions = el("div", { class: "modal-actions" });
+          const share = el(
+            "button",
+            {
+              class: "modal-share",
+              type: "button",
+              title: "Copy a link to this bank",
+            },
+            [el("span", { html: shareIconSvg() })],
+          );
+          share.addEventListener("click", () =>
+            shareCurrentView(share, bankId),
+          );
           const x = el(
             "button",
             { class: "modal-close", "aria-label": "Close" },
             ["✕"],
           );
           x.addEventListener("click", closeModal);
-          return x;
+          actions.append(share, x);
+          return actions;
         })(),
       ]),
       body,

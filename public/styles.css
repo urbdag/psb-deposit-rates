@@ -38,9 +38,12 @@
   --silver: #9aa6b8;
   --bronze: #cd7f32;
 
-  --shadow-sm: 0 1px 2px rgba(11, 16, 32, 0.05), 0 1px 3px rgba(11, 16, 32, 0.04);
-  --shadow: 0 2px 4px rgba(11, 16, 32, 0.04), 0 12px 32px rgba(11, 16, 32, 0.08);
-  --shadow-lg: 0 8px 24px rgba(11, 16, 32, 0.1), 0 30px 60px rgba(11, 16, 32, 0.12);
+  --shadow-sm:
+    0 1px 2px rgba(11, 16, 32, 0.05), 0 1px 3px rgba(11, 16, 32, 0.04);
+  --shadow:
+    0 2px 4px rgba(11, 16, 32, 0.04), 0 12px 32px rgba(11, 16, 32, 0.08);
+  --shadow-lg:
+    0 8px 24px rgba(11, 16, 32, 0.1), 0 30px 60px rgba(11, 16, 32, 0.12);
   --shadow-brand: 0 10px 30px rgba(79, 70, 229, 0.35);
 
   --radius: 22px;
@@ -48,7 +51,9 @@
   --radius-sm: 12px;
   --radius-pill: 999px;
 
-  --font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
   --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -177,7 +182,9 @@ body {
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   background: color-mix(in srgb, var(--bg) 72%, transparent);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s, background 0.3s;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
 }
 .nav.scrolled {
   border-bottom-color: var(--line);
@@ -207,7 +214,12 @@ body {
   place-items: center;
   padding: 7px;
   color: #fff;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2) 60%, var(--accent));
+  background: linear-gradient(
+    135deg,
+    var(--brand),
+    var(--brand-2) 60%,
+    var(--accent)
+  );
   box-shadow: var(--shadow-brand);
   flex: none;
 }
@@ -266,9 +278,21 @@ body {
   height: 640px;
   z-index: 0;
   background:
-    radial-gradient(60% 55% at 18% 8%, color-mix(in srgb, var(--brand) 34%, transparent), transparent 70%),
-    radial-gradient(50% 50% at 88% 0%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%),
-    radial-gradient(45% 60% at 60% 40%, color-mix(in srgb, var(--brand-2) 22%, transparent), transparent 70%);
+    radial-gradient(
+      60% 55% at 18% 8%,
+      color-mix(in srgb, var(--brand) 34%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 50% at 88% 0%,
+      color-mix(in srgb, var(--accent) 30%, transparent),
+      transparent 65%
+    ),
+    radial-gradient(
+      45% 60% at 60% 40%,
+      color-mix(in srgb, var(--brand-2) 22%, transparent),
+      transparent 70%
+    );
   filter: blur(30px) saturate(120%);
   opacity: 0.9;
   pointer-events: none;
@@ -332,7 +356,12 @@ body {
   position: relative;
 }
 .hl-cell.feature {
-  background: linear-gradient(135deg, var(--brand), var(--brand-2) 55%, #7c3aed);
+  background: linear-gradient(
+    135deg,
+    var(--brand),
+    var(--brand-2) 55%,
+    #7c3aed
+  );
   color: #fff;
 }
 .hl-label {
@@ -496,7 +525,9 @@ section.block {
   padding: 22px;
   box-shadow: var(--shadow);
   overflow: hidden;
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
 }
 .podium-card::before {
   content: "";
@@ -510,7 +541,11 @@ section.block {
   box-shadow: var(--shadow-lg);
 }
 .podium-card.first {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--gold) 12%, var(--surface)), var(--surface) 60%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--gold) 12%, var(--surface)),
+    var(--surface) 60%
+  );
 }
 .podium-rank {
   display: inline-flex;
@@ -587,7 +622,9 @@ section.block {
   padding: 16px 12px;
   text-align: center;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s var(--ease), border-color 0.2s;
+  transition:
+    transform 0.2s var(--ease),
+    border-color 0.2s;
 }
 .tenure-card:hover {
   transform: translateY(-3px);
@@ -654,7 +691,11 @@ section.block {
   background: var(--surface-hover);
 }
 .rate-table .top-row {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 10%, transparent), transparent 60%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--gold) 10%, transparent),
+    transparent 60%
+  );
 }
 .num {
   text-align: right;
@@ -1020,4 +1061,110 @@ section.block {
 }
 .modal-link:hover {
   text-decoration: underline;
+}
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.modal-share {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.15s var(--ease);
+}
+.modal-share:hover {
+  background: color-mix(in srgb, var(--brand) 12%, var(--surface-2));
+  color: var(--brand);
+  border-color: var(--info-line);
+}
+
+/* ==========================================================================
+   Share button + toast
+   ========================================================================== */
+.share-btn {
+  cursor: pointer;
+  color: #fff;
+  border: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: var(--shadow-brand);
+  font-family: var(--font);
+  transition:
+    transform 0.15s var(--ease),
+    box-shadow 0.15s var(--ease);
+}
+.share-btn:hover {
+  transform: translateY(-1px);
+}
+.share-btn.copied {
+  background: linear-gradient(135deg, var(--good), var(--accent-2));
+}
+.share-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translate(-50%, 20px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 90vw;
+  padding: 13px 18px;
+  border-radius: var(--radius-pill);
+  background: #0b1020;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transition:
+    opacity 0.28s var(--ease),
+    transform 0.28s var(--ease);
+  white-space: pre-line;
+}
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.toast-check {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--good);
+  color: #fff;
+  font-size: 12px;
+  flex: none;
+}
+
+/* Sortable table headers */
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+th.sortable:hover {
+  color: var(--ink);
+}
+th.sort-active {
+  color: var(--brand);
+}
+th.sortable:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  border-radius: 6px;
 }
