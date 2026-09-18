@@ -21,6 +21,8 @@ import {
   parseAmountInput,
   productLabel,
 } from "./format.js";
+import type { History as RateHistory } from "./history.js";
+import { banksChangedCount, recentChanges } from "./history.js";
 
 type SortKey = "rate" | "name" | "effective";
 interface UiState {
@@ -90,9 +92,17 @@ function clampAmount(n: number): number {
   return Math.min(MAX_AMOUNT, Math.max(MIN_AMOUNT, Math.round(n)));
 }
 
+let rateHistory: RateHistory = { snapshots: [] };
+
 async function boot(): Promise<void> {
   const res = await fetch("data/dataset.json");
   dataset = (await res.json()) as Dataset;
+  try {
+    const hres = await fetch("data/history.json");
+    if (hres.ok) rateHistory = (await hres.json()) as RateHistory;
+  } catch {
+    /* history optional */
+  }
   // Capture deep-link params BEFORE syncUrl() rewrites the query string.
   const bankParam = new URLSearchParams(location.search).get("bank");
   const compareParam = new URLSearchParams(location.search).get("compare");
@@ -229,6 +239,7 @@ function renderShell(): void {
       el("p", { class: "hero-sub" }, [
         "Compare Fixed Deposit, Savings and Recurring Deposit rates for all 12 nationalised banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
       ]),
+      movementsStrip(),
     ]),
     el("div", { class: "headline-card rise rise-2", id: "headline-region" }),
   ]);
@@ -338,6 +349,31 @@ function brandMarkSvg(): string {
     <path d="M34 66 A18 18 0 0 1 60 41" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
     <circle cx="66" cy="66" r="7.5" fill="white"/>
   </svg>`;
+}
+
+/** Hero strip summarising recent rate changes (links to /rate-movements/). */
+function movementsStrip(): Node | string {
+  const changes = recentChanges(rateHistory);
+  if (changes.length === 0) return ""; // nothing to show until data accrues
+  const banks = banksChangedCount(rateHistory);
+  const ups = changes.filter((c) => c.delta > 0).length;
+  const downs = changes.filter((c) => c.delta < 0).length;
+  const upTri = `<svg viewBox="0 0 10 10" width="9" height="9" style="vertical-align:0"><path d="M5 1l4 7H1z" fill="currentColor"/></svg>`;
+  const downTri = `<svg viewBox="0 0 10 10" width="9" height="9" style="vertical-align:0"><path d="M5 9L1 2h8z" fill="currentColor"/></svg>`;
+  const arrow = `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>`;
+  const parts: string[] = [];
+  if (ups) parts.push(`<span class="mv-up">${upTri} ${ups} raised</span>`);
+  if (downs) parts.push(`<span class="mv-down">${downTri} ${downs} cut</span>`);
+  const a = el("a", {
+    class: "movements-strip",
+    href: "rate-movements/",
+    html:
+      `<span class="mv-badge">Rates on the move</span>` +
+      `<span class="mv-text"><strong>${banks}</strong> bank${banks === 1 ? "" : "s"} recently changed rates</span>` +
+      `<span class="mv-nums">${parts.join(" · ")}</span>` +
+      `<span class="mv-go">View all ${arrow}</span>`,
+  });
+  return a;
 }
 
 function legendItem(cls: string, label: string, desc: string): HTMLElement {

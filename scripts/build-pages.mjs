@@ -32,8 +32,11 @@ const { BANKS: BANK_META } = await import(
 
 // Ensure a baseline history snapshot exists so the movements page has data to
 // work with, then load history + recent changes for rendering.
-const { appendSnapshot, loadHistory, recentChanges } = await import(
+const { appendSnapshot, loadHistory, recentChanges, rateKey } = await import(
   resolve(here, "history.mjs")
+);
+const { seriesForKey, sparklineSvg } = await import(
+  resolve(root, "public/js/history.js")
 );
 await appendSnapshot(DATASET, DATASET.generatedAt);
 const HISTORY = await loadHistory();
@@ -116,26 +119,35 @@ function rateTableRows(bankId, product) {
 function productSection(bank, product, title) {
   const rows = rateTableRows(bank.id, product);
   if (rows.length === 0) return "";
+  const showTrend = HISTORY.snapshots.length >= 2;
   const body = rows
     .map(({ g, srRate }) => {
       const scheme = g.scheme
         ? `<div class="bank-short muted">${esc(g.scheme)}</div>`
         : "";
+      let trendCell = "";
+      if (showTrend) {
+        const series = seriesForKey(HISTORY, rateKey(g));
+        const spark = sparklineSvg(series, bank.color);
+        trendCell = `<td class="num spark-cell">${spark || '<span class="muted">—</span>'}</td>`;
+      }
       return `<tr>
         <td><div class="bank-name">${esc(g.tenure.label)}</div>${scheme}</td>
         <td class="muted">${esc(fmt.amountLabel(g.amount))}</td>
         <td class="num rate-cell" style="color:${bank.color}">${fmt.formatRate(g.ratePercent)}</td>
         <td class="num rate-cell muted">${srRate != null ? fmt.formatRate(srRate) : "—"}</td>
+        ${trendCell}
       </tr>`;
     })
     .join("");
+  const trendHead = showTrend ? `<th class="num">Trend</th>` : "";
   return `<section class="block">
     <div class="section-head"><div>
       <h2 class="section-title">${esc(title)}</h2>
-      <p class="section-note">Rates for deposits below ₹3 crore · general vs senior citizen</p>
+      <p class="section-note">Rates for deposits below ₹3 crore · general vs senior citizen${showTrend ? " · trend over time" : ""}</p>
     </div></div>
     <div class="table-wrap"><table class="rate-table">
-      <thead><tr><th>Tenure</th><th>Applies to</th><th class="num">General</th><th class="num">Senior</th></tr></thead>
+      <thead><tr><th>Tenure</th><th>Applies to</th><th class="num">General</th><th class="num">Senior</th>${trendHead}</tr></thead>
       <tbody>${body}</tbody>
     </table></div>
   </section>`;
@@ -727,6 +739,13 @@ function banksDirectoryPage() {
   return { slug: "banks", html };
 }
 
+function triUp() {
+  return `<svg viewBox="0 0 10 10" width="9" height="9" style="vertical-align:0"><path d="M5 1l4 7H1z" fill="currentColor"/></svg>`;
+}
+function triDown() {
+  return `<svg viewBox="0 0 10 10" width="9" height="9" style="vertical-align:0"><path d="M5 9L1 2h8z" fill="currentColor"/></svg>`;
+}
+
 function tenureLabelFromKey(minDays, maxDays) {
   if (!minDays) return "Any tenure";
   const tp = TENURE_PAGES.find((t) => String(t.days) === String(minDays));
@@ -761,7 +780,7 @@ function movementsPage() {
               <div class="bank-short muted">${esc(fmt.productLabel(c.product))} · ${esc(tenure)} · ${c.customer === "SENIOR" ? "Senior" : "General"}</div></td>
           <td class="num muted">${fmt.formatRate(c.from)}</td>
           <td class="num rate-cell" style="color:${bank.color}">${fmt.formatRate(c.to)}</td>
-          <td class="num"><span class="move-delta ${up ? "move-up" : "move-down"}">${up ? "▲" : "▼"} ${Math.abs(c.delta).toFixed(2)}%</span></td>
+          <td class="num"><span class="move-delta ${up ? "move-up" : "move-down"}">${up ? triUp() : triDown()} ${Math.abs(c.delta).toFixed(2)}%</span></td>
           <td class="muted">${esc(fmt.formatDate(c.date))}</td>
         </tr>`;
       })

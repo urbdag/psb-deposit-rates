@@ -526,6 +526,60 @@ body {
   margin: 0;
 }
 
+/* Hero movements strip */
+.movements-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 13.5px;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+.movements-strip:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+.mv-badge {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+}
+.mv-text {
+  color: var(--ink-2);
+}
+.mv-nums {
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+.mv-up {
+  color: #10b981;
+}
+.mv-down {
+  color: #ef4444;
+}
+.mv-go {
+  color: var(--brand);
+  font-weight: 700;
+}
+@media (prefers-color-scheme: dark) {
+  .mv-go {
+    color: var(--accent-2);
+  }
+}
+
 /* Headline best-rate card */
 .headline-card {
   position: relative;
@@ -930,6 +984,13 @@ a.bank-link:hover {
 }
 .muted {
   color: var(--muted);
+}
+.spark-cell {
+  width: 110px;
+}
+.spark {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* Tags */
