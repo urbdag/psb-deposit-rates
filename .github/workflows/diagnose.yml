@@ -1,0 +1,43 @@
+name: Diagnose bank pages
+
+# Manual-only. Loads resistant bank rate pages in a headless browser and dumps
+# their rendered DOM, iframes, and captured network JSON as an artifact, so the
+# real structure can be inspected and the right extraction written.
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Space-separated URLs to diagnose"
+        required: false
+        default: >-
+          https://bankofbaroda.bank.in/interest-rate-and-service-charges/deposits-interest-rates
+          https://www.unionbankofindia.bank.in/en/Interest-Rate-Deposit
+          https://indianbank.bank.in/departments/fixed-deposit/
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright + Chromium
+        run: |
+          npm install playwright@1.48.0
+          npx playwright install --with-deps chromium
+      - name: Diagnose each URL
+        run: |
+          mkdir -p diagnostics
+          for u in ${{ github.event.inputs.urls }}; do
+            echo "::group::$u"
+            node scripts/diagnose-page.mjs "$u" diagnostics || echo "failed: $u"
+            echo "::endgroup::"
+          done
+      - name: Upload diagnostics artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bank-diagnostics
+          path: diagnostics/
+          retention-days: 3
