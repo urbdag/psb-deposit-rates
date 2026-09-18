@@ -96,17 +96,21 @@ export class TableRateAdapter {
                 }
             }
         }
-        if (fdRd.length === 0) {
-            throw new Error(`${this.bankId}: no FD rates from any candidate URL:\n    ` +
-                attempts.join("\n    "));
-        }
-        out.push(...fdRd);
-        const fdEff = fdRd[0].source.effectiveDate;
+        // FD is the core product and a hard failure normally throws so the ingest
+        // runner keeps last-known-good for the whole bank. But savings is a
+        // separate, best-effort product: an FD failure must NOT abort the savings
+        // scrape. So we defer the throw — collect FD rows if any, then always
+        // attempt savings. We only throw when BOTH FD and savings yielded nothing.
+        if (fdRd.length > 0)
+            out.push(...fdRd);
+        // Effective date passed to parseSavings: prefer the FD date when FD
+        // succeeded, otherwise fall back to the savings page's own date (below).
+        const fdEff = fdRd.length > 0 ? fdRd[0].source.effectiveDate : null;
         for (const url of this.cfg.savingsUrls ?? []) {
             let done = false;
             try {
                 const savHtml = await fetchText(url);
-                const savings = this.parseSavings(savHtml, extractEffectiveDate(savHtml) ?? fdEff, url);
+                const savings = this.parseSavings(savHtml, extractEffectiveDate(savHtml) ?? fdEff ?? today(), url);
                 if (savings.length > 0) {
                     out.push(...savings);
                     done = true;
@@ -118,7 +122,7 @@ export class TableRateAdapter {
             if (!done && this.cfg.renderJs) {
                 try {
                     const savHtml = await fetchRendered(url);
-                    const savings = this.parseSavings(savHtml, extractEffectiveDate(savHtml) ?? fdEff, url);
+                    const savings = this.parseSavings(savHtml, extractEffectiveDate(savHtml) ?? fdEff ?? today(), url);
                     if (savings.length > 0) {
                         out.push(...savings);
                         done = true;
@@ -130,6 +134,12 @@ export class TableRateAdapter {
             }
             if (done)
                 break;
+        }
+        // Only a total washout (no FD *and* no savings) is a hard failure. A
+        // savings-only success is still published rather than lost to the FD throw.
+        if (out.length === 0) {
+            throw new Error(`${this.bankId}: no FD rates from any candidate URL:\n    ` +
+                attempts.join("\n    "));
         }
         return out;
     }
@@ -326,12 +336,34 @@ export function findRateTable(html) {
     return null;
 }
 export function extractSavingsRate(html) {
+    // Realistic PSU savings band — rejects stray footnote values like a "1%"
+    // penalty or a "7.25% loan" number.
+    const inBand = (n) => n != null && n >= 2 && n <= 4.5;
+    // 1) Prefer a % inside a table row that mentions "saving" (the actual rate row).
+    for (const table of extractTables(html)) {
+        for (const cells of extractRows(table)) {
+            const rowText = cells.join(" ").toLowerCase();
+            if (!/sav(ing|ings)/.test(rowText))
+                continue;
+            for (const c of cells) {
+                const n = parsePercent(c);
+                if (inBand(n))
+                    return n;
+            }
+        }
+    }
+    // 2) A "<rate>% p.a." near the word "savings" in the prose.
     const text = stripTags(html);
+    const nearSavings = text.match(/sav(?:ing|ings)[^%]{0,80}?(\d(?:\.\d{1,2})?)\s*%/i);
+    if (nearSavings) {
+        const n = parsePercent(nearSavings[1] + "%");
+        if (inBand(n))
+            return n;
+    }
+    // 3) Fallback: first "% p.a." in the savings band.
     const near = text.match(/(\d(?:\.\d{1,2})?)\s*%\s*p\.?\s*a\.?/i);
-    const candidate = near ? parsePercent(near[0]) : parsePercent(text);
-    if (candidate == null)
-        return null;
-    return candidate >= 0.5 && candidate <= 5 ? candidate : null;
+    const candidate = near ? parsePercent(near[0]) : null;
+    return inBand(candidate) ? candidate : null;
 }
 export function extractEffectiveDate(html) {
     const text = html.replace(/<[^>]*>/g, " ");

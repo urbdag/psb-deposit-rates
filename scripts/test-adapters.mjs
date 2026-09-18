@@ -352,6 +352,86 @@ assert(
   "div page: 2yr senior = 7.10",
 );
 
+// ---------------------------------------------------------------------------
+// fetchRates() orchestration: FD is hard-fail but savings is best-effort. An
+// FD failure must NOT abort the savings scrape. When FD yields nothing but
+// savings succeeds, fetchRates() returns the savings entries (no throw). Only
+// a total washout (no FD *and* no savings) throws. Uses a stubbed global fetch
+// so it runs fully offline (no network, no Playwright).
+// ---------------------------------------------------------------------------
+console.log("== fetchRates orchestration (FD-fail, savings best-effort) ==");
+const { TableRateAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/base.js")
+);
+
+const realFetch = globalThis.fetch;
+// Map URL -> { ok, text } (or null to simulate a network error / non-2xx).
+function stubFetch(responses) {
+  globalThis.fetch = async (url) => {
+    const body = responses[url];
+    if (body == null) return { ok: false, status: 404, text: async () => "" };
+    return { ok: true, status: 200, text: async () => body };
+  };
+}
+
+const FD_URL = "https://example.test/fd";
+const SAV_URL = "https://example.test/savings";
+const REAL_SAVINGS_HTML = `
+<html><body><table>
+  <tr><th>Product</th><th>Rate (% p.a.)</th></tr>
+  <tr><td>Savings Bank Deposit</td><td>2.75% p.a.</td></tr>
+</table></body></html>`;
+
+// (a) FD page returns junk (no rate table) but savings page returns a real
+//     rate: fetchRates must return the 2 savings entries and NOT throw.
+try {
+  stubFetch({
+    [FD_URL]: "<html><body><p>penalty footnotes only</p></body></html>",
+    [SAV_URL]: REAL_SAVINGS_HTML,
+  });
+  const a = new TableRateAdapter({
+    bankId: "test",
+    fdUrl: FD_URL,
+    savingsUrls: [SAV_URL],
+  });
+  const rows = await a.fetchRates();
+  const sav = rows.filter((r) => r.product === "SAVINGS");
+  const fd = rows.filter((r) => r.product === "FD");
+  assert(fd.length === 0, "FD-fail: no FD rows returned");
+  assert(sav.length === 2, "FD-fail: savings still returned (general+senior)");
+  assert(
+    sav.every((r) => r.ratePercent === 2.75 && r.source.quality === "OFFICIAL"),
+    "FD-fail: savings rate = 2.75%, OFFICIAL",
+  );
+  assert(
+    sav.every((r) => /^\d{4}-\d{2}-\d{2}$/.test(r.source.effectiveDate)),
+    "FD-fail: savings gets a sensible fallback effective date",
+  );
+} catch (e) {
+  assert(false, `FD-fail savings-success should not throw (got ${e})`);
+}
+
+// (b) Both FD and savings fail: fetchRates must throw the "no FD rates" error.
+let threw = false;
+try {
+  stubFetch({
+    [FD_URL]: "<html><body>nothing</body></html>",
+    [SAV_URL]: "<html><body>nothing</body></html>",
+  });
+  const a = new TableRateAdapter({
+    bankId: "test",
+    fdUrl: FD_URL,
+    savingsUrls: [SAV_URL],
+  });
+  await a.fetchRates();
+} catch (e) {
+  threw = true;
+  assert(/no FD rates/.test(String(e)), "total washout: throws no-FD error");
+}
+assert(threw, "total washout: fetchRates throws");
+
+globalThis.fetch = realFetch;
+
 if (failures === 0) {
   console.log("\nAll adapter + merge + PDF + div tests passed.");
   process.exit(0);
