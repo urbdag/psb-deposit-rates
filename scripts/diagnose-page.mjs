@@ -93,12 +93,29 @@ try {
   const bodyText = await page.evaluate(() => document.body?.innerText || "");
   const pctSamples = (bodyText.match(/\d{1,2}\.\d{1,2}\s*%/g) || []).slice(0, 10);
 
+  // Link discovery: surface links whose text/href mention deposit/interest/rate
+  // so we can find the real rate-page URL without guessing.
+  const rateLinks = await page.evaluate(() => {
+    const out = [];
+    for (const a of Array.from(document.querySelectorAll("a[href]"))) {
+      const href = a.getAttribute("href") || "";
+      const text = (a.textContent || "").replace(/\s+/g, " ").trim();
+      if (/deposit|interest|rate|fixed|term/i.test(href + " " + text)) {
+        out.push({ text: text.slice(0, 50), href });
+      }
+    }
+    // de-dupe by href
+    const seen = new Set();
+    return out.filter((l) => (seen.has(l.href) ? false : (seen.add(l.href), true))).slice(0, 40);
+  });
+
   const summary = {
     url,
     mainHtmlLen: mainHtml.length,
     tables: (mainHtml.match(/<table\b/gi) || []).length,
     iframes: frameInfo,
     bodyPctSamples: pctSamples,
+    rateLinks,
     networkHits: captured.map((c) => ({ url: c.url, ct: c.ct, len: c.len, hasPct: c.hasPct })),
     promising: captured.filter((c) => c.hasPct).map((c) => c.url),
   };
