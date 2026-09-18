@@ -81,3 +81,31 @@ function relativeLabel(ageDays) {
         return `updated ${Math.floor(ageDays / 7)} weeks ago`;
     return `updated ${Math.floor(ageDays / 30)} months ago`;
 }
+/**
+ * Parse a human-typed amount into Rupees. Accepts plain/comma numbers and
+ * shorthand like "5L", "5 lakh", "1.5cr", "2 crore", "50k". Null if unparseable.
+ */
+export function parseAmountInput(raw) {
+    const s = raw.trim().toLowerCase().replace(/,/g, "").replace(/₹/g, "").trim();
+    if (!s)
+        return null;
+    const m = s.match(/^([\d.]+)\s*(k|thousand|l|lac|lakh|lakhs|cr|crore|crores)?$/);
+    if (!m)
+        return null;
+    const n = parseFloat(m[1]);
+    if (!Number.isFinite(n))
+        return null;
+    const unit = m[2] ?? "";
+    let mult = 1;
+    if (unit === "k" || unit === "thousand")
+        mult = 1000;
+    else if (/^(l|lac|lakh)/.test(unit))
+        mult = 100000;
+    else if (/^(cr|crore)/.test(unit))
+        mult = 10000000;
+    return Math.round(n * mult);
+}
+/** Full Indian-grouped amount, e.g. 500000 -> "₹5,00,000". */
+export function formatINRFull(amount) {
+    return "₹" + amount.toLocaleString("en-IN");
+}

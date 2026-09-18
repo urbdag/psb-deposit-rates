@@ -1,5 +1,7 @@
 import { AMOUNT_PRESETS, TENURE_PRESETS, bestByTenure, headlineRate, rankBanks, } from "./query.js";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, productLabel, } from "./format.js";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatINRFull, formatRate, parseAmountInput, productLabel, } from "./format.js";
+const MIN_AMOUNT = 1000;
+const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
     product: "FD",
     customer: "GENERAL",
@@ -8,11 +10,44 @@ const state = {
     showAll: false,
 };
 let dataset;
+// ---- URL state (shareable links) -----------------------------------------
+/** Read filters from the URL query string into state (called on load). */
+function readStateFromUrl() {
+    const p = new URLSearchParams(location.search);
+    const prod = p.get("product");
+    if (prod === "FD" || prod === "RD" || prod === "SAVINGS")
+        state.product = prod;
+    const cust = p.get("customer");
+    if (cust === "GENERAL" || cust === "SENIOR" || cust === "SUPER_SENIOR")
+        state.customer = cust;
+    const amt = Number(p.get("amount"));
+    if (Number.isFinite(amt) && amt > 0)
+        state.amount = clampAmount(amt);
+    const ten = Number(p.get("tenure"));
+    if (Number.isFinite(ten) && ten > 0)
+        state.tenureDays = ten;
+}
+/** Reflect current state into the URL (replaceState, no history spam). */
+function syncUrl() {
+    const p = new URLSearchParams();
+    p.set("product", state.product);
+    p.set("customer", state.customer);
+    p.set("amount", String(state.amount));
+    if (state.product !== "SAVINGS")
+        p.set("tenure", String(state.tenureDays));
+    const url = `${location.pathname}?${p.toString()}`;
+    history.replaceState(null, "", url);
+}
+function clampAmount(n) {
+    return Math.min(MAX_AMOUNT, Math.max(MIN_AMOUNT, Math.round(n)));
+}
 async function boot() {
     const res = await fetch("data/dataset.json");
     dataset = (await res.json());
+    readStateFromUrl();
     renderShell();
     renderAll();
+    syncUrl();
     wireScroll();
 }
 function el(tag, attrs = {}, children = []) {
@@ -37,8 +72,11 @@ function renderShell() {
     root.append(el("nav", { class: "nav", id: "nav" }, [
         el("div", { class: "container nav-inner" }, [
             el("div", { class: "brand" }, [
-                el("span", { class: "brand-mark", html: "₹" }),
-                el("span", {}, ["RateRadar"]),
+                el("span", { class: "brand-mark", html: brandMarkSvg() }),
+                el("span", {
+                    class: "brand-word",
+                    html: `Rate<span class="brand-accent">Radar</span>`,
+                }),
             ]),
             el("div", { class: "nav-right" }, [
                 el("span", {
@@ -98,8 +136,11 @@ function renderShell() {
             el("div", { class: "footer-grid" }, [
                 el("div", {}, [
                     el("div", { class: "brand", style: "margin-bottom:10px" }, [
-                        el("span", { class: "brand-mark", html: "₹" }),
-                        el("span", {}, ["RateRadar"]),
+                        el("span", { class: "brand-mark", html: brandMarkSvg() }),
+                        el("span", {
+                            class: "brand-word",
+                            html: `Rate<span class="brand-accent">Radar</span>`,
+                        }),
                     ]),
                     el("p", { class: "muted" }, [
                         "Deposit rates for State Bank of India and the 11 nationalised banks. Informational only — always verify on the bank's official website before investing.",
@@ -118,6 +159,14 @@ function renderShell() {
         ]),
     ]));
     renderControls();
+}
+/** Distinctive radar-arc brand mark (matches the favicon). */
+function brandMarkSvg() {
+    return `<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
+    <path d="M28 66 A24 24 0 0 1 66 34" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+    <path d="M34 66 A18 18 0 0 1 60 41" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+    <circle cx="66" cy="66" r="7.5" fill="white"/>
+  </svg>`;
 }
 function legendItem(cls, label, desc) {
     return el("span", {}, [
@@ -143,8 +192,7 @@ function renderControls() {
     host.append(segControl("Product", products.map((p) => ({ v: p, label: productLabel(p) })), state.product, (v) => {
         state.product = v;
         state.showAll = false;
-        renderControls();
-        renderAll();
+        apply(true);
     }));
     const customers = [
         { v: "GENERAL", label: "General" },
@@ -152,23 +200,9 @@ function renderControls() {
     ];
     host.append(segControl("Customer", customers, state.customer, (v) => {
         state.customer = v;
-        renderControls();
-        renderAll();
+        apply(true);
     }));
-    // Amount chips
-    const amtGroup = el("div", { class: "control" }, [
-        el("label", {}, ["Deposit amount"]),
-    ]);
-    const amtChips = el("div", { class: "chips" });
-    for (const preset of AMOUNT_PRESETS) {
-        amtChips.append(chip(preset.label, state.amount === preset.amount, () => {
-            state.amount = preset.amount;
-            renderControls();
-            renderAll();
-        }));
-    }
-    amtGroup.append(amtChips);
-    host.append(amtGroup);
+    host.append(renderAmountControl());
     // Tenure chips (hidden for savings)
     if (state.product !== "SAVINGS") {
         const tenGroup = el("div", { class: "control" }, [
@@ -178,13 +212,96 @@ function renderControls() {
         for (const preset of TENURE_PRESETS) {
             tenChips.append(chip(preset.label, state.tenureDays === preset.days, () => {
                 state.tenureDays = preset.days;
-                renderControls();
-                renderAll();
+                apply(true);
             }));
         }
         tenGroup.append(tenChips);
         host.append(tenGroup);
     }
+}
+/** Re-render results; optionally re-render controls too; always sync URL. */
+function apply(rerenderControls = false) {
+    if (rerenderControls)
+        renderControls();
+    renderAll();
+    syncUrl();
+}
+/** Amount control: editable input + slider + quick-pick presets. */
+function renderAmountControl() {
+    const group = el("div", { class: "control control-amount" }, [
+        el("label", {}, ["Deposit amount"]),
+    ]);
+    const input = el("input", {
+        class: "amount-input",
+        type: "text",
+        inputmode: "numeric",
+        "aria-label": "Deposit amount in rupees",
+        value: formatINRFull(state.amount),
+    });
+    // Log-scaled slider so ₹1k–₹5cr feels natural across the range.
+    const slider = el("input", {
+        class: "amount-slider",
+        type: "range",
+        min: "0",
+        max: "1000",
+        step: "1",
+        value: String(amountToSlider(state.amount)),
+        "aria-label": "Deposit amount slider",
+    });
+    const row = el("div", { class: "amount-row" }, [
+        el("span", { class: "amount-prefix" }, ["₹"]),
+        input,
+    ]);
+    const commitFromInput = () => {
+        const parsed = parseAmountInput(input.value);
+        if (parsed != null) {
+            state.amount = clampAmount(parsed);
+        }
+        input.value = formatINRFull(state.amount);
+        slider.value = String(amountToSlider(state.amount));
+        apply();
+    };
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter")
+            input.blur();
+    });
+    input.addEventListener("blur", commitFromInput);
+    slider.addEventListener("input", () => {
+        state.amount = sliderToAmount(Number(slider.value));
+        input.value = formatINRFull(state.amount);
+        // live-update results while dragging, but don't spam URL history
+        renderAll();
+    });
+    slider.addEventListener("change", () => syncUrl());
+    const chips = el("div", { class: "chips chips-sm" });
+    for (const preset of AMOUNT_PRESETS) {
+        chips.append(chip(preset.label, state.amount === preset.amount, () => {
+            state.amount = preset.amount;
+            apply(true);
+        }));
+    }
+    group.append(row, slider, chips);
+    return group;
+}
+// Map amount <-> slider position (0..1000) on a log scale.
+function amountToSlider(amount) {
+    const a = Math.min(MAX_AMOUNT, Math.max(MIN_AMOUNT, amount));
+    const t = (Math.log(a) - Math.log(MIN_AMOUNT)) /
+        (Math.log(MAX_AMOUNT) - Math.log(MIN_AMOUNT));
+    return Math.round(t * 1000);
+}
+function sliderToAmount(pos) {
+    const t = pos / 1000;
+    const raw = Math.exp(Math.log(MIN_AMOUNT) + t * (Math.log(MAX_AMOUNT) - Math.log(MIN_AMOUNT)));
+    // Snap to sensible round steps for a clean feel.
+    const step = raw < 100000
+        ? 5000
+        : raw < 1000000
+            ? 25000
+            : raw < 10000000
+                ? 100000
+                : 500000;
+    return clampAmount(Math.round(raw / step) * step);
 }
 function segControl(label, opts, active, onPick) {
     const group = el("div", { class: "control" }, [el("label", {}, [label])]);
@@ -297,8 +414,11 @@ function renderPodium() {
     const podium = el("div", { class: "podium" });
     ranked.slice(0, 3).forEach((r) => {
         const card = el("div", {
-            class: `podium-card${r.rank === 1 ? " first" : ""}`,
+            class: `podium-card clickable${r.rank === 1 ? " first" : ""}`,
             style: `--bank:${r.bank.color}`,
+            role: "button",
+            tabindex: "0",
+            title: `View all ${r.bank.name} rates`,
         }, [
             el("div", { class: "podium-rank" }, [
                 el("span", { class: `medal medal-${r.rank}` }, [String(r.rank)]),
@@ -315,6 +435,14 @@ function renderPodium() {
                     : r.entry.tenure.label,
             ]),
         ]);
+        card.addEventListener("click", () => openBankDetail(r.bank.id));
+        card.addEventListener("keydown", (e) => {
+            const k = e.key;
+            if (k === "Enter" || k === " ") {
+                e.preventDefault();
+                openBankDetail(r.bank.id);
+            }
+        });
         podium.append(card);
     });
     host.append(podium);
@@ -409,7 +537,10 @@ function renderTable() {
         const detail = r.entry.scheme
             ? `${r.entry.tenure.label} · ${amountLabel(r.entry.amount)} · ${r.entry.scheme}`
             : `${r.entry.tenure.label} · ${amountLabel(r.entry.amount)}`;
-        tbody.append(el("tr", { class: r.rank === 1 ? "top-row" : "" }, [
+        const tr = el("tr", {
+            class: `row-clickable${r.rank === 1 ? " top-row" : ""}`,
+            title: `View all ${r.bank.name} rates`,
+        }, [
             el("td", {}, [
                 r.rank <= 3
                     ? el("span", { class: `medal medal-${r.rank}` }, [String(r.rank)])
@@ -435,7 +566,9 @@ function renderTable() {
                 formatDate(r.entry.source.effectiveDate),
                 qualityTag(r.entry.source.quality),
             ]),
-        ]));
+        ]);
+        tr.addEventListener("click", () => openBankDetail(r.bank.id));
+        tbody.append(tr);
     }
     table.append(tbody);
     host.append(el("div", { class: "table-wrap" }, [table]));
@@ -449,6 +582,110 @@ function renderTable() {
         });
         host.append(el("div", { class: "reveal-wrap" }, [btn]));
     }
+}
+// ---- Per-bank detail modal -----------------------------------------------
+function openBankDetail(bankId) {
+    const bank = dataset.banks.find((b) => b.id === bankId);
+    if (!bank)
+        return;
+    // All of this bank's rates for the current product + customer, any amount/tenure.
+    const rows = dataset.rates
+        .filter((e) => e.bankId === bankId &&
+        e.product === state.product &&
+        e.customer === state.customer)
+        .sort((a, b) => a.tenure.minDays - b.tenure.minDays || b.ratePercent - a.ratePercent);
+    const src = rows[0]?.source;
+    const body = el("div", { class: "modal-body" });
+    if (rows.length === 0) {
+        body.append(el("div", { class: "empty" }, [
+            `No ${productLabel(state.product)} rates listed for ${bank.name} (${customerLabel(state.customer)}).`,
+        ]));
+    }
+    else {
+        const t = el("table", { class: "rate-table modal-table" });
+        t.append(el("thead", {}, [
+            el("tr", {}, [
+                el("th", {}, ["Tenure"]),
+                el("th", {}, ["Applies to"]),
+                el("th", { class: "num" }, ["Rate"]),
+            ]),
+        ]));
+        const tb = el("tbody");
+        for (const e of rows) {
+            tb.append(el("tr", {}, [
+                el("td", {}, [
+                    el("div", { class: "bank-name" }, [e.tenure.label]),
+                    e.scheme
+                        ? el("div", { class: "bank-short muted" }, [e.scheme])
+                        : "",
+                ]),
+                el("td", { class: "muted" }, [amountLabel(e.amount)]),
+                el("td", { class: "num rate-cell", style: `color:${bank.color}` }, [
+                    formatRate(e.ratePercent),
+                ]),
+            ]));
+        }
+        t.append(tb);
+        body.append(el("div", { class: "table-wrap" }, [t]));
+    }
+    const sourceLine = src
+        ? el("div", { class: "modal-source" }, [
+            qualityTag(src.quality),
+            el("span", { class: "muted" }, [
+                ` Effective ${formatDate(src.effectiveDate)} · `,
+            ]),
+            el("a", {
+                href: src.url,
+                target: "_blank",
+                rel: "noopener",
+                class: "modal-link",
+            }, ["View source ↗"]),
+        ])
+        : el("span", {});
+    const modal = el("div", { class: "modal-card", style: `--bank:${bank.color}` }, [
+        el("div", { class: "modal-head" }, [
+            el("div", { class: "modal-bank" }, [
+                el("span", {
+                    class: "bank-dot",
+                    style: `--bank:${bank.color};background:${bank.color}`,
+                }),
+                el("div", {}, [
+                    el("div", { class: "modal-title" }, [bank.name]),
+                    el("div", { class: "modal-sub muted" }, [
+                        `${productLabel(state.product)} rates · ${customerLabel(state.customer)}`,
+                    ]),
+                ]),
+            ]),
+            (() => {
+                const x = el("button", { class: "modal-close", "aria-label": "Close" }, ["✕"]);
+                x.addEventListener("click", closeModal);
+                return x;
+            })(),
+        ]),
+        body,
+        sourceLine,
+    ]);
+    const overlay = el("div", { class: "modal-overlay", id: "modal-overlay" }, [
+        modal,
+    ]);
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay)
+            closeModal();
+    });
+    document.addEventListener("keydown", escToClose);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = "hidden";
+}
+function escToClose(e) {
+    if (e.key === "Escape")
+        closeModal();
+}
+function closeModal() {
+    const o = document.getElementById("modal-overlay");
+    if (o)
+        o.remove();
+    document.removeEventListener("keydown", escToClose);
+    document.body.style.overflow = "";
 }
 boot().catch((err) => {
     const root = document.getElementById("app");
