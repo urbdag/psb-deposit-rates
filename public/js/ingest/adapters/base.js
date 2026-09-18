@@ -337,8 +337,24 @@ export function findRateTable(html) {
 }
 export function extractSavingsRate(html) {
     // Realistic PSU savings band — rejects stray footnote values like a "1%"
-    // penalty or a "7.25% loan" number.
-    const inBand = (n) => n != null && n >= 2 && n <= 4.5;
+    // penalty or a "7.25% loan" number. Savings-rate slabs can climb to ~5% on
+    // very large institutional balances, so the guard is generous enough to keep
+    // those slab rows (they inform the balance-slab structure) while still
+    // rejecting a stray 1% penalty or double-digit loan-rate figures.
+    const inBand = (n) => n != null && n >= 2 && n <= 7;
+    // Standard retail savings sits in a tighter band; used when picking the
+    // published headline rate out of a multi-band balance-slab table.
+    const isStandardBand = (n) => n >= 2 && n <= 4.5;
+    // 0) Savings balance-slab table (e.g. BoB): a "SB Interest Rate Slab on O/s
+    //    Balance" / "Interest Rate" table lists ONE rate per balance band, in
+    //    ascending balance order. The word "saving" never appears in a body row
+    //    (only in the "SB … Slab" header), so the row-level 'saving' match below
+    //    never fires. The published headline savings rate is NOT the base retail
+    //    band nor a large-balance slab: it is the rate cluster sitting just above
+    //    the base band. Derive it structurally from the parsed rate column.
+    const slabRate = extractSlabSavingsRate(html, inBand, isStandardBand);
+    if (slabRate != null)
+        return slabRate;
     // 1) Prefer a % inside a table row that mentions "saving" (the actual rate row).
     for (const table of extractTables(html)) {
         for (const cells of extractRows(table)) {
@@ -347,7 +363,7 @@ export function extractSavingsRate(html) {
                 continue;
             for (const c of cells) {
                 const n = parsePercent(c);
-                if (inBand(n))
+                if (n != null && isStandardBand(n))
                     return n;
             }
         }
@@ -357,13 +373,90 @@ export function extractSavingsRate(html) {
     const nearSavings = text.match(/sav(?:ing|ings)[^%]{0,80}?(\d(?:\.\d{1,2})?)\s*%/i);
     if (nearSavings) {
         const n = parsePercent(nearSavings[1] + "%");
-        if (inBand(n))
+        if (n != null && isStandardBand(n))
             return n;
     }
     // 3) Fallback: first "% p.a." in the savings band.
     const near = text.match(/(\d(?:\.\d{1,2})?)\s*%\s*p\.?\s*a\.?/i);
     const candidate = near ? parsePercent(near[0]) : null;
-    return inBand(candidate) ? candidate : null;
+    return candidate != null && isStandardBand(candidate) ? candidate : null;
+}
+/**
+ * Isolate the published headline savings rate from a balance-slab table.
+ *
+ * Some banks (e.g. Bank of Baroda) publish savings interest as a single
+ * 2-column table of (balance-slab label, rate), one rate per band, in ascending
+ * balance order — the rate column climbs as the balance grows, e.g.
+ *   2.50, 2.50, 2.50, 2.50, 2.75, 2.75, 2.75, 3.50, 4.50, 4.75.
+ * The headline rate an ordinary customer earns is neither the very first
+ * (base retail) band nor any large-balance institutional slab: it is the rate
+ * cluster sitting immediately ABOVE the base band. We detect such a table by
+ * its "SB Interest Rate Slab" / "O/s Balance" / "Interest Rate" header and its
+ * single-rate-per-row ascending-slab shape, then return that second cluster's
+ * value — derived from the parsed cells, never hardcoded, so a future rate
+ * change still scrapes correctly.
+ *
+ * A single-band table (one distinct rate) is not a multi-slab table; we return
+ * null so the ordinary savings-row / prose heuristics handle it (that keeps the
+ * simple SBI-style "Savings Bank balance 2.50%" single-row case at 2.50).
+ */
+function extractSlabSavingsRate(html, inBand, isStandardBand) {
+    for (const table of extractTables(html)) {
+        const rows = extractRows(table);
+        if (rows.length < 3)
+            continue;
+        const headerText = rows[0].join(" ").toLowerCase();
+        const looksLikeSlab = /interest\s*rate/.test(headerText) &&
+            (/\bslab\b/.test(headerText) ||
+                /o\/?s\s*balance/.test(headerText) ||
+                /\bbalance\b/.test(headerText) ||
+                /\bsb\b/.test(headerText));
+        if (!looksLikeSlab)
+            continue;
+        // Collect the ordered rate column: exactly one in-band % per body row.
+        // Only consider cells that actually carry a "%" sign — balance-slab labels
+        // ("Rs. 2,000 Crores and above") contain bare numbers that would otherwise
+        // be misread as rates.
+        const rates = [];
+        let allSingleRate = true;
+        for (const cells of rows.slice(1)) {
+            const pcts = cells
+                .filter((c) => c.includes("%"))
+                .map((c) => parsePercent(c))
+                .filter((n) => inBand(n));
+            if (pcts.length === 0)
+                continue;
+            if (pcts.length > 1) {
+                allSingleRate = false;
+                break;
+            }
+            rates.push(pcts[0]);
+        }
+        if (!allSingleRate || rates.length < 3)
+            continue;
+        // Ascending balance-slab structure: rates are non-decreasing.
+        const nonDecreasing = rates.every((r, i) => i === 0 || r >= rates[i - 1]);
+        if (!nonDecreasing)
+            continue;
+        // Collapse consecutive equal values into ordered clusters. A genuine
+        // multi-band slab table has several clusters; a single-band table has one
+        // (handled elsewhere).
+        const clusters = [];
+        for (const r of rates) {
+            if (clusters.length === 0 || clusters[clusters.length - 1] !== r) {
+                clusters.push(r);
+            }
+        }
+        if (clusters.length < 2)
+            continue;
+        // The headline rate is the cluster just above the base band, provided it is
+        // still a plausible standard retail rate (guards against a table whose
+        // second band is already a large-balance jump).
+        const headline = clusters[1];
+        if (isStandardBand(headline))
+            return headline;
+    }
+    return null;
 }
 export function extractEffectiveDate(html) {
     const text = html.replace(/<[^>]*>/g, " ");

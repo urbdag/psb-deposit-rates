@@ -133,6 +133,43 @@ assert(
   "savings rate = 2.50%",
 );
 
+// ---------------------------------------------------------------------------
+// BoB savings regression: the live BoB savings page is a single 2-column
+// balance-slab table (col0 = balance-slab label, col1 = "X.XX %" with a space).
+// No body row contains the word "saving" (only the header "SB Interest Rate
+// Slab" does). Rate column in document order:
+//   2.50 x4 (retail bands), 2.75 x3 (Rs 50cr..500cr), 3.50, 4.50, 4.75 (large).
+// The STANDARD published savings rate is 2.75 — the cluster just above the base
+// 2.50 retail band and below the large-balance 3.50/4.50/4.75 slabs. The
+// extractor must isolate 2.75 by structure, NOT the base 2.50 nor a high slab.
+// ---------------------------------------------------------------------------
+console.log("== BoB multi-band savings (balance-slab table) ==");
+const BOB_SAVINGS_FIXTURE = `
+<html><body><table>
+  <tr><th>Present SB Interest Rate Slab on O/s Balance</th><th>Interest Rates</th></tr>
+  <tr><td>upto Rs. 1.00 Lakh</td><td>2.50 %</td></tr>
+  <tr><td>Above Rs 1.00 Lakh to less than Rs. 50 Lakh</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 50 Lakh and less than Rs. 10 Crores</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 10 Crores and above to less than Rs. 50 Crores</td><td>2.50 %</td></tr>
+  <tr><td>Rs. 50 Crores and above to less than Rs. 100 Crores</td><td>2.75 %</td></tr>
+  <tr><td>Rs. 100 Crores and above to less than Rs. 200 Crores</td><td>2.75 %</td></tr>
+  <tr><td>Rs. 200 Crores and above to less than Rs. 500 Crores</td><td>2.75 %</td></tr>
+  <tr><td>Rs. 500 Crores and above to less than Rs. 1,000 Crores</td><td>3.50 %</td></tr>
+  <tr><td>Rs. 1,000 Crores and above to less than Rs. 2,000 Crores</td><td>4.50 %</td></tr>
+  <tr><td>Rs. 2,000 Crores and above</td><td>4.75 %</td></tr>
+</table></body></html>`;
+const bobSav = new BobAdapter().parseSavings(BOB_SAVINGS_FIXTURE, "2026-01-01");
+assert(bobSav.length === 2, "BoB savings: 2 entries (general + senior)");
+assert(
+  bobSav.every(
+    (r) =>
+      r.product === "SAVINGS" &&
+      r.ratePercent === 2.75 &&
+      r.source.quality === "OFFICIAL",
+  ),
+  "BoB savings: standard rate = 2.75%, OFFICIAL (not 2.50 / 3.50 / 4.50 / 4.75)",
+);
+
 console.log("== Resilience ==");
 assert(
   adapter.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
