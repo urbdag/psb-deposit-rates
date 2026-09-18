@@ -7,15 +7,17 @@ export class IobAdapter extends TableRateAdapter {
     constructor() {
         super({
             bankId: "iob",
+            // Confirmed rates page (domestic/NRO/NRE retail term deposits).
             fdUrl: [
-                "https://www.iob.bank.in/en/Interest_Rate_Deposit",
+                "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
                 "https://www.iob.bank.in/en/domestic-term-deposit",
-                "https://www.iob.bank.in/en/interest-rates",
             ],
             savingsUrls: [
-                "https://www.iob.bank.in/en/Savings_Bank_Interest_Rate",
-                "https://www.iob.bank.in/en/interest-rates",
+                "https://www.iob.bank.in/en/savings-bank-interest-rate",
+                "https://www.iob.bank.in/en/domestic-nro-nre-retail-term-deposit-rates",
             ],
+            // IOB is a Liferay/JS site — render with a headless browser.
+            renderJs: true,
             schemeNamer: (t) => /\b444\b/.test(t) ? "444-day Special" : defaultScheme(t),
         });
     }
