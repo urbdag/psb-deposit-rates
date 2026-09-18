@@ -19,6 +19,16 @@ const DATASET = JSON.parse(
 );
 const { rankBanks } = await import(resolve(root, "public/js/query.js"));
 const fmt = await import(resolve(root, "public/js/format.js"));
+// Merge richer bank metadata (headquarters, established) from the source module
+// over the dataset's bank list — the committed dataset.json may predate those
+// fields (it's produced by ingestion), so enrich it here.
+const { BANKS: BANK_META } = await import(
+  resolve(root, "public/js/data/banks.js")
+);
+{
+  const metaById = new Map(BANK_META.map((b) => [b.id, b]));
+  DATASET.banks = DATASET.banks.map((b) => ({ ...metaById.get(b.id), ...b }));
+}
 
 const TENURE_PAGES = [
   { slug: "6-months", label: "6 months", days: 182 },
@@ -365,12 +375,7 @@ function navBar(base, active = "") {
         </div>
         ${link("savings-account/", "Savings", "savings")}
         ${link("recurring-deposit/", "Recurring", "rd")}
-        <div class="nav-dd">
-          <a class="nav-link${active === "banks" ? " nav-active" : ""}" href="${base}#banks" aria-haspopup="true">Banks ${caretSvg()}</a>
-          <div class="nav-dd-menu nav-dd-menu-2col">
-            ${DATASET.banks.map((b) => `<a class="nav-dd-item" href="${base}bank/${b.id}/">${esc(b.name)}</a>`).join("")}
-          </div>
-        </div>
+        ${link("banks/", "Banks", "banks")}
       </div>
       <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -386,7 +391,7 @@ function navBar(base, active = "") {
       ${link("savings-account/", "Savings account rates", "savings")}
       ${link("recurring-deposit/", "Recurring Deposit rates", "rd")}
       <div class="drawer-group">Banks</div>
-      ${DATASET.banks.map((b) => `<a class="nav-link nav-sub" href="${base}bank/${b.id}/">${esc(b.name)}</a>`).join("")}
+      ${link("banks/", "All banks", "banks")}
     </div>
   </nav>`;
 }
@@ -657,13 +662,78 @@ function seniorLandingPage() {
   };
 }
 
+function banksDirectoryPage() {
+  const base = "../";
+  // Scales to any number of banks: searchable grid, sorted by best FD rate.
+  const withBest = DATASET.banks
+    .map((b) => ({ b, best: bestFor(b.id, "FD", "GENERAL") }))
+    .sort((x, y) => (y.best?.ratePercent ?? 0) - (x.best?.ratePercent ?? 0));
+
+  const cards = withBest
+    .map(({ b, best }) => {
+      const official = bankIsOfficial(b.id);
+      const searchStr =
+        `${b.name} ${b.shortName} ${b.headquarters || ""}`.toLowerCase();
+      return `<a class="dir-card" href="${base}bank/${b.id}/" data-search="${esc(searchStr)}" style="--bank:${b.color}">
+        <div class="dir-card-top">
+          <span class="bank-dot" style="--bank:${b.color};background:${b.color}"></span>
+          <div class="dir-name">${esc(b.name)}</div>
+        </div>
+        <div class="dir-meta muted">${esc(b.shortName)}${b.headquarters ? " · " + esc(b.headquarters) : ""}</div>
+        <div class="dir-rate">${best ? fmt.formatRate(best.ratePercent) : "—"} <span class="dir-rate-label muted">top FD</span></div>
+        <div class="dir-tag">${official ? '<span class="tag tag-official">official</span>' : '<span class="tag tag-aggregator">aggregator</span>'}</div>
+      </a>`;
+    })
+    .join("");
+
+  const title = `All Public Sector Banks — Deposit Rates ${YEAR} | RateRadar`;
+  const desc = `Browse deposit rates for all ${DATASET.banks.length} of India's public sector banks. Search and compare fixed deposit, savings and recurring deposit rates.`;
+  const sections = `<section class="block">
+    <div class="dir-search-wrap">
+      <input id="dir-search" class="dir-search" type="search" placeholder="Search banks by name, code or city…" aria-label="Search banks" autocomplete="off" />
+    </div>
+    <div class="dir-grid" id="dir-grid">${cards}</div>
+    <div class="empty" id="dir-empty" style="display:none">No banks match your search.</div>
+  </section>`;
+
+  const html = landingShell({
+    base,
+    title,
+    desc,
+    canonical: `banks/`,
+    h1Html: `All <span class="grad">public sector banks</span>`,
+    sub: `${DATASET.banks.length} banks tracked. Search or tap any bank for its full deposit-rate profile and maturity calculator.`,
+    active: "banks",
+    sections,
+    appLink: "",
+    crumbs: [{ label: "Home", href: "" }, { label: "Banks" }],
+  }).replace(
+    "</body>",
+    `<script>(function(){var q=document.getElementById('dir-search'),g=document.getElementById('dir-grid'),e=document.getElementById('dir-empty');if(!q)return;q.addEventListener('input',function(){var v=q.value.trim().toLowerCase(),n=0;g.querySelectorAll('.dir-card').forEach(function(c){var m=c.getAttribute('data-search').indexOf(v)>=0;c.style.display=m?'':'none';if(m)n++});e.style.display=n?'none':'block'})})();</script></body>`,
+  );
+  return { slug: "banks", html };
+}
+
 // ---- write pages + a favicon + sitemap ------------------------------------
 let count = 0;
-const sitemapUrls = ["", ...DATASET.banks.map((b) => `bank/${b.id}/`)];
+const sitemapUrls = [
+  "",
+  "banks/",
+  ...DATASET.banks.map((b) => `bank/${b.id}/`),
+];
 for (const bank of DATASET.banks) {
   const dir = resolve(root, "public/bank", bank.id);
   await mkdir(dir, { recursive: true });
   await writeFile(resolve(dir, "index.html"), page(bank), "utf8");
+  count++;
+}
+
+// Banks directory (scales to any number of banks; searchable)
+{
+  const { slug, html } = banksDirectoryPage();
+  const dir = resolve(root, "public", slug);
+  await mkdir(dir, { recursive: true });
+  await writeFile(resolve(dir, "index.html"), html, "utf8");
   count++;
 }
 

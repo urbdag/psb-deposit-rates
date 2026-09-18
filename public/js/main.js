@@ -109,10 +109,7 @@ function renderShell() {
                 ]),
                 navLink("savings-account/", "Savings", "savings"),
                 navLink("recurring-deposit/", "Recurring", "rd"),
-                navDropdown("Banks", "#", dataset.banks.map((b) => ({
-                    href: `bank/${b.id}/`,
-                    label: b.name,
-                })), true),
+                navLink("banks/", "Banks", "banks"),
             ]),
             el("div", { class: "nav-right" }, [
                 el("span", {
@@ -144,9 +141,7 @@ function renderShell() {
             navLink("savings-account/", "Savings account rates", "savings"),
             navLink("recurring-deposit/", "Recurring Deposit rates", "rd"),
             el("div", { class: "drawer-group" }, ["Banks"]),
-            ...dataset.banks.map((b) => el("a", { class: "nav-link nav-sub", href: `bank/${b.id}/` }, [
-                b.name,
-            ])),
+            navLink("banks/", "All banks", "banks"),
         ]),
     ]));
     // ---- Hero ----
@@ -880,15 +875,30 @@ function renderExplore() {
     // Bank grid
     section.append(el("div", { class: "explore-label muted" }, ["Browse by bank"]));
     const bgrid = el("div", { class: "explore-banks" });
-    for (const b of dataset.banks) {
-        bgrid.append(el("a", { class: "explore-bank", href: `bank/${b.id}/`, title: b.name }, [
+    // Teaser: top few banks by best FD rate, then a link to the full directory
+    // (scales cleanly however many banks we track).
+    const topBanks = rankBanks(dataset, {
+        product: "FD",
+        customer: "GENERAL",
+        amount: 500000,
+        tenureDays: 365,
+    }).slice(0, 6);
+    for (const r of topBanks) {
+        bgrid.append(el("a", {
+            class: "explore-bank",
+            href: `bank/${r.bank.id}/`,
+            title: r.bank.name,
+        }, [
             el("span", {
                 class: "bank-dot",
-                style: `--bank:${b.color};background:${b.color}`,
+                style: `--bank:${r.bank.color};background:${r.bank.color}`,
             }),
-            el("span", {}, [b.shortName]),
+            el("span", {}, [r.bank.shortName]),
         ]));
     }
+    bgrid.append(el("a", { class: "explore-bank explore-bank-all", href: "banks/" }, [
+        `All ${dataset.banks.length} banks →`,
+    ]));
     section.append(bgrid);
     return section;
 }

@@ -1159,10 +1159,105 @@ a.bank-link:hover {
   border-color: color-mix(in srgb, var(--bank) 55%, var(--line));
   transform: translateY(-1px);
 }
+.explore-bank-all {
+  font-weight: 700;
+  color: var(--brand);
+  border-color: var(--info-line);
+  background: var(--info-bg);
+}
+@media (prefers-color-scheme: dark) {
+  .explore-bank-all {
+    color: var(--accent-2);
+  }
+}
 @media (max-width: 700px) {
   .explore-products {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==========================================================================
+   Banks directory page
+   ========================================================================== */
+.dir-search-wrap {
+  margin-bottom: 20px;
+}
+.dir-search {
+  width: 100%;
+  max-width: 460px;
+  font-family: var(--font);
+  font-size: 15px;
+  padding: 13px 18px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.dir-search:focus {
+  border-color: var(--brand);
+}
+.dir-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+.dir-card {
+  position: relative;
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), border-color 0.2s;
+  overflow: hidden;
+}
+.dir-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--bank, var(--brand));
+}
+.dir-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--bank) 45%, var(--line));
+}
+.dir-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dir-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+}
+.dir-meta {
+  font-size: 12.5px;
+  margin: 6px 0 12px;
+}
+.dir-rate {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--bank, var(--ink));
+}
+.dir-rate-label {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 500;
+}
+.dir-tag {
+  margin-top: 10px;
 }
 
 /* ==========================================================================
