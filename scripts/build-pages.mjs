@@ -915,6 +915,32 @@ function leaderboardTable(ranked, base) {
     <tbody>${rows}</tbody></table></div>`;
 }
 
+/**
+ * Build the progressive-enhancement block for a landing page: a dedicated mount
+ * container carrying the lock config as data-* attributes plus a loading
+ * placeholder, followed by a cache-bust-stamped ES-module <script> that boots
+ * the shared render engine (public/js/main.js). Reuses stampAsset so the ?v
+ * token matches styles.css and index.html.
+ *
+ * `enhance` shape: { lockedProduct, lockedCustomer, lockedTenureDays } — any
+ * subset. Returns "" when no enhancement is requested (unchanged pages).
+ */
+function enhancementBlock(base, enhance) {
+  if (!enhance) return "";
+  const attrs = [
+    enhance.lockedProduct ? ` data-locked-product="${enhance.lockedProduct}"` : "",
+    enhance.lockedCustomer ? ` data-locked-customer="${enhance.lockedCustomer}"` : "",
+    enhance.lockedTenureDays
+      ? ` data-locked-tenure="${enhance.lockedTenureDays}"`
+      : "",
+  ].join("");
+  return `
+  <div id="app-enhance"${attrs}>
+    <div class="container loading">Loading interactive comparison…</div>
+  </div>
+  <script type="module" src="${stampAsset(`${base}js/main.js`)}"></script>`;
+}
+
 function landingShell({
   base,
   title,
@@ -927,6 +953,7 @@ function landingShell({
   appLink,
   crumbs,
   ogImage,
+  enhance,
 }) {
   const jsonld = {
     "@context": "https://schema.org",
@@ -985,7 +1012,7 @@ function landingShell({
       <h2 class="section-title" style="margin-bottom:10px">About these rates</h2>
       <p class="muted" style="margin:0">Rates are compiled across India's banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
     </div></section>
-  </div>
+  </div>${enhancementBlock(base, enhance)}
   <footer class="site-footer"><div class="container"><div class="footer-grid">
     <div><div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
       <p class="muted">Best deposit rates across India's banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
@@ -1012,7 +1039,13 @@ function productLandingPage(product) {
     product === "SAVINGS"
       ? `Compare savings account interest rates across India's banks.`
       : `The highest ${name} rates across India's banks, ranked. Amounts below ₹3 crore, general public.`;
-  let sections = `<section class="block">
+  // FD is the phase-1 proof: it emits the SPA enhancement layered on top of the
+  // preserved static shell, so its static interactive sections carry the
+  // `js-enhanced-hide` class (the SPA hides them at runtime; no-JS/crawlers keep
+  // them). Other products keep their static sections fully visible for now.
+  const enhance = product === "FD" ? { lockedProduct: "FD" } : undefined;
+  const staticHideCls = enhance ? " js-enhanced-hide" : "";
+  let sections = `<section class="block${staticHideCls}">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(name)} rates${product !== "SAVINGS" ? " (1 year)" : ""}</h2>
     <p class="section-note">Ranked across India's banks · ${MONTH}</p></div></div>
     ${leaderboardTable(ranked, base)}</section>`;
@@ -1031,7 +1064,7 @@ function productLandingPage(product) {
         <div class="tenure-rate" style="color:${r ? r.bank.color : "#888"}">${r ? fmt.formatRate(r.entry.ratePercent) : "—"}</div>
         <div class="tenure-bank">${r ? esc(r.bank.shortName) : ""}</div></a>`;
     }).join("");
-    sections += `<section class="block"><div class="section-head"><div>
+    sections += `<section class="block${staticHideCls}"><div class="section-head"><div>
       <h2 class="section-title">Best FD rate by tenure</h2>
       <p class="section-note">Tap a tenure for the full ranking</p></div></div>
       <div class="tenure-grid">${cells}</div></section>`;
@@ -1051,6 +1084,7 @@ function productLandingPage(product) {
       active: product === "FD" ? "fd" : product === "RD" ? "rd" : "savings",
       sections,
       appLink: `?product=${product}`,
+      enhance,
     }),
   };
 }

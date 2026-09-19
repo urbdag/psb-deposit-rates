@@ -48,6 +48,74 @@ const state: UiState = {
   sortDir: "desc",
 };
 
+/**
+ * Mount configuration for the render engine.
+ *
+ * On the MAIN page (public/index.html) there is a bare `<div id="app">` with no
+ * lock attributes, so the defaults below apply: the SPA mounts into #app,
+ * renderShell() clears #app and rebuilds the full experience (nav + hero +
+ * ALL controls + results + explore + footer), stays tenure-agnostic and writes
+ * its filters to the URL — byte-for-byte the pre-existing behaviour.
+ *
+ * On a LANDING page (e.g. /fixed-deposit/) the page server-renders its static,
+ * crawlable SEO shell (head + JSON-LD + a static ranked table + descriptive
+ * copy) and then emits a dedicated enhancement container
+ * `<div id="app-enhance" data-locked-product="FD" …>`. readMountConfig() reads
+ * those data-* attributes and the SPA layers ONLY the interactive results
+ * region into that container (never touching the static <head>, nav, hero,
+ * JSON-LD or "About these rates" copy), with the locked dimension(s) fixed and
+ * their control(s) hidden.
+ */
+interface MountConfig {
+  /** The element the SPA renders into. */
+  mountId: string;
+  /** True on a landing page (enhancement mode): don't rebuild nav/hero/footer. */
+  enhance: boolean;
+  /** Locked product (control hidden + never read from/written to the URL). */
+  lockedProduct?: ProductType;
+  /** Locked customer (control hidden + never read from/written to the URL). */
+  lockedCustomer?: CustomerCategory;
+  /** Locked tenure in days (main page has no tenure control, so nothing to hide). */
+  lockedTenureDays?: number;
+}
+
+const mountConfig: MountConfig = {
+  mountId: "app",
+  enhance: false,
+};
+
+/**
+ * Inspect the DOM for a landing-page enhancement container and, when present,
+ * populate mountConfig from its data-* attributes. Falls back to #app (the main
+ * page) with no locks so main-page behaviour is unchanged.
+ */
+function readMountConfig(): void {
+  const enhance = document.getElementById("app-enhance");
+  if (!enhance) return; // main page: keep defaults (#app, no locks)
+  mountConfig.mountId = "app-enhance";
+  mountConfig.enhance = true;
+
+  const prod = enhance.getAttribute("data-locked-product");
+  if (prod === "FD" || prod === "RD" || prod === "SAVINGS") {
+    mountConfig.lockedProduct = prod;
+    state.product = prod;
+  }
+  const cust = enhance.getAttribute("data-locked-customer");
+  if (cust === "GENERAL" || cust === "SENIOR" || cust === "SUPER_SENIOR") {
+    mountConfig.lockedCustomer = cust;
+    state.customer = cust;
+  }
+  const tenure = Number(enhance.getAttribute("data-locked-tenure"));
+  if (Number.isFinite(tenure) && tenure > 0) {
+    mountConfig.lockedTenureDays = tenure;
+  }
+}
+
+/** The element the SPA renders into (enhancement container or main #app). */
+function mountRoot(): HTMLElement | null {
+  return document.getElementById(mountConfig.mountId);
+}
+
 let dataset: Dataset;
 
 // ---- URL state (shareable links) -----------------------------------------
@@ -55,12 +123,18 @@ let dataset: Dataset;
 /** Read filters from the URL query string into state (called on load). */
 function readStateFromUrl(): void {
   const p = new URLSearchParams(location.search);
-  const prod = p.get("product");
-  if (prod === "FD" || prod === "RD" || prod === "SAVINGS")
-    state.product = prod;
-  const cust = p.get("customer");
-  if (cust === "GENERAL" || cust === "SENIOR" || cust === "SUPER_SENIOR")
-    state.customer = cust;
+  // A locked dimension must never be overridden by the URL (it would "unlock"
+  // the page); on the main page nothing is locked so this is a no-op.
+  if (!mountConfig.lockedProduct) {
+    const prod = p.get("product");
+    if (prod === "FD" || prod === "RD" || prod === "SAVINGS")
+      state.product = prod;
+  }
+  if (!mountConfig.lockedCustomer) {
+    const cust = p.get("customer");
+    if (cust === "GENERAL" || cust === "SENIOR" || cust === "SUPER_SENIOR")
+      state.customer = cust;
+  }
   const amt = Number(p.get("amount"));
   if (Number.isFinite(amt) && amt > 0) state.amount = clampAmount(amt);
   const sector = p.get("sector");
@@ -81,6 +155,9 @@ function readStateFromUrl(): void {
 
 /** Reflect current state into the URL (replaceState, no history spam). */
 function syncUrl(): void {
+  // On landing pages the URL is a stable, canonical SEO URL; don't rewrite it
+  // with filter state (and never emit a locked dimension that could unlock it).
+  if (mountConfig.enhance) return;
   const p = new URLSearchParams();
   p.set("product", state.product);
   p.set("customer", state.customer);
@@ -112,6 +189,9 @@ async function boot(): Promise<void> {
   // Capture deep-link params BEFORE syncUrl() rewrites the query string.
   const bankParam = new URLSearchParams(location.search).get("bank");
   const compareParam = new URLSearchParams(location.search).get("compare");
+  // Detect a landing-page enhancement container + read its lock config first,
+  // so state/query/controls all respect the locks from the very first render.
+  readMountConfig();
   readStateFromUrl();
   renderShell();
   renderAll();
@@ -151,8 +231,22 @@ function el<K extends keyof HTMLElementTagNameMap>(
 }
 
 function renderShell(): void {
-  const root = document.getElementById("app")!;
+  const root = mountRoot()!;
+  // renderShell() clears ONLY its own mount container. On the main page that is
+  // #app; on a landing page it is the dedicated #app-enhance container that sits
+  // AFTER the static SEO sections, so the static <head>/nav/hero/JSON-LD/ranked
+  // table/"About these rates" copy are never touched.
   root.innerHTML = "";
+
+  // Enhancement mode: the landing page already server-rendered nav + hero +
+  // footer + the static ranked table. Layer ONLY the interactive results region
+  // on top, and hide the now-duplicated static interactive section(s) so JS
+  // users see the rich SPA while no-JS/crawlers keep the static content.
+  if (mountConfig.enhance) {
+    renderEnhancement(root);
+    return;
+  }
+
   const fresh = assessFreshness(dataset.generatedAt);
 
   // ---- Sticky nav (with responsive hamburger drawer) ----
@@ -309,6 +403,36 @@ function renderShell(): void {
       ]),
     ]),
   );
+
+  renderControls();
+}
+
+/**
+ * Landing-page progressive enhancement: build the interactive results region
+ * (controls + podium + tenure strip + sortable "All banks compared" table)
+ * inside the dedicated enhancement container, WITHOUT re-rendering the static
+ * nav/hero/footer the page already carries. The locked dimension(s) are fixed
+ * and their control(s) hidden (see renderControls()).
+ */
+function renderEnhancement(root: HTMLElement): void {
+  root.append(
+    el("section", { class: "container block" }, [
+      el("div", { class: "panel controls", id: "controls" }),
+    ]),
+  );
+  root.append(el("section", { class: "container block", id: "podium-region" }));
+  root.append(
+    el("section", { class: "container block", id: "leaderboard-region" }),
+  );
+  root.append(el("section", { class: "container block", id: "table-region" }));
+
+  // Hide the server-rendered static interactive duplicate now that the richer
+  // SPA is live. The static markup stays in the DOM (crawlable / no-JS), it is
+  // just visually hidden for JS users. Marked up by build-pages.mjs with the
+  // `js-enhanced-hide` class on each static interactive section.
+  document
+    .querySelectorAll<HTMLElement>(".js-enhanced-hide")
+    .forEach((n) => (n.style.display = "none"));
 
   renderControls();
 }
@@ -511,29 +635,36 @@ function renderControls(): void {
     RD: "Recurring",
     SAVINGS: "Savings",
   };
-  host.append(
-    segControl(
-      "Product",
-      products.map((p) => ({ v: p, label: shortProduct[p] })),
-      state.product,
-      (v) => {
-        state.product = v as ProductType;
-        state.showAll = false;
-        apply(true);
-      },
-    ),
-  );
+  // The control for any LOCKED dimension is omitted (the landing page already
+  // fixes that dimension). On the main page nothing is locked, so all controls
+  // render exactly as before.
+  if (!mountConfig.lockedProduct) {
+    host.append(
+      segControl(
+        "Product",
+        products.map((p) => ({ v: p, label: shortProduct[p] })),
+        state.product,
+        (v) => {
+          state.product = v as ProductType;
+          state.showAll = false;
+          apply(true);
+        },
+      ),
+    );
+  }
 
   const customers = [
     { v: "GENERAL", label: "General" },
     { v: "SENIOR", label: "Senior" },
   ];
-  host.append(
-    segControl("Customer", customers, state.customer, (v) => {
-      state.customer = v as CustomerCategory;
-      apply(true);
-    }),
-  );
+  if (!mountConfig.lockedCustomer) {
+    host.append(
+      segControl("Customer", customers, state.customer, (v) => {
+        state.customer = v as CustomerCategory;
+        apply(true);
+      }),
+    );
+  }
 
   const sectors = [
     { v: "ALL", label: "All" },
@@ -652,8 +783,9 @@ function query(): RateQuery {
     product: state.product,
     customer: state.customer,
     amount: state.amount,
-    // Tenure-agnostic: rank each bank by its best rate across ALL tenures.
-    tenureDays: undefined,
+    // Main page is tenure-agnostic (rank each bank by its best rate across ALL
+    // tenures). A tenure-LOCKED landing page pins the ranking to that tenure.
+    tenureDays: mountConfig.lockedTenureDays,
     category: selectedCategory(),
   };
 }
@@ -667,7 +799,10 @@ function renderAll(): void {
 
 // ---- Hero headline strip ----
 function renderHeadline(): void {
-  const host = document.getElementById("headline-region")!;
+  // The hero headline strip lives in the main-page hero; landing pages have
+  // their own static hero, so the enhancement container has no headline-region.
+  const host = document.getElementById("headline-region");
+  if (!host) return;
   host.innerHTML = "";
   const ranked = rankBanks(dataset, query());
   const overall = headlineRate(
@@ -1563,7 +1698,11 @@ function closeModal(): void {
 }
 
 boot().catch((err) => {
-  const root = document.getElementById("app");
+  // On a landing page the static SEO content is still present; only surface the
+  // error inside the enhancement container (falling back to #app on the main
+  // page) so we never wipe the crawlable fallback.
+  const root =
+    document.getElementById("app-enhance") || document.getElementById("app");
   if (root)
     root.innerHTML = `<div class="container"><div class="banner banner-warn">Failed to load data: ${String(err)}</div></div>`;
 });
