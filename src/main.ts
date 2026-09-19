@@ -268,14 +268,11 @@ function renderShell(): void {
     );
   }
 
-  // ---- Controls ----
-  root.append(
-    el("section", { class: "container block rise rise-3" }, [
-      el("div", { class: "panel controls", id: "controls" }),
-    ]),
-  );
-
   // ---- Podium / results ----
+  // NB: the filter/controls card is no longer a standalone section here.
+  // It is created and populated inside renderTable(), directly under the
+  // "All banks compared" section header, so it always sits in the right
+  // place and is rebuilt in-place on every re-render (no duplication).
   root.append(el("section", { class: "container block", id: "podium-region" }));
   root.append(
     el("section", { class: "container block", id: "leaderboard-region" }),
@@ -316,7 +313,8 @@ function renderShell(): void {
     ]),
   );
 
-  renderControls();
+  // Controls are rendered inside renderTable() (under the section header),
+  // so nothing to render here.
 }
 
 const TENURE_LINKS = [
@@ -505,7 +503,8 @@ function toast(msg: string, success = true): void {
 }
 
 function renderControls(): void {
-  const host = document.getElementById("controls")!;
+  const host = document.getElementById("controls");
+  if (!host) return;
   host.innerHTML = "";
 
   const products: ProductType[] = ["FD", "RD", "SAVINGS"];
@@ -552,9 +551,13 @@ function renderControls(): void {
   host.append(renderAmountControl());
 }
 
-/** Re-render results; optionally re-render controls too; always sync URL. */
-function apply(rerenderControls = false): void {
-  if (rerenderControls) renderControls();
+/**
+ * Re-render results; always sync URL. renderAll() -> renderTable() rebuilds
+ * the controls card in place under the "All banks compared" header, so the
+ * (now vestigial) rerenderControls flag is accepted for call-site
+ * compatibility but no explicit renderControls() call is needed here.
+ */
+function apply(_rerenderControls = false): void {
   renderAll();
   syncUrl();
 }
@@ -1003,6 +1006,13 @@ function renderTable(): void {
       ]),
     ]),
   );
+
+  // Filter/controls card sits directly under the section header. Because
+  // renderTable() wipes #table-region on every render, the container is
+  // (re)created here and populated in place, guaranteeing exactly one
+  // #controls in the DOM with no stale/duplicate cards across filter changes.
+  host.append(el("div", { class: "panel controls", id: "controls" }));
+  renderControls();
 
   if (ranked.length === 0) {
     host.append(
