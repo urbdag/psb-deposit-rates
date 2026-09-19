@@ -79,11 +79,13 @@ function categoryLabels(category) {
 }
 
 /**
- * Average headline 1-year GENERAL FD rate within a single category (rounded
- * 2dp). Uses the same ranked query fdRankSummary relies on so the per-bank
- * rate and the peer average are directly comparable. Cached per category.
+ * Average headline 1-year GENERAL FD rate across a bank's OWN-CATEGORY peers,
+ * EXCLUDING the bank itself (rounded 2dp). Uses the same ranked query
+ * fdRankSummary relies on so the subject rate and the peer average stay
+ * directly comparable. Returns null when the peer set is empty (the category
+ * has only one ranked bank, so excluding self leaves nothing to average).
  */
-function computeCategoryFdAverage(category) {
+function computePeerFdAverage(bankId, category) {
   const ranked = rankBanks(DATASET, {
     product: "FD",
     customer: "GENERAL",
@@ -92,16 +94,13 @@ function computeCategoryFdAverage(category) {
     category,
   });
   const rates = ranked
+    .filter((r) => r.bank.id !== bankId)
     .map((r) => r.entry.ratePercent)
     .filter((n) => Number.isFinite(n));
   if (!rates.length) return null;
   const avg = rates.reduce((a, b) => a + b, 0) / rates.length;
   return Math.round(avg * 100) / 100;
 }
-const CATEGORY_FD_AVERAGE = {
-  PUBLIC: computeCategoryFdAverage("PUBLIC"),
-  PRIVATE: computeCategoryFdAverage("PRIVATE"),
-};
 
 const TENURE_PAGES = [
   { slug: "6-months", label: "6 months", days: 182 },
@@ -298,9 +297,14 @@ function croreLabel(crore) {
   return `₹${Math.round(crore).toLocaleString("en-IN")} crore`;
 }
 
-/** Signed delta description of a bank's rate vs its own-category peer average. */
-function deltaVsPeer(rate, category) {
-  const avg = CATEGORY_FD_AVERAGE[category];
+/**
+ * Signed delta description of a bank's rate vs the average of its OWN-CATEGORY
+ * peers, EXCLUDING the bank itself. Returns null (so the caller omits the
+ * clause) when the self-excluded peer average is unavailable or rate is not
+ * finite.
+ */
+function deltaVsPeer(rate, category, bankId) {
+  const avg = computePeerFdAverage(bankId, category);
   const avgLabel = categoryLabels(category).average;
   if (avg == null || !Number.isFinite(rate)) return null;
   const delta = Math.round((rate - avg) * 100) / 100;
@@ -326,7 +330,7 @@ function bankIntro(bank) {
 
   const sentences = [sentence1];
   const rk = fdRankSummary(bank.id);
-  const d = rk ? deltaVsPeer(rk.rate, bank.category) : null;
+  const d = rk ? deltaVsPeer(rk.rate, bank.category, bank.id) : null;
   if (rk && d) {
     sentences.push(
       `Its headline 1-year FD rate of ${fmt.formatRate(rk.rate)} is ${d.text}, ranking #${rk.rank} of ${rk.of} ${labels.peers}.`,
@@ -379,7 +383,7 @@ function compareStrip(bank) {
 
   const labels = categoryLabels(bank.category);
   if (rk) {
-    const d = deltaVsPeer(rk.rate, bank.category);
+    const d = deltaVsPeer(rk.rate, bank.category, bank.id);
     const deltaClass = d ? `delta-${d.sign}` : "";
     items.push(`<div class="compare-item">
       <div class="compare-label">1-year FD rate</div>
