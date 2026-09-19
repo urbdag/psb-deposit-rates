@@ -84,6 +84,82 @@ const { IciciAdapter } = await import(resolve(root, `${A}/icici.js`));
 const { CapitalsfbAdapter } = await import(resolve(root, `${A}/capitalsfb.js`));
 const { ShivalikAdapter } = await import(resolve(root, `${A}/shivalik.js`));
 //
+// Batch 2 private-sector banks (OFFICIAL scrapers). Structures discovered via
+// the CI diagnose workflow.
+//
+// RBL (rbl): registered. rblbank.com/interest-rates is client-rendered
+// (renderJs); its retail FD grid ("Deposits below INR 3 crore") interleaves
+// Effective-Annualised-Yield columns between the rate columns and carries a
+// super-senior column, so generalCol=1 and seniorCol=3 (cols 2/4/6 are yields,
+// col 5 is super-senior). The bespoke picker PINS the "below INR 3 crore" grid
+// by signature so the savings slab / any bulk table is never published as
+// retail (source: rblbank.com).
+//
+// City Union (cityunion): registered. cityunionbank.com/deposit-interest-rate
+// is client-rendered (renderJs) with ~19 tables; the retail table titled
+// "Domestic/NRO Callable Term Deposit" has two stacked header rows and columns
+// General(1) | Senior(2) | Super-Senior(3). The picker PINS the callable
+// term-deposit grid by signature (generalCol=1, seniorCol=2; super-senior
+// ignored) so savings / NRE / FCNR tables are never mis-selected (source:
+// cityunionbank.com).
+//
+// CSB (csb): registered. csb.bank.in/interest-rates is client-rendered
+// (renderJs) with ~31 tables; the retail "DOMESTIC TERM DEPOSITS" table has a
+// leading serial-number column, so the bespoke parser reads tenor=cells[1] and
+// the retail general rate from the "Below Rs. 3 Crore" column (cells[2]), NOT
+// the "Rs 2 Crore and above" bulk column (cells[3]). This table publishes
+// GENERAL rates only (no per-row senior column), so CSB ships GENERAL-only
+// OFFICIAL rows rather than copying general into senior (source: csb.bank.in).
+const { RblAdapter } = await import(resolve(root, `${A}/rbl.js`));
+const { CityunionAdapter } = await import(resolve(root, `${A}/cityunion.js`));
+const { CsbAdapter } = await import(resolve(root, `${A}/csb.js`));
+//
+// BLOCKED batch 2 private-sector banks (documented, left rate-less — no
+// fabricated rates). Each was verified via the CI diagnose workflow across
+// multiple rounds / URL variants (incl. the RBI-mandated .bank.in domains);
+// none exposes a stable, offline-parseable retail (< ₹2-3 crore) GENERAL/SENIOR
+// FD ladder, so per the project hard rule they stay rate-less (their profile
+// renders with no rate rows) rather than shipping wrong / mis-tiered data under
+// the OFFICIAL badge.
+//
+// Bandhan (bandhan): NOT registered — bandhanbank.com rate pages render 0
+// tables; only 2 stray highlight percentages (7.95%, 7.45%) appear in the DOM,
+// with no tiered General/Senior FD ladder (div/widget-driven) and no
+// rate-carrying JSON/window-global captured. Left rate-less.
+//
+// DCB (dcb): NOT registered — no parseable OFFICIAL retail FD ladder confirmed
+// via the diagnose workflow (JS-heavy page; no rate table, window-global, or
+// PDF captured). Left rate-less pending a future reachable source.
+//
+// KVB / Karur Vysya (kvb): NOT registered — every candidate kvb.co.in rate URL
+// hard-failed the headless render (goto timeout / navigation error). No
+// parseable page reachable.
+//
+// Karnataka Bank (karnataka): NOT registered — karnatakabank.com and
+// karnataka.bank.in return ~262-byte near-empty bodies / fail (SSR or bot
+// gate). No rate content reachable.
+//
+// Tamilnad Mercantile / TMB (tmb): NOT registered — tmb.in rate URLs return
+// 39-161 byte near-empty bodies (SSR/bot gate); tmb.bank.in renders 200KB but 0
+// tables and no body percentages (ladder not in DOM; likely PDF/widget). No
+// parseable ladder.
+//
+// Dhanlaxmi (dhanlaxmi): NOT registered — dhanbank.com rate pages render 176KB
+// with only savings-type stray percentages (1.50%, 1.90%) in divs and 0 tables;
+// no tiered General/Senior FD ladder in the DOM. Left rate-less.
+//
+// Nainital (nainital): NOT registered — nainitalbank.co.in Interest_Rates.aspx
+// sits behind a Cloudflare Turnstile / challenge-platform bot gate; the render
+// returns a ~6KB challenge shell with 0 tables and no rate text. Un-renderable.
+//
+// Jammu & Kashmir / J&K Bank (jk): NOT registered — jkbank.com rate pages and
+// jk.bank.in all hard-fail the headless render (goto 60s timeout). No parseable
+// page.
+//
+// South Indian Bank (southindian): NOT registered — southindianbank.com,
+// southindian.bank.in and sib.co.in return ~4KB near-empty bodies / fail (SSR
+// gate). No rate content reachable.
+//
 // BLOCKED small finance banks (documented, left rate-less — no fabricated
 // rates). Each was verified via the CI diagnose workflow across multiple
 // rounds; none exposes a stable, offline-parseable retail (< ₹2-3 crore)
@@ -155,6 +231,9 @@ const ADAPTERS = [
   new IciciAdapter(),
   new CapitalsfbAdapter(),
   new ShivalikAdapter(),
+  new RblAdapter(),
+  new CityunionAdapter(),
+  new CsbAdapter(),
 ];
 // -------------------------------------------------------------------------
 

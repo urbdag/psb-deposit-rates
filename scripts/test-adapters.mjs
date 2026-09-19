@@ -48,6 +48,15 @@ const { CapitalsfbAdapter } = await import(
 const { ShivalikAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/shivalik.js")
 );
+const { RblAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/rbl.js")
+);
+const { CityunionAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/cityunion.js")
+);
+const { CsbAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/csb.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -1501,6 +1510,305 @@ assert(
 assert(
   shivalik.parseFdRd("<html>no rate tables</html>", "2026-01-01").length === 0,
   "Shivalik SFB: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// RBL Bank: the interest-rates page is client-rendered and carries multiple
+// tables. table[0] = savings balance-slab; table[1] = the retail FD grid headed
+// "Deposits below INR 3 crore". The retail grid interleaves Effective
+// Annualised Yield columns between the rate columns and carries a super-senior
+// column, so the correct RETAIL columns are generalCol=1 and seniorCol=3 (cols
+// 2/4/6 are yields, col 5 super-senior). Cells can carry a "% Highest" suffix.
+// The fixture places the savings + a bulk (>= INR 3 crore) table around the
+// retail grid so the pin + column mapping is exercised. Sentinels FAIL if a
+// yield / super-senior / bulk / savings column were picked, or if general and
+// senior were swapped. Source: rblbank.com.
+// ---------------------------------------------------------------------------
+console.log("== RBL (pin retail below-3cr grid; general=1 senior=3, skip yields) ==");
+const RBL_FD_FIXTURE = `
+<html><body>
+  <h3>Savings Account Interest Rates</h3>
+  <table>
+    <tr><th>Balance Slab</th><th>Rate (% p.a.)</th></tr>
+    <tr><td>Up to Rs.1 lakh</td><td>3.00%</td></tr>
+    <tr><td>Above Rs.25 lakh</td><td>5.50%</td></tr>
+    <tr><td>Above Rs.5 crore</td><td>6.75%</td></tr>
+  </table>
+  <h3>Fixed Deposits INR 3 crore & above (Bulk)</h3>
+  <table>
+    <tr>
+      <th>Period of Deposit</th><th>Interest Rates (per annum)</th>
+      <th>Effective Annualised Yield</th><th>Senior Citizen Interest Rates (per annum)</th>
+      <th>Effective Annualised Yield</th>
+    </tr>
+    <tr><td>7 days to 14 days</td><td>4.50%</td><td>4.55%</td><td>4.50%</td><td>4.55%</td></tr>
+    <tr><td>365 days to 500 days</td><td>8.00%</td><td>8.24%</td><td>8.00%</td><td>8.24%</td></tr>
+    <tr><td>18 months to 36 months</td><td>8.10%</td><td>8.35%</td><td>8.10%</td><td>8.35%</td></tr>
+    <tr><td>36 months to 60 months</td><td>7.90%</td><td>8.10%</td><td>7.90%</td><td>8.10%</td></tr>
+  </table>
+  <h3>Fixed Deposits below INR 3 crore</h3>
+  <table>
+    <tr>
+      <th>Period of Deposit</th>
+      <th>Interest Rates (per annum)</th>
+      <th>Effective Annualised Yield</th>
+      <th>Senior Citizen Interest Rates (per annum)</th>
+      <th>Effective Annualised Yield</th>
+      <th>Super Senior Citizen Interest Rates (per annum)</th>
+      <th>Effective Annualised Yield</th>
+    </tr>
+    <tr><td>7 days to 14 days</td><td>3.50%</td><td>3.55%</td><td>4.00%</td><td>4.06%</td><td>4.25%</td><td>4.31%</td></tr>
+    <tr><td>181 days to 240 days</td><td>6.05%</td><td>6.19%</td><td>6.55%</td><td>6.71%</td><td>6.80%</td><td>6.98%</td></tr>
+    <tr><td>365 days to 500 days</td><td>7.00%</td><td>7.19%</td><td>7.50%</td><td>7.71%</td><td>7.75%</td><td>7.98%</td></tr>
+    <tr><td>18 months to 36 months</td><td>7.20% Highest</td><td>7.40%</td><td>7.70% Highest</td><td>7.92%</td><td>7.95%</td><td>8.18%</td></tr>
+    <tr><td>36 months to 60 months</td><td>6.95%</td><td>7.13%</td><td>7.45%</td><td>7.66%</td><td>7.70%</td><td>7.92%</td></tr>
+  </table>
+</body></html>`;
+const rbl = new RblAdapter();
+const rblRows = rbl.parseFdRd(RBL_FD_FIXTURE, "2026-09-10");
+const rblFd = rblRows.filter((r) => r.product === "FD");
+assert(rblFd.length >= 8, `RBL: >=8 FD rows (got ${rblFd.length})`);
+assert(
+  rblRows.every(
+    (r) =>
+      r.bankId === "rbl" &&
+      r.source.quality === "OFFICIAL" &&
+      /rblbank\.com/.test(r.source.url),
+  ),
+  "RBL: all rows OFFICIAL, bankId=rbl, rblbank.com source URL",
+);
+const rblTenures = new Set(
+  rblFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(rblTenures.size >= 4, `RBL: >=4 distinct FD tenures (got ${rblTenures.size})`);
+// 1yr bucket (365 days to 500 days): retail general = 7.00 (NOT the bulk 8.00,
+// NOT the yield 7.19). Senior = 7.50 (senior col 3, NOT super-senior 7.75, NOT
+// the yield 7.71). Fails if columns are swapped or a yield/bulk col is picked.
+const rbl1y = rblFd.filter((r) => r.tenure.minDays === 365 && r.tenure.maxDays === 500);
+const rbl1yGen = rbl1y.find((r) => r.customer === "GENERAL");
+const rbl1ySr = rbl1y.find((r) => r.customer === "SENIOR");
+assert(rbl1yGen?.ratePercent === 7.0, "RBL 365-500d general = 7.00 (retail, not bulk 8.00, not yield)");
+assert(
+  rbl1ySr?.ratePercent === 7.5,
+  "RBL 365-500d senior = 7.50 (senior col 3, not super-senior 7.75, not yield; fails if cols swapped)",
+);
+// Suffix tolerance: "7.20% Highest" -> 7.20 general, "7.70% Highest" -> 7.70 senior.
+const rblPeak = rblFd.filter((r) => r.tenure.minDays === 540 && r.tenure.maxDays === 1080);
+const rblPeakGen = rblPeak.find((r) => r.customer === "GENERAL");
+const rblPeakSr = rblPeak.find((r) => r.customer === "SENIOR");
+assert(rblPeakGen?.ratePercent === 7.2, "RBL 18-36m general = 7.20 (parsePercent tolerates '% Highest')");
+assert(rblPeakSr?.ratePercent === 7.7, "RBL 18-36m senior = 7.70 (senior col, suffix tolerated)");
+// No yield / super-senior value should ever surface as a published rate.
+assert(
+  !rblFd.some((r) => [3.55, 7.19, 7.71, 7.75, 7.98, 8.0].includes(r.ratePercent)),
+  "RBL: no yield / super-senior / bulk value published as a retail rate",
+);
+// RD derived for the >=1yr bucket.
+assert(
+  rblRows.some((r) => r.product === "RD" && r.tenure.minDays === 365),
+  "RBL: RD derived for >=1yr bucket",
+);
+assert(
+  rbl.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "RBL: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// City Union Bank: the deposit-interest-rate page is client-rendered with ~19
+// tables. The retail FD table titled "Domestic/NRO Callable Term Deposit" has
+// TWO stacked header rows (Period | Rate of Interest %; then General | Senior |
+// Super Senior) and data rows <tenure> | <general%> | <senior%> | <super%>.
+// Columns: generalCol=1, seniorCol=2 (super-senior col 3 ignored). The fixture
+// surrounds the retail table with savings + NRE tables so the pin is exercised.
+// Sentinels FAIL if the super-senior column is published as senior, if general
+// and senior are swapped, or if the savings/NRE table were picked. Source:
+// cityunionbank.com.
+// ---------------------------------------------------------------------------
+console.log("== City Union (pin callable-term-deposit; general=1 senior=2, skip super-senior) ==");
+const CITYUNION_FD_FIXTURE = `
+<html><body>
+  <h3>Savings Bank Account</h3>
+  <table>
+    <tr><th>Balance Slab</th><th>Rate (% p.a.)</th></tr>
+    <tr><td>Up to Rs.1 lakh</td><td>2.50%</td></tr>
+    <tr><td>Above Rs.5 lakh</td><td>3.00%</td></tr>
+  </table>
+  <h3>NRE Term Deposit</h3>
+  <table>
+    <tr><th>Period</th><th>General</th><th>Senior Citizen</th><th>Super Senior Citizen</th></tr>
+    <tr><td>365 days to 443 days</td><td>9.00%</td><td>9.25%</td><td>9.40%</td></tr>
+    <tr><td>444 days</td><td>9.10%</td><td>9.35%</td><td>9.50%</td></tr>
+    <tr><td>556 days to 3 years</td><td>8.50%</td><td>8.75%</td><td>8.90%</td></tr>
+    <tr><td>3 years to 5 years</td><td>8.00%</td><td>8.25%</td><td>8.40%</td></tr>
+  </table>
+  <h3>Domestic/NRO Callable Term Deposit</h3>
+  <table>
+    <tr><th>Period</th><th colspan="3">Rate of Interest % p.a</th></tr>
+    <tr><th></th><th>General</th><th>Senior Citizen</th><th>Super Senior Citizen</th></tr>
+    <tr><td>7 days to 45 days</td><td>4.50%</td><td>4.75%</td><td>4.90%</td></tr>
+    <tr><td>181 days to 364 days</td><td>6.00%</td><td>6.25%</td><td>6.40%</td></tr>
+    <tr><td>365 days to 443 days</td><td>6.65%</td><td>6.90%</td><td>7.05%</td></tr>
+    <tr><td>444 days</td><td>7.10%</td><td>7.35%</td><td>7.50%</td></tr>
+    <tr><td>555 days</td><td>7.25%</td><td>7.50%</td><td>7.65%</td></tr>
+    <tr><td>556 days to 3 years</td><td>6.50%</td><td>6.75%</td><td>6.90%</td></tr>
+    <tr><td>3 years to 5 years</td><td>6.25%</td><td>6.50%</td><td>6.65%</td></tr>
+  </table>
+</body></html>`;
+const cityunion = new CityunionAdapter();
+const cuRows = cityunion.parseFdRd(CITYUNION_FD_FIXTURE, "2026-09-12");
+const cuFd = cuRows.filter((r) => r.product === "FD");
+assert(cuFd.length >= 10, `City Union: >=10 FD rows (got ${cuFd.length})`);
+assert(
+  cuRows.every(
+    (r) =>
+      r.bankId === "cityunion" &&
+      r.source.quality === "OFFICIAL" &&
+      /cityunionbank\.com/.test(r.source.url),
+  ),
+  "City Union: all rows OFFICIAL, bankId=cityunion, cityunionbank.com source URL",
+);
+const cuTenures = new Set(
+  cuFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(cuTenures.size >= 4, `City Union: >=4 distinct FD tenures (got ${cuTenures.size})`);
+// 1yr bucket (365 days to 443 days): retail general = 6.65 (NOT NRE 9.00),
+// senior = 6.90 (senior col 2, NOT super-senior 7.05; fails if cols swapped).
+const cu1y = cuFd.filter((r) => r.tenure.minDays === 365 && r.tenure.maxDays === 443);
+const cu1yGen = cu1y.find((r) => r.customer === "GENERAL");
+const cu1ySr = cu1y.find((r) => r.customer === "SENIOR");
+assert(cu1yGen?.ratePercent === 6.65, "City Union 365-443d general = 6.65 (callable retail, not NRE 9.00)");
+assert(
+  cu1ySr?.ratePercent === 6.9,
+  "City Union 365-443d senior = 6.90 (senior col 2, not super-senior 7.05; fails if cols swapped)",
+);
+// 556d to 3y bucket: general 6.50 / senior 6.75.
+const cuMid = cuFd.filter((r) => r.tenure.minDays === 556 && r.tenure.maxDays === 1095);
+assert(
+  cuMid.find((r) => r.customer === "GENERAL")?.ratePercent === 6.5,
+  "City Union 556d-3y general = 6.50 (callable retail)",
+);
+assert(
+  cuMid.find((r) => r.customer === "SENIOR")?.ratePercent === 6.75,
+  "City Union 556d-3y senior = 6.75 (senior col, not super-senior)",
+);
+// Specials: 444-day is tagged (odd single-day tenure), general 7.10 retail.
+const cu444 = cuFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 444 && r.tenure.maxDays === 444,
+);
+assert(cu444?.ratePercent === 7.1 && cu444?.scheme != null, "City Union 444-day special general = 7.10 (scheme-tagged)");
+// No super-senior value should surface as a published rate.
+assert(
+  !cuFd.some((r) => [4.9, 6.4, 7.05, 7.65, 6.65 + 0.4].includes(r.ratePercent) && r.customer === "SENIOR"),
+  "City Union: super-senior column never published as senior",
+);
+// No NRE value should surface at all.
+assert(
+  !cuFd.some((r) => [9.0, 9.1, 8.5, 8.0].includes(r.ratePercent)),
+  "City Union: NRE table never selected as retail FD",
+);
+assert(
+  cuRows.some((r) => r.product === "RD" && r.tenure.minDays >= 365),
+  "City Union: RD derived for >=1yr bucket",
+);
+assert(
+  cityunion.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "City Union: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// CSB Bank: the interest-rates page is client-rendered with ~31 tables. The
+// retail "DOMESTIC TERM DEPOSITS" table has a LEADING SERIAL-NUMBER column:
+// Slab | Deposit Tenor | Below Rs. 3 Crore (general) | Rs 2 Crore and above
+// (bulk). So tenor=cells[1], retail general=cells[2] (NOT bulk cells[3], NOT
+// the serial cells[0]). This table publishes GENERAL rates only (no senior
+// column), so CSB emits GENERAL-only OFFICIAL rows. The fixture includes the
+// savings table + a distinct bulk column so the pin + column mapping are
+// exercised. Sentinels FAIL if the bulk column, the serial column, or the
+// savings table were used, or if any SENIOR row were fabricated. Source:
+// csb.bank.in.
+// ---------------------------------------------------------------------------
+console.log("== CSB (leading serial col; retail general=cells[2], GENERAL-only) ==");
+const CSB_FD_FIXTURE = `
+<html><body>
+  <h3>DOMESTIC SAVINGS BANK DEPOSITS</h3>
+  <table>
+    <tr><th>Slab</th><th>Balance</th><th>Rate of Interest p.a.</th></tr>
+    <tr><td>1</td><td>Up to Rs.5 lakh</td><td>2.10%</td></tr>
+    <tr><td>2</td><td>Above Rs.5 lakh</td><td>3.00%</td></tr>
+  </table>
+  <h3>INTEREST RATES (P.A.) ON DOMESTIC TERM DEPOSITS (W.E.F 01.09.2026)</h3>
+  <table>
+    <tr>
+      <th>Slab</th><th>Deposit Tenor</th>
+      <th>Below Rs. 3 Crore (Rate of Interest p.a.)</th>
+      <th>Rs 2 Crore and above</th>
+    </tr>
+    <tr><td>1</td><td>7 days to 45 days</td><td>3.00%</td><td>5.75%</td></tr>
+    <tr><td>2</td><td>181 days to 364 days</td><td>5.25%</td><td>6.50%</td></tr>
+    <tr><td>3</td><td>365 days to 443 days</td><td>6.75%</td><td>7.10%</td></tr>
+    <tr><td>4</td><td>444 days</td><td>7.25%</td><td>7.50%</td></tr>
+    <tr><td>5</td><td>555 days</td><td>7.00%</td><td>7.25%</td></tr>
+    <tr><td>6</td><td>1100 days</td><td>5.50%</td><td>5.75%</td></tr>
+    <tr><td>7</td><td>556 days to 5 years</td><td>6.00%</td><td>6.25%</td></tr>
+  </table>
+</body></html>`;
+const csb = new CsbAdapter();
+const csbRows = csb.parseFdRd(CSB_FD_FIXTURE, "2026-09-01");
+const csbFd = csbRows.filter((r) => r.product === "FD");
+assert(csbFd.length >= 5, `CSB: >=5 FD rows (got ${csbFd.length})`);
+assert(
+  csbRows.every(
+    (r) =>
+      r.bankId === "csb" &&
+      r.source.quality === "OFFICIAL" &&
+      /csb\.bank\.in/.test(r.source.url),
+  ),
+  "CSB: all rows OFFICIAL, bankId=csb, csb.bank.in source URL",
+);
+// GENERAL-only: no SENIOR rows are emitted (senior column absent; never copied).
+assert(
+  csbRows.every((r) => r.customer === "GENERAL"),
+  "CSB: GENERAL-only (no fabricated SENIOR rows)",
+);
+const csbTenures = new Set(
+  csbFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(csbTenures.size >= 4, `CSB: >=4 distinct FD tenures (got ${csbTenures.size})`);
+// 1yr bucket (365 days to 443 days): retail general = 6.75 (the "Below Rs.3
+// Crore" col cells[2]), NOT the bulk 7.10 (cells[3]).
+const csb1y = csbFd.filter((r) => r.tenure.minDays === 365 && r.tenure.maxDays === 443);
+assert(
+  csb1y.find((r) => r.customer === "GENERAL")?.ratePercent === 6.75,
+  "CSB 365-443d general = 6.75 (Below Rs.3 Crore col, not bulk 7.10)",
+);
+// The bulk column values (cells[3]) must NEVER be published.
+// Bulk-only values (present in the "Rs 2 Crore and above" col but NOT in the
+// retail general col) must never appear. 7.25 is excluded here because it is a
+// legitimate retail general rate (444-day) that also happens to be a bulk rate
+// on a different row; the collision-free bulk values below are the real signal.
+assert(
+  !csbFd.some((r) => [5.75, 6.5, 7.1, 7.5, 6.25].includes(r.ratePercent)),
+  "CSB: 'Rs 2 Crore and above' bulk column never published as retail",
+);
+// The serial column (cells[0]) must not be read as a tenure: no 1-day or 7-day
+// bucket derived from a serial number should appear.
+assert(
+  !csbFd.some((r) => r.tenure.minDays === r.tenure.maxDays && r.tenure.minDays <= 7 && r.tenure.maxDays <= 7),
+  "CSB: leading serial column not mistaken for a tenure",
+);
+// Specials: 444-day general = 7.25, scheme-tagged.
+const csb444 = csbFd.find(
+  (r) => r.tenure.minDays === 444 && r.tenure.maxDays === 444,
+);
+assert(csb444?.ratePercent === 7.25 && csb444?.scheme != null, "CSB 444-day special general = 7.25 (scheme-tagged)");
+// RD derived for the >=1yr bucket.
+assert(
+  csbRows.some((r) => r.product === "RD" && r.tenure.minDays >= 365),
+  "CSB: RD derived for >=1yr bucket",
+);
+assert(
+  csb.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "CSB: garbage HTML -> 0 rows",
 );
 
 if (failures === 0) {
