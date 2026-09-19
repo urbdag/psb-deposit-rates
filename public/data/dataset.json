@@ -19682,11 +19682,55 @@
       "bankId": "deutsche",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 1.5,
+      "ratePercent": 3,
       "tenure": {
-        "minDays": 365,
-        "maxDays": 365,
-        "label": "> 1 Yr -"
+        "minDays": 7,
+        "maxDays": 7,
+        "label": "7 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "7-day Special",
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 7,
+        "label": "7 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "7-day Special",
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 8,
+        "maxDays": 14,
+        "label": "8 - 14 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -19698,8 +19742,955 @@
         "effectiveDate": "2026-09-19",
         "quality": "OFFICIAL"
       }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 8,
+        "maxDays": 14,
+        "label": "8 - 14 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 29,
+        "label": "15 - 29 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 29,
+        "label": "15 - 29 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 30,
+        "label": "30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 30,
+        "label": "30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 31,
+        "maxDays": 45,
+        "label": "31 - 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 31,
+        "maxDays": 45,
+        "label": "31 - 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 59,
+        "label": "46 - 59 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 59,
+        "label": "46 - 59 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 60,
+        "maxDays": 89,
+        "label": "60 - 89 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 60,
+        "maxDays": 89,
+        "label": "60 - 89 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 99,
+        "label": "90 - 99 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 99,
+        "label": "90 - 99 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 100,
+        "maxDays": 100,
+        "label": "100 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "100-day Special",
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 100,
+        "maxDays": 100,
+        "label": "100 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "100-day Special",
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 101,
+        "maxDays": 180,
+        "label": "101 - 180 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 101,
+        "maxDays": 180,
+        "label": "101 - 180 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 270,
+        "label": "181 - 270 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 270,
+        "label": "181 - 270 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 365,
+        "label": "271 Days - 1 Yr"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 365,
+        "label": "271 Days - 1 Yr"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 548,
+        "label": "> 1 Yr - 1.5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 548,
+        "label": "> 1 Yr - 1.5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 548,
+        "label": "> 1 Yr - 1.5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 548,
+        "label": "> 1 Yr - 1.5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 548,
+        "maxDays": 730,
+        "label": "> 1.5 Yrs - 2 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 548,
+        "maxDays": 730,
+        "label": "> 1.5 Yrs - 2 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 548,
+        "maxDays": 730,
+        "label": "> 1.5 Yrs - 2 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 548,
+        "maxDays": 730,
+        "label": "> 1.5 Yrs - 2 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": "> 2 Yrs - 3 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": "> 2 Yrs - 3 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": "> 2 Yrs - 3 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": "> 2 Yrs - 3 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1460,
+        "label": "> 3 Yrs - 4 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1460,
+        "label": "> 3 Yrs - 4 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1460,
+        "label": "> 3 Yrs - 4 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1460,
+        "label": "> 3 Yrs - 4 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "> 4 Yrs - <5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "> 4 Yrs - <5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "> 4 Yrs - <5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "> 4 Yrs - <5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 Yrs"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
     }
   ],
-  "generatedAt": "2026-09-19T11:12:59.542Z",
+  "generatedAt": "2026-09-19T11:21:07.613Z",
   "containsSampleData": false
 }
