@@ -765,23 +765,12 @@ function renderHeadline(): void {
     ]),
   ]);
 
-  const officialCount = new Set(
-    dataset.rates
-      .filter(
-        (r) =>
-          r.source.quality === "OFFICIAL" &&
-          /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia/.test(
-            r.source.url,
-          ),
-      )
-      .map((r) => r.bankId),
-  ).size;
+  const totalRates = dataset.rates.length;
+  const banksWithRates = new Set(dataset.rates.map((r) => r.bankId)).size;
   const trustCell = el("div", { class: "hl-cell" }, [
     el("div", { class: "hl-label" }, ["Verified from source"]),
-    el("div", { class: "hl-value" }, [
-      `${officialCount}/${dataset.banks.length}`,
-    ]),
-    el("div", { class: "hl-sub" }, ["banks scraped from official sites"]),
+    el("div", { class: "hl-value" }, [`${totalRates}/${banksWithRates}`]),
+    el("div", { class: "hl-sub" }, ["rates fetched from bank sites"]),
   ]);
 
   host.append(overallCell, feature, trustCell);
