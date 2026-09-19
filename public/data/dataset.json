@@ -563,6 +563,78 @@
       "established": 2021,
       "ownership": "Private (small finance bank)",
       "statsAsOf": 2024
+    },
+    {
+      "id": "airtel",
+      "name": "Airtel Payments Bank",
+      "shortName": "Airtel",
+      "category": "PAYMENTS_BANK",
+      "color": "#e40000",
+      "website": "https://www.airtel.in/bank",
+      "headquarters": "New Delhi",
+      "established": 2017,
+      "ownership": "Payments bank (privately owned)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "ippb",
+      "name": "India Post Payments Bank",
+      "shortName": "IPPB",
+      "category": "PAYMENTS_BANK",
+      "color": "#c8102e",
+      "website": "https://www.ippbonline.com",
+      "headquarters": "New Delhi",
+      "established": 2018,
+      "ownership": "Government of India (Department of Posts)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "fino",
+      "name": "Fino Payments Bank",
+      "shortName": "Fino",
+      "category": "PAYMENTS_BANK",
+      "color": "#00a0e3",
+      "website": "https://www.finobank.com",
+      "headquarters": "Navi Mumbai",
+      "established": 2017,
+      "ownership": "Payments bank (privately owned)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "paytm",
+      "name": "Paytm Payments Bank",
+      "shortName": "Paytm",
+      "category": "PAYMENTS_BANK",
+      "color": "#00baf2",
+      "website": "https://www.paytmbank.com",
+      "headquarters": "Noida",
+      "established": 2017,
+      "ownership": "Payments bank (privately owned)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "jio",
+      "name": "Jio Payments Bank",
+      "shortName": "Jio",
+      "category": "PAYMENTS_BANK",
+      "color": "#0f3cc9",
+      "website": "https://www.jiopaymentsbank.com",
+      "headquarters": "Mumbai",
+      "established": 2018,
+      "ownership": "Payments bank (privately owned)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "nsdlpb",
+      "name": "NSDL Payments Bank",
+      "shortName": "NSDL",
+      "category": "PAYMENTS_BANK",
+      "color": "#1b4f9c",
+      "website": "https://www.nsdlpaymentsbank.com",
+      "headquarters": "Mumbai",
+      "established": 2018,
+      "ownership": "Payments bank (privately owned)",
+      "statsAsOf": 2024
     }
   ],
   "rates": [
@@ -10616,48 +10688,6 @@
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 660,
-        "maxDays": 660,
-        "label": ">667 < 22 Month"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 660,
-        "maxDays": 660,
-        "label": ">667 < 22 Month"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "GENERAL",
       "ratePercent": 5.95,
       "tenure": {
         "minDays": 660,
@@ -10704,7 +10734,7 @@
       "tenure": {
         "minDays": 660,
         "maxDays": 660,
-        "label": "> 22 Month < 2Y"
+        "label": "> 22 Month"
       },
       "amount": {
         "minAmount": 0,
@@ -10725,7 +10755,7 @@
       "tenure": {
         "minDays": 660,
         "maxDays": 660,
-        "label": "> 22 Month < 2Y"
+        "label": "> 22 Month"
       },
       "amount": {
         "minAmount": 0,
@@ -10875,77 +10905,15 @@
       "ratePercent": 5.95,
       "tenure": {
         "minDays": 1000,
-        "maxDays": 1094,
-        "label": "1000 Days - <3 Years"
+        "maxDays": 1000,
+        "label": "1000 Days -"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 5.95,
-      "tenure": {
-        "minDays": 1000,
-        "maxDays": 1094,
-        "label": "1000 Days - <3 Years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 1320,
-        "maxDays": 1320,
-        "label": "3Y - <44 Month"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 1320,
-        "maxDays": 1320,
-        "label": "3Y - <44 Month"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
+      "scheme": "1000-day Special",
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -11002,7 +10970,7 @@
       "tenure": {
         "minDays": 1320,
         "maxDays": 1320,
-        "label": "> 44 Month < 5 Y"
+        "label": "> 44 Month"
       },
       "amount": {
         "minAmount": 0,
@@ -11023,49 +10991,7 @@
       "tenure": {
         "minDays": 1320,
         "maxDays": 1320,
-        "label": "> 44 Month < 5 Y"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 1980,
-        "maxDays": 1980,
-        "label": ">5Y<66 Month"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://punjabandsind.bank.in/content/interestdom",
-        "effectiveDate": "2026-02-16",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "psb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 1980,
-        "maxDays": 1980,
-        "label": ">5Y<66 Month"
+        "label": "> 44 Month"
       },
       "amount": {
         "minAmount": 0,
@@ -19201,6 +19127,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-19T06:28:19.666Z",
+  "generatedAt": "2026-09-19T07:10:23.222Z",
   "containsSampleData": false
 }
