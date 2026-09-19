@@ -834,6 +834,16 @@ function renderLeaderboard(): void {
     ]),
   );
 
+  // FD tenure landing pages exist only for these day-counts; link a cell only
+  // when its tenure has a real page (and only for FD — no RD tenure pages).
+  const tenureHref: Record<number, string> = {
+    182: "fixed-deposit/6-months/",
+    365: "fixed-deposit/1-year/",
+    730: "fixed-deposit/2-year/",
+    1095: "fixed-deposit/3-year/",
+    1825: "fixed-deposit/5-year/",
+  };
+
   const grid = el("div", { class: "tenure-grid" });
   for (const row of bestByTenure(dataset, {
     product: state.product,
@@ -841,9 +851,14 @@ function renderLeaderboard(): void {
     amount: state.amount,
     category: selectedCategory(),
   })) {
-    const card = el("div", { class: "tenure-card" }, [
-      el("div", { class: "tenure-label" }, [row.tenureLabel]),
-    ]);
+    const href = state.product === "FD" ? tenureHref[row.days] : undefined;
+    const card = el(
+      href ? "a" : "div",
+      href
+        ? { class: "tenure-card tenure-card-link", href }
+        : { class: "tenure-card" },
+      [el("div", { class: "tenure-label" }, [row.tenureLabel])],
+    );
     if (row.top) {
       card.append(
         el(
