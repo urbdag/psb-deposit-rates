@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=820ab656e1";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=820ab656e1";
-import { banksChangedCount, recentChanges } from "./history.js?v=820ab656e1";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=090f6c9b68";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=090f6c9b68";
+import { banksChangedCount, recentChanges } from "./history.js?v=090f6c9b68";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -756,6 +756,12 @@ function renderLeaderboard() {
     const host = document.getElementById("leaderboard-region");
     host.innerHTML = "";
     if (state.product === "SAVINGS")
+        return;
+    // On a tenure-locked landing page the whole page is pinned to a single
+    // tenure, so a "Best rate by tenure" strip is redundant and confusing. Hide
+    // it there while keeping headline tiles + podium + the sortable table. The
+    // main page has no locked tenure, so it still shows the strip.
+    if (mountConfig.lockedTenureDays)
         return;
     host.append(el("div", { class: "section-head" }, [
         el("div", {}, [

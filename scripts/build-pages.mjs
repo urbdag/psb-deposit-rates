@@ -1003,7 +1003,7 @@ function landingShell({
       <span class="eyebrow"><span class="live-dot"></span> Updated ${esc(MONTH)}</span>
       <h1 style="font-size:clamp(30px,5vw,50px)">${h1Html}</h1>
       <p class="hero-sub">${esc(sub)}</p>
-      <div style="margin-top:18px"><a class="reveal-btn" href="${base}${appLink}">Open interactive comparison ${arrowSvg()}</a></div>
+      <div style="margin-top:18px"><a class="reveal-btn" href="${appLink.startsWith("#") ? appLink : `${base}${appLink}`}">Open interactive comparison ${arrowSvg()}</a></div>
     </div></div>
   </header>
   <div class="container">
@@ -1104,7 +1104,13 @@ function tenureLandingPage(tp) {
   const top = ranked[0];
   const title = `Best ${tp.label} FD Rates ${YEAR} — India's Banks | RateRadar`;
   const desc = `Highest ${tp.label} fixed deposit rates across India's banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
-  const sections = `<section class="block">
+  // Lock the SPA to FD AND this page's tenure. The static leaderboard (already
+  // ranked at tp.days) carries `js-enhanced-hide` so the SPA hides it at runtime
+  // while no-JS/crawlers keep it. The SPA's "Best rate by tenure" strip is hidden
+  // when a tenure is locked (see renderLeaderboard), leaving tiles + podium + the
+  // sortable table pinned to this single tenure.
+  const enhance = { lockedProduct: "FD", lockedTenureDays: tp.days };
+  const sections = `<section class="block js-enhanced-hide">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(tp.label)} FD rates</h2>
     <p class="section-note">General public · below ₹3 crore · ${MONTH}</p></div></div>
     ${leaderboardTable(ranked, base)}</section>`;
@@ -1119,7 +1125,11 @@ function tenureLandingPage(tp) {
       sub: `The banks offering the highest fixed-deposit rate for a ${tp.label} tenure, ranked.`,
       active: "fd",
       sections,
-      appLink: `?product=FD&tenure=${tp.days}`,
+      // The interactive comparison is now hosted in-page (locked to FD + this
+      // tenure), so the CTA scrolls to the enhancement rather than linking to
+      // the main page with a ?tenure param the tenure-agnostic main page ignores.
+      appLink: `#app-enhance`,
+      enhance,
       crumbs: [
         { label: "Home", href: "" },
         { label: "Fixed Deposits", href: "fixed-deposit/" },

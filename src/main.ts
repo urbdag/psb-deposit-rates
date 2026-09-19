@@ -957,6 +957,11 @@ function renderLeaderboard(): void {
   const host = document.getElementById("leaderboard-region")!;
   host.innerHTML = "";
   if (state.product === "SAVINGS") return;
+  // On a tenure-locked landing page the whole page is pinned to a single
+  // tenure, so a "Best rate by tenure" strip is redundant and confusing. Hide
+  // it there while keeping headline tiles + podium + the sortable table. The
+  // main page has no locked tenure, so it still shows the strip.
+  if (mountConfig.lockedTenureDays) return;
 
   host.append(
     el("div", { class: "section-head" }, [
