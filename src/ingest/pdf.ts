@@ -41,9 +41,25 @@ export async function fetchPdfText(
     throw new Error(`not a PDF (content-type: ${ct || "unknown"})`);
   }
 
-  const spec = "pdf-parse";
+  // Import the internal library module directly, NOT the package entrypoint.
+  // pdf-parse@1.1.1's index.js contains a debug block guarded by
+  // `!module.parent`, which is truthy under an ESM dynamic import — it then
+  // tries to read a bundled test fixture (`./test/data/05-versions-space.pdf`)
+  // that isn't shipped, throwing ENOENT before our buffer is ever parsed. The
+  // `lib/pdf-parse.js` module is just the parser function with no debug block,
+  // so importing it directly avoids that crash. Fall back to the package
+  // entrypoint if the internal path ever moves.
+  // Runtime-built specifiers so the compiler doesn't try to resolve pdf-parse
+  // (it's installed only in the ingest CI job).
+  const libSpec = "pdf-parse/lib/pdf-parse.js";
+  const pkgSpec = "pdf-parse";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mod: any = await import(/* @vite-ignore */ spec);
+  let mod: any;
+  try {
+    mod = await import(/* @vite-ignore */ libSpec);
+  } catch {
+    mod = await import(/* @vite-ignore */ pkgSpec);
+  }
   const pdfParse = mod.default ?? mod;
   // pdf-parse accepts a Buffer/Uint8Array; wrap via the runtime Buffer if present.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
