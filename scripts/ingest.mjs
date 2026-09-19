@@ -43,6 +43,15 @@ const { IobAdapter } = await import(resolve(root, `${A}/iob.js`));
 const { UcoAdapter } = await import(resolve(root, `${A}/uco.js`));
 const { MahaAdapter } = await import(resolve(root, `${A}/maha.js`));
 const { PsbAdapter } = await import(resolve(root, `${A}/psb.js`));
+// Private-sector banks (OFFICIAL scrapers). Banks whose official rate page is
+// not reliably parseable (Axis, ICICI, Yes) are intentionally NOT registered —
+// see .agents findings; per the project hard rule we never ship fabricated /
+// mis-tiered rates under an OFFICIAL badge.
+const { HdfcAdapter } = await import(resolve(root, `${A}/hdfc.js`));
+const { KotakAdapter } = await import(resolve(root, `${A}/kotak.js`));
+const { IndusindAdapter } = await import(resolve(root, `${A}/indusind.js`));
+const { IdfcfirstAdapter } = await import(resolve(root, `${A}/idfcfirst.js`));
+const { FederalAdapter } = await import(resolve(root, `${A}/federal.js`));
 const ADAPTERS = [
   new SbiAdapter(),
   new PnbAdapter(),
@@ -56,6 +65,11 @@ const ADAPTERS = [
   new UcoAdapter(),
   new MahaAdapter(),
   new PsbAdapter(),
+  new HdfcAdapter(),
+  new KotakAdapter(),
+  new IndusindAdapter(),
+  new IdfcfirstAdapter(),
+  new FederalAdapter(),
 ];
 // -------------------------------------------------------------------------
 

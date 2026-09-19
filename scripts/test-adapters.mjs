@@ -24,6 +24,21 @@ const { BoiAdapter } = await import(
 const { CanaraAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/canara.js")
 );
+const { HdfcAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/hdfc.js")
+);
+const { KotakAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/kotak.js")
+);
+const { IndusindAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/indusind.js")
+);
+const { IdfcfirstAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/idfcfirst.js")
+);
+const { FederalAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/federal.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -734,6 +749,308 @@ const both1y = canaraBoth.find(
 assert(
   both1y?.ratePercent === 6.25,
   "Canara: with bulk+retail present, retail 1yr general = 6.25 (bulk 6.50 ignored)",
+);
+
+// ===========================================================================
+// PRIVATE-SECTOR BANK ADAPTERS
+// Each fixture reproduces the bank's REAL captured retail (< ₹3 crore) domestic
+// term-deposit table shape (from the CI diagnose workflow), so the assertions
+// exercise that bank's specific parsing path and would fail on a regression.
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// HDFC Bank: plain server-rendered (tenure, General %, Senior %) table. HDFC's
+// tenure labels are unusually compound ("2 Years 11 Months (35 months)",
+// "3 Years 1 day to < 4 Years 7 Months", "5 Years 1 day to 10 Years"), which
+// the PSU two-pair tenure parser inverts (max<min) — the private compound
+// resolver must recover them so the long-tenure buckets are NOT dropped.
+// Retail table, general = cells[1], senior = cells[2]. Source: hdfcbank.com.
+// ---------------------------------------------------------------------------
+console.log("== HDFC (compound tenure labels, standard 2 columns) ==");
+const HDFC_FD_FIXTURE = `
+<html><body>
+  <p>Interest Rates w.e.f. 01 Sep 2026</p>
+  <table>
+    <tr><th>Tenure Bucket</th><th>&lt; 3 Crore</th></tr>
+    <tr><td>&nbsp;</td><td>Interest Rate (per annum)</td><td>**Senior Citizen Rates (per annum)</td></tr>
+    <tr><td>7 - 14 days</td><td>2.75%</td><td>3.25%</td></tr>
+    <tr><td>90 days &lt;= 6 months</td><td>4.25%</td><td>4.75%</td></tr>
+    <tr><td>9 months 1 day to &lt; 1 Year&nbsp;</td><td>5.75%</td><td>6.25%</td></tr>
+    <tr><td>1 Year to &lt; 15 months</td><td>6.25%</td><td>6.75%</td></tr>
+    <tr><td>15 months to &lt; 18 months</td><td>6.35%</td><td>6.85%</td></tr>
+    <tr><td>21 months to 2 years</td><td>6.45%</td><td>6.95%</td></tr>
+    <tr><td>2 Years 11 Months (35 months)</td><td>6.45%</td><td>6.95%</td></tr>
+    <tr><td>3 Years 1 day to &lt; 4 Years 7 Months</td><td>6.50%</td><td>7.10%</td></tr>
+    <tr><td>5 Years 1 day to 10 Years</td><td>6.15%</td><td>6.65%</td></tr>
+  </table>
+</body></html>`;
+const hdfc = new HdfcAdapter();
+const hdfcRows = hdfc.parseFdRd(HDFC_FD_FIXTURE, "2026-09-01");
+const hdfcFd = hdfcRows.filter((r) => r.product === "FD");
+assert(hdfcFd.length >= 16, `HDFC: >=16 FD rows (got ${hdfcFd.length})`);
+assert(
+  hdfcRows.every(
+    (r) =>
+      r.bankId === "hdfc" &&
+      r.source.quality === "OFFICIAL" &&
+      /hdfc(bank\.com|\.bank\.in)/.test(r.source.url),
+  ),
+  "HDFC: all rows OFFICIAL, bankId=hdfc, official-domain source URL",
+);
+const hdfc1y = hdfcFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 365,
+);
+assert(hdfc1y?.ratePercent === 6.25, "HDFC 1yr general = 6.25");
+// The compound long buckets survive with sane (max>=min) ranges + correct rates.
+const hdfc3y = hdfcFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 1096,
+);
+assert(
+  hdfc3y?.ratePercent === 7.1 && hdfc3y?.tenure.maxDays >= hdfc3y?.tenure.minDays,
+  "HDFC compound '3 Years 1 day to <4Y7M' senior = 7.10 (recovered, not dropped)",
+);
+const hdfc5y = hdfcFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 1826,
+);
+assert(
+  hdfc5y?.ratePercent === 6.15 && hdfc5y?.tenure.maxDays === 3650,
+  "HDFC compound '5 Years 1 day to 10 Years' general = 6.15, maxDays 3650",
+);
+assert(
+  hdfcFd.every((r) => r.tenure.maxDays == null || r.tenure.maxDays >= r.tenure.minDays),
+  "HDFC: no inverted (max<min) tenure ranges published",
+);
+assert(
+  hdfc.parseFdRd("<html>no tables here</html>", "2026-01-01").length === 0,
+  "HDFC: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// Kotak Mahindra Bank: multi-column amount-slab grid. Each data row is
+//   [tenure,
+//    Regular <3cr, Regular 3-5cr, Senior <3cr, Senior 3-5cr].
+// The correct RETAIL columns are cells[1] (regular <3cr) and cells[3] (senior
+// <3cr). A naive (tenure,%,%) parser would take cells[2] (the 3-5cr regular
+// rate) as senior — WRONG. generalCol=1 / seniorCol=3 must map them correctly.
+// Source: kotak.com.
+// ---------------------------------------------------------------------------
+console.log("== Kotak (4-column amount-slab grid, retail cols 1 & 3) ==");
+const KOTAK_FD_FIXTURE = `
+<html><body>
+  <p>Fixed Deposit rates w.e.f. 01 Sep 2026</p>
+  <table>
+    <tr><td></td><td>Regular</td><td></td><td>Senior Citizen*</td><td></td></tr>
+    <tr><td>Maturity Periods - Premature Withdrawal Allowed</td><td>Less than Rs.3 Crore#</td><td>Rs. 3 Cr. &amp; above but less than Rs. 5 Cr.</td><td>Less than Rs.3 Crore#</td><td>Rs. 3 Cr. &amp; above but less than Rs. 5 Cr.</td></tr>
+    <tr><td>7 - 14 Days</td><td>2.75%</td><td>2.75%</td><td>3.25%</td><td>2.75%</td></tr>
+    <tr><td>181 Days to 269 Days</td><td>5.50%</td><td>5.50%</td><td>6.00%</td><td>5.50%</td></tr>
+    <tr><td>365 Days to less than 15 Months</td><td>6.35%</td><td>6.35%</td><td>6.85%</td><td>6.35%</td></tr>
+    <tr><td>2 years- less than 3 years</td><td>6.80%</td><td>6.80%</td><td>7.30%</td><td>6.80%</td></tr>
+    <tr><td>3 years and above but less than 4 years</td><td>6.40%</td><td>6.40%</td><td>6.90%</td><td>6.40%</td></tr>
+    <tr><td>5 years and above upto and inclusive of 10 years</td><td>6.25%</td><td>6.25%</td><td>6.75%</td><td>6.25%</td></tr>
+  </table>
+</body></html>`;
+const kotak = new KotakAdapter();
+const kotakRows = kotak.parseFdRd(KOTAK_FD_FIXTURE, "2026-09-01");
+const kotakFd = kotakRows.filter((r) => r.product === "FD");
+assert(kotakFd.length >= 12, `Kotak: >=12 FD rows (got ${kotakFd.length})`);
+assert(
+  kotakRows.every(
+    (r) =>
+      r.bankId === "kotak" &&
+      r.source.quality === "OFFICIAL" &&
+      /kotak\.com/.test(r.source.url),
+  ),
+  "Kotak: all rows OFFICIAL, bankId=kotak, kotak.com source URL",
+);
+const kotak1y = kotakFd.filter((r) => r.tenure.minDays === 365);
+const kotak1yGen = kotak1y.find((r) => r.customer === "GENERAL");
+const kotak1ySr = kotak1y.find((r) => r.customer === "SENIOR");
+assert(kotak1yGen?.ratePercent === 6.35, "Kotak 1yr general = 6.35 (retail <3cr)");
+assert(
+  kotak1ySr?.ratePercent === 6.85,
+  "Kotak 1yr senior = 6.85 (senior <3cr col, NOT the 6.35 3-5cr col)",
+);
+const kotak2y = kotakFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 730,
+);
+assert(
+  kotak2y?.ratePercent === 7.3,
+  "Kotak 2-3yr senior = 7.30 (senior retail col, not 6.80)",
+);
+assert(
+  kotak.parseFdRd("<html>garbage</html>", "2026-01-01").length === 0,
+  "Kotak: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// IndusInd Bank: JS-rendered page; once rendered the first table is the retail
+// "< 3 Cr* DOMESTIC (RESIDENT)" grid of (Tenure, Rate [general], Rate [senior]).
+// Compound tenures ("1 Year to below 1 Year 6 Month", "Above 3 Years up to
+// below 61 Months", "61 Months and above"). Source: indusind.bank.in.
+// ---------------------------------------------------------------------------
+console.log("== IndusInd (rendered retail <3cr table, compound tenures) ==");
+const INDUSIND_FD_FIXTURE = `
+<html><body>
+  <table>
+    <tr><td></td><td>&lt; 3 Cr* DOMESTIC (RESIDENT) NRE/NRO deposits</td><td>&lt; 3 Cr* (Senior Citizen)</td></tr>
+    <tr><td>Tenure</td><td>Rate</td><td>Rate</td></tr>
+    <tr><td>7 days to 30 days</td><td>3.25</td><td>3.75</td></tr>
+    <tr><td>270 days to 364 days</td><td>6.25</td><td>6.75</td></tr>
+    <tr><td>1 Year to below 1 Year 6 Month</td><td>6.75</td><td>7.25</td></tr>
+    <tr><td>2 Years to 3 Years</td><td>7.00</td><td>7.75</td></tr>
+    <tr><td>Above 3 Years up to below 61 Months</td><td>6.65</td><td>7.15</td></tr>
+    <tr><td>61 Months and above</td><td>6.50</td><td>7.00</td></tr>
+  </table>
+</body></html>`;
+const indusind = new IndusindAdapter();
+const indusindRows = indusind.parseFdRd(INDUSIND_FD_FIXTURE, "2026-09-01");
+const indusindFd = indusindRows.filter((r) => r.product === "FD");
+assert(indusindFd.length >= 12, `IndusInd: >=12 FD rows (got ${indusindFd.length})`);
+assert(
+  indusindRows.every(
+    (r) =>
+      r.bankId === "indusind" &&
+      r.source.quality === "OFFICIAL" &&
+      /indusind(\.com|\.bank\.in)/.test(r.source.url),
+  ),
+  "IndusInd: all rows OFFICIAL, bankId=indusind, official-domain source URL",
+);
+const indusind2y = indusindFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 730,
+);
+assert(indusind2y?.ratePercent === 7.0, "IndusInd 2-3yr general = 7.00");
+const indusind2ySr = indusindFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 730,
+);
+assert(indusind2ySr?.ratePercent === 7.75, "IndusInd 2-3yr senior = 7.75");
+const indusind61m = indusindFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 1830,
+);
+assert(
+  indusind61m?.ratePercent === 6.5 && indusind61m?.tenure.maxDays === null,
+  "IndusInd '61 Months and above' general = 6.50, open-ended upper bound",
+);
+assert(
+  indusindFd.every((r) => r.tenure.maxDays == null || r.tenure.maxDays >= r.tenure.minDays),
+  "IndusInd: no inverted tenure ranges",
+);
+assert(
+  indusind.parseFdRd("<html>no data</html>", "2026-01-01").length === 0,
+  "IndusInd: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// IDFC First Bank: clean server-rendered (Tenure, General %, Senior %) retail
+// table. En-dash separators, plus two "+1 day" compound long buckets
+// ("3 years 1 day – 5 years", "5 years 1 day – 10 years") which must be
+// recovered (not dropped). The dash arrives as a numeric HTML entity in raw
+// server HTML, so the resolver must decode it. Source: idfcfirstbank.com.
+// ---------------------------------------------------------------------------
+console.log("== IDFC First (en-dash + '+1 day' compound long buckets) ==");
+const IDFC_FD_FIXTURE = `
+<html><body>
+  <table>
+    <tr><td>Interest Rates for Domestic / NRO / NRE Fixed Deposits of less than 3 Cr</td></tr>
+    <tr><td>Tenure</td><td>Rate of Interest (per annum)</td></tr>
+    <tr><td>General</td><td>Senior Citizen</td></tr>
+    <tr><td>7 days &#8211; 29 days</td><td>3.25%</td><td>3.50%</td></tr>
+    <tr><td>181 days &#8211; less than 1 Year</td><td>6.50%</td><td>6.75%</td></tr>
+    <tr><td>371 days &#8211; 499 days</td><td>7.00%</td><td>7.25%</td></tr>
+    <tr><td>500 days &#8211; 3 years</td><td>7.10%</td><td>7.35%</td></tr>
+    <tr><td>3 years 1 day &#8211; 5 years</td><td>6.75%</td><td>7.00%</td></tr>
+    <tr><td>5 years 1 day &#8211; 10 years</td><td>6.00%</td><td>6.25%</td></tr>
+  </table>
+</body></html>`;
+const idfc = new IdfcfirstAdapter();
+const idfcRows = idfc.parseFdRd(IDFC_FD_FIXTURE, "2026-09-01");
+const idfcFd = idfcRows.filter((r) => r.product === "FD");
+assert(idfcFd.length >= 10, `IDFC First: >=10 FD rows (got ${idfcFd.length})`);
+assert(
+  idfcRows.every(
+    (r) =>
+      r.bankId === "idfcfirst" &&
+      r.source.quality === "OFFICIAL" &&
+      /idfcfirstbank\.com/.test(r.source.url),
+  ),
+  "IDFC First: all rows OFFICIAL, bankId=idfcfirst, idfcfirstbank.com source URL",
+);
+const idfc500 = idfcFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 500,
+);
+assert(
+  idfc500?.ratePercent === 7.1 && idfc500?.tenure.maxDays === 1095,
+  "IDFC First '500 days – 3 years' general = 7.10, maxDays 1095",
+);
+const idfc5y = idfcFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 1826,
+);
+assert(
+  idfc5y?.ratePercent === 6.0 && idfc5y?.tenure.maxDays === 3650,
+  "IDFC First compound '5 years 1 day – 10 years' general = 6.00 (entity-dash decoded, recovered)",
+);
+const idfc3y = idfcFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 1096,
+);
+assert(idfc3y?.ratePercent === 7.0, "IDFC First '3 years 1 day – 5 years' senior = 7.00");
+assert(
+  idfc.parseFdRd("<html>nothing</html>", "2026-01-01").length === 0,
+  "IDFC First: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// Federal Bank: plain server-rendered retail (Single Deposit Less than
+// ₹300 Lakhs = below ₹3 crore) (Period, General Public %, Senior Citizen %)
+// table — the FIRST rate table on the deposit-rate page. Standard tenure
+// labels. Source: federalbank.co.in.
+// ---------------------------------------------------------------------------
+console.log("== Federal Bank (standard retail table) ==");
+const FEDERAL_FD_FIXTURE = `
+<html><body>
+  <p>Deposit Rates w.e.f. 01 Sep 2026</p>
+  <table>
+    <tr><td>Period</td><td>Single Deposit Less than ₹300 Lakhs - General Public</td><td>Single Deposit Less than ₹300 Lakhs - Senior Citizen</td></tr>
+    <tr><td>7 days to 29 days</td><td>3.00%</td><td>3.50%</td></tr>
+    <tr><td>271 days to less than 1 year</td><td>6.00%</td><td>6.50%</td></tr>
+    <tr><td>1 year</td><td>6.25%</td><td>6.75%</td></tr>
+    <tr><td>15 Months</td><td>6.65%</td><td>7.15%</td></tr>
+    <tr><td>Above 24 months to less than 48 months</td><td>6.50%</td><td>7.00%</td></tr>
+    <tr><td>48 months</td><td>6.70%</td><td>7.20%</td></tr>
+    <tr><td>Above 48 months to 10 years</td><td>6.40%</td><td>6.90%</td></tr>
+  </table>
+</body></html>`;
+const federal = new FederalAdapter();
+const federalRows = federal.parseFdRd(FEDERAL_FD_FIXTURE, "2026-09-01");
+const federalFd = federalRows.filter((r) => r.product === "FD");
+assert(federalFd.length >= 12, `Federal: >=12 FD rows (got ${federalFd.length})`);
+assert(
+  federalRows.every(
+    (r) =>
+      r.bankId === "federal" &&
+      r.source.quality === "OFFICIAL" &&
+      /federalbank\.co\.in/.test(r.source.url),
+  ),
+  "Federal: all rows OFFICIAL, bankId=federal, federalbank.co.in source URL",
+);
+const federal1y = federalFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 365 && r.tenure.maxDays === 365,
+);
+assert(federal1y?.ratePercent === 6.25, "Federal 1yr general = 6.25");
+const federal48 = federalFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 1440 && r.tenure.maxDays === 1440,
+);
+assert(federal48?.ratePercent === 7.2, "Federal 48 months senior = 7.20");
+// Federal derives RD for >=1yr buckets, tagged OFFICIAL from its official domain.
+const federalRd = federalRows.filter((r) => r.product === "RD");
+assert(
+  federalRd.length > 0 &&
+    federalRd.every(
+      (r) => r.source.quality === "OFFICIAL" && r.tenure.minDays >= 365,
+    ),
+  "Federal: RD derived for >=1yr buckets, OFFICIAL",
+);
+assert(
+  federal.parseFdRd("<html>empty</html>", "2026-01-01").length === 0,
+  "Federal: garbage HTML -> 0 rows",
 );
 
 if (failures === 0) {
