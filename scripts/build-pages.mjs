@@ -411,11 +411,6 @@ function institutionSnapshot(bank) {
       "Website",
       `<a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">${esc(displayHost)} ${extLinkSvg()}</a>`,
     ));
-    const contactUrl = bank.contactUrl || bank.website;
-    items.push(instItem(
-      "Customer service",
-      `<a class="modal-link" href="${esc(contactUrl)}" target="_blank" rel="noopener">Contact &amp; support ${extLinkSvg()}</a>`,
-    ));
   }
   if (Number.isFinite(bank.branches))
     items.push(instItem("Branches", `~${bank.branches.toLocaleString("en-IN")}`, true));
