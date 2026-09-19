@@ -21,6 +21,17 @@ bank/indusind/
 bank/yes/
 bank/idfcfirst/
 bank/federal/
+bank/au/
+bank/equitas/
+bank/ujjivan/
+bank/jana/
+bank/suryoday/
+bank/utkarsh/
+bank/esaf/
+bank/capitalsfb/
+bank/nesfb/
+bank/shivalik/
+bank/unity/
 fixed-deposit/
 savings-account/
 recurring-deposit/

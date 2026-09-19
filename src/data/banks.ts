@@ -1,8 +1,9 @@
 import type { Bank } from "../types.js";
 
 /**
- * India's 12 public sector banks as of 2026: State Bank of India plus the 11
- * other nationalised banks (post the 2019–2020 mega-mergers).
+ * India's banks tracked by the app: the 12 public sector banks (State Bank of
+ * India plus the 11 other nationalised banks post the 2019–2020 mega-mergers),
+ * the major private sector banks, and the RBI-licensed small finance banks.
  * headquarters + established are sourced public facts (used on profile pages).
  */
 const GOI_OWNERSHIP = "Government of India (majority stakeholder)";
@@ -12,6 +13,13 @@ const GOI_OWNERSHIP = "Government of India (majority stakeholder)";
  * listed companies, NOT majority Government-of-India owned.
  */
 const PRIVATE_OWNERSHIP = "Private sector bank (publicly listed)";
+
+/**
+ * Ownership descriptor shared by the small finance banks: RBI-licensed
+ * scheduled small finance banks. Deposits are DICGC-insured up to ₹5 lakh,
+ * but these are privately owned and NOT Government-of-India owned.
+ */
+const SFB_OWNERSHIP = "Private (small finance bank)";
 
 export const BANKS: Bank[] = [
   {
@@ -294,6 +302,148 @@ export const BANKS: Bank[] = [
     established: 1931,
     branches: 1500,
     ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+
+  // ---------------------------------------------------------------------
+  // Small finance banks (RBI-licensed scheduled SFBs). Deposits are
+  // DICGC-insured up to ₹5 lakh but these are privately owned, NOT
+  // Government-of-India owned. Rates land later via the ingest workflow;
+  // entries are rate-less until then. Approximate branch figures are
+  // included only where a confident rounded public figure is known.
+  // Fincare SFB is intentionally omitted — it merged into AU SFB.
+  // ---------------------------------------------------------------------
+  {
+    id: "au",
+    name: "AU Small Finance Bank",
+    shortName: "AU",
+    category: "SMALL_FINANCE",
+    color: "#e51e2a",
+    website: "https://www.aubank.in",
+    headquarters: "Jaipur",
+    established: 2017,
+    branches: 2400,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "equitas",
+    name: "Equitas Small Finance Bank",
+    shortName: "Equitas",
+    category: "SMALL_FINANCE",
+    color: "#00a19a",
+    website: "https://www.equitasbank.com",
+    headquarters: "Chennai",
+    established: 2016,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "ujjivan",
+    name: "Ujjivan Small Finance Bank",
+    shortName: "Ujjivan",
+    category: "SMALL_FINANCE",
+    color: "#f37021",
+    website: "https://www.ujjivansfb.in",
+    headquarters: "Bengaluru",
+    established: 2017,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "jana",
+    name: "Jana Small Finance Bank",
+    shortName: "Jana",
+    category: "SMALL_FINANCE",
+    color: "#5b2d8e",
+    website: "https://www.janabank.com",
+    headquarters: "Bengaluru",
+    established: 2018,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "suryoday",
+    name: "Suryoday Small Finance Bank",
+    shortName: "Suryoday",
+    category: "SMALL_FINANCE",
+    color: "#f7941e",
+    website: "https://www.suryodaybank.com",
+    headquarters: "Navi Mumbai",
+    established: 2017,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "utkarsh",
+    name: "Utkarsh Small Finance Bank",
+    shortName: "Utkarsh",
+    category: "SMALL_FINANCE",
+    color: "#00539b",
+    website: "https://www.utkarsh.bank",
+    headquarters: "Varanasi",
+    established: 2017,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "esaf",
+    name: "ESAF Small Finance Bank",
+    shortName: "ESAF",
+    category: "SMALL_FINANCE",
+    color: "#e2231a",
+    website: "https://www.esafbank.com",
+    headquarters: "Thrissur",
+    established: 2017,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "capitalsfb",
+    name: "Capital Small Finance Bank",
+    shortName: "Capital",
+    category: "SMALL_FINANCE",
+    color: "#0071bc",
+    website: "https://www.capitalbank.co.in",
+    headquarters: "Jalandhar",
+    established: 2016,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "nesfb",
+    name: "North East Small Finance Bank",
+    shortName: "North East",
+    category: "SMALL_FINANCE",
+    color: "#2e7d32",
+    website: "https://www.nesfb.com",
+    headquarters: "Guwahati",
+    established: 2017,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "shivalik",
+    name: "Shivalik Small Finance Bank",
+    shortName: "Shivalik",
+    category: "SMALL_FINANCE",
+    color: "#c8102e",
+    website: "https://www.shivalikbank.com",
+    headquarters: "Noida",
+    established: 2021,
+    ownership: SFB_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "unity",
+    name: "Unity Small Finance Bank",
+    shortName: "Unity",
+    category: "SMALL_FINANCE",
+    color: "#7b2d8b",
+    website: "https://www.theunitybank.com",
+    headquarters: "New Delhi",
+    established: 2021,
+    ownership: SFB_OWNERSHIP,
     statsAsOf: 2024,
   },
 ];

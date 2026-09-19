@@ -1193,6 +1193,12 @@ a.bank-link:hover {
   border-color: var(--info-line);
   color: var(--brand);
 }
+.tag-category {
+  margin-left: 0;
+  background: var(--surface-2, var(--surface));
+  border-color: var(--line);
+  color: var(--muted);
+}
 
 /* Reveal-all button */
 .reveal-btn {
@@ -1589,6 +1595,9 @@ a.bank-link:hover {
   font-family: var(--font);
   font-size: 12px;
   font-weight: 500;
+}
+.dir-category {
+  margin: 0 0 12px;
 }
 .dir-tag {
   margin-top: 10px;

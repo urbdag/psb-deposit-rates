@@ -37,6 +37,8 @@ function readStateFromUrl() {
         state.category = "PUBLIC";
     else if (sector === "private")
         state.category = "PRIVATE";
+    else if (sector === "small_finance")
+        state.category = "SMALL_FINANCE";
     const sort = p.get("sort");
     if (sort) {
         const [key, dir] = sort.split(".");
@@ -446,6 +448,7 @@ function renderControls() {
         { v: "ALL", label: "All" },
         { v: "PUBLIC", label: "Public sector" },
         { v: "PRIVATE", label: "Private" },
+        { v: "SMALL_FINANCE", label: "Small finance" },
     ];
     host.append(segControl("Sector", sectors, state.category, (v) => {
         state.category = v;

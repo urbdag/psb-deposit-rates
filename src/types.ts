@@ -25,12 +25,14 @@ export interface Bank {
   id: string;
   /**
    * Sector category the bank belongs to:
-   *   "PUBLIC"  - public sector / nationalised bank (majority GoI-owned)
-   *   "PRIVATE" - private sector bank
-   * Used to segment rankings and peer-averages so a private FD is never
-   * compared head-to-head against a PSU FD.
+   *   "PUBLIC"        - public sector / nationalised bank (majority GoI-owned)
+   *   "PRIVATE"       - private sector bank
+   *   "SMALL_FINANCE" - RBI-licensed scheduled small finance bank; deposits
+   *                     DICGC-insured but NOT Government-of-India owned
+   * Used to segment rankings and peer-averages so a small finance FD is never
+   * compared head-to-head against a PSU or private FD.
    */
-  category: "PUBLIC" | "PRIVATE";
+  category: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE";
   /** Full display name, e.g. "State Bank of India". */
   name: string;
   /** Short label for compact UI, e.g. "SBI". */
@@ -156,10 +158,11 @@ export interface RateQuery {
   /** Desired tenure in days (ignored for SAVINGS). */
   tenureDays?: number;
   /**
-   * Optional sector filter. When set, only banks of this category are ranked.
+   * Optional sector filter. When set, only banks of this category are ranked
+   * ("PUBLIC", "PRIVATE" or "SMALL_FINANCE").
    * When omitted, banks of all categories are ranked (unchanged behaviour).
    */
-  category?: "PUBLIC" | "PRIVATE";
+  category?: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE";
 }
 
 /** A ranked result row: the best applicable rate for a bank given a query. */
