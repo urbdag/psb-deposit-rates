@@ -70,6 +70,19 @@ const { IndusindAdapter } = await import(resolve(root, `${A}/indusind.js`));
 const { IdfcfirstAdapter } = await import(resolve(root, `${A}/idfcfirst.js`));
 const { FederalAdapter } = await import(resolve(root, `${A}/federal.js`));
 const { IciciAdapter } = await import(resolve(root, `${A}/icici.js`));
+// Small finance banks (SFB) — OFFICIAL scrapers.
+//
+// Capital SFB: registered. Its callable-domestic-term-deposit page publishes
+// GENERAL and SENIOR rates as TWO SEPARATE plain 2-column tables (table[0] =
+// general, table[1] = senior). The bespoke parser reads both and joins by
+// tenure (source: capital.bank.in).
+//
+// Shivalik SFB: registered. Its interest-rate page carries ~10 tables; the
+// bespoke picker PINS the retail "< Rs.2 Crores" 3-column (tenure, general,
+// senior) grid, avoiding the higher-amount bulk slabs and the savings table
+// (source: shivalik.bank.in).
+const { CapitalsfbAdapter } = await import(resolve(root, `${A}/capitalsfb.js`));
+const { ShivalikAdapter } = await import(resolve(root, `${A}/shivalik.js`));
 const ADAPTERS = [
   new SbiAdapter(),
   new PnbAdapter(),
@@ -89,6 +102,8 @@ const ADAPTERS = [
   new IdfcfirstAdapter(),
   new FederalAdapter(),
   new IciciAdapter(),
+  new CapitalsfbAdapter(),
+  new ShivalikAdapter(),
 ];
 // -------------------------------------------------------------------------
 

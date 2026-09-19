@@ -42,6 +42,12 @@ const { FederalAdapter } = await import(
 const { IciciAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/icici.js")
 );
+const { CapitalsfbAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/capitalsfb.js")
+);
+const { ShivalikAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/shivalik.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -1271,6 +1277,220 @@ assert(
 assert(
   icici.parseFdRd("<html>garbage</html>", "2026-01-01").length === 0,
   "ICICI: garbage HTML -> 0 rows",
+);
+
+// ===========================================================================
+// SMALL FINANCE BANK ADAPTERS
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// Capital Small Finance Bank: the retail callable-domestic-term-deposit page
+// publishes GENERAL and SENIOR rates in TWO SEPARATE plain 2-column tables
+// (NOT one combined general/senior grid):
+//   TABLE[0] = GENERAL public: rows of [tenure, rate%]
+//   TABLE[1] = SENIOR citizen: rows of [tenure, rate%]
+// The bespoke parser reads table[0] as GENERAL and table[1] as SENIOR and joins
+// by tenure. Sentinels below FAIL if the two tables were swapped (senior would
+// come out lower than general) or if only one table were read (no SENIOR rows).
+// Both tables include a "Special category" sub-header then single-tenure
+// specials (12 Months / 400 / 600 / 900 Days). Source: capital.bank.in.
+// ---------------------------------------------------------------------------
+console.log("== Capital SFB (two separate general/senior tables) ==");
+const CAPITAL_FD_FIXTURE = `
+<html><body>
+  <p>Callable Domestic Term Deposit — Interest Rates w.e.f. 01 Sep 2026</p>
+  <h3>General Public</h3>
+  <table>
+    <tr><th>Period</th><th>Rate of Interest (% p.a.)</th></tr>
+    <tr><td>15 Days to 30 Days</td><td>3.50%</td></tr>
+    <tr><td>91 Days to 180 Days</td><td>5.00%</td></tr>
+    <tr><td>1 Year to less than 2 Years</td><td>7.00%</td></tr>
+    <tr><td>2 Years to less than 3 Years</td><td>6.75%</td></tr>
+    <tr><td>5 Years and upto 10 Years</td><td>6.50%</td></tr>
+    <tr><td>Special category</td></tr>
+    <tr><td>400 Days</td><td>7.10%</td></tr>
+    <tr><td>600 Days</td><td>7.25%</td></tr>
+    <tr><td>900 Days</td><td>7.25%</td></tr>
+  </table>
+  <h3>Senior Citizen</h3>
+  <table>
+    <tr><th>Period</th><th>Rate of Interest (% p.a.)</th></tr>
+    <tr><td>15 Days to 30 Days</td><td>4.00%</td></tr>
+    <tr><td>91 Days to 180 Days</td><td>5.50%</td></tr>
+    <tr><td>1 Year to less than 2 Years</td><td>7.50%</td></tr>
+    <tr><td>2 Years to less than 3 Years</td><td>7.25%</td></tr>
+    <tr><td>5 Years and upto 10 Years</td><td>7.00%</td></tr>
+    <tr><td>Special category</td></tr>
+    <tr><td>400 Days</td><td>7.60%</td></tr>
+    <tr><td>600 Days</td><td>7.75%</td></tr>
+    <tr><td>900 Days</td><td>7.75%</td></tr>
+  </table>
+</body></html>`;
+const capital = new CapitalsfbAdapter();
+const capitalRows = capital.parseFdRd(CAPITAL_FD_FIXTURE, "2026-09-01");
+const capitalFd = capitalRows.filter((r) => r.product === "FD");
+assert(capitalFd.length >= 12, `Capital SFB: >=12 FD rows (got ${capitalFd.length})`);
+assert(
+  capitalRows.every(
+    (r) =>
+      r.bankId === "capitalsfb" &&
+      r.source.quality === "OFFICIAL" &&
+      /capital\.bank\.in/.test(r.source.url),
+  ),
+  "Capital SFB: all rows OFFICIAL, bankId=capitalsfb, capital.bank.in source URL",
+);
+// >=4 distinct FD tenures spanning short and long.
+const capitalTenures = new Set(
+  capitalFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(
+  capitalTenures.size >= 4,
+  `Capital SFB: >=4 distinct FD tenures (got ${capitalTenures.size})`,
+);
+const capitalMin = capitalFd.map((r) => r.tenure.minDays);
+assert(capitalMin.some((d) => d <= 30), "Capital SFB: short (<=30d) bucket present");
+assert(capitalMin.some((d) => d >= 1825), "Capital SFB: long (>=5yr) bucket present");
+// Column-tiering sentinels: GENERAL from table[0], SENIOR from table[1] joined
+// by tenure. 1yr general=7.00, senior=7.50 (senior MUST be higher; fails if the
+// two tables were swapped or only one was read).
+const capital1y = capitalFd.filter(
+  (r) => r.tenure.minDays === 365 && r.tenure.maxDays === 729,
+);
+const capital1yGen = capital1y.find((r) => r.customer === "GENERAL");
+const capital1ySr = capital1y.find((r) => r.customer === "SENIOR");
+assert(capital1yGen?.ratePercent === 7.0, "Capital SFB 1-2yr general = 7.00 (table[0])");
+assert(
+  capital1ySr?.ratePercent === 7.5,
+  "Capital SFB 1-2yr senior = 7.50 (table[1], higher than general; fails if tables swapped)",
+);
+// Single-tenure special (400 Days) is FD-only, tagged with a scheme, no RD.
+const capital400 = capitalFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 400,
+);
+assert(
+  capital400?.tenure.maxDays === 400 && capital400?.ratePercent === 7.1,
+  "Capital SFB 400 Days special general = 7.10 (single-day tenure)",
+);
+assert(
+  capital400?.scheme === "Capital 400 Days Deposit",
+  "Capital SFB 400 Days tagged with a scheme",
+);
+const capital400Sr = capitalFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 400,
+);
+assert(capital400Sr?.ratePercent === 7.6, "Capital SFB 400 Days senior = 7.60");
+const capitalRd = capitalRows.filter((r) => r.product === "RD");
+assert(
+  !capitalRd.some((r) => r.tenure.minDays === 400),
+  "Capital SFB: 400 Days special (odd day-count) NOT emitted as RD",
+);
+assert(
+  capitalRd.length > 0 && capitalRd.every((r) => r.tenure.minDays >= 365),
+  "Capital SFB: RD derived for >=1yr buckets",
+);
+assert(
+  capital.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "Capital SFB: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// Shivalik Small Finance Bank: the interest-rate page carries ~10 tables. The
+// RETAIL FD table is the clean 3-column (Tenure, General, Senior) grid headed
+// "Amount less than Rs.2 Crores". Alongside it sit higher-amount slab tables
+// (Rs.25 Lakh.../Rs.2 Crore and above / Rs.7 Crore) and a savings table (which
+// also carries a 7.00% top slab) that must NOT be selected. The bespoke picker
+// PINS the "< Rs.2 Crores" retail table by signature. Sentinels FAIL if a bulk
+// slab or the savings table were picked. Source: shivalik.bank.in.
+// ---------------------------------------------------------------------------
+console.log("== Shivalik SFB (pin retail <Rs.2 Crore table among many) ==");
+const SHIVALIK_FD_FIXTURE = `
+<html><body>
+  <h3>Savings Account Interest Rates</h3>
+  <table>
+    <tr><th>Balance Slab</th><th>Rate (% p.a.)</th></tr>
+    <tr><td>Up to Rs.1 Lakh</td><td>2.50%</td></tr>
+    <tr><td>Above Rs.5 Lakh</td><td>3.25%</td></tr>
+    <tr><td>Above Rs.25 Lakh</td><td>7.00%</td></tr>
+  </table>
+  <h3>Fixed Deposit — Amount less than Rs.2 Crores</h3>
+  <table>
+    <tr><th>Tenure Bucket</th><th>General</th><th>Senior Citizen</th></tr>
+    <tr><td>7 days to 14 days</td><td>3.50%</td><td>3.75%</td></tr>
+    <tr><td>181 days to 364 days</td><td>6.50%</td><td>6.75%</td></tr>
+    <tr><td>1 year to less than 18 months</td><td>7.25%</td><td>7.50%</td></tr>
+    <tr><td>18 months to 23 months</td><td>7.50%</td><td>7.75%</td></tr>
+    <tr><td>23 months 1 day to 27 months</td><td>8.00%</td><td>8.25%</td></tr>
+    <tr><td>36 months 1 day to 60 months</td><td>6.25%</td><td>6.50%</td></tr>
+    <tr><td>60 months 1 day to 120 months</td><td>6.25%</td><td>6.50%</td></tr>
+  </table>
+  <h3>Fixed Deposit — Rs.2 Crore and above (Bulk)</h3>
+  <table>
+    <tr><th>Tenure Bucket</th><th>General</th><th>Senior Citizen</th></tr>
+    <tr><td>7 days to 14 days</td><td>5.00%</td><td>5.25%</td></tr>
+    <tr><td>181 days to 364 days</td><td>7.00%</td><td>7.25%</td></tr>
+    <tr><td>1 year to less than 18 months</td><td>7.75%</td><td>8.00%</td></tr>
+    <tr><td>18 months to 23 months</td><td>8.00%</td><td>8.25%</td></tr>
+    <tr><td>36 months 1 day to 60 months</td><td>6.75%</td><td>7.00%</td></tr>
+  </table>
+</body></html>`;
+const shivalik = new ShivalikAdapter();
+const shivalikRows = shivalik.parseFdRd(SHIVALIK_FD_FIXTURE, "2026-09-01");
+const shivalikFd = shivalikRows.filter((r) => r.product === "FD");
+assert(shivalikFd.length >= 12, `Shivalik SFB: >=12 FD rows (got ${shivalikFd.length})`);
+assert(
+  shivalikRows.every(
+    (r) =>
+      r.bankId === "shivalik" &&
+      r.source.quality === "OFFICIAL" &&
+      /shivalik\.bank\.in/.test(r.source.url),
+  ),
+  "Shivalik SFB: all rows OFFICIAL, bankId=shivalik, shivalik.bank.in source URL",
+);
+const shivalikTenures = new Set(
+  shivalikFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(
+  shivalikTenures.size >= 4,
+  `Shivalik SFB: >=4 distinct FD tenures (got ${shivalikTenures.size})`,
+);
+// Column-tiering + table-pinning sentinel: the peak 23m1d-27m bucket must be
+// the RETAIL 8.00/8.25 (< Rs.2 Crore), NOT the bulk 8.00/8.25 — verified by the
+// short 7-14 day bucket being 3.50 retail (bulk is 5.00). If the bulk table
+// were picked, the 7-14 day general would be 5.00 and this fails.
+const shivalikShort = shivalikFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 7 && r.tenure.maxDays === 14,
+);
+assert(
+  shivalikShort?.ratePercent === 3.5,
+  "Shivalik SFB 7-14d general = 3.50 (retail <Rs.2cr table, NOT bulk 5.00)",
+);
+const shivalikPeak = shivalikFd.filter(
+  (r) => r.tenure.minDays === 691 && r.tenure.maxDays === 810,
+);
+const shivalikPeakGen = shivalikPeak.find((r) => r.customer === "GENERAL");
+const shivalikPeakSr = shivalikPeak.find((r) => r.customer === "SENIOR");
+assert(
+  shivalikPeakGen?.ratePercent === 8.0,
+  "Shivalik SFB 23m1d-27m general = 8.00 (retail)",
+);
+assert(
+  shivalikPeakSr?.ratePercent === 8.25,
+  "Shivalik SFB 23m1d-27m senior = 8.25 (senior col, not general; fails if cols swapped)",
+);
+// 1yr bucket: general 7.25 < senior 7.50 (correct column order).
+const shivalik1y = shivalikFd.filter((r) => r.tenure.minDays === 365);
+const shivalik1yGen = shivalik1y.find((r) => r.customer === "GENERAL");
+const shivalik1ySr = shivalik1y.find((r) => r.customer === "SENIOR");
+assert(shivalik1yGen?.ratePercent === 7.25, "Shivalik SFB 1yr general = 7.25 (retail)");
+assert(shivalik1ySr?.ratePercent === 7.5, "Shivalik SFB 1yr senior = 7.50 (retail)");
+// Savings 7.00% top slab must never appear as an FD rate.
+assert(
+  !shivalikFd.some((r) => r.ratePercent === 7.0 && r.tenure.minDays < 365),
+  "Shivalik SFB: savings 7.00% slab not mistaken for a short FD rate",
+);
+assert(
+  shivalik.parseFdRd("<html>no rate tables</html>", "2026-01-01").length === 0,
+  "Shivalik SFB: garbage HTML -> 0 rows",
 );
 
 if (failures === 0) {
