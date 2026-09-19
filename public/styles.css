@@ -205,6 +205,7 @@ body {
   font-family: var(--font-display);
   font-size: 18px;
   color: var(--ink);
+  text-decoration: none;
 }
 .brand-mark {
   width: 38px;
