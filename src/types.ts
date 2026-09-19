@@ -19,10 +19,18 @@ export type ProductType = "FD" | "SAVINGS" | "RD";
 /** Customer categories that attract different rates. */
 export type CustomerCategory = "GENERAL" | "SENIOR" | "SUPER_SENIOR";
 
-/** A public sector bank. */
+/** A bank tracked by the app (public-sector or private-sector). */
 export interface Bank {
   /** Stable slug used as an id, e.g. "sbi", "pnb". */
   id: string;
+  /**
+   * Sector category the bank belongs to:
+   *   "PUBLIC"  - public sector / nationalised bank (majority GoI-owned)
+   *   "PRIVATE" - private sector bank
+   * Used to segment rankings and peer-averages so a private FD is never
+   * compared head-to-head against a PSU FD.
+   */
+  category: "PUBLIC" | "PRIVATE";
   /** Full display name, e.g. "State Bank of India". */
   name: string;
   /** Short label for compact UI, e.g. "SBI". */
@@ -147,6 +155,11 @@ export interface RateQuery {
   amount: number;
   /** Desired tenure in days (ignored for SAVINGS). */
   tenureDays?: number;
+  /**
+   * Optional sector filter. When set, only banks of this category are ranked.
+   * When omitted, banks of all categories are ranked (unchanged behaviour).
+   */
+  category?: "PUBLIC" | "PRIVATE";
 }
 
 /** A ranked result row: the best applicable rate for a bank given a query. */

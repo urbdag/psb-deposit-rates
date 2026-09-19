@@ -8,6 +8,7 @@ const state = {
     customer: "GENERAL",
     amount: 500000,
     tenureDays: 365,
+    category: "ALL",
     showAll: false,
     sortKey: "rate",
     sortDir: "desc",
@@ -29,6 +30,13 @@ function readStateFromUrl() {
     const ten = Number(p.get("tenure"));
     if (Number.isFinite(ten) && ten > 0)
         state.tenureDays = ten;
+    const sector = p.get("sector");
+    if (sector === "all")
+        state.category = "ALL";
+    else if (sector === "public")
+        state.category = "PUBLIC";
+    else if (sector === "private")
+        state.category = "PRIVATE";
     const sort = p.get("sort");
     if (sort) {
         const [key, dir] = sort.split(".");
@@ -46,6 +54,9 @@ function syncUrl() {
     p.set("amount", String(state.amount));
     if (state.product !== "SAVINGS")
         p.set("tenure", String(state.tenureDays));
+    // Only include the sector filter when it deviates from the default (ALL).
+    if (state.category !== "ALL")
+        p.set("sector", state.category.toLowerCase());
     // Only include sort when it deviates from the default (rate.desc).
     if (!(state.sortKey === "rate" && state.sortDir === "desc"))
         p.set("sort", `${state.sortKey}.${state.sortDir}`);
@@ -177,10 +188,10 @@ function renderShell() {
                 "Updated " + fresh.label.replace("updated ", ""),
             ]),
             el("h1", {
-                html: `Find the <span class="grad">highest deposit rate</span> across India's public sector banks.`,
+                html: `Find the <span class="grad">highest deposit rate</span> across India's public sector and private banks.`,
             }),
             el("p", { class: "hero-sub" }, [
-                "Compare Fixed Deposit, Savings and Recurring Deposit rates for all 12 nationalised banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
+                "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's public sector and private banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
             ]),
             movementsStrip(),
         ]),
@@ -219,7 +230,7 @@ function renderShell() {
                         }),
                     ]),
                     el("p", { class: "muted" }, [
-                        "Deposit rates for State Bank of India and the 11 nationalised banks. Informational only — always verify on the bank's official website before investing.",
+                        "Deposit rates across India's public sector and private banks. Informational only — always verify on the bank's official website before investing.",
                     ]),
                 ]),
                 el("div", {}, [
@@ -431,6 +442,16 @@ function renderControls() {
         state.customer = v;
         apply(true);
     }));
+    const sectors = [
+        { v: "ALL", label: "All" },
+        { v: "PUBLIC", label: "Public sector" },
+        { v: "PRIVATE", label: "Private" },
+    ];
+    host.append(segControl("Sector", sectors, state.category, (v) => {
+        state.category = v;
+        state.showAll = false;
+        apply(true);
+    }));
     host.append(renderAmountControl());
     // Tenure chips (hidden for savings)
     if (state.product !== "SAVINGS") {
@@ -548,12 +569,17 @@ function chip(label, active, onClick) {
     b.addEventListener("click", onClick);
     return b;
 }
+/** Map the UI sector filter to the query category (ALL -> undefined). */
+function selectedCategory() {
+    return state.category === "ALL" ? undefined : state.category;
+}
 function query() {
     return {
         product: state.product,
         customer: state.customer,
         amount: state.amount,
         tenureDays: state.product === "SAVINGS" ? undefined : state.tenureDays,
+        category: selectedCategory(),
     };
 }
 function renderAll() {
@@ -567,7 +593,7 @@ function renderHeadline() {
     const host = document.getElementById("headline-region");
     host.innerHTML = "";
     const top = rankBanks(dataset, query())[0];
-    const overall = headlineRate(dataset, state.product, state.customer);
+    const overall = headlineRate(dataset, state.product, state.customer, selectedCategory());
     const feature = el("div", { class: "hl-cell feature" }, [
         el("div", { class: "hl-label" }, ["Top rate for your selection"]),
         el("div", {
@@ -703,6 +729,7 @@ function renderLeaderboard() {
         product: state.product,
         customer: state.customer,
         amount: state.amount,
+        category: selectedCategory(),
     })) {
         const card = el("div", { class: "tenure-card" }, [
             el("div", { class: "tenure-label" }, [row.tenureLabel]),

@@ -83,7 +83,13 @@ export function rankBanks(dataset: Dataset, query: RateQuery): RankedRate[] {
   const bankById = new Map<string, Bank>(dataset.banks.map((b) => [b.id, b]));
   const rows: { bank: Bank; entry: RateEntry }[] = [];
 
-  for (const bank of dataset.banks) {
+  // Optional per-category filter: when query.category is set, only banks of
+  // that sector are considered. When omitted, all banks are ranked (unchanged).
+  const banks = query.category
+    ? dataset.banks.filter((b) => b.category === query.category)
+    : dataset.banks;
+
+  for (const bank of banks) {
     const best = bestEntryForBank(dataset.rates, bank.id, query);
     if (best) rows.push({ bank, entry: best });
   }
@@ -121,12 +127,18 @@ export function headlineRate(
   dataset: Dataset,
   product: RateQuery["product"],
   customer: RateQuery["customer"],
+  category?: RateQuery["category"],
 ): RankedRate | undefined {
-  const candidates = dataset.rates.filter(
-    (e) => e.product === product && e.customer === customer,
-  );
-  if (candidates.length === 0) return undefined;
   const bankById = new Map(dataset.banks.map((b) => [b.id, b]));
+  const candidates = dataset.rates.filter((e) => {
+    if (e.product !== product || e.customer !== customer) return false;
+    if (category) {
+      const bank = bankById.get(e.bankId);
+      if (!bank || bank.category !== category) return false;
+    }
+    return true;
+  });
+  if (candidates.length === 0) return undefined;
   let best: RateEntry = candidates[0];
   for (const e of candidates) if (e.ratePercent > best.ratePercent) best = e;
   return { rank: 1, bank: bankById.get(best.bankId)!, entry: best };

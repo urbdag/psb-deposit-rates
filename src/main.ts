@@ -25,11 +25,13 @@ import type { History as RateHistory } from "./history.js";
 import { banksChangedCount, recentChanges } from "./history.js";
 
 type SortKey = "rate" | "name" | "effective";
+type SectorFilter = "ALL" | "PUBLIC" | "PRIVATE";
 interface UiState {
   product: ProductType;
   customer: CustomerCategory;
   amount: number;
   tenureDays: number;
+  category: SectorFilter;
   showAll: boolean;
   sortKey: SortKey;
   sortDir: "asc" | "desc";
@@ -43,6 +45,7 @@ const state: UiState = {
   customer: "GENERAL",
   amount: 500000,
   tenureDays: 365,
+  category: "ALL",
   showAll: false,
   sortKey: "rate",
   sortDir: "desc",
@@ -65,6 +68,10 @@ function readStateFromUrl(): void {
   if (Number.isFinite(amt) && amt > 0) state.amount = clampAmount(amt);
   const ten = Number(p.get("tenure"));
   if (Number.isFinite(ten) && ten > 0) state.tenureDays = ten;
+  const sector = p.get("sector");
+  if (sector === "all") state.category = "ALL";
+  else if (sector === "public") state.category = "PUBLIC";
+  else if (sector === "private") state.category = "PRIVATE";
   const sort = p.get("sort");
   if (sort) {
     const [key, dir] = sort.split(".");
@@ -81,6 +88,8 @@ function syncUrl(): void {
   p.set("customer", state.customer);
   p.set("amount", String(state.amount));
   if (state.product !== "SAVINGS") p.set("tenure", String(state.tenureDays));
+  // Only include the sector filter when it deviates from the default (ALL).
+  if (state.category !== "ALL") p.set("sector", state.category.toLowerCase());
   // Only include sort when it deviates from the default (rate.desc).
   if (!(state.sortKey === "rate" && state.sortDir === "desc"))
     p.set("sort", `${state.sortKey}.${state.sortDir}`);
@@ -234,10 +243,10 @@ function renderShell(): void {
         "Updated " + fresh.label.replace("updated ", ""),
       ]),
       el("h1", {
-        html: `Find the <span class="grad">highest deposit rate</span> across India's public sector banks.`,
+        html: `Find the <span class="grad">highest deposit rate</span> across India's public sector and private banks.`,
       }),
       el("p", { class: "hero-sub" }, [
-        "Compare Fixed Deposit, Savings and Recurring Deposit rates for all 12 nationalised banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
+        "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's public sector and private banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
       ]),
       movementsStrip(),
     ]),
@@ -288,7 +297,7 @@ function renderShell(): void {
               }),
             ]),
             el("p", { class: "muted" }, [
-              "Deposit rates for State Bank of India and the 11 nationalised banks. Informational only — always verify on the bank's official website before investing.",
+              "Deposit rates across India's public sector and private banks. Informational only — always verify on the bank's official website before investing.",
             ]),
           ]),
           el("div", {}, [
@@ -539,6 +548,19 @@ function renderControls(): void {
     }),
   );
 
+  const sectors = [
+    { v: "ALL", label: "All" },
+    { v: "PUBLIC", label: "Public sector" },
+    { v: "PRIVATE", label: "Private" },
+  ];
+  host.append(
+    segControl("Sector", sectors, state.category, (v) => {
+      state.category = v as SectorFilter;
+      state.showAll = false;
+      apply(true);
+    }),
+  );
+
   host.append(renderAmountControl());
 
   // Tenure chips (hidden for savings)
@@ -693,12 +715,18 @@ function chip(
   return b;
 }
 
+/** Map the UI sector filter to the query category (ALL -> undefined). */
+function selectedCategory(): "PUBLIC" | "PRIVATE" | undefined {
+  return state.category === "ALL" ? undefined : state.category;
+}
+
 function query(): RateQuery {
   return {
     product: state.product,
     customer: state.customer,
     amount: state.amount,
     tenureDays: state.product === "SAVINGS" ? undefined : state.tenureDays,
+    category: selectedCategory(),
   };
 }
 
@@ -714,7 +742,12 @@ function renderHeadline(): void {
   const host = document.getElementById("headline-region")!;
   host.innerHTML = "";
   const top = rankBanks(dataset, query())[0];
-  const overall = headlineRate(dataset, state.product, state.customer);
+  const overall = headlineRate(
+    dataset,
+    state.product,
+    state.customer,
+    selectedCategory(),
+  );
 
   const feature = el("div", { class: "hl-cell feature" }, [
     el("div", { class: "hl-label" }, ["Top rate for your selection"]),
@@ -885,6 +918,7 @@ function renderLeaderboard(): void {
     product: state.product,
     customer: state.customer,
     amount: state.amount,
+    category: selectedCategory(),
   })) {
     const card = el("div", { class: "tenure-card" }, [
       el("div", { class: "tenure-label" }, [row.tenureLabel]),

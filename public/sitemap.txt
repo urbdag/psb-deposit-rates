@@ -13,6 +13,14 @@ bank/iob/
 bank/uco/
 bank/maha/
 bank/psb/
+bank/hdfc/
+bank/icici/
+bank/axis/
+bank/kotak/
+bank/indusind/
+bank/yes/
+bank/idfcfirst/
+bank/federal/
 fixed-deposit/
 savings-account/
 recurring-deposit/

@@ -27,7 +27,15 @@ const { BANKS: BANK_META } = await import(
 );
 {
   const metaById = new Map(BANK_META.map((b) => [b.id, b]));
-  DATASET.banks = DATASET.banks.map((b) => ({ ...metaById.get(b.id), ...b }));
+  const datasetIds = new Set(DATASET.banks.map((b) => b.id));
+  // Enrich the dataset's banks with source metadata (headquarters, category…),
+  // preferring dataset fields where both are present.
+  const enriched = DATASET.banks.map((b) => ({ ...metaById.get(b.id), ...b }));
+  // Union in banks defined in the source module that are not yet in the
+  // committed dataset (e.g. private banks whose OFFICIAL rates arrive later via
+  // the ingest workflow). They render gracefully with no rate rows until then.
+  const extras = BANK_META.filter((b) => !datasetIds.has(b.id));
+  DATASET.banks = [...enriched, ...extras];
 }
 
 // Ensure a baseline history snapshot exists so the movements page has data to
@@ -44,16 +52,44 @@ const CHANGES = recentChanges(HISTORY);
 const bankById = new Map(DATASET.banks.map((b) => [b.id, b]));
 
 /**
- * Average headline 1-year GENERAL FD rate across all PSU banks (rounded 2dp).
- * Uses the same ranked query fdRankSummary relies on so the per-bank rate and
- * the peer average are directly comparable. Computed once and reused per page.
+ * Human labels for a bank category, used across profile + landing copy.
+ *   sector      -> "public sector" / "private sector"
+ *   peers       -> "public sector banks" / "private banks"
+ *   average     -> "public sector average" / "private sector average"
+ *   identity    -> "Nationalised bank" / "Private sector bank"
+ *   introNoun   -> "a nationalised public sector bank" / "a private sector bank"
  */
-function computePsuFdAverage() {
+function categoryLabels(category) {
+  if (category === "PRIVATE") {
+    return {
+      sector: "private sector",
+      peers: "private banks",
+      average: "private sector average",
+      identity: "Private sector bank",
+      introNoun: "a private sector bank",
+    };
+  }
+  return {
+    sector: "public sector",
+    peers: "public sector banks",
+    average: "public sector average",
+    identity: "Nationalised bank",
+    introNoun: "a nationalised public sector bank",
+  };
+}
+
+/**
+ * Average headline 1-year GENERAL FD rate within a single category (rounded
+ * 2dp). Uses the same ranked query fdRankSummary relies on so the per-bank
+ * rate and the peer average are directly comparable. Cached per category.
+ */
+function computeCategoryFdAverage(category) {
   const ranked = rankBanks(DATASET, {
     product: "FD",
     customer: "GENERAL",
     amount: 500000,
     tenureDays: 365,
+    category,
   });
   const rates = ranked
     .map((r) => r.entry.ratePercent)
@@ -62,7 +98,10 @@ function computePsuFdAverage() {
   const avg = rates.reduce((a, b) => a + b, 0) / rates.length;
   return Math.round(avg * 100) / 100;
 }
-const PSU_FD_AVERAGE = computePsuFdAverage();
+const CATEGORY_FD_AVERAGE = {
+  PUBLIC: computeCategoryFdAverage("PUBLIC"),
+  PRIVATE: computeCategoryFdAverage("PRIVATE"),
+};
 
 const TENURE_PAGES = [
   { slug: "6-months", label: "6 months", days: 182 },
@@ -98,14 +137,19 @@ function bestFor(bankId, product, customer) {
   return rows.reduce((a, b) => (b.ratePercent > a.ratePercent ? b : a));
 }
 
-/** Rank of this bank's best FD (general) among all banks, by tenure preset. */
+/**
+ * Rank of this bank's best 1-year general FD among its OWN-CATEGORY peers
+ * (a private bank vs private banks, a PSU vs public sector banks).
+ */
 function fdRankSummary(bankId) {
-  // Use a representative 1-year retail query.
+  const bank = bankById.get(bankId);
+  // Use a representative 1-year retail query, filtered to the bank's category.
   const q = {
     product: "FD",
     customer: "GENERAL",
     amount: 500000,
     tenureDays: 365,
+    category: bank?.category,
   };
   const ranked = rankBanks(DATASET, q);
   const idx = ranked.findIndex((r) => r.bank.id === bankId);
@@ -213,7 +257,7 @@ function highlightsRow(bank) {
       hlCard(
         "1-year FD rank",
         `#${rk.rank}`,
-        `of ${rk.of} PSU banks · ${fmt.formatRate(rk.rate)}`,
+        `of ${rk.of} ${categoryLabels(bank.category).peers} · ${fmt.formatRate(rk.rate)}`,
         "#334155",
       ),
     );
@@ -254,17 +298,19 @@ function croreLabel(crore) {
   return `₹${Math.round(crore).toLocaleString("en-IN")} crore`;
 }
 
-/** Signed delta description of a bank's rate vs the PSU peer average. */
-function deltaVsPeer(rate) {
-  if (PSU_FD_AVERAGE == null || !Number.isFinite(rate)) return null;
-  const delta = Math.round((rate - PSU_FD_AVERAGE) * 100) / 100;
-  const avgStr = fmt.formatRate(PSU_FD_AVERAGE);
+/** Signed delta description of a bank's rate vs its own-category peer average. */
+function deltaVsPeer(rate, category) {
+  const avg = CATEGORY_FD_AVERAGE[category];
+  const avgLabel = categoryLabels(category).average;
+  if (avg == null || !Number.isFinite(rate)) return null;
+  const delta = Math.round((rate - avg) * 100) / 100;
+  const avgStr = fmt.formatRate(avg);
   if (Math.abs(delta) < 0.03) {
-    return { delta, sign: "flat", text: `in line with the PSU average of ${avgStr}` };
+    return { delta, sign: "flat", text: `in line with the ${avgLabel} of ${avgStr}` };
   }
   const signed = `${delta > 0 ? "+" : "−"}${Math.abs(delta).toFixed(2)}%`;
   const word = delta > 0 ? "above" : "below";
-  return { delta, sign: delta > 0 ? "up" : "down", text: `${signed} ${word} the PSU average of ${avgStr}` };
+  return { delta, sign: delta > 0 ? "up" : "down", text: `${signed} ${word} the ${avgLabel} of ${avgStr}` };
 }
 
 /**
@@ -272,17 +318,18 @@ function deltaVsPeer(rate) {
  * figures. Clauses whose source field is missing are omitted gracefully.
  */
 function bankIntro(bank) {
-  const s1parts = [`${esc(bank.name)} (${esc(bank.shortName)}) is a nationalised public sector bank`];
+  const labels = categoryLabels(bank.category);
+  const s1parts = [`${esc(bank.name)} (${esc(bank.shortName)}) is ${labels.introNoun}`];
   if (bank.headquarters) s1parts.push(`headquartered in ${esc(bank.headquarters)}`);
   if (bank.established) s1parts.push(`established in ${bank.established}`);
   const sentence1 = s1parts.join(", ") + ".";
 
   const sentences = [sentence1];
   const rk = fdRankSummary(bank.id);
-  const d = rk ? deltaVsPeer(rk.rate) : null;
+  const d = rk ? deltaVsPeer(rk.rate, bank.category) : null;
   if (rk && d) {
     sentences.push(
-      `Its headline 1-year FD rate of ${fmt.formatRate(rk.rate)} is ${d.text}, ranking #${rk.rank} of ${rk.of} public sector banks.`,
+      `Its headline 1-year FD rate of ${fmt.formatRate(rk.rate)} is ${d.text}, ranking #${rk.rank} of ${rk.of} ${labels.peers}.`,
     );
   }
   return `<p class="bank-intro">${sentences.join(" ")}</p>`;
@@ -330,18 +377,19 @@ function compareStrip(bank) {
   const rk = fdRankSummary(bank.id);
   const items = [];
 
+  const labels = categoryLabels(bank.category);
   if (rk) {
-    const d = deltaVsPeer(rk.rate);
+    const d = deltaVsPeer(rk.rate, bank.category);
     const deltaClass = d ? `delta-${d.sign}` : "";
     items.push(`<div class="compare-item">
       <div class="compare-label">1-year FD rate</div>
       <div class="compare-value" style="color:${bank.color}">${fmt.formatRate(rk.rate)}</div>
-      <div class="compare-sub ${deltaClass}">${d ? esc(d.text) : "PSU average unavailable"}</div>
+      <div class="compare-sub ${deltaClass}">${d ? esc(d.text) : `${labels.average} unavailable`}</div>
     </div>`);
     items.push(`<div class="compare-item">
       <div class="compare-label">Peer rank</div>
       <div class="compare-value">#${rk.rank}</div>
-      <div class="compare-sub muted">of ${rk.of} PSU banks</div>
+      <div class="compare-sub muted">of ${rk.of} ${labels.peers}</div>
     </div>`);
   }
 
@@ -375,7 +423,10 @@ function compareStrip(bank) {
   const freshness = eff
     ? `Rates as of ${esc(fmt.formatDate(eff))}, verified from ${official ? "official source" : "aggregated sources"}.`
     : `Rates ${official ? "verified from official source" : "from aggregated sources"}.`;
-  const trust = `<span class="trust-strong">Majority Government-of-India owned</span> — deposits insured by DICGC up to ₹5,00,000.`;
+  const trust =
+    bank.category === "PRIVATE"
+      ? `<span class="trust-strong">Scheduled private sector bank</span> — deposits insured by DICGC up to ₹5,00,000.`
+      : `<span class="trust-strong">Majority Government-of-India owned</span> — deposits insured by DICGC up to ₹5,00,000.`;
 
   return `<div class="compare-strip">
     <div class="compare-items">${items.join("")}</div>
@@ -412,7 +463,7 @@ function page(bank) {
   const identity = [
     bank.headquarters ? `HQ ${esc(bank.headquarters)}` : "",
     bank.established ? `Est. ${bank.established}` : "",
-    "Nationalised bank",
+    categoryLabels(bank.category).identity,
   ]
     .filter(Boolean)
     .join(" · ");
@@ -465,7 +516,7 @@ function page(bank) {
       <div class="panel overview-panel" style="padding:24px">
         <div class="section-head" style="margin-bottom:6px"><div>
           <h2 class="section-title">Overview</h2>
-          <p class="section-note">${esc(bank.shortName)} at a glance and how it compares with its PSU peers</p>
+          <p class="section-note">${esc(bank.shortName)} at a glance and how it compares with its ${esc(categoryLabels(bank.category).sector)} peers</p>
         </div></div>
         ${bankIntro(bank)}
         ${institutionSnapshot(bank)}
@@ -492,7 +543,7 @@ function page(bank) {
       <div class="footer-grid">
         <div>
           <div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
-          <p class="muted">Deposit rates across India's 12 public sector banks. <a class="modal-link" href="../../">Compare all banks ${arrowSvg()}</a></p>
+          <p class="muted">Deposit rates across India's public sector and private banks. <a class="modal-link" href="../../">Compare all banks ${arrowSvg()}</a></p>
         </div>
         <div>
           <p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p>
@@ -722,12 +773,12 @@ function landingShell({
     ${sections}
     <section class="block"><div class="panel" style="padding:22px">
       <h2 class="section-title" style="margin-bottom:10px">About these rates</h2>
-      <p class="muted" style="margin:0">Rates are compiled across India's 12 public sector banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
+      <p class="muted" style="margin:0">Rates are compiled across India's public sector and private banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
     </div></section>
   </div>
   <footer class="site-footer"><div class="container"><div class="footer-grid">
     <div><div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
-      <p class="muted">Best deposit rates across India's public sector banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
+      <p class="muted">Best deposit rates across India's public sector and private banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
     <div><p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p></div>
   </div></div></footer>
   <script>${navScript()}</script>
@@ -749,11 +800,11 @@ function productLandingPage(product) {
   const top = ranked[0];
   const sub =
     product === "SAVINGS"
-      ? `Compare savings account interest rates across all 12 public sector banks.`
-      : `The highest ${name} rates across all 12 public sector banks, ranked. Amounts below ₹3 crore, general public.`;
+      ? `Compare savings account interest rates across India's public sector and private banks.`
+      : `The highest ${name} rates across India's public sector and private banks, ranked. Amounts below ₹3 crore, general public.`;
   let sections = `<section class="block">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(name)} rates${product !== "SAVINGS" ? " (1 year)" : ""}</h2>
-    <p class="section-note">Ranked across public sector banks · ${MONTH}</p></div></div>
+    <p class="section-note">Ranked across public sector and private banks · ${MONTH}</p></div></div>
     ${leaderboardTable(ranked, base)}</section>`;
 
   // For FD/RD, add a "best by tenure" quick grid with links to tenure pages.
@@ -776,8 +827,8 @@ function productLandingPage(product) {
       <div class="tenure-grid">${cells}</div></section>`;
   }
 
-  const title = `Best ${name} Rates ${YEAR} — Public Sector Banks | RateRadar`;
-  const desc = `Compare the best ${name} interest rates across India's 12 public sector banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
+  const title = `Best ${name} Rates ${YEAR} — Public & Private Sector Banks | RateRadar`;
+  const desc = `Compare the best ${name} interest rates across India's public sector and private banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
   return {
     slug,
     html: landingShell({
@@ -804,8 +855,8 @@ function tenureLandingPage(tp) {
   };
   const ranked = rankBanks(DATASET, q);
   const top = ranked[0];
-  const title = `Best ${tp.label} FD Rates ${YEAR} — Public Sector Banks | RateRadar`;
-  const desc = `Highest ${tp.label} fixed deposit rates across India's 12 public sector banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
+  const title = `Best ${tp.label} FD Rates ${YEAR} — Public & Private Sector Banks | RateRadar`;
+  const desc = `Highest ${tp.label} fixed deposit rates across India's public sector and private banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
   const sections = `<section class="block">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(tp.label)} FD rates</h2>
     <p class="section-note">General public · below ₹3 crore · ${MONTH}</p></div></div>
@@ -818,7 +869,7 @@ function tenureLandingPage(tp) {
       desc,
       canonical: `fixed-deposit/${tp.slug}/`,
       h1Html: `Best <span class="grad">${esc(tp.label)}</span> FD rates`,
-      sub: `The public sector banks offering the highest fixed-deposit rate for a ${tp.label} tenure, ranked.`,
+      sub: `The public sector and private banks offering the highest fixed-deposit rate for a ${tp.label} tenure, ranked.`,
       active: "fd",
       sections,
       appLink: `?product=FD&tenure=${tp.days}`,
@@ -842,8 +893,8 @@ function seniorLandingPage() {
   };
   const ranked = rankBanks(DATASET, q);
   const top = ranked[0];
-  const title = `Senior Citizen FD Rates ${YEAR} — Public Sector Banks | RateRadar`;
-  const desc = `Best senior citizen fixed deposit rates across India's 12 public sector banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Seniors typically earn +0.50% over general rates. Updated ${MONTH}.`;
+  const title = `Senior Citizen FD Rates ${YEAR} — Public & Private Sector Banks | RateRadar`;
+  const desc = `Best senior citizen fixed deposit rates across India's public sector and private banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Seniors typically earn +0.50% over general rates. Updated ${MONTH}.`;
   const sections = `<section class="block">
     <div class="section-head"><div><h2 class="section-title">Best senior citizen FD rates (1 year)</h2>
     <p class="section-note">Age 60+ · below ₹3 crore · ${MONTH}</p></div></div>
@@ -856,7 +907,7 @@ function seniorLandingPage() {
       desc,
       canonical: `senior-citizen-fd-rates/`,
       h1Html: `Best <span class="grad">senior citizen</span> FD rates`,
-      sub: `Public sector banks give senior citizens (60+) an extra ~0.50% p.a. Here are the highest senior FD rates, ranked.`,
+      sub: `Banks give senior citizens (60+) an extra ~0.50% p.a. Here are the highest senior FD rates across public sector and private banks, ranked.`,
       active: "senior",
       sections,
       appLink: `?product=FD&customer=SENIOR`,
@@ -888,8 +939,8 @@ function banksDirectoryPage() {
     })
     .join("");
 
-  const title = `All Public Sector Banks — Deposit Rates ${YEAR} | RateRadar`;
-  const desc = `Browse deposit rates for all ${DATASET.banks.length} of India's public sector banks. Search and compare fixed deposit, savings and recurring deposit rates.`;
+  const title = `All Banks — Deposit Rates ${YEAR} | RateRadar`;
+  const desc = `Browse deposit rates for all ${DATASET.banks.length} of India's public sector and private banks. Search and compare fixed deposit, savings and recurring deposit rates.`;
   const sections = `<section class="block">
     <div class="dir-search-wrap">
       <input id="dir-search" class="dir-search" type="search" placeholder="Search banks by name, code or city…" aria-label="Search banks" autocomplete="off" />
@@ -903,7 +954,7 @@ function banksDirectoryPage() {
     title,
     desc,
     canonical: `banks/`,
-    h1Html: `All <span class="grad">public sector banks</span>`,
+    h1Html: `All <span class="grad">public & private banks</span>`,
     sub: `${DATASET.banks.length} banks tracked. Search or tap any bank for its full deposit-rate profile and maturity calculator.`,
     active: "banks",
     sections,
@@ -981,7 +1032,7 @@ function movementsPage() {
   }
 
   const title = `Deposit Rate Movements ${YEAR} — Who Raised or Cut FD Rates | RateRadar`;
-  const desc = `Track which of India's public sector banks recently raised or cut their fixed deposit, savings and recurring deposit rates, and by how much.`;
+  const desc = `Track which of India's public sector and private banks recently raised or cut their fixed deposit, savings and recurring deposit rates, and by how much.`;
   return {
     slug: "rate-movements",
     html: landingShell({
@@ -990,7 +1041,7 @@ function movementsPage() {
       desc,
       canonical: `rate-movements/`,
       h1Html: `Who <span class="grad">raised or cut</span> deposit rates`,
-      sub: `A daily-tracked log of rate changes across India's public sector banks — hikes and cuts, ranked by how much they moved.`,
+      sub: `A daily-tracked log of rate changes across India's public sector and private banks — hikes and cuts, ranked by how much they moved.`,
       active: "movements",
       sections,
       appLink: "",
@@ -1117,8 +1168,8 @@ const ogPairs = [
   [
     "default",
     ogSvg(
-      "Best deposit rates across India's public sector banks",
-      "FD · Savings · RD · all 12 PSU banks, ranked",
+      "Best deposit rates across India's public & private banks",
+      "FD · Savings · RD · public sector and private banks, ranked",
     ),
   ],
   ...TENURE_PAGES.map((tp) => {
@@ -1134,7 +1185,7 @@ const ogPairs = [
         `Best ${tp.label} FD rates`,
         top
           ? `Up to ${fmt.formatRate(top.entry.ratePercent)} · ${top.bank.name}`
-          : "Public sector banks, ranked",
+          : "Public & private banks, ranked",
       ),
     ];
   }),
