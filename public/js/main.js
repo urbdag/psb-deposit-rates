@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=9459af2196";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=9459af2196";
-import { banksChangedCount, recentChanges } from "./history.js?v=9459af2196";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=5377d1deea";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=5377d1deea";
+import { banksChangedCount, recentChanges } from "./history.js?v=5377d1deea";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -540,18 +540,22 @@ function renderAll() {
 function renderHeadline() {
     const host = document.getElementById("headline-region");
     host.innerHTML = "";
-    const top = rankBanks(dataset, query())[0];
+    const ranked = rankBanks(dataset, query());
     const overall = headlineRate(dataset, state.product, state.customer, selectedCategory());
+    // Average of each matching bank's best applicable rate for the selection.
+    const avgRate = ranked.length > 0
+        ? ranked.reduce((sum, r) => sum + r.entry.ratePercent, 0) / ranked.length
+        : null;
     const feature = el("div", { class: "hl-cell" }, [
-        el("div", { class: "hl-label" }, ["Top rate for your selection"]),
+        el("div", { class: "hl-label" }, ["Average for your selection"]),
         el("div", {
             class: "hl-value",
-            "data-count": top ? String(top.entry.ratePercent) : "0",
-            style: top ? "color:#ef4444" : "",
-        }, [top ? "0.00%" : "—"]),
+            "data-count": avgRate != null ? String(avgRate) : "0",
+            style: avgRate != null ? "color:#ef4444" : "",
+        }, [avgRate != null ? "0.00%" : "—"]),
         el("div", { class: "hl-sub" }, [
-            top
-                ? `${top.bank.name}${top.entry.scheme ? " · " + top.entry.scheme : ""}`
+            avgRate != null
+                ? `across ${ranked.length} matching bank${ranked.length === 1 ? "" : "s"}`
                 : "No matching product",
         ]),
     ]);
@@ -576,8 +580,8 @@ function renderHeadline() {
         el("div", { class: "hl-sub" }, ["rates fetched from bank sites"]),
     ]);
     host.append(overallCell, feature, trustCell);
-    if (top)
-        countUp(feature.querySelector(".hl-value"), top.entry.ratePercent);
+    if (avgRate != null)
+        countUp(feature.querySelector(".hl-value"), avgRate);
 }
 function countUp(node, target) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

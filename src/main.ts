@@ -669,7 +669,7 @@ function renderAll(): void {
 function renderHeadline(): void {
   const host = document.getElementById("headline-region")!;
   host.innerHTML = "";
-  const top = rankBanks(dataset, query())[0];
+  const ranked = rankBanks(dataset, query());
   const overall = headlineRate(
     dataset,
     state.product,
@@ -677,20 +677,26 @@ function renderHeadline(): void {
     selectedCategory(),
   );
 
+  // Average of each matching bank's best applicable rate for the selection.
+  const avgRate =
+    ranked.length > 0
+      ? ranked.reduce((sum, r) => sum + r.entry.ratePercent, 0) / ranked.length
+      : null;
+
   const feature = el("div", { class: "hl-cell" }, [
-    el("div", { class: "hl-label" }, ["Top rate for your selection"]),
+    el("div", { class: "hl-label" }, ["Average for your selection"]),
     el(
       "div",
       {
         class: "hl-value",
-        "data-count": top ? String(top.entry.ratePercent) : "0",
-        style: top ? "color:#ef4444" : "",
+        "data-count": avgRate != null ? String(avgRate) : "0",
+        style: avgRate != null ? "color:#ef4444" : "",
       },
-      [top ? "0.00%" : "—"],
+      [avgRate != null ? "0.00%" : "—"],
     ),
     el("div", { class: "hl-sub" }, [
-      top
-        ? `${top.bank.name}${top.entry.scheme ? " · " + top.entry.scheme : ""}`
+      avgRate != null
+        ? `across ${ranked.length} matching bank${ranked.length === 1 ? "" : "s"}`
         : "No matching product",
     ]),
   ]);
@@ -722,10 +728,10 @@ function renderHeadline(): void {
   ]);
 
   host.append(overallCell, feature, trustCell);
-  if (top)
+  if (avgRate != null)
     countUp(
       feature.querySelector(".hl-value") as HTMLElement,
-      top.entry.ratePercent,
+      avgRate,
     );
 }
 
