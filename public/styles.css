@@ -230,6 +230,32 @@ body {
 .brand-word {
   font-family: var(--font-display);
 }
+.bank-hero-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.bank-logo {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow);
+}
+@media (max-width: 560px) {
+  .bank-logo {
+    width: 52px;
+    height: 52px;
+    font-size: 17px;
+  }
+}
 .brand-accent {
   color: var(--brand);
 }

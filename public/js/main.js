@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=0678102910";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=0678102910";
-import { banksChangedCount, recentChanges } from "./history.js?v=0678102910";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=8c4ced7ec2";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=8c4ced7ec2";
+import { banksChangedCount, recentChanges } from "./history.js?v=8c4ced7ec2";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {

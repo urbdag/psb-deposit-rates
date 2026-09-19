@@ -393,6 +393,17 @@ function shade(hex) {
   return `rgb(${r},${g},${b})`;
 }
 
+/**
+ * Compact monogram for the bank "logo" tile: prefer an all-caps acronym
+ * shortName (e.g. SBI, PNB, IOB) as-is; otherwise use up to the first 3
+ * letters of the short name (e.g. "Maharashtra" -> "MAH", "Canara" -> "CAN").
+ */
+function bankMonogram(bank) {
+  const sn = String(bank.shortName || bank.name || "").trim();
+  if (/^[A-Z&]{2,5}$/.test(sn)) return sn; // already an acronym like SBI, P&S
+  return sn.replace(/[^A-Za-z]/g, "").slice(0, 3).toUpperCase() || "•";
+}
+
 /** Effective date from a bank's first rate source (mirrors sourceLine). */
 function effectiveDateFor(bankId) {
   return DATASET.rates.find((r) => r.bankId === bankId)?.source?.effectiveDate;
@@ -627,10 +638,15 @@ function page(bank) {
     <div class="hero-bg" style="background:radial-gradient(55% 55% at 20% 8%, ${bank.color}55, transparent 70%)"></div>
     <div class="container">
       <div class="hero-inner">
-        <span class="eyebrow" style="color:${bank.color};border-color:${bank.color}44;background:${bank.color}14">
-          ${official ? `${checkSvg()} Rates verified from official source` : "Rates from aggregated sources"}
-        </span>
-        <h1 style="font-size:clamp(30px,5vw,46px)">${esc(bank.name)}<br/><span class="grad">deposit rates</span></h1>
+        <div class="bank-hero-row">
+          <span class="bank-logo" style="background:linear-gradient(135deg, ${bank.color}, ${shade(bank.color)})" aria-hidden="true">${esc(bankMonogram(bank))}</span>
+          <div>
+            <span class="eyebrow" style="color:${bank.color};border-color:${bank.color}44;background:${bank.color}14">
+              ${official ? `${checkSvg()} Rates verified from official source` : "Rates from aggregated sources"}
+            </span>
+            <h1 style="font-size:clamp(30px,5vw,46px)">${esc(bank.name)}<br/><span class="grad">deposit rates</span></h1>
+          </div>
+        </div>
       </div>
       ${highlightsRow(bank)}
     </div>
