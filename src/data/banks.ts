@@ -15,6 +15,19 @@ const GOI_OWNERSHIP = "Government of India (majority stakeholder)";
 const PRIVATE_OWNERSHIP = "Private sector bank (publicly listed)";
 
 /**
+ * Nainital Bank is a private sector bank that is a subsidiary of Bank of
+ * Baroda (a public sector bank), NOT itself Government-of-India owned.
+ */
+const NAINITAL_OWNERSHIP = "Private sector bank (subsidiary of Bank of Baroda)";
+
+/**
+ * Jammu & Kashmir Bank is a private sector (old private) bank in which the
+ * Government of the UT of Jammu & Kashmir holds a majority stake. It is NOT
+ * a Government-of-India owned public sector bank.
+ */
+const JK_OWNERSHIP = "Private sector bank (majority owned by the Govt. of J&K)";
+
+/**
  * Ownership descriptor shared by the small finance banks: RBI-licensed
  * scheduled small finance banks. Deposits are DICGC-insured up to ₹5 lakh,
  * but these are privately owned and NOT Government-of-India owned.
@@ -301,6 +314,173 @@ export const BANKS: Bank[] = [
     headquarters: "Aluva, Kochi",
     established: 1931,
     branches: 1500,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+
+  // ---------------------------------------------------------------------
+  // Batch 2 remaining private-sector banks. These are the old/mid private
+  // sector banks (plus the newer Bandhan/RBL/DCB) beyond the 8 majors
+  // above. All are scheduled PRIVATE sector banks: publicly listed except
+  // where noted (Nainital is a Bank of Baroda subsidiary; J&K Bank is
+  // majority owned by the Govt. of the UT of Jammu & Kashmir). NONE are
+  // Government-of-India owned. Approximate branch/ATM/business figures are
+  // included only where a confident rounded public figure is known;
+  // omitted otherwise. Rates land later via the ingest workflow.
+  // ---------------------------------------------------------------------
+  {
+    id: "bandhan",
+    name: "Bandhan Bank",
+    shortName: "Bandhan",
+    category: "PRIVATE",
+    color: "#8b1a1a",
+    website: "https://www.bandhanbank.com",
+    headquarters: "Kolkata",
+    established: 2015,
+    branches: 1700,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "rbl",
+    name: "RBL Bank",
+    shortName: "RBL",
+    category: "PRIVATE",
+    color: "#1a2b5e",
+    website: "https://www.rblbank.com",
+    headquarters: "Mumbai",
+    established: 1943,
+    branches: 550,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "dcb",
+    name: "DCB Bank",
+    shortName: "DCB",
+    category: "PRIVATE",
+    color: "#1e73be",
+    website: "https://www.dcbbank.com",
+    headquarters: "Mumbai",
+    established: 1930,
+    branches: 450,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "cityunion",
+    name: "City Union Bank",
+    shortName: "City Union",
+    category: "PRIVATE",
+    color: "#1c5aa6",
+    website: "https://www.cityunionbank.com",
+    headquarters: "Kumbakonam",
+    established: 1904,
+    branches: 800,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "csb",
+    name: "CSB Bank",
+    shortName: "CSB",
+    category: "PRIVATE",
+    color: "#7a1631",
+    website: "https://www.csb.co.in",
+    headquarters: "Thrissur",
+    established: 1920,
+    branches: 750,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "kvb",
+    name: "Karur Vysya Bank",
+    shortName: "KVB",
+    category: "PRIVATE",
+    color: "#0a5296",
+    website: "https://www.kvb.co.in",
+    headquarters: "Karur",
+    established: 1916,
+    branches: 850,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "karnataka",
+    name: "Karnataka Bank",
+    shortName: "Karnataka",
+    category: "PRIVATE",
+    color: "#d21f26",
+    website: "https://karnatakabank.com",
+    headquarters: "Mangaluru",
+    established: 1924,
+    branches: 900,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "tmb",
+    name: "Tamilnad Mercantile Bank",
+    shortName: "TMB",
+    category: "PRIVATE",
+    color: "#15599e",
+    website: "https://www.tmb.in",
+    headquarters: "Thoothukudi",
+    established: 1921,
+    branches: 550,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "dhanlaxmi",
+    name: "Dhanlaxmi Bank",
+    shortName: "Dhanlaxmi",
+    category: "PRIVATE",
+    color: "#1b7a3d",
+    website: "https://www.dhanbank.com",
+    headquarters: "Thrissur",
+    established: 1927,
+    branches: 250,
+    ownership: PRIVATE_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "nainital",
+    name: "Nainital Bank",
+    shortName: "Nainital",
+    category: "PRIVATE",
+    color: "#0f5aa0",
+    website: "https://www.nainitalbank.co.in",
+    headquarters: "Nainital",
+    established: 1922,
+    branches: 170,
+    ownership: NAINITAL_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "jk",
+    name: "Jammu & Kashmir Bank",
+    shortName: "J&K Bank",
+    category: "PRIVATE",
+    color: "#6b1f2e",
+    website: "https://www.jkbank.com",
+    headquarters: "Srinagar",
+    established: 1938,
+    branches: 1000,
+    ownership: JK_OWNERSHIP,
+    statsAsOf: 2024,
+  },
+  {
+    id: "southindian",
+    name: "South Indian Bank",
+    shortName: "South Indian",
+    category: "PRIVATE",
+    color: "#12518a",
+    website: "https://www.southindianbank.com",
+    headquarters: "Thrissur",
+    established: 1929,
+    branches: 950,
     ownership: PRIVATE_OWNERSHIP,
     statsAsOf: 2024,
   },
