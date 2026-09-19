@@ -526,26 +526,12 @@ function page(bank) {
     ...(bank.established ? { foundingDate: String(bank.established) } : {}),
   };
 
-  const identity = [
-    bank.headquarters ? `HQ ${esc(bank.headquarters)}` : "",
-    bank.established ? `Est. ${bank.established}` : "",
-    categoryLabels(bank.category).identity,
-  ]
-    .filter(Boolean)
-    .join(" · ");
-
   const sourceLine = src
     ? `<div class="modal-source">${official ? '<span class="tag tag-official">official</span>' : '<span class="tag tag-aggregator">aggregator</span>'}<span class="muted"> Effective ${esc(fmt.formatDate(src.effectiveDate))} · </span><a class="modal-link" href="${esc(src.url)}" target="_blank" rel="noopener">View source ${extLinkSvg()}</a></div>`
     : "";
 
   const defaultRate = bestFd ? bestFd.ratePercent : 6.5;
   const isPaymentsBank = bank.category === "PAYMENTS_BANK";
-  const publishedCount = DATASET.rates.filter(
-    (r) => r.bankId === bank.id,
-  ).length;
-  const heroSchedule = isPaymentsBank
-    ? "Savings-account rate schedule below. Payments banks offer savings accounts only — no fixed or recurring deposits."
-    : "Full FD, savings and recurring-deposit schedule below, with a maturity calculator.";
   // Payments banks are savings-only: the FD-oriented maturity calculator would
   // imply term deposits they cannot offer, so omit it for them.
   const maturityBlock = isPaymentsBank ? "" : maturityCalc(bank, defaultRate);
@@ -584,7 +570,6 @@ function page(bank) {
           ${official ? `${checkSvg()} Rates verified from official source` : "Rates from aggregated sources"}
         </span>
         <h1 style="font-size:clamp(30px,5vw,46px)">${esc(bank.name)}<br/><span class="grad">deposit rates</span></h1>
-        <p class="hero-sub">${esc(identity)} · ${publishedCount} published rates. ${esc(heroSchedule)}</p>
       </div>
       ${highlightsRow(bank)}
     </div>
