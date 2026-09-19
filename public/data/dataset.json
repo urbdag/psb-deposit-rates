@@ -635,6 +635,54 @@
       "established": 2018,
       "ownership": "Payments bank (privately owned)",
       "statsAsOf": 2024
+    },
+    {
+      "id": "dbs",
+      "name": "DBS Bank India",
+      "shortName": "DBS",
+      "category": "FOREIGN",
+      "color": "#ff3333",
+      "website": "https://www.dbsbank.in",
+      "headquarters": "Mumbai",
+      "established": 2019,
+      "ownership": "Indian subsidiary (DBS Bank India Ltd, incorporated 2019) of DBS Bank Ltd, Singapore",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "hsbc",
+      "name": "HSBC India",
+      "shortName": "HSBC",
+      "category": "FOREIGN",
+      "color": "#db0011",
+      "website": "https://www.hsbc.co.in",
+      "headquarters": "Mumbai",
+      "established": 1853,
+      "ownership": "Indian branch operations of The Hongkong and Shanghai Banking Corporation Ltd (HSBC Holdings plc, UK); India operations since 1853",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "sc",
+      "name": "Standard Chartered India",
+      "shortName": "StanChart",
+      "category": "FOREIGN",
+      "color": "#0473ea",
+      "website": "https://www.sc.com/in",
+      "headquarters": "Mumbai",
+      "established": 1858,
+      "ownership": "Indian branch operations of Standard Chartered Bank (Standard Chartered plc, UK); India operations since 1858",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "deutsche",
+      "name": "Deutsche Bank India",
+      "shortName": "Deutsche",
+      "category": "FOREIGN",
+      "color": "#0018a8",
+      "website": "https://www.deutschebank.co.in",
+      "headquarters": "Mumbai",
+      "established": 1980,
+      "ownership": "Indian branch operations of Deutsche Bank AG, Germany; India operations since 1980",
+      "statsAsOf": 2024
     }
   ],
   "rates": [
@@ -19209,8 +19257,449 @@
         "effectiveDate": "2025-12-01",
         "quality": "OFFICIAL"
       }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 730,
+        "label": "2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 730,
+        "label": "2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 730,
+        "label": "2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 730,
+        "label": "2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1095,
+        "label": "3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1095,
+        "label": "3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1095,
+        "label": "3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1095,
+        "label": "3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1460,
+        "label": "4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1460,
+        "label": "4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1460,
+        "label": "4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1460,
+        "label": "4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "dbs",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "deutsche",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 1.5,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "> 1 Yr -"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.deutsche.bank.in/en/advantage-banking/fixed-deposit-overview/resident-fixed-deposits.html",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
     }
   ],
-  "generatedAt": "2026-09-19T07:36:02.662Z",
+  "generatedAt": "2026-09-19T10:28:58.803Z",
   "containsSampleData": false
 }
