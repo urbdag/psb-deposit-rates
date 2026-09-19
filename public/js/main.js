@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=3fbaaa23b4";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatINRFull, formatRate, parseAmountInput, productLabel, } from "./format.js?v=3fbaaa23b4";
-import { banksChangedCount, recentChanges } from "./history.js?v=3fbaaa23b4";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=c433e1dfd4";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatINRFull, formatRate, parseAmountInput, productLabel, } from "./format.js?v=c433e1dfd4";
+import { banksChangedCount, recentChanges } from "./history.js?v=c433e1dfd4";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -190,7 +190,7 @@ function renderShell() {
                 html: `Find the <span class="grad">highest deposit rate</span> across India's banks.`,
             }),
             el("p", { class: "hero-sub" }, [
-                "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's banks — filtered to your exact amount, with rates verified from official bank sources.",
+                "Fixed Deposit, Savings and Recurring Deposit rates, filtered to your exact amount and verified from official bank sources.",
             ]),
             movementsStrip(),
         ]),

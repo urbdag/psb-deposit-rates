@@ -243,7 +243,7 @@ function renderShell(): void {
         html: `Find the <span class="grad">highest deposit rate</span> across India's banks.`,
       }),
       el("p", { class: "hero-sub" }, [
-        "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's banks — filtered to your exact amount, with rates verified from official bank sources.",
+        "Fixed Deposit, Savings and Recurring Deposit rates, filtered to your exact amount and verified from official bank sources.",
       ]),
       movementsStrip(),
     ]),
