@@ -64,52 +64,75 @@ export class DeutscheAdapter extends PrivateTableAdapter {
       const dataRows = this.extractDataRows(table);
       if (dataRows == null) continue;
 
-      // The retail header on the REAL page carries a BARE "<Rs. 3 crore" (an
-      // unescaped "<" before "Rs"), and one data row is "> 4 Yrs - <5 Yrs".
-      // stripTags() uses /<[^>]*>/ and eats everything from that bare "<" up to
-      // the next ">", so "Rs. 3 crore" (and "5 Yrs") are DELETED from the
-      // stripped text. The old signature hard-required a "< ... 3 crore" token,
-      // which therefore never matched the real table — so it fell through to
-      // the flat-text fallback in base.ts, which mis-read the "1.5 Yrs" tenure
-      // label as a 1.5% rate and published a single bogus OFFICIAL row.
+      // Build the retail-signature AND decoy tests from a SAFE stripped form of
+      // the table + its preceding heading, NEVER from the raw markup.
       //
-      // Fix: build the signature from BOTH the tag-stripped text (for the
-      // decoy tokens, which survive) AND the RAW table html (where "3 crore" /
-      // "crore" survives the bare-angle-bracket hazard). Base the retail test
-      // on tokens that survive stripping ("normal interest rate" + "senior
-      // citizen") and treat the "crore" amount token flexibly (matched against
-      // the raw html), rather than hard-requiring the fragile "< 3 crore".
-      const stripped = (
-        this.sectionContextFor(html, table) +
-        " " +
-        stripTags(table)
-      ).toLowerCase();
-      const raw = (this.sectionContextFor(html, table) + " " + table)
-        .toLowerCase()
-        .replace(/\s+/g, " ");
+      // Root cause of the previous 0-rows failure (proven with a debug harness
+      // against the REAL single-table page): the decoy test was run against the
+      // RAW table html (attributes and all). The real resident FD <table>
+      // carries AEM class names such as `cmp-savings-grid` / `data-nre="..."`
+      // and a footer note linking to "NRE / NRO / FCNR deposits". The decoy
+      // regex matched the bare substring "saving" inside the CSS class (and
+      // "nre" inside an attribute), so the CORRECT retail table was rejected as
+      // a decoy, findPrivateRateTable returned null, and parseFdRd emitted 0
+      // rows -> ingest kept last-known-good (the bogus 1.5% row). Cell
+      // extraction was never the problem; the SIGNATURE logic was.
+      //
+      // The header also carries a BARE "<Rs. 3 crore" (an unescaped "<" before
+      // "Rs") and one data row is "> 4 Yrs - <5 Yrs". stripTags() uses
+      // /<[^>]*>/ and eats from that bare "<" up to the next ">", deleting
+      // "Rs. 3 crore" from the plain-stripped text. So we first NEUTRALISE bare
+      // "<" (those followed by whitespace/digit/"="/"Rs") to "&lt;" and only
+      // then strip tags: this discards all real markup (so class/attribute
+      // decoy substrings vanish) while KEEPING the "crore" amount token intact.
+      const sig = this.signatureText(
+        this.sectionContextFor(html, table) + " " + table,
+      );
 
       // Never treat a savings, NRE/NRO, FCNR/foreign-currency, or tax-saver
-      // table as the domestic/resident retail FD table. Test both the stripped
-      // text and the raw html so a decoy token hidden by the angle-bracket
-      // hazard is still caught.
+      // table as the domestic/resident retail FD table. Tested against the safe
+      // signature text (visible cell/heading text only), so real markup can no
+      // longer trigger a false decoy match.
       const decoyRe =
         /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|tax\s*saver|saving/;
-      const isDecoy = decoyRe.test(stripped) || decoyRe.test(raw);
+      const isDecoy = decoyRe.test(sig);
 
       // Retail resident grid: a "normal/general interest rate" + "senior
-      // citizen" header for a "< 3 crore" (retail) amount band. The "crore"
-      // token is matched against the RAW html so the bare "<Rs. 3 crore"
-      // header still qualifies even though stripTags eats "Rs. 3 crore".
+      // citizen" header for a "crore" (retail < Rs. 3 crore) amount band. All
+      // three tokens survive in the safe signature text thanks to bare-"<"
+      // neutralisation above.
       const isRetail =
-        /(?:normal|general)\s*interest\s*rate/.test(stripped) &&
-        /senior\s*citizen/.test(stripped) &&
-        /crore/.test(raw);
+        /(?:normal|general)\s*interest\s*rate/.test(sig) &&
+        /senior\s*citizen/.test(sig) &&
+        /crore/.test(sig);
 
       if (isDecoy) continue;
       if (isRetail) return dataRows;
       if (fallback == null) fallback = dataRows;
     }
     return fallback;
+  }
+
+  /**
+   * Produce a SAFE signature text for a table (+ its preceding heading): the
+   * visible cell/heading text only, with all markup removed but the bare-"<"
+   * amount tokens preserved.
+   *
+   * Deutsche's resident FD header cells contain a BARE, unescaped "<" before
+   * the amount band ("Normal interest rate (% p.a.) <Rs. 3 crore") and one data
+   * label is "> 4 Yrs - <5 Yrs". A plain stripTags() would treat "<Rs. 3 crore"
+   * / "<5 Yrs" as a tag and delete the amount token. So we first replace bare
+   * "<" (one followed by whitespace, a digit, "=", or "Rs") with the "&lt;"
+   * entity, then stripTags (which discards genuine tags AND decodes "&lt;"
+   * back to "<"). The result keeps "crore" / "5 yrs" while dropping every
+   * class name, attribute, and other markup, so the decoy test can never match
+   * a substring hidden inside markup (e.g. a `cmp-savings-grid` class).
+   */
+  private signatureText(html: string): string {
+    const neutralised = html
+      .replace(/<(?=\s|=|\d)/g, "&lt;")
+      .replace(/<(?=rs\b)/gi, "&lt;");
+    return stripTags(neutralised).toLowerCase();
   }
 
   /**

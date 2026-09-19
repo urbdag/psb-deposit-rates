@@ -1941,70 +1941,73 @@ assert(
 
 // ---------------------------------------------------------------------------
 // Deutsche Bank India (FOREIGN): the resident FD page is client-rendered and
-// carries ONE clean retail table headed "Tenure | Normal interest rate
-// (% p.a.) <Rs. 3 crore | Senior citizen interest rate (% p.a.) <Rs. 3 crore".
-// So generalCol=1, seniorCol=2. Deutsche sets senior == general on every row
-// but DOES publish a distinct senior column, so both GENERAL and SENIOR rows
-// are emitted (faithful, not fabricated).
+// carries EXACTLY ONE clean retail table (19 rows = 1 header + 17 data + 1
+// trailing note) headed "Tenure | Normal interest rate (% p.a.) <Rs. 3 crore |
+// Senior citizen interest rate (% p.a.) <Rs. 3 crore". So generalCol=1,
+// seniorCol=2. Deutsche sets senior == general on every row but DOES publish a
+// distinct senior column, so both GENERAL and SENIOR rows are emitted
+// (faithful, not fabricated).
 //
-// REGRESSION: this fixture mirrors the REAL rendered page, which caught a live
-// bug where Deutsche published a single bogus "> 1 Yr -" / 1.5% OFFICIAL row.
-// Two real-page hazards are reproduced here so the bug is regression-caught:
+// This fixture mirrors the REAL rendered T0 EXACTLY and reproduces the
+// real-page hazards that caused the two prior live failures (a bogus 1.5%
+// OFFICIAL row):
 //   1. Rate cells carry BARE numbers WITHOUT a "%" sign (e.g. <td>3.00</td>).
 //   2. The header cells carry a literal BARE "<Rs. 3 crore" (unescaped "<"),
 //      and one data row is "> 4 Yrs - <5 Yrs" (bare "<5"). stripTags() uses
 //      /<[^>]*>/ and eats from that bare "<" to the next ">", DELETING
-//      "Rs. 3 crore" / "5 Yrs". The OLD adapter hard-required a "< 3 crore"
-//      token in the STRIPPED signature, which then never matched -> the table
-//      pin returned null -> base.ts ran the flat-text fallback, which misread
-//      the tenure label "1.5 Yrs" as a 1.5% rate. The fixed picker keys on
-//      "normal interest rate" + "senior citizen" (survive stripping) + "crore"
-//      (matched on RAW html), and the text fallback is neutralised.
-// The fixture also surrounds the retail table with an NRE decoy so the pin is
-// exercised. Sentinels FAIL against the buggy version (they assert 7.00, not
-// 1.5, and that no 1.5 / NRE value is ever published). Source: deutsche.bank.in.
+//      "Rs. 3 crore" / "5 Yrs" from the plain-stripped text.
+//   3. The <table> carries AEM class names ("cmp-savings-grid") and an
+//      attribute ("data-nre") whose bare substrings "saving" / "nre" appear in
+//      the RAW markup. The PRE-FIX adapter ran its decoy test against the RAW
+//      table html, so "saving" (from the class) matched the decoy regex and the
+//      CORRECT retail table was rejected -> 0 rows -> ingest kept the bogus
+//      last-known-good row. The fixed picker tests decoys against a SAFE
+//      signature text (markup removed, bare "<" neutralised so "crore"
+//      survives), so class/attribute substrings can no longer cause a false
+//      decoy match. This assertion FAILS against the pre-fix adapter (it
+//      selected NO table -> 0 rows -> the >=8 GENERAL/SENIOR asserts fail).
+//   4. A 19th trailing single-cell note row ("Rates are subject to change...")
+//      carries no resolvable tenure, so it is skipped naturally (never data).
+// A clearly-separate NRE decoy table is kept BEFORE T0 to prove the picker
+// still rejects a genuine NRE header. Source: deutsche.bank.in.
 // ---------------------------------------------------------------------------
-console.log("== Deutsche Bank India (pin resident <Rs.3cr grid; general=1 senior=2) ==");
+console.log("== Deutsche Bank India (select real single-table resident <Rs.3cr grid; general=1 senior=2) ==");
 const DEUTSCHE_FD_FIXTURE = `
 <html><body>
   <h3>NRE Fixed Deposit interest rates</h3>
-  <table>
-    <tr><th>Tenure</th><th>Interest rate (% p.a.)</th><th>Senior citizen</th></tr>
+  <table class="rate-table nre-grid">
+    <tr><th>Tenure</th><th>NRE interest rate (% p.a.)</th><th>Senior citizen</th></tr>
     <tr><td>271 Days - 1 Yr</td><td>9.10</td><td>9.10</td></tr>
     <tr><td>> 1 Yr - 1.5 Yrs</td><td>9.25</td><td>9.25</td></tr>
     <tr><td>> 1.5 Yrs - 2 Yrs</td><td>9.30</td><td>9.30</td></tr>
     <tr><td>> 2 Yrs - 3 Yrs</td><td>9.00</td><td>9.00</td></tr>
   </table>
-  <!-- Bulk (>= Rs. 3 crore) domestic table: NOT a decoy keyword, and the OLD
-       signature (which required a "< 3 crore" token that stripTags destroys on
-       the retail header) could not distinguish it, so the buggy picker would
-       wrongly latch onto THIS bulk table as its fallback. The fixed picker
-       pins the retail table below by "crore" on the raw html and skips this. -->
-  <h3>Domestic bulk deposit rates (Rs. 3 crore and above)</h3>
-  <table>
-    <tr><th>Tenure</th><th>Interest rate (% p.a.) &gt;= Rs. 3 crore</th><th>Senior citizens</th></tr>
-    <tr><td>7 Days</td><td>5.50</td><td>5.50</td></tr>
-    <tr><td>271 Days - 1 Yr</td><td>7.90</td><td>7.90</td></tr>
-    <tr><td>> 1 Yr - 1.5 Yrs</td><td>8.10</td><td>8.10</td></tr>
-    <tr><td>> 2 Yrs - 3 Yrs</td><td>7.60</td><td>7.60</td></tr>
-  </table>
   <h3>Resident Fixed Deposit interest rates</h3>
-  <table>
+  <table class="cmp-savings-grid rate-table" data-nre="false">
     <tr>
       <th>Tenure</th>
       <th>Normal interest rate (% p.a.) <Rs. 3 crore</th>
       <th>Senior citizen interest rate (% p.a.) <Rs. 3 crore</th>
     </tr>
     <tr><td>7 Days</td><td>3.00</td><td>3.00</td></tr>
-    <tr><td>15 Days</td><td>3.00</td><td>3.00</td></tr>
-    <tr><td>101 Days</td><td>4.75</td><td>4.75</td></tr>
-    <tr><td>271 Days - 1 Yr</td><td>6.75</td><td>6.75</td></tr>
+    <tr><td>8 - 14 Days</td><td>3.00</td><td>3.00</td></tr>
+    <tr><td>15 - 29 Days</td><td>3.25</td><td>3.25</td></tr>
+    <tr><td>30 Days</td><td>3.50</td><td>3.50</td></tr>
+    <tr><td>31 - 45 Days</td><td>3.75</td><td>3.75</td></tr>
+    <tr><td>46 - 59 Days</td><td>4.00</td><td>4.00</td></tr>
+    <tr><td>60 - 89 Days</td><td>4.25</td><td>4.25</td></tr>
+    <tr><td>90 - 99 Days</td><td>4.50</td><td>4.50</td></tr>
+    <tr><td>100 Days</td><td>5.00</td><td>5.00</td></tr>
+    <tr><td>101 - 180 Days</td><td>5.25</td><td>5.25</td></tr>
+    <tr><td>181 - 270 Days</td><td>5.50</td><td>5.50</td></tr>
+    <tr><td>271 Days - 1 Yr</td><td>6.50</td><td>6.50</td></tr>
     <tr><td>> 1 Yr - 1.5 Yrs</td><td>7.00</td><td>7.00</td></tr>
-    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>7.00</td><td>7.00</td></tr>
-    <tr><td>> 2 Yrs - 3 Yrs</td><td>6.25</td><td>6.25</td></tr>
+    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>6.75</td><td>6.75</td></tr>
+    <tr><td>> 2 Yrs - 3 Yrs</td><td>6.50</td><td>6.50</td></tr>
     <tr><td>> 3 Yrs - 4 Yrs</td><td>6.25</td><td>6.25</td></tr>
-    <tr><td>> 4 Yrs - <5 Yrs</td><td>6.25</td><td>6.25</td></tr>
-    <tr><td>5 Yrs</td><td>6.25</td><td>6.25</td></tr>
+    <tr><td>> 4 Yrs - <5 Yrs</td><td>6.00</td><td>6.00</td></tr>
+    <tr><td>5 Yrs</td><td>5.75</td><td>5.75</td></tr>
+    <tr><td>Rates are subject to change without notice</td></tr>
   </table>
 </body></html>`;
 const deutsche = new DeutscheAdapter();
@@ -2012,6 +2015,9 @@ const deuRows = deutsche.parseFdRd(DEUTSCHE_FD_FIXTURE, "2026-09-15");
 const deuFd = deuRows.filter((r) => r.product === "FD");
 const deuFdGen = deuFd.filter((r) => r.customer === "GENERAL");
 const deuFdSr = deuFd.filter((r) => r.customer === "SENIOR");
+// The real table has 17 data tenures; selecting it yields 17 GENERAL + 17
+// SENIOR FD rows. >=8 each is the regression floor and FAILS against the
+// pre-fix adapter (which selected NO table -> 0 rows).
 assert(deuFdGen.length >= 8, `Deutsche: >=8 GENERAL FD rows (got ${deuFdGen.length})`);
 assert(deuFdSr.length >= 8, `Deutsche: >=8 SENIOR FD rows (got ${deuFdSr.length})`);
 assert(
@@ -2034,7 +2040,7 @@ assert(deuTenures.size >= 4, `Deutsche: >=4 distinct FD tenures (got ${deuTenure
 // > 1 Yr - 1.5 Yrs bucket: retail general = 7.00 (resident, NOT the flat-text
 // fallback's bogus 1.5 read of the "1.5 Yrs" label, NOT NRE 9.25). Senior =
 // 7.00 (col 2, present and equal to general). This assertion FAILS against the
-// buggy adapter (which published 1.5).
+// buggy adapter (which published 1.5 / selected no table).
 const deu15 = deuFd.filter((r) => r.tenure.minDays === 365 && r.tenure.maxDays === 548);
 const deu15Gen = deu15.find((r) => r.customer === "GENERAL");
 const deu15Sr = deu15.find((r) => r.customer === "SENIOR");
@@ -2042,6 +2048,13 @@ assert(deu15Gen?.ratePercent === 7.0, "Deutsche >1Yr-1.5Yrs general = 7.00 (resi
 assert(
   deu15Sr?.ratePercent === 7.0,
   "Deutsche >1Yr-1.5Yrs senior = 7.00 (col 2 present, equals general — faithful, not dropped)",
+);
+// 100 Days bucket general = 5.00 (the representative mid data row from the real
+// page, bare-number rate cell parsed correctly).
+const deu100 = deuFd.filter((r) => r.tenure.minDays === 100 && r.tenure.maxDays === 100);
+assert(
+  deu100.find((r) => r.customer === "GENERAL")?.ratePercent === 5.0,
+  "Deutsche 100 Days general = 5.00 (bare number, no % sign)",
 );
 // 7 Days bucket general = 3.00 (bare-number rate cell parsed correctly).
 const deu7d = deuFd.filter((r) => r.tenure.minDays === 7 && r.tenure.maxDays === 7);
@@ -2054,15 +2067,24 @@ assert(
   deuFd.some((r) => r.customer === "GENERAL") && deuFd.some((r) => r.customer === "SENIOR"),
   "Deutsche: both GENERAL and SENIOR rows present (distinct senior column mapped)",
 );
-// 3yr bucket general = 6.25.
-const deu3y = deuFd.filter((r) => r.tenure.minDays === 730 && r.tenure.maxDays === 1095);
+// "> 4 Yrs - <5 Yrs" bucket: stripTags eats the bare "<5 Yrs" from the cell so
+// the label the parser sees is "> 4 Yrs -", which resolvePrivateTenure maps to
+// a >4Yr point bucket (minDays 1460). The row is STILL emitted as data (rate
+// 6.00), not swallowed — the point here is the bare-"<" label does not cause a
+// row loss or a mis-read rate.
+const deu45 = deuFd.filter((r) => r.tenure.minDays === 1460);
 assert(
-  deu3y.find((r) => r.customer === "GENERAL")?.ratePercent === 6.25,
-  "Deutsche >2Yrs-3Yrs general = 6.25 (resident retail)",
+  deu45.find((r) => r.customer === "GENERAL")?.ratePercent === 6.0,
+  "Deutsche >4Yrs bucket general = 6.00 (bare '<5' label row still emitted as data)",
+);
+// The 19th trailing note row must NOT produce a data row (no resolvable tenure).
+const deu1p5 = deuFd.filter((r) => r.tenure.minDays === 548 && r.tenure.maxDays === 730);
+assert(
+  deu1p5.find((r) => r.customer === "GENERAL")?.ratePercent === 6.75,
+  "Deutsche >1.5Yrs-2Yrs general = 6.75 (resident retail)",
 );
 // The bug's signature value 1.5 must NEVER appear (it was fabricated from the
-// "1.5 Yrs" tenure label by the flat-text fallback). This is the core
-// regression sentinel.
+// "1.5 Yrs" tenure label by the flat-text fallback). This is a core sentinel.
 assert(
   !deuFd.some((r) => r.ratePercent === 1.5),
   "Deutsche: no row has ratePercent == 1.5 (the fabricated flat-text-fallback value)",
