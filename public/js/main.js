@@ -1,4 +1,4 @@
-import { AMOUNT_PRESETS, bestByTenure, headlineRate, rankBanks, } from "./query.js";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js";
 import { amountLabel, assessFreshness, formatDate, formatINR, formatINRFull, formatRate, parseAmountInput, productLabel, } from "./format.js";
 import { banksChangedCount, recentChanges } from "./history.js";
 const MIN_AMOUNT = 1000;
@@ -439,7 +439,7 @@ function renderControls() {
         { v: "PAYMENTS_BANK", label: "Payments bank" },
         { v: "FOREIGN", label: "Foreign" },
     ];
-    host.append(segControl("Sector", sectors, state.category, (v) => {
+    host.append(selectControl("Sector", sectors, state.category, (v) => {
         state.category = v;
         state.showAll = false;
         apply(true);
@@ -453,7 +453,7 @@ function apply(rerenderControls = false) {
     renderAll();
     syncUrl();
 }
-/** Amount control: editable input + slider + quick-pick presets. */
+/** Amount control: editable text input with a ₹ prefix. */
 function renderAmountControl() {
     const group = el("div", { class: "control control-amount" }, [
         el("label", {}, ["Deposit amount"]),
@@ -465,16 +465,6 @@ function renderAmountControl() {
         "aria-label": "Deposit amount in rupees",
         value: formatINRFull(state.amount),
     });
-    // Log-scaled slider so ₹1k–₹5cr feels natural across the range.
-    const slider = el("input", {
-        class: "amount-slider",
-        type: "range",
-        min: "0",
-        max: "1000",
-        step: "1",
-        value: String(amountToSlider(state.amount)),
-        "aria-label": "Deposit amount slider",
-    });
     const row = el("div", { class: "amount-row" }, [
         el("span", { class: "amount-prefix" }, ["₹"]),
         input,
@@ -485,7 +475,6 @@ function renderAmountControl() {
             state.amount = clampAmount(parsed);
         }
         input.value = formatINRFull(state.amount);
-        slider.value = String(amountToSlider(state.amount));
         apply();
     };
     input.addEventListener("keydown", (e) => {
@@ -493,42 +482,20 @@ function renderAmountControl() {
             input.blur();
     });
     input.addEventListener("blur", commitFromInput);
-    slider.addEventListener("input", () => {
-        state.amount = sliderToAmount(Number(slider.value));
-        input.value = formatINRFull(state.amount);
-        // live-update results while dragging, but don't spam URL history
-        renderAll();
-    });
-    slider.addEventListener("change", () => syncUrl());
-    const chips = el("div", { class: "chips chips-sm" });
-    for (const preset of AMOUNT_PRESETS) {
-        chips.append(chip(preset.label, state.amount === preset.amount, () => {
-            state.amount = preset.amount;
-            apply(true);
-        }));
-    }
-    group.append(row, slider, chips);
+    group.append(row);
     return group;
 }
-// Map amount <-> slider position (0..1000) on a log scale.
-function amountToSlider(amount) {
-    const a = Math.min(MAX_AMOUNT, Math.max(MIN_AMOUNT, amount));
-    const t = (Math.log(a) - Math.log(MIN_AMOUNT)) /
-        (Math.log(MAX_AMOUNT) - Math.log(MIN_AMOUNT));
-    return Math.round(t * 1000);
-}
-function sliderToAmount(pos) {
-    const t = pos / 1000;
-    const raw = Math.exp(Math.log(MIN_AMOUNT) + t * (Math.log(MAX_AMOUNT) - Math.log(MIN_AMOUNT)));
-    // Snap to sensible round steps for a clean feel.
-    const step = raw < 100000
-        ? 5000
-        : raw < 1000000
-            ? 25000
-            : raw < 10000000
-                ? 100000
-                : 500000;
-    return clampAmount(Math.round(raw / step) * step);
+/** Compact dropdown control (mirrors segControl but as a <select>). */
+function selectControl(label, opts, active, onPick) {
+    const select = el("select", { class: "control-select" });
+    for (const o of opts) {
+        const option = el("option", { value: o.v }, [o.label]);
+        if (o.v === active)
+            option.selected = true;
+        select.append(option);
+    }
+    select.addEventListener("change", () => onPick(select.value));
+    return el("div", { class: "control" }, [el("label", {}, [label]), select]);
 }
 function segControl(label, opts, active, onPick) {
     const group = el("div", { class: "control" }, [el("label", {}, [label])]);
@@ -540,11 +507,6 @@ function segControl(label, opts, active, onPick) {
     }
     group.append(seg);
     return group;
-}
-function chip(label, active, onClick) {
-    const b = el("button", { class: `chip${active ? " active" : ""}`, type: "button" }, [label]);
-    b.addEventListener("click", onClick);
-    return b;
 }
 /** Map the UI sector filter to the query category (ALL -> undefined). */
 function selectedCategory() {
