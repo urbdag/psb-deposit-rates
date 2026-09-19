@@ -1166,7 +1166,20 @@ a.bank-link:hover {
 }
 
 /* Static-table sort headers reuse the shared th.sortable / th.sort-active
-   rules (see "Sortable table headers" below), matching the main-page SPA. */
+   rules (see "Sortable table headers" below), matching the main-page SPA.
+   The shared th.sortable rule sets `white-space: nowrap` (needed by the main
+   SPA header). On the generated profile / leaderboard tables that live inside
+   a fixed `min-width` .rate-table, nowrap made the text tenure/bank header
+   (plus its appended ↑/↓ sort arrow) bleed past its cell's right edge and
+   overflow the table boundary. Scope those static-table text headers back to
+   normal wrapping so the label always stays inside its cell; numeric (.num)
+   headers keep nowrap so short right-aligned labels don't wrap awkwardly. */
+.rate-table.sortable thead th {
+  white-space: normal;
+}
+.rate-table.sortable thead th.num {
+  white-space: nowrap;
+}
 
 /* Tags */
 .tag {
