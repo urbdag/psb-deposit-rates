@@ -622,7 +622,7 @@ function page(bank) {
       <div class="footer-grid">
         <div>
           <div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
-          <p class="muted">Deposit rates across India's public sector, private and small finance banks. <a class="modal-link" href="../../">Compare all banks ${arrowSvg()}</a></p>
+          <p class="muted">Deposit rates across India's banks. <a class="modal-link" href="../../">Compare all banks ${arrowSvg()}</a></p>
         </div>
         <div>
           <p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p>
@@ -921,12 +921,12 @@ function landingShell({
     ${sections}
     <section class="block"><div class="panel" style="padding:22px">
       <h2 class="section-title" style="margin-bottom:10px">About these rates</h2>
-      <p class="muted" style="margin:0">Rates are compiled across India's public sector, private, small finance, payments and foreign banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
+      <p class="muted" style="margin:0">Rates are compiled across India's banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
     </div></section>
   </div>
   <footer class="site-footer"><div class="container"><div class="footer-grid">
     <div><div class="brand" style="margin-bottom:10px"><span class="brand-mark">${brandMark()}</span><span class="brand-word">Rate<span class="brand-accent">Radar</span></span></div>
-      <p class="muted">Best deposit rates across India's public sector, private and small finance banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
+      <p class="muted">Best deposit rates across India's banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
     <div><p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p></div>
   </div></div></footer>
   <script>${navScript()}${sortScript()}</script>
@@ -948,11 +948,11 @@ function productLandingPage(product) {
   const top = ranked[0];
   const sub =
     product === "SAVINGS"
-      ? `Compare savings account interest rates across India's public sector, private and small finance banks.`
-      : `The highest ${name} rates across India's public sector, private and small finance banks, ranked. Amounts below ₹3 crore, general public.`;
+      ? `Compare savings account interest rates across India's banks.`
+      : `The highest ${name} rates across India's banks, ranked. Amounts below ₹3 crore, general public.`;
   let sections = `<section class="block">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(name)} rates${product !== "SAVINGS" ? " (1 year)" : ""}</h2>
-    <p class="section-note">Ranked across public sector, private and small finance banks · ${MONTH}</p></div></div>
+    <p class="section-note">Ranked across India's banks · ${MONTH}</p></div></div>
     ${leaderboardTable(ranked, base)}</section>`;
 
   // For FD/RD, add a "best by tenure" quick grid with links to tenure pages.
@@ -975,8 +975,8 @@ function productLandingPage(product) {
       <div class="tenure-grid">${cells}</div></section>`;
   }
 
-  const title = `Best ${name} Rates ${YEAR} — Public & Private Sector Banks | RateRadar`;
-  const desc = `Compare the best ${name} interest rates across India's public sector, private and small finance banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
+  const title = `Best ${name} Rates ${YEAR} — India's Banks | RateRadar`;
+  const desc = `Compare the best ${name} interest rates across India's banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
   return {
     slug,
     html: landingShell({
@@ -1003,8 +1003,8 @@ function tenureLandingPage(tp) {
   };
   const ranked = rankBanks(DATASET, q);
   const top = ranked[0];
-  const title = `Best ${tp.label} FD Rates ${YEAR} — Public & Private Sector Banks | RateRadar`;
-  const desc = `Highest ${tp.label} fixed deposit rates across India's public sector, private and small finance banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
+  const title = `Best ${tp.label} FD Rates ${YEAR} — India's Banks | RateRadar`;
+  const desc = `Highest ${tp.label} fixed deposit rates across India's banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Updated ${MONTH}.`;
   const sections = `<section class="block">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(tp.label)} FD rates</h2>
     <p class="section-note">General public · below ₹3 crore · ${MONTH}</p></div></div>
@@ -1017,7 +1017,7 @@ function tenureLandingPage(tp) {
       desc,
       canonical: `fixed-deposit/${tp.slug}/`,
       h1Html: `Best <span class="grad">${esc(tp.label)}</span> FD rates`,
-      sub: `The public sector, private and small finance banks offering the highest fixed-deposit rate for a ${tp.label} tenure, ranked.`,
+      sub: `The banks offering the highest fixed-deposit rate for a ${tp.label} tenure, ranked.`,
       active: "fd",
       sections,
       appLink: `?product=FD&tenure=${tp.days}`,
@@ -1041,8 +1041,8 @@ function seniorLandingPage() {
   };
   const ranked = rankBanks(DATASET, q);
   const top = ranked[0];
-  const title = `Senior Citizen FD Rates ${YEAR} — Public & Private Sector Banks | RateRadar`;
-  const desc = `Best senior citizen fixed deposit rates across India's public sector, private and small finance banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Seniors typically earn +0.50% over general rates. Updated ${MONTH}.`;
+  const title = `Senior Citizen FD Rates ${YEAR} — India's Banks | RateRadar`;
+  const desc = `Best senior citizen fixed deposit rates across India's banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Seniors typically earn +0.50% over general rates. Updated ${MONTH}.`;
   const sections = `<section class="block">
     <div class="section-head"><div><h2 class="section-title">Best senior citizen FD rates (1 year)</h2>
     <p class="section-note">Age 60+ · below ₹3 crore · ${MONTH}</p></div></div>
@@ -1055,7 +1055,7 @@ function seniorLandingPage() {
       desc,
       canonical: `senior-citizen-fd-rates/`,
       h1Html: `Best <span class="grad">senior citizen</span> FD rates`,
-      sub: `Banks give senior citizens (60+) an extra ~0.50% p.a. Here are the highest senior FD rates across public sector, private and small finance banks, ranked.`,
+      sub: `Banks give senior citizens (60+) an extra ~0.50% p.a. Here are the highest senior FD rates across India's banks, ranked.`,
       active: "senior",
       sections,
       appLink: `?product=FD&customer=SENIOR`,
@@ -1090,7 +1090,7 @@ function banksDirectoryPage() {
     .join("");
 
   const title = `All Banks — Deposit Rates ${YEAR} | RateRadar`;
-  const desc = `Browse deposit rates for all ${DATASET.banks.length} of India's public sector, private and small finance banks. Search and compare fixed deposit, savings and recurring deposit rates.`;
+  const desc = `Browse deposit rates for all ${DATASET.banks.length} of India's banks. Search and compare fixed deposit, savings and recurring deposit rates.`;
   const sections = `<section class="block">
     <div class="dir-search-wrap">
       <input id="dir-search" class="dir-search" type="search" placeholder="Search banks by name, code or city…" aria-label="Search banks" autocomplete="off" />
@@ -1104,7 +1104,7 @@ function banksDirectoryPage() {
     title,
     desc,
     canonical: `banks/`,
-    h1Html: `All <span class="grad">public, private & small finance banks</span>`,
+    h1Html: `<span class="grad">India's banks</span>`,
     sub: `${DATASET.banks.length} banks tracked. Search or tap any bank for its full deposit-rate profile and maturity calculator.`,
     active: "banks",
     sections,
@@ -1182,7 +1182,7 @@ function movementsPage() {
   }
 
   const title = `Deposit Rate Movements ${YEAR} — Who Raised or Cut FD Rates | RateRadar`;
-  const desc = `Track which of India's public sector, private and small finance banks recently raised or cut their fixed deposit, savings and recurring deposit rates, and by how much.`;
+  const desc = `Track which of India's banks recently raised or cut their fixed deposit, savings and recurring deposit rates, and by how much.`;
   return {
     slug: "rate-movements",
     html: landingShell({
@@ -1191,7 +1191,7 @@ function movementsPage() {
       desc,
       canonical: `rate-movements/`,
       h1Html: `Who <span class="grad">raised or cut</span> deposit rates`,
-      sub: `A daily-tracked log of rate changes across India's public sector, private and small finance banks — hikes and cuts, ranked by how much they moved.`,
+      sub: `A daily-tracked log of rate changes across India's banks — hikes and cuts, ranked by how much they moved.`,
       active: "movements",
       sections,
       appLink: "",
@@ -1318,8 +1318,8 @@ const ogPairs = [
   [
     "default",
     ogSvg(
-      "Best deposit rates across India's public, private & small finance banks",
-      "FD · Savings · RD · public sector, private and small finance banks, ranked",
+      "Best deposit rates across India's banks",
+      "FD · Savings · RD · India's banks, ranked",
     ),
   ],
   ...TENURE_PAGES.map((tp) => {
@@ -1335,7 +1335,7 @@ const ogPairs = [
         `Best ${tp.label} FD rates`,
         top
           ? `Up to ${fmt.formatRate(top.entry.ratePercent)} · ${top.bank.name}`
-          : "Public, private & small finance banks, ranked",
+          : "India's banks, ranked",
       ),
     ];
   }),

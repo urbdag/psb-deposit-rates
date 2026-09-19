@@ -11,6 +11,6 @@
     <circle cx="44" cy="44" r="5" fill="white"/>
     <text x="82" y="42" font-family="Sora,Arial,sans-serif" font-size="30" font-weight="800" fill="#fff">RateRadar</text>
   </g>
-  <text y="300" font-family="Sora,Arial,sans-serif" font-size="66" font-weight="800" fill="#ffffff"><tspan x="80" dy="0">Best deposit rates</tspan><tspan x="80" dy="74">across India's public,</tspan><tspan x="80" dy="74">private &amp; small</tspan></text>
-  <text x="80" y="540" font-family="Inter,Arial,sans-serif" font-size="30" fill="#c7d2fe">FD · Savings · RD · public sector, private and small finance banks, ranked</text>
+  <text y="300" font-family="Sora,Arial,sans-serif" font-size="66" font-weight="800" fill="#ffffff"><tspan x="80" dy="0">Best deposit rates</tspan><tspan x="80" dy="74">across India's banks</tspan></text>
+  <text x="80" y="540" font-family="Inter,Arial,sans-serif" font-size="30" fill="#c7d2fe">FD · Savings · RD · India's banks, ranked</text>
 </svg>
