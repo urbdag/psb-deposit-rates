@@ -2137,11 +2137,21 @@ assert(
 // heading + HEADER row ONLY (never the footnote). A clearly-separate NRE decoy
 // table (its own heading + NRE column header) is kept and must NEVER be
 // selected (Deutsche publishes no NRE rate on this page).
+//
+// CRITICAL REGRESSION LOCK: the REAL page titles its correct resident retail
+// INR schedule "Domestic and NRO Fixed Deposit rates" (NRO = Non-Resident
+// ORDINARY *rupee* deposits, which earn resident rates and are quoted in the
+// same "< Rs. 3 crore" retail INR table). CI instrumentation confirmed that a
+// "\bnro\b" entry in the decoy regex made the picker reject this correct table
+// (isDecoy=true) -> 0 rows -> ingest kept the stale bogus 1.5% row. So this
+// fixture's resident heading contains "NRO" and MUST still be selected; the
+// separate NRE table (a genuine decoy) MUST NOT. This assertion FAILS against
+// the pre-fix adapter (which had "\bnro\b" in the decoy regex).
 // ---------------------------------------------------------------------------
-console.log("== Deutsche Bank India (degraded/repaired header: select resident grid by SHAPE) ==");
+console.log("== Deutsche Bank India (degraded/repaired header: select 'Domestic and NRO' resident grid by SHAPE; reject NRE decoy) ==");
 const DEUTSCHE_DEGRADED_FIXTURE = `
 <html><body>
-  <h3>NRE Fixed Deposit interest rates</h3>
+  <h3>NRE Fixed Deposit rates</h3>
   <table class="rate-table nre-grid" data-nre="true">
     <tr><th>Tenure</th><th>NRE interest rate (% p.a.)</th><th>Senior citizen</th></tr>
     <tr><td>271 Days - 1 Yr</td><td>9.10</td><td>9.10</td></tr>
@@ -2149,7 +2159,7 @@ const DEUTSCHE_DEGRADED_FIXTURE = `
     <tr><td>> 1.5 Yrs - 2 Yrs</td><td>9.30</td><td>9.30</td></tr>
     <tr><td>> 2 Yrs - 3 Yrs</td><td>9.00</td><td>9.00</td></tr>
   </table>
-  <h3>Resident Fixed Deposit interest rates</h3>
+  <h3>Domestic and NRO Fixed Deposit rates</h3>
   <table class="cmp-savings-grid rate-table" data-nre="false">
     <tr>
       <th>Tenure</th>
@@ -2186,6 +2196,15 @@ const deuDegSr = deuDegFd.filter((r) => r.customer === "SENIOR");
 // (0 rows). Real ladder = 18 tenures -> 18 GENERAL + 18 SENIOR.
 assert(deuDegGen.length >= 8, `Deutsche(degraded): >=8 GENERAL FD rows (got ${deuDegGen.length})`);
 assert(deuDegSr.length >= 8, `Deutsche(degraded): >=8 SENIOR FD rows (got ${deuDegSr.length})`);
+// REGRESSION LOCK: the resident table's heading is "Domestic and NRO Fixed
+// Deposit rates" (contains "NRO"). It MUST be selected and yield the full
+// ladder. This FAILS against the pre-fix adapter (which had "\bnro\b" in the
+// decoy regex -> rejected this heading -> 0 rows). NRO-rupee = resident INR
+// retail data, NOT a decoy.
+assert(
+  deuDegFd.length >= 16,
+  `Deutsche(degraded): 'Domestic and NRO' resident table selected -> full ladder (got ${deuDegFd.length} FD rows; NRO heading must NOT be rejected as a decoy)`,
+);
 // Correct rates from the resident column, not the NRE decoy, not the flat-text
 // fabricated 1.5.
 const deuDeg7 = deuDegFd.find((r) => r.tenure.minDays === 7 && r.customer === "GENERAL");
