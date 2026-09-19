@@ -19,6 +19,11 @@ export class FederalAdapter extends PrivateTableAdapter {
         "https://www.federalbank.co.in/interest-rate",
       ],
       savingsUrls: ["https://www.federalbank.co.in/interest-rates"],
+      // Client-hydrated rate tables (page also embeds a feddy.federal.bank.in
+      // widget iframe): plain HTTP yields 0 tables; render with a headless
+      // browser to expose the retail "Single Deposit Less than 300 Lakhs"
+      // (=< 3 crore) grid. Confirmed via the diagnose workflow.
+      renderJs: true,
       generalCol: 1,
       seniorCol: 2,
     });
