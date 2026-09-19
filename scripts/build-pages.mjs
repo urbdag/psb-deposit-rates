@@ -122,7 +122,7 @@ const TENURE_PAGES = [
 const SITE_ORIGIN = "https://urbdag.github.io/psb-deposit-rates";
 
 const OFFICIAL_RE =
-  /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia|aubank\.in|equitasbank\.com|ujjivansfb\.in|janabank\.com|suryodaybank\.com|utkarsh\.bank|utkarshbank\.com|esafbank\.com|capitalbank\.co\.in|nesfb\.com|shivalikbank\.com|theunitybank\.com|unitybank\.co\.in/;
+  /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia|aubank\.in|equitasbank\.com|ujjivansfb\.in|janabank\.com|suryodaybank\.com|utkarsh\.bank|utkarshbank\.com|esafbank\.com|capitalbank\.co\.in|nesfb\.com|shivalikbank\.com|theunitybank\.com|unitybank\.co\.in|rblbank\.com|cityunionbank\.com|csb\.co\.in/;
 const esc = (s) =>
   String(s)
     .replace(/&/g, "&amp;")

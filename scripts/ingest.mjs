@@ -127,9 +127,12 @@ const { CsbAdapter } = await import(resolve(root, `${A}/csb.js`));
 // with no tiered General/Senior FD ladder (div/widget-driven) and no
 // rate-carrying JSON/window-global captured. Left rate-less.
 //
-// DCB (dcb): NOT registered — no parseable OFFICIAL retail FD ladder confirmed
-// via the diagnose workflow (JS-heavy page; no rate table, window-global, or
-// PDF captured). Left rate-less pending a future reachable source.
+// DCB (dcb): NOT registered. DCB was not among the batch-2 banks with a
+// confirmed parseable page in the diagnostics round, and no reachable OFFICIAL
+// retail (< ₹2-3 crore) GENERAL/SENIOR FD source has been confirmed for it, so
+// per the project hard rule it is left rate-less pending a future reachable
+// source rather than shipping fabricated / mis-tiered data under the OFFICIAL
+// badge. (No specific diagnose capture is asserted here.)
 //
 // KVB / Karur Vysya (kvb): NOT registered — every candidate kvb.co.in rate URL
 // hard-failed the headless render (goto timeout / navigation error). No
