@@ -706,4 +706,64 @@ export const BANKS = [
         ownership: PAYMENTS_OWNERSHIP,
         statsAsOf: 2024,
     },
+    // ---------------------------------------------------------------------
+    // FOREIGN banks (RBI-licensed foreign banks operating in India).
+    // Their Indian branch/subsidiary deposits ARE DICGC-insured up to ₹5 lakh
+    // but they are NOT Government-of-India owned and NOT nationalised, so the
+    // trust line mirrors the private-sector shape (DICGC insurance, no GoI
+    // ownership claim). Only the domestic/resident INR retail (< ~₹2-3 crore)
+    // term-deposit book is tracked, NOT FCNR/NRE foreign-currency rates.
+    // Rates land later via the ingest workflow; entries are rate-less until
+    // then. Branch/ATM/business figures are omitted (foreign banks run few
+    // Indian branches; no confident public figure). Ownership strings are
+    // per-bank because each has a different parent and country of origin.
+    // ---------------------------------------------------------------------
+    {
+        id: "dbs",
+        name: "DBS Bank India",
+        shortName: "DBS",
+        category: "FOREIGN",
+        color: "#ff3333",
+        website: "https://www.dbsbank.in",
+        headquarters: "Mumbai",
+        established: 2019,
+        ownership: "Indian subsidiary (DBS Bank India Ltd, incorporated 2019) of DBS Bank Ltd, Singapore",
+        statsAsOf: 2024,
+    },
+    {
+        id: "hsbc",
+        name: "HSBC India",
+        shortName: "HSBC",
+        category: "FOREIGN",
+        color: "#db0011",
+        website: "https://www.hsbc.co.in",
+        headquarters: "Mumbai",
+        established: 1853,
+        ownership: "Indian branch operations of The Hongkong and Shanghai Banking Corporation Ltd (HSBC Holdings plc, UK); India operations since 1853",
+        statsAsOf: 2024,
+    },
+    {
+        id: "sc",
+        name: "Standard Chartered India",
+        shortName: "StanChart",
+        category: "FOREIGN",
+        color: "#0473ea",
+        website: "https://www.sc.com/in",
+        headquarters: "Mumbai",
+        established: 1858,
+        ownership: "Indian branch operations of Standard Chartered Bank (Standard Chartered plc, UK); India operations since 1858",
+        statsAsOf: 2024,
+    },
+    {
+        id: "deutsche",
+        name: "Deutsche Bank India",
+        shortName: "Deutsche",
+        category: "FOREIGN",
+        color: "#0018a8",
+        website: "https://www.deutschebank.co.in",
+        headquarters: "Mumbai",
+        established: 1980,
+        ownership: "Indian branch operations of Deutsche Bank AG, Germany; India operations since 1980",
+        statsAsOf: 2024,
+    },
 ];

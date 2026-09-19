@@ -30,7 +30,8 @@ type SectorFilter =
   | "PUBLIC"
   | "PRIVATE"
   | "SMALL_FINANCE"
-  | "PAYMENTS_BANK";
+  | "PAYMENTS_BANK"
+  | "FOREIGN";
 interface UiState {
   product: ProductType;
   customer: CustomerCategory;
@@ -79,6 +80,7 @@ function readStateFromUrl(): void {
   else if (sector === "private") state.category = "PRIVATE";
   else if (sector === "small_finance") state.category = "SMALL_FINANCE";
   else if (sector === "payments_bank") state.category = "PAYMENTS_BANK";
+  else if (sector === "foreign") state.category = "FOREIGN";
   const sort = p.get("sort");
   if (sort) {
     const [key, dir] = sort.split(".");
@@ -561,6 +563,7 @@ function renderControls(): void {
     { v: "PRIVATE", label: "Private" },
     { v: "SMALL_FINANCE", label: "Small finance" },
     { v: "PAYMENTS_BANK", label: "Payments bank" },
+    { v: "FOREIGN", label: "Foreign" },
   ];
   host.append(
     segControl("Sector", sectors, state.category, (v) => {
@@ -730,6 +733,7 @@ function selectedCategory():
   | "PRIVATE"
   | "SMALL_FINANCE"
   | "PAYMENTS_BANK"
+  | "FOREIGN"
   | undefined {
   return state.category === "ALL" ? undefined : state.category;
 }

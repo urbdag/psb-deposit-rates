@@ -35,10 +35,13 @@ export interface Bank {
    *                     Rs 5,00,000 but (except India Post Payments Bank,
    *                     which is Government-of-India owned via India Post)
    *                     NOT Government-of-India owned.
+   *   "FOREIGN"       - RBI-licensed foreign bank operating in India; its
+   *                     Indian branch/subsidiary deposits are DICGC-insured up
+   *                     to Rs 5,00,000 but it is NOT Government-of-India owned.
    * Used to segment rankings and peer-averages so a small finance FD is never
    * compared head-to-head against a PSU or private FD.
    */
-  category: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | "PAYMENTS_BANK";
+  category: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | "PAYMENTS_BANK" | "FOREIGN";
   /** Full display name, e.g. "State Bank of India". */
   name: string;
   /** Short label for compact UI, e.g. "SBI". */
@@ -165,10 +168,10 @@ export interface RateQuery {
   tenureDays?: number;
   /**
    * Optional sector filter. When set, only banks of this category are ranked
-   * ("PUBLIC", "PRIVATE", "SMALL_FINANCE" or "PAYMENTS_BANK").
+   * ("PUBLIC", "PRIVATE", "SMALL_FINANCE", "PAYMENTS_BANK" or "FOREIGN").
    * When omitted, banks of all categories are ranked (unchanged behaviour).
    */
-  category?: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | "PAYMENTS_BANK";
+  category?: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | "PAYMENTS_BANK" | "FOREIGN";
 }
 
 /** A ranked result row: the best applicable rate for a bank given a query. */

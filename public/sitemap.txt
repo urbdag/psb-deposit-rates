@@ -50,6 +50,10 @@ bank/fino/
 bank/paytm/
 bank/jio/
 bank/nsdlpb/
+bank/dbs/
+bank/hsbc/
+bank/sc/
+bank/deutsche/
 fixed-deposit/
 savings-account/
 recurring-deposit/

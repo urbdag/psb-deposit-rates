@@ -87,6 +87,15 @@ function categoryLabels(category) {
       introNoun: "a payments bank",
     };
   }
+  if (category === "FOREIGN") {
+    return {
+      sector: "foreign",
+      peers: "foreign banks",
+      average: "foreign bank average",
+      identity: "Foreign bank",
+      introNoun: "a foreign bank operating in India",
+    };
+  }
   return {
     sector: "public sector",
     peers: "public sector banks",
@@ -131,7 +140,7 @@ const TENURE_PAGES = [
 const SITE_ORIGIN = "https://urbdag.github.io/psb-deposit-rates";
 
 const OFFICIAL_RE =
-  /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia|aubank\.in|equitasbank\.com|ujjivansfb\.in|janabank\.com|suryodaybank\.com|utkarsh\.bank|utkarshbank\.com|esafbank\.com|capitalbank\.co\.in|nesfb\.com|shivalikbank\.com|theunitybank\.com|unitybank\.co\.in|rblbank\.com|cityunionbank\.com|csb\.co\.in|airtel\.in|ippbonline\.com|finobank\.com|jiopaymentsbank\.com|nsdlpaymentsbank\.com|paytmbank\.com/;
+  /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia|aubank\.in|equitasbank\.com|ujjivansfb\.in|janabank\.com|suryodaybank\.com|utkarsh\.bank|utkarshbank\.com|esafbank\.com|capitalbank\.co\.in|nesfb\.com|shivalikbank\.com|theunitybank\.com|unitybank\.co\.in|rblbank\.com|cityunionbank\.com|csb\.co\.in|airtel\.in|ippbonline\.com|finobank\.com|jiopaymentsbank\.com|nsdlpaymentsbank\.com|paytmbank\.com|dbsbank\.in|dbs\.com|hsbc\.co\.in|sc\.com|deutschebank\.co\.in/;
 const esc = (s) =>
   String(s)
     .replace(/&/g, "&amp;")
@@ -452,6 +461,8 @@ function compareStrip(bank) {
   const trust =
     bank.category === "PRIVATE"
       ? `<span class="trust-strong">Scheduled private sector bank</span> — deposits insured by DICGC up to ₹5,00,000.`
+      : bank.category === "FOREIGN"
+        ? `<span class="trust-strong">Scheduled foreign bank (RBI-licensed, operating in India)</span> — Indian operations' deposits insured by DICGC up to ₹5,00,000.`
       : bank.category === "SMALL_FINANCE"
         ? `<span class="trust-strong">Scheduled small finance bank (RBI-licensed)</span> — deposits insured by DICGC up to ₹5,00,000.`
         : bank.category === "PAYMENTS_BANK"
@@ -818,7 +829,7 @@ function landingShell({
     ${sections}
     <section class="block"><div class="panel" style="padding:22px">
       <h2 class="section-title" style="margin-bottom:10px">About these rates</h2>
-      <p class="muted" style="margin:0">Rates are compiled across India's public sector, private and small finance banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
+      <p class="muted" style="margin:0">Rates are compiled across India's public sector, private, small finance, payments and foreign banks and refreshed daily; ${new Set(DATASET.rates.filter((r) => OFFICIAL_RE.test(r.source.url || "")).map((r) => r.bankId)).size} banks are scraped directly from their official sites, the rest from aggregated sources. Deposits are DICGC-insured up to ₹5 lakh. Verify on the bank's site before investing.</p>
     </div></section>
   </div>
   <footer class="site-footer"><div class="container"><div class="footer-grid">
