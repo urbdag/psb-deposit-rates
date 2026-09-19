@@ -566,6 +566,38 @@
       <p class="muted">Best deposit rates across India's public sector, private and small finance banks. <a class="modal-link" href="../">Compare all <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></p></div>
     <div><p class="muted">Updated 19 Sept 2026 · 949 rate entries</p></div>
   </div></div></footer>
-  <script>(function(){var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)},{passive:true});var b=document.getElementById('nav-burger'),d=document.getElementById('nav-drawer');if(b&&d){b.addEventListener('click',function(){var open=nav.classList.toggle('drawer-open');b.setAttribute('aria-expanded',open?'true':'false')});d.addEventListener('click',function(e){if(e.target.closest('a'))nav.classList.remove('drawer-open')})}})();</script>
+  <script>(function(){var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)},{passive:true});var b=document.getElementById('nav-burger'),d=document.getElementById('nav-drawer');if(b&&d){b.addEventListener('click',function(){var open=nav.classList.toggle('drawer-open');b.setAttribute('aria-expanded',open?'true':'false')});d.addEventListener('click',function(e){if(e.target.closest('a'))nav.classList.remove('drawer-open')})}})();(function(){
+  function val(cell,numeric){
+    if(!cell)return numeric?-Infinity:'';
+    var v=cell.getAttribute('data-sort-value');
+    if(v===null)v=cell.textContent.trim();
+    if(numeric){var n=parseFloat(String(v).replace(/[^0-9.\-]/g,''));return isNaN(n)?-Infinity:n;}
+    return String(v).toLowerCase();
+  }
+  document.querySelectorAll('table.sortable').forEach(function(table){
+    var heads=[].slice.call(table.tHead?table.tHead.rows[0].cells:[]);
+    heads.forEach(function(th,idx){
+      var type=th.getAttribute('data-sort-type');
+      if(!type)return;
+      var numeric=type.indexOf('num')===0;
+      var btn=th.querySelector('.th-sort')||th;
+      btn.addEventListener('click',function(){
+        var body=table.tBodies[0];if(!body)return;
+        var rows=[].slice.call(body.rows);
+        var cur=th.getAttribute('aria-sort');
+        var asc;
+        if(cur==='ascending')asc=false;else if(cur==='descending')asc=true;
+        else asc=(type!=='num'); // default dir: rate/rank columns start descending (best first)
+        rows.sort(function(a,b){
+          var x=val(a.cells[idx],numeric),y=val(b.cells[idx],numeric);
+          if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;
+        });
+        rows.forEach(function(r){body.appendChild(r);});
+        heads.forEach(function(h){if(h.getAttribute('data-sort-type'))h.setAttribute('aria-sort','none');});
+        th.setAttribute('aria-sort',asc?'ascending':'descending');
+      });
+    });
+  });
+})();</script>
 <script>(function(){var q=document.getElementById('dir-search'),g=document.getElementById('dir-grid'),e=document.getElementById('dir-empty');if(!q)return;q.addEventListener('input',function(){var v=q.value.trim().toLowerCase(),n=0;g.querySelectorAll('.dir-card').forEach(function(c){var m=c.getAttribute('data-search').indexOf(v)>=0;c.style.display=m?'':'none';if(m)n++});e.style.display=n?'none':'block'})})();</script></body>
 </html>

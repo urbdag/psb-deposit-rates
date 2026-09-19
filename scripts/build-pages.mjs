@@ -223,12 +223,16 @@ function productSection(bank, product, title) {
         const spark = sparklineSvg(series, bank.color);
         trendCell = `<td class="num spark-cell">${spark || '<span class="muted">—</span>'}</td>`;
       }
+      // data-sort-value carries the server-known numeric key so client sorting
+      // is value-correct (tenure by duration, rates by number, amount by ₹).
+      const srSort =
+        srRate != null ? ` data-sort-value="${srRate}"` : ` data-sort-value="-1"`;
       return `<tr>
-        <td><div class="bank-name">${esc(g.tenure.label)}</div>${scheme}</td>
-        <td class="num rate-cell" style="color:${bank.color}">${fmt.formatRate(g.ratePercent)}</td>
-        <td class="num rate-cell muted">${srRate != null ? fmt.formatRate(srRate) : "—"}</td>
+        <td data-sort-value="${g.tenure.minDays}"><div class="bank-name">${esc(g.tenure.label)}</div>${scheme}</td>
+        <td class="num rate-cell" data-sort-value="${g.ratePercent}" style="color:${bank.color}">${fmt.formatRate(g.ratePercent)}</td>
+        <td class="num rate-cell muted"${srSort}>${srRate != null ? fmt.formatRate(srRate) : "—"}</td>
         ${trendCell}
-        <td class="muted">${esc(fmt.amountLabel(g.amount))}</td>
+        <td class="muted" data-sort-value="${g.amount?.minAmount ?? 0}">${esc(fmt.amountLabel(g.amount))}</td>
       </tr>`;
     })
     .join("");
@@ -238,11 +242,25 @@ function productSection(bank, product, title) {
       <h2 class="section-title">${esc(title)}</h2>
       <p class="section-note">Rates for deposits below ₹3 crore · general vs senior citizen${showTrend ? " · trend over time" : ""}</p>
     </div></div>
-    <div class="table-wrap"><table class="rate-table">
-      <thead><tr><th>Tenure</th><th class="num">General</th><th class="num">Senior</th>${trendHead}<th>Applies to</th></tr></thead>
+    <div class="table-wrap"><table class="rate-table sortable">
+      <thead><tr>${sortableTh("Tenure", "num-asc")}${sortableTh("General", "num-asc", "num")}${sortableTh("Senior", "num-asc", "num")}${trendHead}${sortableTh("Applies to", "num-asc")}</tr></thead>
       <tbody>${body}</tbody>
     </table></div>
   </section>`;
+}
+
+/**
+ * Sortable header cell. `type` picks the default sort direction/behaviour:
+ *   "num-asc" → numeric, first click ascending
+ *   "num"     → numeric, first click descending (used for rate/rank columns
+ *                where "best first" is the natural expectation)
+ *   "text"    → lexical, first click ascending
+ * `extraClass` preserves existing column classes (e.g. "num" for right-align).
+ * A <button> makes the header keyboard-activatable and screen-reader-correct.
+ */
+function sortableTh(label, type, extraClass = "") {
+  const cls = extraClass ? ` class="${extraClass}"` : "";
+  return `<th${cls} aria-sort="none" data-sort-type="${type}"><button type="button" class="th-sort">${esc(label)}<span class="sort-ind" aria-hidden="true"></span></button></th>`;
 }
 
 function highlightsRow(bank) {
@@ -610,6 +628,7 @@ function page(bank) {
 
   <script>
   ${navScript()}
+  ${sortScript()}
   (function(){
     var amt=document.getElementById('mc-amount'), rate=document.getElementById('mc-rate'),
         ten=document.getElementById('mc-tenure'), out=document.getElementById('mc-out'), earn=document.getElementById('mc-earn');
@@ -714,6 +733,51 @@ function navScript() {
   return `(function(){var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)},{passive:true});var b=document.getElementById('nav-burger'),d=document.getElementById('nav-drawer');if(b&&d){b.addEventListener('click',function(){var open=nav.classList.toggle('drawer-open');b.setAttribute('aria-expanded',open?'true':'false')});d.addEventListener('click',function(e){if(e.target.closest('a'))nav.classList.remove('drawer-open')})}})();`;
 }
 
+/**
+ * Shared client-side sort for static tables (progressive enhancement).
+ * Scoped per-table: every `table.sortable` gets independent state. Clicking (or
+ * keyboard-activating) a `<th>` that carries data-sort-type sorts the tbody rows
+ * by that column; clicking the same header again toggles asc/desc. Sorting uses
+ * each cell's data-sort-value (a server-emitted numeric/string key) when present,
+ * falling back to trimmed textContent. With JS off, the server-rendered order is
+ * untouched. aria-sort + a caret indicator convey state to all users.
+ */
+function sortScript() {
+  return `(function(){
+  function val(cell,numeric){
+    if(!cell)return numeric?-Infinity:'';
+    var v=cell.getAttribute('data-sort-value');
+    if(v===null)v=cell.textContent.trim();
+    if(numeric){var n=parseFloat(String(v).replace(/[^0-9.\\-]/g,''));return isNaN(n)?-Infinity:n;}
+    return String(v).toLowerCase();
+  }
+  document.querySelectorAll('table.sortable').forEach(function(table){
+    var heads=[].slice.call(table.tHead?table.tHead.rows[0].cells:[]);
+    heads.forEach(function(th,idx){
+      var type=th.getAttribute('data-sort-type');
+      if(!type)return;
+      var numeric=type.indexOf('num')===0;
+      var btn=th.querySelector('.th-sort')||th;
+      btn.addEventListener('click',function(){
+        var body=table.tBodies[0];if(!body)return;
+        var rows=[].slice.call(body.rows);
+        var cur=th.getAttribute('aria-sort');
+        var asc;
+        if(cur==='ascending')asc=false;else if(cur==='descending')asc=true;
+        else asc=(type!=='num'); // default dir: rate/rank columns start descending (best first)
+        rows.sort(function(a,b){
+          var x=val(a.cells[idx],numeric),y=val(b.cells[idx],numeric);
+          if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;
+        });
+        rows.forEach(function(r){body.appendChild(r);});
+        heads.forEach(function(h){if(h.getAttribute('data-sort-type'))h.setAttribute('aria-sort','none');});
+        th.setAttribute('aria-sort',asc?'ascending':'descending');
+      });
+    });
+  });
+})();`;
+}
+
 function checkSvg() {
   return `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><path d="M20 6L9 17l-5-5"/></svg>`;
 }
@@ -748,16 +812,16 @@ function leaderboardTable(ranked, base) {
         ? `${esc(r.entry.tenure.label)} · ${esc(r.entry.scheme)}`
         : esc(r.entry.tenure.label);
       return `<tr>
-        <td>${badge}</td>
-        <td><a class="bank-name bank-link" href="${base}bank/${r.bank.id}/">${esc(r.bank.name)}</a>
+        <td data-sort-value="${i}">${badge}</td>
+        <td data-sort-value="${esc(r.bank.name.toLowerCase())}"><a class="bank-name bank-link" href="${base}bank/${r.bank.id}/">${esc(r.bank.name)}</a>
             <div class="bank-short muted">${esc(r.bank.shortName)}</div></td>
-        <td class="num rate-cell" style="color:${r.bank.color}">${fmt.formatRate(r.entry.ratePercent)}</td>
-        <td class="muted">${detail}</td>
+        <td class="num rate-cell" data-sort-value="${r.entry.ratePercent}" style="color:${r.bank.color}">${fmt.formatRate(r.entry.ratePercent)}</td>
+        <td class="muted" data-sort-value="${r.entry.tenure.minDays ?? 0}">${detail}</td>
       </tr>`;
     })
     .join("");
-  return `<div class="table-wrap"><table class="rate-table">
-    <thead><tr><th>#</th><th>Bank</th><th class="num">Rate</th><th>Applies to</th></tr></thead>
+  return `<div class="table-wrap"><table class="rate-table sortable">
+    <thead><tr>${sortableTh("#", "num-asc")}${sortableTh("Bank", "text")}${sortableTh("Rate", "num", "num")}${sortableTh("Applies to", "num-asc")}</tr></thead>
     <tbody>${rows}</tbody></table></div>`;
 }
 
@@ -837,7 +901,7 @@ function landingShell({
       <p class="muted">Best deposit rates across India's public sector, private and small finance banks. <a class="modal-link" href="${base}">Compare all ${arrowSvg()}</a></p></div>
     <div><p class="muted">Updated ${esc(fmt.formatDate(DATASET.generatedAt))} · ${DATASET.rates.length} rate entries</p></div>
   </div></div></footer>
-  <script>${navScript()}</script>
+  <script>${navScript()}${sortScript()}</script>
 </body>
 </html>`;
 }

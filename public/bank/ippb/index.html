@@ -136,6 +136,39 @@
   <script>
   (function(){var nav=document.getElementById('nav');addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>8)},{passive:true});var b=document.getElementById('nav-burger'),d=document.getElementById('nav-drawer');if(b&&d){b.addEventListener('click',function(){var open=nav.classList.toggle('drawer-open');b.setAttribute('aria-expanded',open?'true':'false')});d.addEventListener('click',function(e){if(e.target.closest('a'))nav.classList.remove('drawer-open')})}})();
   (function(){
+  function val(cell,numeric){
+    if(!cell)return numeric?-Infinity:'';
+    var v=cell.getAttribute('data-sort-value');
+    if(v===null)v=cell.textContent.trim();
+    if(numeric){var n=parseFloat(String(v).replace(/[^0-9.\-]/g,''));return isNaN(n)?-Infinity:n;}
+    return String(v).toLowerCase();
+  }
+  document.querySelectorAll('table.sortable').forEach(function(table){
+    var heads=[].slice.call(table.tHead?table.tHead.rows[0].cells:[]);
+    heads.forEach(function(th,idx){
+      var type=th.getAttribute('data-sort-type');
+      if(!type)return;
+      var numeric=type.indexOf('num')===0;
+      var btn=th.querySelector('.th-sort')||th;
+      btn.addEventListener('click',function(){
+        var body=table.tBodies[0];if(!body)return;
+        var rows=[].slice.call(body.rows);
+        var cur=th.getAttribute('aria-sort');
+        var asc;
+        if(cur==='ascending')asc=false;else if(cur==='descending')asc=true;
+        else asc=(type!=='num'); // default dir: rate/rank columns start descending (best first)
+        rows.sort(function(a,b){
+          var x=val(a.cells[idx],numeric),y=val(b.cells[idx],numeric);
+          if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;
+        });
+        rows.forEach(function(r){body.appendChild(r);});
+        heads.forEach(function(h){if(h.getAttribute('data-sort-type'))h.setAttribute('aria-sort','none');});
+        th.setAttribute('aria-sort',asc?'ascending':'descending');
+      });
+    });
+  });
+})();
+  (function(){
     var amt=document.getElementById('mc-amount'), rate=document.getElementById('mc-rate'),
         ten=document.getElementById('mc-tenure'), out=document.getElementById('mc-out'), earn=document.getElementById('mc-earn');
     function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN')}

@@ -1165,6 +1165,67 @@ a.bank-link:hover {
   vertical-align: middle;
 }
 
+/* Sortable table headers (progressive enhancement on .rate-table.sortable) */
+.rate-table.sortable thead th[data-sort-type] {
+  padding: 0;
+}
+.rate-table.sortable thead th .th-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 15px 18px;
+  font: inherit;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: inherit;
+  transition: color 0.15s;
+}
+.rate-table.sortable thead th.num .th-sort {
+  justify-content: flex-end;
+}
+.rate-table.sortable thead th .th-sort:hover {
+  color: var(--brand);
+}
+.rate-table.sortable thead th .th-sort:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+.rate-table.sortable thead th .sort-ind {
+  width: 8px;
+  font-size: 9px;
+  line-height: 1;
+  opacity: 0.35;
+}
+.rate-table.sortable thead th .sort-ind::before {
+  content: "▲▼";
+  letter-spacing: -2px;
+}
+.rate-table.sortable thead th[aria-sort="ascending"] .th-sort,
+.rate-table.sortable thead th[aria-sort="descending"] .th-sort {
+  color: var(--brand);
+}
+.rate-table.sortable thead th[aria-sort="ascending"] .sort-ind {
+  opacity: 1;
+}
+.rate-table.sortable thead th[aria-sort="ascending"] .sort-ind::before {
+  content: "▲";
+  letter-spacing: normal;
+}
+.rate-table.sortable thead th[aria-sort="descending"] .sort-ind {
+  opacity: 1;
+}
+.rate-table.sortable thead th[aria-sort="descending"] .sort-ind::before {
+  content: "▼";
+  letter-spacing: normal;
+}
+
 /* Tags */
 .tag {
   display: inline-flex;
