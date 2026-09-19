@@ -5,11 +5,64 @@
 // they rank in search and preview richly when shared. Reuses the compiled
 // query/format logic. Run after `tsc` (wired into npm build + CI).
 import { mkdir, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
+
+// ---- cache-busting version token ------------------------------------------
+// Returning visitors get fresh JS/CSS without a hard refresh because every
+// browser-loaded asset URL carries a `?v=<token>` query. GitHub Pages varies
+// its cache by full URL, so a new token = a new URL = a guaranteed re-fetch.
+//
+// The token is a CONTENT HASH (sha256, short hex slice) of exactly the assets
+// the browser loads: the SPA entry module + its transitive relative imports
+// (main/query/format/history.js) plus styles.css. It MUST be deterministic and
+// derived purely from file content — the deploy workflow (.github/workflows/
+// deploy.yml) re-runs `tsc` then this script on the CI runner before uploading
+// public/, so a git-SHA or timestamp token would make the runner's rebuilt
+// output diverge from the committed files. A content hash is byte-identical on
+// any machine and stays stable across rebuilds when nothing changed.
+//
+// Idempotency: `stampAsset()` strips any pre-existing `?v=...` before adding
+// the current token, so re-running the build never yields `?v=a?v=b`.
+const VERSIONED_ASSETS = [
+  "public/js/main.js",
+  "public/js/query.js",
+  "public/js/format.js",
+  "public/js/history.js",
+  "public/styles.css",
+];
+const ASSET_VERSION = (() => {
+  const h = createHash("sha256");
+  for (const rel of VERSIONED_ASSETS) {
+    // Hash the assets with any prior `?v=` stamps stripped, so the token
+    // depends only on real content and stays stable across rebuilds (a
+    // previous build may have written `?v=` into main.js's import specifiers).
+    const clean = readFileSync(resolve(root, rel), "utf8").replace(
+      /(from\s*["']\.\.?\/[^"']+?\.js)\?v=[^"']*(["'])/g,
+      "$1$2",
+    );
+    h.update(clean);
+  }
+  return h.digest("hex").slice(0, 10);
+})();
+
+// Append the build-wide version token to a LOCAL asset URL / import specifier,
+// stripping any existing `?v=...` first (idempotent). External/absolute URLs
+// (https://fonts.googleapis.com …) are left untouched.
+function stampAsset(url) {
+  if (/^(?:[a-z]+:)?\/\//i.test(url) || url.startsWith("data:")) return url;
+  const [path, hash = ""] = url.split("#");
+  const clean = path.replace(/([?&])v=[^&]*(&|$)/, (_m, pre, post) =>
+    post === "&" ? pre : "",
+  ).replace(/[?&]$/, "");
+  const sep = clean.includes("?") ? "&" : "?";
+  return `${clean}${sep}v=${ASSET_VERSION}${hash ? "#" + hash : ""}`;
+}
 
 import { readFile } from "node:fs/promises";
 
@@ -571,7 +624,7 @@ function page(bank) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="${stampAsset("../../styles.css")}" />
   <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>
 <body>
@@ -902,7 +955,7 @@ function landingShell({
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="${base}styles.css" />
+  <link rel="stylesheet" href="${stampAsset(`${base}styles.css`)}" />
   <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 </head>
 <body>
@@ -1369,6 +1422,42 @@ await writeFile(
   "utf8",
 );
 
+// ---- stamp the hand-maintained app shell + compiled entry module ----------
+// index.html and public/js/main.js are not emitted by this script, so stamp
+// them in place. `stampAsset` strips any prior `?v=` first, so this is safe to
+// re-run. Only local asset references are touched; the Google Fonts <link> and
+// data: icon URI are left alone.
+{
+  const indexPath = resolve(root, "public/index.html");
+  let indexHtml = readFileSync(indexPath, "utf8");
+  indexHtml = indexHtml
+    .replace(
+      /(<link rel="stylesheet" href=")(styles\.css(?:\?v=[^"]*)?)(")/,
+      (_m, pre, url, post) => pre + stampAsset(url) + post,
+    )
+    .replace(
+      /(<script type="module" src=")(js\/main\.js(?:\?v=[^"]*)?)(")/,
+      (_m, pre, url, post) => pre + stampAsset(url) + post,
+    );
+  await writeFile(indexPath, indexHtml, "utf8");
+
+  // Stamp relative ES-module import specifiers in the browser-loaded modules so
+  // imported chunks bust too. main.js imports ./query.js, ./format.js,
+  // ./history.js; the leaves have no relative imports today, but we process
+  // them anyway to stay correct if that changes. The stamped specifier still
+  // resolves to the real file (./query.js?v=x -> query.js on GitHub Pages).
+  for (const rel of ["public/js/main.js", "public/js/query.js", "public/js/format.js", "public/js/history.js"]) {
+    const modPath = resolve(root, rel);
+    const src = readFileSync(modPath, "utf8");
+    const stamped = src.replace(
+      /(from\s*["'])(\.\.?\/[^"']+?\.js(?:\?v=[^"']*)?)(["'])/g,
+      (_m, pre, spec, post) => pre + stampAsset(spec) + post,
+    );
+    if (stamped !== src) await writeFile(modPath, stamped, "utf8");
+  }
+}
+
 console.log(
   `Wrote ${count} pages + favicon + ${TENURE_PAGES.length + 1} OG images + sitemap.xml + robots.txt`,
 );
+console.log(`Asset version token: v=${ASSET_VERSION}`);
