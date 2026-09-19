@@ -1152,7 +1152,14 @@ function seniorLandingPage() {
   const top = ranked[0];
   const title = `Senior Citizen FD Rates ${YEAR} — India's Banks | RateRadar`;
   const desc = `Best senior citizen fixed deposit rates across India's banks${top ? ` — up to ${fmt.formatRate(top.entry.ratePercent)} at ${top.bank.shortName}` : ""}. Seniors typically earn +0.50% over general rates. Updated ${MONTH}.`;
-  const sections = `<section class="block">
+  // Lock the SPA to FD AND customer=SENIOR. Both the Product and Customer
+  // controls are hidden (renderControls omits any locked dimension); amount +
+  // sector controls still render. The static senior-FD leaderboard (ranked at
+  // customer=SENIOR) carries `js-enhanced-hide` so the SPA hides it at runtime
+  // while no-JS/crawlers keep it as the SEO fallback. This page is NOT tenure-
+  // locked, so the SPA keeps the "Best rate by tenure" strip (main-page consistent).
+  const enhance = { lockedProduct: "FD", lockedCustomer: "SENIOR" };
+  const sections = `<section class="block js-enhanced-hide">
     <div class="section-head"><div><h2 class="section-title">Best senior citizen FD rates (1 year)</h2>
     <p class="section-note">Age 60+ · below ₹3 crore · ${MONTH}</p></div></div>
     ${leaderboardTable(ranked, base)}</section>`;
@@ -1167,7 +1174,11 @@ function seniorLandingPage() {
       sub: `Banks give senior citizens (60+) an extra ~0.50% p.a. Here are the highest senior FD rates across India's banks, ranked.`,
       active: "senior",
       sections,
-      appLink: `?product=FD&customer=SENIOR`,
+      // The interactive comparison is now hosted in-page (locked to FD +
+      // SENIOR), so the CTA scrolls to the in-page enhancement rather than
+      // linking to the main page with query params.
+      appLink: `#app-enhance`,
+      enhance,
     }),
   };
 }
