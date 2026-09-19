@@ -276,6 +276,162 @@
       "statsAsOf": 2024
     },
     {
+      "id": "bandhan",
+      "name": "Bandhan Bank",
+      "shortName": "Bandhan",
+      "category": "PRIVATE",
+      "color": "#8b1a1a",
+      "website": "https://www.bandhanbank.com",
+      "headquarters": "Kolkata",
+      "established": 2015,
+      "branches": 1700,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "rbl",
+      "name": "RBL Bank",
+      "shortName": "RBL",
+      "category": "PRIVATE",
+      "color": "#1a2b5e",
+      "website": "https://www.rblbank.com",
+      "headquarters": "Mumbai",
+      "established": 1943,
+      "branches": 550,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "dcb",
+      "name": "DCB Bank",
+      "shortName": "DCB",
+      "category": "PRIVATE",
+      "color": "#1e73be",
+      "website": "https://www.dcbbank.com",
+      "headquarters": "Mumbai",
+      "established": 1930,
+      "branches": 450,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "cityunion",
+      "name": "City Union Bank",
+      "shortName": "City Union",
+      "category": "PRIVATE",
+      "color": "#1c5aa6",
+      "website": "https://www.cityunionbank.com",
+      "headquarters": "Kumbakonam",
+      "established": 1904,
+      "branches": 800,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "csb",
+      "name": "CSB Bank",
+      "shortName": "CSB",
+      "category": "PRIVATE",
+      "color": "#7a1631",
+      "website": "https://www.csb.co.in",
+      "headquarters": "Thrissur",
+      "established": 1920,
+      "branches": 750,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "kvb",
+      "name": "Karur Vysya Bank",
+      "shortName": "KVB",
+      "category": "PRIVATE",
+      "color": "#0a5296",
+      "website": "https://www.kvb.co.in",
+      "headquarters": "Karur",
+      "established": 1916,
+      "branches": 850,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "karnataka",
+      "name": "Karnataka Bank",
+      "shortName": "Karnataka",
+      "category": "PRIVATE",
+      "color": "#d21f26",
+      "website": "https://karnatakabank.com",
+      "headquarters": "Mangaluru",
+      "established": 1924,
+      "branches": 900,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "tmb",
+      "name": "Tamilnad Mercantile Bank",
+      "shortName": "TMB",
+      "category": "PRIVATE",
+      "color": "#15599e",
+      "website": "https://www.tmb.in",
+      "headquarters": "Thoothukudi",
+      "established": 1921,
+      "branches": 550,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "dhanlaxmi",
+      "name": "Dhanlaxmi Bank",
+      "shortName": "Dhanlaxmi",
+      "category": "PRIVATE",
+      "color": "#1b7a3d",
+      "website": "https://www.dhanbank.com",
+      "headquarters": "Thrissur",
+      "established": 1927,
+      "branches": 250,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "nainital",
+      "name": "Nainital Bank",
+      "shortName": "Nainital",
+      "category": "PRIVATE",
+      "color": "#0f5aa0",
+      "website": "https://www.nainitalbank.co.in",
+      "headquarters": "Nainital",
+      "established": 1922,
+      "branches": 170,
+      "ownership": "Private sector bank (subsidiary of Bank of Baroda)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "jk",
+      "name": "Jammu & Kashmir Bank",
+      "shortName": "J&K Bank",
+      "category": "PRIVATE",
+      "color": "#6b1f2e",
+      "website": "https://www.jkbank.com",
+      "headquarters": "Srinagar",
+      "established": 1938,
+      "branches": 1000,
+      "ownership": "Private sector bank (majority owned by the Govt. of J&K)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "southindian",
+      "name": "South Indian Bank",
+      "shortName": "South Indian",
+      "category": "PRIVATE",
+      "color": "#12518a",
+      "website": "https://www.southindianbank.com",
+      "headquarters": "Thrissur",
+      "established": 1929,
+      "branches": 950,
+      "ownership": "Private sector bank (publicly listed)",
+      "statsAsOf": 2024
+    },
+    {
       "id": "au",
       "name": "AU Small Finance Bank",
       "shortName": "AU",
@@ -10460,6 +10616,48 @@
       "bankId": "psb",
       "product": "FD",
       "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 660,
+        "maxDays": 660,
+        "label": ">667 < 22 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 660,
+        "maxDays": 660,
+        "label": ">667 < 22 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
       "ratePercent": 5.95,
       "tenure": {
         "minDays": 660,
@@ -10506,7 +10704,7 @@
       "tenure": {
         "minDays": 660,
         "maxDays": 660,
-        "label": "> 22 Month"
+        "label": "> 22 Month < 2Y"
       },
       "amount": {
         "minAmount": 0,
@@ -10527,7 +10725,7 @@
       "tenure": {
         "minDays": 660,
         "maxDays": 660,
-        "label": "> 22 Month"
+        "label": "> 22 Month < 2Y"
       },
       "amount": {
         "minAmount": 0,
@@ -10677,15 +10875,77 @@
       "ratePercent": 5.95,
       "tenure": {
         "minDays": 1000,
-        "maxDays": 1000,
-        "label": "1000 Days -"
+        "maxDays": 1094,
+        "label": "1000 Days - <3 Years"
       },
       "amount": {
         "minAmount": 0,
         "maxAmount": 30000000,
         "label": "Below ₹3 crore (retail)"
       },
-      "scheme": "1000-day Special",
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.95,
+      "tenure": {
+        "minDays": 1000,
+        "maxDays": 1094,
+        "label": "1000 Days - <3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1320,
+        "maxDays": 1320,
+        "label": "3Y - <44 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1320,
+        "maxDays": 1320,
+        "label": "3Y - <44 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
       "source": {
         "url": "https://punjabandsind.bank.in/content/interestdom",
         "effectiveDate": "2026-02-16",
@@ -10742,7 +11002,7 @@
       "tenure": {
         "minDays": 1320,
         "maxDays": 1320,
-        "label": "> 44 Month"
+        "label": "> 44 Month < 5 Y"
       },
       "amount": {
         "minAmount": 0,
@@ -10763,7 +11023,49 @@
       "tenure": {
         "minDays": 1320,
         "maxDays": 1320,
-        "label": "> 44 Month"
+        "label": "> 44 Month < 5 Y"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1980,
+        "maxDays": 1980,
+        "label": ">5Y<66 Month"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://punjabandsind.bank.in/content/interestdom",
+        "effectiveDate": "2026-02-16",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "psb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 5.85,
+      "tenure": {
+        "minDays": 1980,
+        "maxDays": 1980,
+        "label": ">5Y<66 Month"
       },
       "amount": {
         "minAmount": 0,
@@ -16285,6 +16587,1186 @@
       "source": {
         "url": "https://www.federalbank.co.in/deposit-rate",
         "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 500,
+        "label": "365 days (12 months) to 500 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.55,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 500,
+        "label": "365 days (12 months) to 500 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 500,
+        "label": "365 days (12 months) to 500 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.55,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 500,
+        "label": "365 days (12 months) to 500 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 501,
+        "maxDays": 539,
+        "label": "501 days to less than 18 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.55,
+      "tenure": {
+        "minDays": 501,
+        "maxDays": 539,
+        "label": "501 days to less than 18 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 501,
+        "maxDays": 539,
+        "label": "501 days to less than 18 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.55,
+      "tenure": {
+        "minDays": 501,
+        "maxDays": 539,
+        "label": "501 days to less than 18 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 1080,
+        "label": "18 months to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 1080,
+        "label": "18 months to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 1080,
+        "label": "18 months to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 1080,
+        "label": "18 months to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1799,
+        "label": "36 months 1 day to less than 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.55,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1799,
+        "label": "36 months 1 day to less than 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1799,
+        "label": "36 months 1 day to less than 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.55,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1799,
+        "label": "36 months 1 day to less than 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1800,
+        "maxDays": 3600,
+        "label": "60 months to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 1800,
+        "maxDays": 3600,
+        "label": "60 months to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1800,
+        "maxDays": 3600,
+        "label": "60 months to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "rbl",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 1800,
+        "maxDays": 3600,
+        "label": "60 months to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.rblbank.com/interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 days to 14 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 days to 14 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 45,
+        "label": "15 days to 45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 45,
+        "label": "15 days to 45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.75,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 180,
+        "label": "91 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.75,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 180,
+        "label": "91 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 270,
+        "label": "181 days to 270 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 270,
+        "label": "181 days to 270 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 364,
+        "label": "271 days to 364 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 364,
+        "label": "271 days to 364 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.65,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "365 days to 443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "365 days to 443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.65,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "365 days to 443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 443,
+        "label": "365 days to 443 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.1,
+      "tenure": {
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.35,
+      "tenure": {
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.15,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 554,
+        "label": "445 days to 554 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.4,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 554,
+        "label": "445 days to 554 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.15,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 554,
+        "label": "445 days to 554 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.4,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 554,
+        "label": "445 days to 554 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 555,
+        "maxDays": 555,
+        "label": "555 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "555-day Special",
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 555,
+        "maxDays": 555,
+        "label": "555 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "555-day Special",
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 556,
+        "maxDays": 1095,
+        "label": "556 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 556,
+        "maxDays": 1095,
+        "label": "556 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 556,
+        "maxDays": 1095,
+        "label": "556 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 556,
+        "maxDays": 1095,
+        "label": "556 days to 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.55,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Over 3 Years upto 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Over 3 Years upto 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.55,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Over 3 Years upto 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1825,
+        "label": "Over 3 Years upto 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "Over 5 Years upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "Over 5 Years upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "Over 5 Years upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "cityunion",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "Over 5 Years upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.cityunionbank.com/deposit-interest-rate",
+        "effectiveDate": "2026-09-19",
         "quality": "OFFICIAL"
       }
     },
@@ -17719,6 +19201,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-19T05:37:28.925Z",
+  "generatedAt": "2026-09-19T06:28:19.666Z",
   "containsSampleData": false
 }
