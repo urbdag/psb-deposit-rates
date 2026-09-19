@@ -641,7 +641,7 @@ function page(bank) {
       <div class="panel overview-panel" style="padding:24px">
         <div class="section-head" style="margin-bottom:6px"><div>
           <h2 class="section-title">Overview</h2>
-          <p class="section-note">${esc(bank.shortName)} at a glance and how it compares with its ${esc(categoryLabels(bank.category).sector)} peers${bank.website ? ` · <a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">${esc(String(bank.website).replace(/^https?:\/\//, "").replace(/\/+$/, ""))} ${extLinkSvg()}</a>` : ""}</p>
+          ${bank.website ? `<p class="section-note"><a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">${esc(String(bank.website).replace(/^https?:\/\//, "").replace(/\/+$/, ""))} ${extLinkSvg()}</a></p>` : ""}
         </div></div>
         ${bankIntro(bank)}
         ${institutionSnapshot(bank)}
