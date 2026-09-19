@@ -6,7 +6,6 @@ import type {
 } from "./types.js";
 import {
   AMOUNT_PRESETS,
-  TENURE_PRESETS,
   bestByTenure,
   headlineRate,
   rankBanks,
@@ -36,7 +35,6 @@ interface UiState {
   product: ProductType;
   customer: CustomerCategory;
   amount: number;
-  tenureDays: number;
   category: SectorFilter;
   showAll: boolean;
   sortKey: SortKey;
@@ -50,7 +48,6 @@ const state: UiState = {
   product: "FD",
   customer: "GENERAL",
   amount: 500000,
-  tenureDays: 365,
   category: "ALL",
   showAll: false,
   sortKey: "rate",
@@ -72,8 +69,6 @@ function readStateFromUrl(): void {
     state.customer = cust;
   const amt = Number(p.get("amount"));
   if (Number.isFinite(amt) && amt > 0) state.amount = clampAmount(amt);
-  const ten = Number(p.get("tenure"));
-  if (Number.isFinite(ten) && ten > 0) state.tenureDays = ten;
   const sector = p.get("sector");
   if (sector === "all") state.category = "ALL";
   else if (sector === "public") state.category = "PUBLIC";
@@ -96,7 +91,6 @@ function syncUrl(): void {
   p.set("product", state.product);
   p.set("customer", state.customer);
   p.set("amount", String(state.amount));
-  if (state.product !== "SAVINGS") p.set("tenure", String(state.tenureDays));
   // Only include the sector filter when it deviates from the default (ALL).
   if (state.category !== "ALL") p.set("sector", state.category.toLowerCase());
   // Only include sort when it deviates from the default (rate.desc).
@@ -254,7 +248,7 @@ function renderShell(): void {
         html: `Find the <span class="grad">highest deposit rate</span> across India's banks.`,
       }),
       el("p", { class: "hero-sub" }, [
-        "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
+        "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's banks — filtered to your exact amount, with rates verified from official bank sources.",
       ]),
       movementsStrip(),
     ]),
@@ -556,24 +550,6 @@ function renderControls(): void {
   );
 
   host.append(renderAmountControl());
-
-  // Tenure chips (hidden for savings)
-  if (state.product !== "SAVINGS") {
-    const tenGroup = el("div", { class: "control" }, [
-      el("label", {}, ["Tenure"]),
-    ]);
-    const tenChips = el("div", { class: "chips" });
-    for (const preset of TENURE_PRESETS) {
-      tenChips.append(
-        chip(preset.label, state.tenureDays === preset.days, () => {
-          state.tenureDays = preset.days;
-          apply(true);
-        }),
-      );
-    }
-    tenGroup.append(tenChips);
-    host.append(tenGroup);
-  }
 }
 
 /** Re-render results; optionally re-render controls too; always sync URL. */
@@ -725,7 +701,8 @@ function query(): RateQuery {
     product: state.product,
     customer: state.customer,
     amount: state.amount,
-    tenureDays: state.product === "SAVINGS" ? undefined : state.tenureDays,
+    // Tenure-agnostic: rank each bank by its best rate across ALL tenures.
+    tenureDays: undefined,
     category: selectedCategory(),
   };
 }
@@ -891,9 +868,7 @@ function contextLine(): string {
   const cust = customerLabel(state.customer);
   if (state.product === "SAVINGS")
     return `${productLabel(state.product)} · ${cust} · balance ${amt}`;
-  const ten =
-    TENURE_PRESETS.find((t) => t.days === state.tenureDays)?.label ?? "";
-  return `${productLabel(state.product)} · ${cust} · ${amt} · ${ten}`;
+  return `${productLabel(state.product)} · ${cust} · ${amt} · best across all tenures`;
 }
 
 // ---- Tenure strip ----
