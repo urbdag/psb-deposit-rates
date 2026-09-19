@@ -756,7 +756,7 @@ function renderHeadline(): void {
       {
         class: "hl-value",
         "data-count": top ? String(top.entry.ratePercent) : "0",
-        style: top ? `color:${top.bank.color}` : "",
+        style: top ? "color:#ef4444" : "",
       },
       [top ? "0.00%" : "—"],
     ),
