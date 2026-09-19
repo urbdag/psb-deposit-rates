@@ -25,7 +25,12 @@ import type { History as RateHistory } from "./history.js";
 import { banksChangedCount, recentChanges } from "./history.js";
 
 type SortKey = "rate" | "name" | "effective";
-type SectorFilter = "ALL" | "PUBLIC" | "PRIVATE" | "SMALL_FINANCE";
+type SectorFilter =
+  | "ALL"
+  | "PUBLIC"
+  | "PRIVATE"
+  | "SMALL_FINANCE"
+  | "PAYMENTS_BANK";
 interface UiState {
   product: ProductType;
   customer: CustomerCategory;
@@ -73,6 +78,7 @@ function readStateFromUrl(): void {
   else if (sector === "public") state.category = "PUBLIC";
   else if (sector === "private") state.category = "PRIVATE";
   else if (sector === "small_finance") state.category = "SMALL_FINANCE";
+  else if (sector === "payments_bank") state.category = "PAYMENTS_BANK";
   const sort = p.get("sort");
   if (sort) {
     const [key, dir] = sort.split(".");
@@ -554,6 +560,7 @@ function renderControls(): void {
     { v: "PUBLIC", label: "Public sector" },
     { v: "PRIVATE", label: "Private" },
     { v: "SMALL_FINANCE", label: "Small finance" },
+    { v: "PAYMENTS_BANK", label: "Payments bank" },
   ];
   host.append(
     segControl("Sector", sectors, state.category, (v) => {
@@ -718,7 +725,12 @@ function chip(
 }
 
 /** Map the UI sector filter to the query category (ALL -> undefined). */
-function selectedCategory(): "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | undefined {
+function selectedCategory():
+  | "PUBLIC"
+  | "PRIVATE"
+  | "SMALL_FINANCE"
+  | "PAYMENTS_BANK"
+  | undefined {
   return state.category === "ALL" ? undefined : state.category;
 }
 

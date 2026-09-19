@@ -27,6 +27,14 @@ const JK_OWNERSHIP = "Private sector bank (majority owned by the Govt. of J&K)";
  * but these are privately owned and NOT Government-of-India owned.
  */
 const SFB_OWNERSHIP = "Private (small finance bank)";
+/**
+ * Ownership descriptor shared by the privately-owned payments banks: RBI-
+ * licensed payments banks whose deposits are DICGC-insured up to ₹5 lakh, but
+ * which are NOT Government-of-India owned. India Post Payments Bank is the
+ * exception (it is Government-of-India owned via the Department of Posts) and
+ * carries its own ownership string.
+ */
+const PAYMENTS_OWNERSHIP = "Payments bank (privately owned)";
 export const BANKS = [
     {
         id: "sbi",
@@ -614,6 +622,88 @@ export const BANKS = [
         headquarters: "New Delhi",
         established: 2021,
         ownership: SFB_OWNERSHIP,
+        statsAsOf: 2024,
+    },
+    // ---------------------------------------------------------------------
+    // Payments banks (RBI-licensed). By RBI license these CANNOT offer fixed
+    // or recurring deposits and cap balances (currently ₹2 lakh/customer), so
+    // they publish SAVINGS-account interest only. Deposits are DICGC-insured
+    // up to ₹5 lakh. All are privately owned and NOT Government-of-India owned
+    // EXCEPT India Post Payments Bank (IPPB), which is Government-of-India
+    // owned via the Department of Posts. Rates land later via the ingest
+    // workflow; entries are rate-less until then. Only well-known public facts
+    // are recorded; approximate branch/business figures are omitted.
+    // ---------------------------------------------------------------------
+    {
+        id: "airtel",
+        name: "Airtel Payments Bank",
+        shortName: "Airtel",
+        category: "PAYMENTS_BANK",
+        color: "#e40000",
+        website: "https://www.airtel.in/bank",
+        headquarters: "New Delhi",
+        established: 2017,
+        ownership: PAYMENTS_OWNERSHIP,
+        statsAsOf: 2024,
+    },
+    {
+        id: "ippb",
+        name: "India Post Payments Bank",
+        shortName: "IPPB",
+        category: "PAYMENTS_BANK",
+        color: "#c8102e",
+        website: "https://www.ippbonline.com",
+        headquarters: "New Delhi",
+        established: 2018,
+        ownership: "Government of India (Department of Posts)",
+        statsAsOf: 2024,
+    },
+    {
+        id: "fino",
+        name: "Fino Payments Bank",
+        shortName: "Fino",
+        category: "PAYMENTS_BANK",
+        color: "#00a0e3",
+        website: "https://www.finobank.com",
+        headquarters: "Navi Mumbai",
+        established: 2017,
+        ownership: PAYMENTS_OWNERSHIP,
+        statsAsOf: 2024,
+    },
+    {
+        id: "paytm",
+        name: "Paytm Payments Bank",
+        shortName: "Paytm",
+        category: "PAYMENTS_BANK",
+        color: "#00baf2",
+        website: "https://www.paytmbank.com",
+        headquarters: "Noida",
+        established: 2017,
+        ownership: PAYMENTS_OWNERSHIP,
+        statsAsOf: 2024,
+    },
+    {
+        id: "jio",
+        name: "Jio Payments Bank",
+        shortName: "Jio",
+        category: "PAYMENTS_BANK",
+        color: "#0f3cc9",
+        website: "https://www.jiopaymentsbank.com",
+        headquarters: "Mumbai",
+        established: 2018,
+        ownership: PAYMENTS_OWNERSHIP,
+        statsAsOf: 2024,
+    },
+    {
+        id: "nsdlpb",
+        name: "NSDL Payments Bank",
+        shortName: "NSDL",
+        category: "PAYMENTS_BANK",
+        color: "#1b4f9c",
+        website: "https://www.nsdlpaymentsbank.com",
+        headquarters: "Mumbai",
+        established: 2018,
+        ownership: PAYMENTS_OWNERSHIP,
         statsAsOf: 2024,
     },
 ];

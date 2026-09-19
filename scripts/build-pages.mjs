@@ -78,6 +78,15 @@ function categoryLabels(category) {
       introNoun: "a small finance bank",
     };
   }
+  if (category === "PAYMENTS_BANK") {
+    return {
+      sector: "payments bank",
+      peers: "payments banks",
+      average: "payments bank average",
+      identity: "Payments bank",
+      introNoun: "a payments bank",
+    };
+  }
   return {
     sector: "public sector",
     peers: "public sector banks",
@@ -122,7 +131,7 @@ const TENURE_PAGES = [
 const SITE_ORIGIN = "https://urbdag.github.io/psb-deposit-rates";
 
 const OFFICIAL_RE =
-  /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia|aubank\.in|equitasbank\.com|ujjivansfb\.in|janabank\.com|suryodaybank\.com|utkarsh\.bank|utkarshbank\.com|esafbank\.com|capitalbank\.co\.in|nesfb\.com|shivalikbank\.com|theunitybank\.com|unitybank\.co\.in|rblbank\.com|cityunionbank\.com|csb\.co\.in/;
+  /bank\.in|sbi\.co\.in|bank\.sbi|centralbankofindia|aubank\.in|equitasbank\.com|ujjivansfb\.in|janabank\.com|suryodaybank\.com|utkarsh\.bank|utkarshbank\.com|esafbank\.com|capitalbank\.co\.in|nesfb\.com|shivalikbank\.com|theunitybank\.com|unitybank\.co\.in|rblbank\.com|cityunionbank\.com|csb\.co\.in|airtel\.in|ippbonline\.com|finobank\.com|jiopaymentsbank\.com|nsdlpaymentsbank\.com|paytmbank\.com/;
 const esc = (s) =>
   String(s)
     .replace(/&/g, "&amp;")
@@ -437,12 +446,19 @@ function compareStrip(bank) {
   const freshness = eff
     ? `Rates as of ${esc(fmt.formatDate(eff))}, verified from ${official ? "official source" : "aggregated sources"}.`
     : `Rates ${official ? "verified from official source" : "from aggregated sources"}.`;
+  // India Post Payments Bank is the payments-bank exception: it IS
+  // Government-of-India owned (via India Post / Department of Posts).
+  const isGoiOwned = /government of india/i.test(bank.ownership || "");
   const trust =
     bank.category === "PRIVATE"
       ? `<span class="trust-strong">Scheduled private sector bank</span> — deposits insured by DICGC up to ₹5,00,000.`
       : bank.category === "SMALL_FINANCE"
         ? `<span class="trust-strong">Scheduled small finance bank (RBI-licensed)</span> — deposits insured by DICGC up to ₹5,00,000.`
-        : `<span class="trust-strong">Majority Government-of-India owned</span> — deposits insured by DICGC up to ₹5,00,000.`;
+        : bank.category === "PAYMENTS_BANK"
+          ? isGoiOwned
+            ? `<span class="trust-strong">Government-of-India owned payments bank (via India Post)</span> — savings accounts only (no FD/RD); deposits insured by DICGC up to ₹5,00,000.`
+            : `<span class="trust-strong">RBI-licensed payments bank</span> — savings accounts only (no FD/RD); deposits insured by DICGC up to ₹5,00,000.`
+          : `<span class="trust-strong">Majority Government-of-India owned</span> — deposits insured by DICGC up to ₹5,00,000.`;
 
   return `<div class="compare-strip">
     <div class="compare-items">${items.join("")}</div>
@@ -489,6 +505,19 @@ function page(bank) {
     : "";
 
   const defaultRate = bestFd ? bestFd.ratePercent : 6.5;
+  const isPaymentsBank = bank.category === "PAYMENTS_BANK";
+  const publishedCount = DATASET.rates.filter(
+    (r) => r.bankId === bank.id,
+  ).length;
+  const heroSchedule = isPaymentsBank
+    ? "Savings-account rate schedule below. Payments banks offer savings accounts only — no fixed or recurring deposits."
+    : "Full FD, savings and recurring-deposit schedule below, with a maturity calculator.";
+  // Payments banks are savings-only: the FD-oriented maturity calculator would
+  // imply term deposits they cannot offer, so omit it for them.
+  const maturityBlock = isPaymentsBank ? "" : maturityCalc(bank, defaultRate);
+  const goodToKnow = isPaymentsBank
+    ? `<p class="muted" style="margin:0 0 8px">${esc(bank.name)} is an RBI-licensed payments bank: it offers <strong>savings accounts only — no fixed or recurring deposits</strong> — and caps balances at ₹2 lakh per customer. Deposits are insured by DICGC up to ₹5,00,000 per depositor (principal + interest).</p>`
+    : `<p class="muted" style="margin:0 0 8px">Deposits with ${esc(bank.name)} are insured by DICGC up to ₹5,00,000 per depositor (principal + interest). Senior citizens (60+) typically earn an extra 0.50% p.a. over the published general rates.</p>`;
 
   return `<!doctype html>
 <html lang="en">
@@ -521,7 +550,7 @@ function page(bank) {
           ${official ? `${checkSvg()} Rates verified from official source` : "Rates from aggregated sources"}
         </span>
         <h1 style="font-size:clamp(30px,5vw,46px)">${esc(bank.name)}<br/><span class="grad">deposit rates</span></h1>
-        <p class="hero-sub">${esc(identity)} · ${DATASET.rates.filter((r) => r.bankId === bank.id).length} published rates. Full FD, savings and recurring-deposit schedule below, with a maturity calculator.</p>
+        <p class="hero-sub">${esc(identity)} · ${publishedCount} published rates. ${esc(heroSchedule)}</p>
       </div>
       ${highlightsRow(bank)}
     </div>
@@ -539,7 +568,7 @@ function page(bank) {
         ${compareStrip(bank)}
       </div>
     </section>
-    ${maturityCalc(bank, defaultRate)}
+    ${maturityBlock}
     ${productSection(bank, "FD", "Fixed Deposit rates")}
     ${productSection(bank, "RD", "Recurring Deposit rates")}
     ${productSection(bank, "SAVINGS", "Savings account rates")}
@@ -547,7 +576,7 @@ function page(bank) {
     <section class="block">
       <div class="panel" style="padding:22px">
         <h2 class="section-title" style="margin-bottom:10px">Good to know</h2>
-        <p class="muted" style="margin:0 0 8px">Deposits with ${esc(bank.name)} are insured by DICGC up to ₹5,00,000 per depositor (principal + interest). Senior citizens (60+) typically earn an extra 0.50% p.a. over the published general rates.</p>
+        ${goodToKnow}
         ${sourceLine}
         <p class="muted" style="margin-top:12px">Informational only — always confirm the current rate on the <a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">official ${esc(bank.shortName)} website ${extLinkSvg()}</a> before investing.</p>
       </div>

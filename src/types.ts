@@ -29,10 +29,16 @@ export interface Bank {
    *   "PRIVATE"       - private sector bank
    *   "SMALL_FINANCE" - RBI-licensed scheduled small finance bank; deposits
    *                     DICGC-insured but NOT Government-of-India owned
+   *   "PAYMENTS_BANK" - RBI-licensed payments bank; savings-account deposits
+   *                     only (no FD/RD) with a per-customer balance cap
+   *                     (currently ~Rs 2 lakh). Deposits DICGC-insured up to
+   *                     Rs 5,00,000 but (except India Post Payments Bank,
+   *                     which is Government-of-India owned via India Post)
+   *                     NOT Government-of-India owned.
    * Used to segment rankings and peer-averages so a small finance FD is never
    * compared head-to-head against a PSU or private FD.
    */
-  category: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE";
+  category: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | "PAYMENTS_BANK";
   /** Full display name, e.g. "State Bank of India". */
   name: string;
   /** Short label for compact UI, e.g. "SBI". */
@@ -159,10 +165,10 @@ export interface RateQuery {
   tenureDays?: number;
   /**
    * Optional sector filter. When set, only banks of this category are ranked
-   * ("PUBLIC", "PRIVATE" or "SMALL_FINANCE").
+   * ("PUBLIC", "PRIVATE", "SMALL_FINANCE" or "PAYMENTS_BANK").
    * When omitted, banks of all categories are ranked (unchanged behaviour).
    */
-  category?: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE";
+  category?: "PUBLIC" | "PRIVATE" | "SMALL_FINANCE" | "PAYMENTS_BANK";
 }
 
 /** A ranked result row: the best applicable rate for a bank given a query. */
