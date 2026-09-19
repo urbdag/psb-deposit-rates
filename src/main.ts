@@ -1022,7 +1022,7 @@ function renderTable(): void {
                 [r.bank.name],
               ),
               el("div", { class: "bank-short muted" }, [
-                `${categoryLabel(r.bank.category)} · ${productLabel(state.product)} · DICGC insured`,
+                `${categoryLabel(r.bank.category)} · ${productLabel(state.product)} · DICGC`,
               ]),
             ]),
           ]),

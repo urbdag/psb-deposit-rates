@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=21ce5f88be";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=21ce5f88be";
-import { banksChangedCount, recentChanges } from "./history.js?v=21ce5f88be";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=1a044cd416";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=1a044cd416";
+import { banksChangedCount, recentChanges } from "./history.js?v=1a044cd416";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -824,7 +824,7 @@ function renderTable() {
                     el("div", {}, [
                         el("a", { class: "bank-name bank-link", href: `bank/${r.bank.id}/` }, [r.bank.name]),
                         el("div", { class: "bank-short muted" }, [
-                            `${categoryLabel(r.bank.category)} · ${productLabel(state.product)} · DICGC insured`,
+                            `${categoryLabel(r.bank.category)} · ${productLabel(state.product)} · DICGC`,
                         ]),
                     ]),
                 ]),
