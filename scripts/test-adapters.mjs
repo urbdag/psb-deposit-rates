@@ -320,6 +320,111 @@ assert(
   "PNB 555d uses generic scheme name",
 );
 
+// ---------------------------------------------------------------------------
+// PNB real page structure: the live pnb.bank.in term-deposit page carries many
+// tables. The main retail "Domestic/NRO Fixed Deposit Scheme" ladder leads each
+// row with a serial-number column, so the tenure is in cells[1] and the
+// general/senior rates in cells[2]/cells[3]. Earlier in DOM order sit an NRE /
+// bulk (₹3cr–₹10cr) table and a PNB TAX SAVER table that only lists ≥5-year
+// buckets — the latter is what the generic base used to latch onto (leaving PNB
+// with just 4 five-year-plus rows). The bespoke parser must select the full
+// short-to-long ladder instead.
+// ---------------------------------------------------------------------------
+console.log("== PNB real page (multi-table Domestic ladder) ==");
+
+const PNB_REAL_FIXTURE = `
+<html><body>
+  <p>Interest Rates w.e.f. 01 Jun 2026</p>
+  <table>
+    <tr><th>Saving Fund Account Balance</th><th>Rate of Interest</th></tr>
+    <tr><td>Balance up to Rs. 100 Crore</td><td>2.50% p.a.</td></tr>
+    <tr><td>Balance above Rs. 100 Crore</td><td>2.70% p.a.</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="6">NRE Term Deposit</th></tr>
+    <tr><td></td><td></td><td>less than Rs. 3 Cr.</td><td>Rs. 3 Cr. To Rs. 10 Cr.</td></tr>
+    <tr><td>Sl. No</td><td>Period</td><td>Existing Rates For Public w.e.f. 24.02.2026</td><td>Revised Rates For Public w.e.f. 01.06.2026</td><td>Existing (% p.a.)</td><td>Revised (% p.a.)</td></tr>
+    <tr><td>1</td><td>1 Year</td><td>6.25</td><td>6.25</td><td>6.25</td><td>6.25</td></tr>
+    <tr><td>2</td><td>444 Days</td><td>6.60</td><td>6.60</td><td>6.60</td><td>6.60</td></tr>
+    <tr><td>3</td><td>667 Days to 2 Years</td><td>6.30</td><td>6.30</td><td>6.15</td><td>6.15</td></tr>
+    <tr><td>4</td><td>&gt;2 to 3 Years</td><td>6.30</td><td>6.30</td><td>6.15</td><td>6.15</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="5">Domestic/NRO $ Fixed Deposit Scheme</th></tr>
+    <tr><td>Sl. No</td><td>Period</td><td>Revised Rates For Public w.e.f. 01.06.2026</td><td>*Revised Rates for Senior Citizens w.e.f. 01.06.2026</td><td>#Revised Rates for Super Senior Citizens w.e.f. 01.06.2026</td></tr>
+    <tr><td>1</td><td>7 to 14 Days</td><td>3.00</td><td>3.50</td><td>3.80</td></tr>
+    <tr><td>2</td><td>15 to 45 Days</td><td>3.00</td><td>3.50</td><td>3.80</td></tr>
+    <tr><td>3</td><td>46 to 90 Days</td><td>4.50</td><td>5.00</td><td>5.30</td></tr>
+    <tr><td>4</td><td>91 to 154 Days</td><td>4.90</td><td>5.40</td><td>5.70</td></tr>
+    <tr><td>5</td><td>155 Days</td><td>5.55</td><td>6.05</td><td>6.35</td></tr>
+    <tr><td>6</td><td>180 to 270 Days</td><td>5.60</td><td>6.10</td><td>6.40</td></tr>
+    <tr><td>7</td><td>1 Year</td><td>6.25</td><td>6.75</td><td>7.05</td></tr>
+    <tr><td>8</td><td>&gt;1 Year to 389 Days</td><td>6.30</td><td>6.80</td><td>7.10</td></tr>
+    <tr><td>9</td><td>444 Days</td><td>6.60</td><td>7.10</td><td>7.40</td></tr>
+    <tr><td>10</td><td>667 Days to 2 Years</td><td>6.30</td><td>6.80</td><td>7.10</td></tr>
+    <tr><td>11</td><td>&gt;2 to 3 Years</td><td>6.30</td><td>6.80</td><td>7.10</td></tr>
+    <tr><td>12</td><td>1205 Days to 5 Years</td><td>6.35</td><td>6.85</td><td>7.15</td></tr>
+    <tr><td>13</td><td>&gt;5 Years to 10 Years</td><td>6.00</td><td>6.80</td><td>6.80</td></tr>
+  </table>
+  <table>
+    <tr><th colspan="9">“PNB TAX SAVER FIXED DEPOSIT SCHEME”</th></tr>
+    <tr><td></td><td>Public (General)</td><td>Sr. Citizen (General)</td><td>Staff Members</td><td>Retired Staff* (Sr. Citizen)</td></tr>
+    <tr><td>5 Years</td><td>6.25</td><td>6.10</td><td>6.75</td><td>6.60</td><td>7.25</td><td>7.10</td><td>7.25</td><td>6.90</td></tr>
+    <tr><td>&gt; 5 Years to 1894 days</td><td>6.00</td><td>6.00</td><td>6.50</td><td>6.50</td><td>7.00</td><td>7.00</td><td>7.00</td><td>7.00</td></tr>
+    <tr><td>1895 days</td><td>5.85</td><td>6.00</td><td>6.35</td><td>6.50</td><td>6.85</td><td>7.00</td><td>6.85</td><td>7.00</td></tr>
+    <tr><td>1895 days to 10 years</td><td>6.00</td><td>6.00</td><td>6.50</td><td>6.50</td><td>7.00</td><td>7.00</td><td>7.00</td><td>7.00</td></tr>
+  </table>
+</body></html>`;
+
+const pnbRealRows = new PnbAdapter().parseFdRd(PNB_REAL_FIXTURE, "2026-06-01");
+const pnbFdGeneral = pnbRealRows.filter(
+  (r) => r.product === "FD" && r.customer === "GENERAL",
+);
+assert(
+  pnbRealRows.every(
+    (r) => r.bankId === "pnb" && r.source.quality === "OFFICIAL",
+  ),
+  "PNB real: all rows bankId=pnb + OFFICIAL",
+);
+// 365-day (1-year) GENERAL bucket must parse with the retail public rate (6.25),
+// NOT the NRE/bulk table and NOT the ≥5yr TAX SAVER slice.
+const pnb1yr = pnbFdGeneral.find(
+  (r) =>
+    r.tenure.minDays <= 365 &&
+    (r.tenure.maxDays == null || r.tenure.maxDays >= 365) &&
+    r.tenure.minDays === 365 &&
+    r.tenure.maxDays === 365,
+);
+assert(
+  pnb1yr != null && pnb1yr.ratePercent === 6.25,
+  "PNB real: 365-day (1 Year) GENERAL bucket parses at 6.25",
+);
+// Full short-to-long ladder: many distinct tenures spanning short + long.
+const pnbTenures = new Set(
+  pnbFdGeneral.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(
+  pnbTenures.size >= 4,
+  `PNB real: >=4 distinct FD tenures parsed (got ${pnbTenures.size})`,
+);
+const pnbMinDays = pnbFdGeneral.map((r) => r.tenure.minDays);
+assert(
+  pnbMinDays.some((d) => d <= 45),
+  "PNB real: a short-tenure (<=45 day) bucket is present",
+);
+assert(
+  pnbMinDays.some((d) => d >= 1825),
+  "PNB real: a long-tenure (>=5yr) bucket is present",
+);
+// The 7-14 day short bucket proves the main ladder (not the ≥5yr slice) won.
+const pnbShort = pnbFdGeneral.find(
+  (r) => r.tenure.minDays === 7 && r.tenure.maxDays === 14,
+);
+assert(
+  pnbShort != null && pnbShort.ratePercent === 3.0,
+  "PNB real: 7-14 day GENERAL bucket parses at 3.00 (main ladder selected)",
+);
+
 console.log("== Merge by product ==");
 function mergeByProduct(prior, scraped) {
   const scrapedProducts = new Set(scraped.map((r) => r.product));
