@@ -1086,7 +1086,7 @@ function productLandingPage(product) {
       sub,
       active: product === "FD" ? "fd" : product === "RD" ? "rd" : "savings",
       sections,
-      appLink: `?product=${product}`,
+      appLink: `#app-enhance`,
       enhance,
     }),
   };
