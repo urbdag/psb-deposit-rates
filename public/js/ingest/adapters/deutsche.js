@@ -59,15 +59,40 @@ export class DeutscheAdapter extends PrivateTableAdapter {
             const dataRows = this.extractDataRows(table);
             if (dataRows == null)
                 continue;
-            const signature = (this.sectionContextFor(html, table) +
+            // The retail header on the REAL page carries a BARE "<Rs. 3 crore" (an
+            // unescaped "<" before "Rs"), and one data row is "> 4 Yrs - <5 Yrs".
+            // stripTags() uses /<[^>]*>/ and eats everything from that bare "<" up to
+            // the next ">", so "Rs. 3 crore" (and "5 Yrs") are DELETED from the
+            // stripped text. The old signature hard-required a "< ... 3 crore" token,
+            // which therefore never matched the real table — so it fell through to
+            // the flat-text fallback in base.ts, which mis-read the "1.5 Yrs" tenure
+            // label as a 1.5% rate and published a single bogus OFFICIAL row.
+            //
+            // Fix: build the signature from BOTH the tag-stripped text (for the
+            // decoy tokens, which survive) AND the RAW table html (where "3 crore" /
+            // "crore" survives the bare-angle-bracket hazard). Base the retail test
+            // on tokens that survive stripping ("normal interest rate" + "senior
+            // citizen") and treat the "crore" amount token flexibly (matched against
+            // the raw html), rather than hard-requiring the fragile "< 3 crore".
+            const stripped = (this.sectionContextFor(html, table) +
                 " " +
                 stripTags(table)).toLowerCase();
+            const raw = (this.sectionContextFor(html, table) + " " + table)
+                .toLowerCase()
+                .replace(/\s+/g, " ");
             // Never treat a savings, NRE/NRO, FCNR/foreign-currency, or tax-saver
-            // table as the domestic/resident retail FD table.
-            const isDecoy = /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|tax\s*saver|saving/.test(signature);
-            const isRetail = /normal\s*interest\s*rate/.test(signature) &&
-                /senior\s*citizen/.test(signature) &&
-                /(?:<|&lt;|less than|below)\s*(?:rs\.?|inr|₹)?\s*3\s*cr/.test(signature);
+            // table as the domestic/resident retail FD table. Test both the stripped
+            // text and the raw html so a decoy token hidden by the angle-bracket
+            // hazard is still caught.
+            const decoyRe = /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|tax\s*saver|saving/;
+            const isDecoy = decoyRe.test(stripped) || decoyRe.test(raw);
+            // Retail resident grid: a "normal/general interest rate" + "senior
+            // citizen" header for a "< 3 crore" (retail) amount band. The "crore"
+            // token is matched against the RAW html so the bare "<Rs. 3 crore"
+            // header still qualifies even though stripTags eats "Rs. 3 crore".
+            const isRetail = /(?:normal|general)\s*interest\s*rate/.test(stripped) &&
+                /senior\s*citizen/.test(stripped) &&
+                /crore/.test(raw);
             if (isDecoy)
                 continue;
             if (isRetail)
@@ -76,6 +101,22 @@ export class DeutscheAdapter extends PrivateTableAdapter {
                 fallback = dataRows;
         }
         return fallback;
+    }
+    /**
+     * Disable the flat-text (PDF-style line) fallback for Deutsche.
+     *
+     * base.ts `fetchRates` (renderJs branch) calls `this.parseTextFdRd(...)` on
+     * the rendered page's visible text whenever the structured table parse yields
+     * no rows. For Deutsche that fallback is UNSAFE: the tenure labels contain
+     * decimal "Yrs" tokens ("> 1 Yr - 1.5 Yrs", "> 1.5 Yrs - 2 Yrs") that the
+     * line parser misreads as rates (it published a bogus single "> 1 Yr -" /
+     * 1.5% row under the OFFICIAL badge). Deutsche's rates ONLY come from the
+     * structured resident table, so we neutralise the text fallback: if the table
+     * can't be parsed, emit 0 rows (ingest keeps last-known-good) rather than
+     * fabricating a row.
+     */
+    parseTextFdRd() {
+        return [];
     }
     /**
      * Return the section-heading context immediately preceding a table (the HTML
