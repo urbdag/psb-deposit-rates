@@ -827,11 +827,265 @@
       "bankId": "pnb",
       "product": "FD",
       "customer": "GENERAL",
-      "ratePercent": 6.25,
+      "ratePercent": 3,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 1825,
-        "label": "5 Years"
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 to 14 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 to 14 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 45,
+        "label": "15 to 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 45,
+        "label": "15 to 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 to 90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 to 90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.9,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 154,
+        "label": "91 to 154 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.4,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 154,
+        "label": "91 to 154 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.55,
+      "tenure": {
+        "minDays": 155,
+        "maxDays": 155,
+        "label": "155 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "155-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.05,
+      "tenure": {
+        "minDays": 155,
+        "maxDays": 155,
+        "label": "155 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "155-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.9,
+      "tenure": {
+        "minDays": 156,
+        "maxDays": 179,
+        "label": "156 Days to 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.4,
+      "tenure": {
+        "minDays": 156,
+        "maxDays": 179,
+        "label": "156 Days to 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.6,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 270,
+        "label": "180 to 270 Days"
       },
       "amount": {
         "minAmount": 0,
@@ -850,9 +1104,179 @@
       "customer": "SENIOR",
       "ratePercent": 6.1,
       "tenure": {
-        "minDays": 1825,
-        "maxDays": 1825,
-        "label": "5 Years"
+        "minDays": 180,
+        "maxDays": 270,
+        "label": "180 to 270 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.6,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 302,
+        "label": "271 Days to 302 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 302,
+        "label": "271 Days to 302 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.55,
+      "tenure": {
+        "minDays": 303,
+        "maxDays": 303,
+        "label": "303 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "303-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.05,
+      "tenure": {
+        "minDays": 303,
+        "maxDays": 303,
+        "label": "303 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "303-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.6,
+      "tenure": {
+        "minDays": 304,
+        "maxDays": 365,
+        "label": "304 Days to >1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.1,
+      "tenure": {
+        "minDays": 304,
+        "maxDays": 365,
+        "label": "304 Days to >1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
       },
       "amount": {
         "minAmount": 0,
@@ -871,14 +1295,776 @@
       "customer": "GENERAL",
       "ratePercent": 6.25,
       "tenure": {
-        "minDays": 1825,
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 389,
+        "label": ">1 Year to 389 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 389,
+        "label": ">1 Year to 389 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 389,
+        "label": ">1 Year to 389 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 389,
+        "label": ">1 Year to 389 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 390,
+        "maxDays": 390,
+        "label": "390 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 390,
+        "maxDays": 390,
+        "label": "390 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 390,
+        "maxDays": 390,
+        "label": "390 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 390,
+        "maxDays": 390,
+        "label": "390 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 391,
+        "maxDays": 443,
+        "label": "391 Days to 443 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 391,
+        "maxDays": 443,
+        "label": "391 Days to 443 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 391,
+        "maxDays": 443,
+        "label": "391 Days to 443 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 391,
+        "maxDays": 443,
+        "label": "391 Days to 443 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.6,
+      "tenure": {
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.1,
+      "tenure": {
+        "minDays": 444,
+        "maxDays": 444,
+        "label": "444 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "444-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 665,
+        "label": "445 Days to 665 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 665,
+        "label": "445 Days to 665 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 665,
+        "label": "445 Days to 665 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 445,
+        "maxDays": 665,
+        "label": "445 Days to 665 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 666,
+        "maxDays": 666,
+        "label": "666 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "666-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 666,
+        "maxDays": 666,
+        "label": "666 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "666-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 667,
+        "maxDays": 730,
+        "label": "667 Days to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 667,
+        "maxDays": 730,
+        "label": "667 Days to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 667,
+        "maxDays": 730,
+        "label": "667 Days to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 667,
+        "maxDays": 730,
+        "label": "667 Days to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": ">2 to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": ">2 to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": ">2 to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1095,
+        "label": ">2 to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.35,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1203,
+        "label": ">3 Years to 1203 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.85,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1203,
+        "label": ">3 Years to 1203 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.35,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1203,
+        "label": ">3 Years to 1203 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.85,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1203,
+        "label": ">3 Years to 1203 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 1204,
+        "maxDays": 1204,
+        "label": "1204 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1204-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 1204,
+        "maxDays": 1204,
+        "label": "1204 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "1204-day Special",
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.35,
+      "tenure": {
+        "minDays": 1205,
         "maxDays": 1825,
-        "label": "5 Years"
+        "label": "1205 Days to 5 Years"
       },
       "amount": {
         "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
       },
       "source": {
         "url": "https://pnb.bank.in/interest-rates-deposit.html",
@@ -888,13 +2074,55 @@
     },
     {
       "bankId": "pnb",
-      "product": "RD",
+      "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6.1,
+      "ratePercent": 6.85,
       "tenure": {
-        "minDays": 1825,
+        "minDays": 1205,
         "maxDays": 1825,
-        "label": "5 Years"
+        "label": "1205 Days to 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.35,
+      "tenure": {
+        "minDays": 1205,
+        "maxDays": 1825,
+        "label": "1205 Days to 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://pnb.bank.in/interest-rates-deposit.html",
+        "effectiveDate": "2026-03-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "pnb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.85,
+      "tenure": {
+        "minDays": 1205,
+        "maxDays": 1825,
+        "label": "1205 Days to 5 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -914,8 +2142,8 @@
       "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 1894,
-        "label": "> 5 Years to 1894 days"
+        "maxDays": 3650,
+        "label": ">5 Years to 10 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -932,11 +2160,11 @@
       "bankId": "pnb",
       "product": "FD",
       "customer": "SENIOR",
-      "ratePercent": 6,
+      "ratePercent": 6.8,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 1894,
-        "label": "> 5 Years to 1894 days"
+        "maxDays": 3650,
+        "label": ">5 Years to 10 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -956,8 +2184,8 @@
       "ratePercent": 6,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 1894,
-        "label": "> 5 Years to 1894 days"
+        "maxDays": 3650,
+        "label": ">5 Years to 10 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -974,139 +2202,11 @@
       "bankId": "pnb",
       "product": "RD",
       "customer": "SENIOR",
-      "ratePercent": 6,
+      "ratePercent": 6.8,
       "tenure": {
         "minDays": 1825,
-        "maxDays": 1894,
-        "label": "> 5 Years to 1894 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://pnb.bank.in/interest-rates-deposit.html",
-        "effectiveDate": "2026-03-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 5.85,
-      "tenure": {
-        "minDays": 1895,
-        "maxDays": 1895,
-        "label": "1895 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "1895-day Special",
-      "source": {
-        "url": "https://pnb.bank.in/interest-rates-deposit.html",
-        "effectiveDate": "2026-03-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 1895,
-        "maxDays": 1895,
-        "label": "1895 days"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "scheme": "1895-day Special",
-      "source": {
-        "url": "https://pnb.bank.in/interest-rates-deposit.html",
-        "effectiveDate": "2026-03-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "GENERAL",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 1895,
         "maxDays": 3650,
-        "label": "1895 days to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://pnb.bank.in/interest-rates-deposit.html",
-        "effectiveDate": "2026-03-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "FD",
-      "customer": "SENIOR",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 1895,
-        "maxDays": 3650,
-        "label": "1895 days to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": 30000000,
-        "label": "Below ₹3 crore (retail)"
-      },
-      "source": {
-        "url": "https://pnb.bank.in/interest-rates-deposit.html",
-        "effectiveDate": "2026-03-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "GENERAL",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 1895,
-        "maxDays": 3650,
-        "label": "1895 days to 10 years"
-      },
-      "amount": {
-        "minAmount": 0,
-        "maxAmount": null,
-        "label": "Any amount"
-      },
-      "source": {
-        "url": "https://pnb.bank.in/interest-rates-deposit.html",
-        "effectiveDate": "2026-03-01",
-        "quality": "OFFICIAL"
-      }
-    },
-    {
-      "bankId": "pnb",
-      "product": "RD",
-      "customer": "SENIOR",
-      "ratePercent": 6,
-      "tenure": {
-        "minDays": 1895,
-        "maxDays": 3650,
-        "label": "1895 days to 10 years"
+        "label": ">5 Years to 10 Years"
       },
       "amount": {
         "minAmount": 0,
@@ -14468,6 +15568,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-19T03:25:09.351Z",
+  "generatedAt": "2026-09-19T04:25:44.832Z",
   "containsSampleData": false
 }
