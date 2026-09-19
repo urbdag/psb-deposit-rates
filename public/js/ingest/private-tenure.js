@@ -44,7 +44,13 @@ function sumSide(s) {
         total += toDays(Number(m[1]), m[2]);
         seen = true;
     }
-    return seen ? total : null;
+    if (seen)
+        return total;
+    // Bare number with no unit (e.g. the "185" in "185 to < 1 Year"): a lone
+    // leading integer in a tenure label is a day count. Only treat it as such
+    // when it is the sole token, so we never mis-read a stray footnote number.
+    const bare = s.trim().match(/^(\d{1,4})$/);
+    return bare ? Number(bare[1]) : null;
 }
 /** Range separators private banks use, in priority order. */
 const SEP_RE = /\s+to\s+|\s+up\s?to\s+|\s*<=\s*|\s*<\s*|\s*[-–—]\s*/i;

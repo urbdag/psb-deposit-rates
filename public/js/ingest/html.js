@@ -54,6 +54,27 @@ export function parsePercent(text) {
     return Number.isFinite(n) && n >= 0 && n <= 20 ? n : null;
 }
 /**
+ * Read the client-side rate-data globals that {@link fetchRendered} serialized
+ * into the page as an inert `<script id="__rate_globals__" type="application/
+ * json">` block. Returns the parsed object (e.g. `{ interestData: [...] }`) or
+ * null when the block is absent (plain HTTP fetch, or a page that exposes no
+ * such global). Adapters use this to recover a FULL rate set from banks that
+ * hydrate only a couple of "featured" rows into the DOM (e.g. ICICI).
+ */
+export function extractRateGlobals(html) {
+    const m = html.match(/<script[^>]*id="__rate_globals__"[^>]*>([\s\S]*?)<\/script>/i);
+    if (!m)
+        return null;
+    try {
+        const json = m[1].replace(/<\\\/script>/gi, "</script>");
+        const parsed = JSON.parse(json);
+        return parsed && typeof parsed === "object" ? parsed : null;
+    }
+    catch {
+        return null;
+    }
+}
+/**
  * Convert HTML to newline-separated text, treating row/block boundaries as line
  * breaks so a "tenure … rate … rate" row stays on ONE line. Used for pages that
  * lay rates out in <div>s instead of a <table>, so the flat-text (PDF-style)

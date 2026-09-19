@@ -139,84 +139,32 @@ try {
   console.log("=== DIAGNOSIS:", url, "===");
   console.log(JSON.stringify(summary, null, 2));
 
-  // DEBUG: dump candidate client-side rate globals (ICICI hydrates its table
-  // from window.interestData; Axis-style widgets often stash a JSON blob too).
+  // Also dump candidate client-side rate globals (some banks — e.g. ICICI —
+  // hydrate their full rate ladder from a JS global like `window.interestData`
+  // rather than emitting it into the DOM), so the real rate source is visible
+  // directly in the CI log (artifacts are not downloadable in this environment).
   try {
     const globals = await page.evaluate(() => {
-      const keys = [
-        "interestData",
-        "fdData",
-        "fdInterestData",
-        "rateData",
-        "depositData",
-        "__NEXT_DATA__",
-        "digitalData",
-      ];
+      const keys = ["interestData", "fdData", "rateData", "depositData"];
       const out = {};
       for (const k of keys) {
         try {
-          if (window[k] !== undefined) {
-            const v = window[k];
-            out[k] = JSON.stringify(v).slice(0, 20000);
-          }
+          if (window[k] !== undefined)
+            out[k] = JSON.stringify(window[k]).slice(0, 20000);
         } catch (e) {
           out[k] = "ERR " + String(e);
         }
       }
       return out;
     });
-    console.log("--- CLIENT GLOBALS ---");
-    console.log(JSON.stringify(globals, null, 2).slice(0, 24000));
-    console.log("--- END CLIENT GLOBALS ---");
-  } catch (e) {
-    console.log("client globals eval failed:", String(e));
+    if (Object.keys(globals).length > 0) {
+      console.log("--- CLIENT RATE GLOBALS ---");
+      console.log(JSON.stringify(globals, null, 2).slice(0, 24000));
+      console.log("--- END CLIENT RATE GLOBALS ---");
+    }
+  } catch {
+    /* best-effort */
   }
-
-  // DEBUG: try to expand collapsed rate widgets, then re-dump all table rows.
-  try {
-    await page.evaluate(() => {
-      const clickable = Array.from(
-        document.querySelectorAll(
-          'button, a, [role="button"], .accordion, .view-all, .viewall, [class*="expand"], [class*="viewAll"], [class*="view-all"]',
-        ),
-      ).filter((el) =>
-        /view all|view more|show all|expand|all tenure|see all/i.test(
-          el.textContent || "",
-        ),
-      );
-      for (const el of clickable.slice(0, 10)) {
-        try {
-          el.click();
-        } catch (e) {
-          /* ignore */
-        }
-      }
-    });
-    await page.waitForTimeout(3000);
-    const html2 = await page.content();
-    const expandedRows = extractTables(html2).map((t) =>
-      extractRows(t)
-        .slice(0, 60)
-        .map((r) => r.map((c) => (c.length > 60 ? c.slice(0, 60) + "…" : c))),
-    );
-    console.log("--- EXPANDED TABLE ROWS ---");
-    console.log(JSON.stringify(expandedRows, null, 2).slice(0, 20000));
-    console.log("--- END EXPANDED TABLE ROWS ---");
-  } catch (e) {
-    console.log("expand attempt failed:", String(e));
-  }
-
-  // DEBUG: dump the raw bodies of promising (rate-carrying) network payloads
-  // and a slice of the rendered body text, so the real rate structure is
-  // visible directly in the CI log (artifacts are not downloadable here).
-  for (const c of captured.filter((c) => c.hasPct)) {
-    console.log(`--- PROMISING BODY: ${c.url} (len ${c.len}) ---`);
-    console.log(c.body.slice(0, 4000));
-    console.log(`--- END BODY: ${c.url} ---`);
-  }
-  console.log("--- RENDERED BODY TEXT (first 3000) ---");
-  console.log(bodyText.slice(0, 3000));
-  console.log("--- END RENDERED BODY TEXT ---");
 } finally {
   await browser.close();
 }

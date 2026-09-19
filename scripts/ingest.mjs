@@ -43,15 +43,33 @@ const { IobAdapter } = await import(resolve(root, `${A}/iob.js`));
 const { UcoAdapter } = await import(resolve(root, `${A}/uco.js`));
 const { MahaAdapter } = await import(resolve(root, `${A}/maha.js`));
 const { PsbAdapter } = await import(resolve(root, `${A}/psb.js`));
-// Private-sector banks (OFFICIAL scrapers). Banks whose official rate page is
-// not reliably parseable (Axis, ICICI, Yes) are intentionally NOT registered —
-// see .agents findings; per the project hard rule we never ship fabricated /
-// mis-tiered rates under an OFFICIAL badge.
+// Private-sector banks (OFFICIAL scrapers).
+//
+// ICICI: registered. Its FD page renders only two "featured" tail rows into the
+// DOM, but the FULL retail domestic ladder lives in the client-side global
+// `window.interestData`; the render helper serializes that global and the ICICI
+// adapter parses interestData[0] (c1=general, c2=senior, < ₹3 crore).
+//
+// Axis: NOT registered — the FD widget renders only two summary rows into the
+// DOM and exposes NO client-side rate global and NO rate-carrying JSON/XHR
+// endpoint (verified via the diagnose workflow: window globals empty, only
+// jQuery/SumoSelect widget JS present). The full ladder is not recoverable
+// without reverse-engineering an interactive widget, so per the project hard
+// rule Axis stays rate-less rather than shipping a 2-row / mis-tiered set.
+//
+// Yes Bank: NOT registered — every candidate URL (yesbank.in home + FD pages,
+// and the .bank.in variant) failed to load in the headless browser (hard render
+// failure / block: "failed" on goto across all URLs in diagnose), so there is
+// no parseable page. Left rate-less.
+//
+// Per the project hard rule we never ship fabricated / mis-tiered rates under an
+// OFFICIAL badge.
 const { HdfcAdapter } = await import(resolve(root, `${A}/hdfc.js`));
 const { KotakAdapter } = await import(resolve(root, `${A}/kotak.js`));
 const { IndusindAdapter } = await import(resolve(root, `${A}/indusind.js`));
 const { IdfcfirstAdapter } = await import(resolve(root, `${A}/idfcfirst.js`));
 const { FederalAdapter } = await import(resolve(root, `${A}/federal.js`));
+const { IciciAdapter } = await import(resolve(root, `${A}/icici.js`));
 const ADAPTERS = [
   new SbiAdapter(),
   new PnbAdapter(),
@@ -70,6 +88,7 @@ const ADAPTERS = [
   new IndusindAdapter(),
   new IdfcfirstAdapter(),
   new FederalAdapter(),
+  new IciciAdapter(),
 ];
 // -------------------------------------------------------------------------
 

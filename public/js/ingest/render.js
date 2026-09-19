@@ -77,7 +77,42 @@ export async function fetchRendered(url, timeoutMs = 60000) {
         catch {
             /* return whatever rendered so the caller can decide */
         }
-        return await page.content();
+        let html = await page.content();
+        // Some banks (e.g. ICICI) hydrate their rate table from a client-side JS
+        // global rather than emitting the full <table> into the DOM (only a couple
+        // of "featured" rows are rendered). Serialize known rate-data globals and
+        // append them to the returned HTML inside an inert JSON <script> block, so
+        // an adapter can recover the FULL rate set from the rendered page. This is
+        // additive and harmless for pages that don't expose such a global.
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const globals = await page.evaluate(() => {
+                const keys = ["interestData"];
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const out = {};
+                for (const k of keys) {
+                    try {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        const v = window[k];
+                        if (v !== undefined)
+                            out[k] = v;
+                    }
+                    catch {
+                        /* ignore inaccessible global */
+                    }
+                }
+                return out;
+            });
+            if (globals && Object.keys(globals).length > 0) {
+                const json = JSON.stringify(globals).replace(/<\/script>/gi, "<\\/script>");
+                html +=
+                    `\n<script id="__rate_globals__" type="application/json">${json}</script>\n`;
+            }
+        }
+        catch {
+            /* global capture is best-effort */
+        }
+        return html;
     }
     finally {
         await browser.close();

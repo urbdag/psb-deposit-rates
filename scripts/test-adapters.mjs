@@ -39,6 +39,9 @@ const { IdfcfirstAdapter } = await import(
 const { FederalAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/federal.js")
 );
+const { IciciAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/icici.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -1156,6 +1159,118 @@ assert(
 assert(
   federal.parseFdRd("<html>empty</html>", "2026-01-01").length === 0,
   "Federal: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// ICICI Bank: the FD page hydrates its full retail ladder from a client-side
+// global `window.interestData` (only two "featured" tail rows are ever emitted
+// into the DOM <table>). The render helper serializes that global into an inert
+// <script id="__rate_globals__" type="application/json"> block appended to the
+// page HTML; the ICICI adapter reads it back and parses interestData[0] — the
+// retail (< ₹3 crore) Domestic ladder — where each row is
+//   { tenure, c1 (GENERAL <3cr), c2 (SENIOR <3cr), c3/c4 (₹3cr–5cr BULK) }.
+// The fixture reproduces the REAL captured shape: array[0] is retail, and a
+// SECOND array carries DIFFERENT (NRE-style) numbers so that latching onto the
+// wrong table would fail the assertions. Sentinels: senior must be c2 (7.10 for
+// 3Y1D–5Y), NOT c1 (6.50) and NOT the bulk c3/c4; the Tax Saver row is skipped.
+// ---------------------------------------------------------------------------
+console.log("== ICICI (client-hydrated window.interestData, retail table[0]) ==");
+const ICICI_INTEREST_DATA = [
+  // interestData[0] — retail (< ₹3 crore) Domestic FD ladder (c1=gen, c2=sr).
+  [
+    { tenure: "7 to 45 Days", c1: 2.75, c2: 3.25, c3: 1.1, c4: 1.1 },
+    { tenure: "46 to 90 Days", c1: 4, c2: 4.5, c3: 1.1, c4: 1.1 },
+    { tenure: "91 to 184 Days", c1: 4.5, c2: 5, c3: 1.1, c4: 1.1 },
+    { tenure: "185 to < 1 Year", c1: 5.5, c2: 6, c3: 1.1, c4: 1.1 },
+    { tenure: "1 Year to < 18 Months", c1: 6.25, c2: 6.75, c3: 1.1, c4: 1.1 },
+    { tenure: "18 Months to 2 Years", c1: 6.3, c2: 6.8, c3: 1.1, c4: 1.1 },
+    { tenure: "2 Years 1 Day to 3 Years", c1: 6.45, c2: 6.95, c3: 1.1, c4: 1.1 },
+    { tenure: "3 Years 1 Day to 5 Years", c1: 6.5, c2: 7.1, c3: 1.1, c4: 1.1 },
+    { tenure: "5 Years 1 Day to 10 Years", c1: 6.5, c2: 7, c3: 1.1, c4: 1.1 },
+    { tenure: "5Y (Tax Saver FD)", c1: 6.5, c2: 7.1, c3: 1.1, c4: 1.1 },
+  ],
+  // interestData[1] — a DIFFERENT (NRE-style) table: distinct numbers so that
+  // wrongly parsing table[1] instead of table[0] would break the assertions.
+  [
+    { tenure: "1 Year to 389 Days", c1: 6.25, c2: 6.75, c3: 6.6, c4: 6.6 },
+    { tenure: "18 Months to 2 Years", c1: 6.3, c2: 6.8, c3: 6.6, c4: 6.6 },
+    { tenure: "2 Years 1 Day to 3 Years", c1: 6.45, c2: 6.95, c3: 6.6, c4: 6.6 },
+    { tenure: "3 Years 1 Day to 5 Years", c1: 6.5, c2: 7.1, c3: 6.6, c4: 6.6 },
+  ],
+];
+const ICICI_FIXTURE = `
+<html><body>
+  <p>ICICI Bank FD Interest Rates</p>
+  <table>
+    <tr><td>Tenure</td><td>General citizen</td><td>Senior citizen</td></tr>
+    <tr><td></td><td>Less than 3Cr</td><td>3Cr to less than 5Cr</td><td>Less than 3Cr</td><td>3Cr to less than 5Cr</td></tr>
+    <tr><td>3 Years 1 Day to 5 Years</td><td>6.5%</td><td>6.5%</td><td>7.1%</td><td>7.1%</td></tr>
+    <tr><td>5 Years 1 Day to 10 Years</td><td>6.5%</td><td>6.5%</td><td>7%</td><td>7%</td></tr>
+  </table>
+  <script id="__rate_globals__" type="application/json">${JSON.stringify({ interestData: ICICI_INTEREST_DATA })}</script>
+</body></html>`;
+const icici = new IciciAdapter();
+const iciciRows = icici.parseFdRd(ICICI_FIXTURE, "2026-09-01");
+const iciciFd = iciciRows.filter((r) => r.product === "FD");
+assert(iciciFd.length >= 16, `ICICI: >=16 FD rows (got ${iciciFd.length})`);
+assert(
+  iciciRows.every(
+    (r) =>
+      r.bankId === "icici" &&
+      r.source.quality === "OFFICIAL" &&
+      /icicibank\.com/.test(r.source.url),
+  ),
+  "ICICI: all rows OFFICIAL, bankId=icici, icicibank.com source URL",
+);
+// 1 Year (365-day) GENERAL bucket at the retail c1 rate.
+const icici1y = iciciFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 365,
+);
+assert(icici1y?.ratePercent === 6.25, "ICICI 1yr general = 6.25 (retail c1)");
+const icici1ySr = iciciFd.find(
+  (r) => r.customer === "SENIOR" && r.tenure.minDays === 365,
+);
+assert(icici1ySr?.ratePercent === 6.75, "ICICI 1yr senior = 6.75 (retail c2)");
+// Column-tiering sentinel: 3Y1D–5Y senior must be c2 (7.10), NOT c1 (6.50) and
+// NOT a bulk (₹3cr–5cr) column. This fails if c1/c2 mapping is reverted.
+const icici3y = iciciFd.filter((r) => r.tenure.minDays === 1096);
+const icici3yGen = icici3y.find((r) => r.customer === "GENERAL");
+const icici3ySr = icici3y.find((r) => r.customer === "SENIOR");
+assert(icici3yGen?.ratePercent === 6.5, "ICICI 3Y1D–5Y general = 6.50 (c1)");
+assert(
+  icici3ySr?.ratePercent === 7.1,
+  "ICICI 3Y1D–5Y senior = 7.10 (retail c2, NOT the 6.50 c1 nor a bulk col)",
+);
+// >=4 distinct FD tenures parse (full ladder recovered from the global).
+const iciciTenures = new Set(
+  iciciFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(
+  iciciTenures.size >= 4,
+  `ICICI: >=4 distinct FD tenures (got ${iciciTenures.size})`,
+);
+// A short-tenure bucket proves the FULL ladder (not just the 2 rendered tail
+// rows) was parsed.
+const iciciShort = iciciFd.find(
+  (r) => r.customer === "GENERAL" && r.tenure.minDays === 7,
+);
+assert(
+  iciciShort?.ratePercent === 2.75,
+  "ICICI 7–45 day GENERAL bucket parses at 2.75 (full ladder from global)",
+);
+// Tax Saver FD product row is skipped (distinct 5Y lock-in product).
+assert(
+  !iciciFd.some((r) => /tax\s*saver/i.test(r.scheme || "")),
+  "ICICI: Tax Saver FD row excluded from the standard ladder",
+);
+// A page WITHOUT the global (or garbage) yields 0 rows -> last-known-good.
+assert(
+  icici.parseFdRd("<html><body>only two rendered rows, no global</body></html>", "2026-01-01").length === 0,
+  "ICICI: HTML without window.interestData global -> 0 rows",
+);
+assert(
+  icici.parseFdRd("<html>garbage</html>", "2026-01-01").length === 0,
+  "ICICI: garbage HTML -> 0 rows",
 );
 
 if (failures === 0) {
