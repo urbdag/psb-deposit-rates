@@ -2346,6 +2346,69 @@ assert(
   "DBS: garbage HTML -> 0 rows",
 );
 
+// ---------------------------------------------------------------------------
+// DBS NRO-rupee regression lock. NRO = Non-Resident ORDINARY *rupee* (INR)
+// deposits earn the SAME resident rupee rates and are quoted in the same
+// "< Rs. 3 crore" retail INR table, so a "Domestic and NRO Fixed Deposit rates"
+// heading is RETAIL data, not a decoy (mirrors deutsche.ts, whose live heading
+// is exactly that). This fixture titles the interleaved-yield retail grid
+// "Domestic and NRO ..." and keeps a genuine NRE decoy alongside it. Asserts
+// the retail grid is STILL selected with correct GENERAL(col1)/SENIOR(col3)
+// rates and that the NRE grid is NEVER published. This assertion FAILS against
+// the pre-fix adapter that still had "\bnro\b" in its decoy set (which would
+// reject the "Domestic and NRO" heading before isRetail could rescue it).
+// ---------------------------------------------------------------------------
+console.log("== DBS NRO-rupee retail grid still selected; NRE still rejected ==");
+const DBS_NRO_FIXTURE = `
+<html><body>
+  <h3>NRE Fixed Deposit interest rates</h3>
+  <table>
+    <tr><th>Tenor</th><th>Interest Rate</th><th>Senior Citizens</th></tr>
+    <tr><td>1 year</td><td>8.50%</td><td>8.50%</td></tr>
+    <tr><td>2 years</td><td>8.60%</td><td>8.60%</td></tr>
+    <tr><td>3 years</td><td>8.40%</td><td>8.40%</td></tr>
+    <tr><td>4 years</td><td>8.30%</td><td>8.30%</td></tr>
+  </table>
+  <h3>Domestic and NRO Fixed Deposit rates (below Rs. 3 crore)</h3>
+  <table>
+    <tr><th rowspan="2">Tenor</th><th colspan="2">General</th><th colspan="2">Senior Citizens</th></tr>
+    <tr><th>Interest Rate</th><th>Annualised Yield</th><th>Interest Rate</th><th>Annualised Yield</th></tr>
+    <tr><td>1 year</td><td>5.75%</td><td>5.88%</td><td>6.25%</td><td>6.40%</td></tr>
+    <tr><td>2 years</td><td>6.50%</td><td>6.88%</td><td>7.00%</td><td>7.44%</td></tr>
+    <tr><td>3 years</td><td>6.25%</td><td>6.82%</td><td>6.75%</td><td>7.41%</td></tr>
+    <tr><td>4 years</td><td>6.25%</td><td>7.04%</td><td>6.75%</td><td>7.68%</td></tr>
+    <tr><td>5 years</td><td>6.25%</td><td>7.27%</td><td>6.75%</td><td>7.95%</td></tr>
+  </table>
+</body></html>`;
+const dbsNroRows = dbs.parseFdRd(DBS_NRO_FIXTURE, "2026-09-15");
+const dbsNroFd = dbsNroRows.filter((r) => r.product === "FD");
+assert(
+  dbsNroFd.length >= 8,
+  `DBS NRO: "Domestic and NRO" retail grid STILL selected (got ${dbsNroFd.length} FD rows; 0 => \\bnro\\b wrongly rejected it)`,
+);
+const dbsNro1y = dbsNroFd.filter(
+  (r) => r.tenure.minDays === 365 && r.tenure.maxDays === 365,
+);
+assert(
+  dbsNro1y.find((r) => r.customer === "GENERAL")?.ratePercent === 5.75,
+  "DBS NRO: 1 year general = 5.75 (rate col 1) from the Domestic-and-NRO retail grid",
+);
+assert(
+  dbsNro1y.find((r) => r.customer === "SENIOR")?.ratePercent === 6.25,
+  "DBS NRO: 1 year senior = 6.25 (rate col 3) from the Domestic-and-NRO retail grid",
+);
+// The genuine NRE decoy must NEVER be published, proving NRE is still rejected.
+assert(
+  !dbsNroFd.some((r) => [8.5, 8.6, 8.4, 8.3].includes(r.ratePercent)),
+  "DBS NRO: genuine NRE grid never selected (NRE still rejected)",
+);
+assert(
+  dbsNroFd.every(
+    (r) => r.bankId === "dbs" && r.source.quality === "OFFICIAL",
+  ),
+  "DBS NRO: all rows OFFICIAL, bankId=dbs",
+);
+
 if (failures === 0) {
   console.log("\nAll adapter + merge + PDF + div tests passed.");
   process.exit(0);

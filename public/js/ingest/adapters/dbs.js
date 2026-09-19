@@ -32,10 +32,14 @@ const DBS_FD_URL = "https://www.dbs.bank.in/in/treasures/deposits/your-accounts/
  * interest-rates.page is single-column general-only and is intentionally NOT
  * used (keeps a clean GENERAL/SENIOR set).
  *
- * The page also renders savings / NRE / NRO / FCNR decoy tables, so we PIN the
- * retail FD grid by signature ("tenor" + "senior citizens") and REJECT those
- * decoys, and require parseable percentages in BOTH generalCol(1) and
- * seniorCol(3) so a 2-3 column decoy cannot be mistaken for the 5-column grid.
+ * The page also renders savings / NRE / FCNR / foreign-currency decoy tables,
+ * so we PIN the retail FD grid by signature ("tenor" + "senior citizens") and
+ * REJECT those decoys, and require parseable percentages in BOTH generalCol(1)
+ * and seniorCol(3) so a 2-3 column decoy cannot be mistaken for the 5-column
+ * grid. We deliberately do NOT reject on "nro": NRO = Non-Resident ORDINARY
+ * *rupee* (INR) deposits, which earn the SAME rupee rates as resident deposits
+ * and are quoted in the same "< Rs. 3 crore" retail INR table, so a
+ * "Domestic and NRO" heading is retail data, not a decoy (mirrors deutsche.ts).
  *
  * We extend {@link PrivateTableAdapter} (generalCol:1, seniorCol:3, renderJs)
  * and override {@link findPrivateRateTable} (pattern: rbl.ts).
@@ -53,7 +57,7 @@ export class DbsAdapter extends PrivateTableAdapter {
     /**
      * Pin the retail DBS FD grid. Strategy: prefer a table whose text (or
      * preceding heading context) carries the "tenor" + "senior citizens"
-     * signature and is NOT a savings / NRE / NRO / FCNR / foreign-currency table;
+     * signature and is NOT a savings / NRE / FCNR / foreign-currency table;
      * require the interleaved-yield (tenure, general%, yield, senior%, yield)
      * shape with >= 4 distinct tenures. Falls back to the first plausible
      * unsigned rate table only if no signed retail table is found.
@@ -67,9 +71,16 @@ export class DbsAdapter extends PrivateTableAdapter {
             const signature = (this.sectionContextFor(html, table) +
                 " " +
                 stripTags(table)).toLowerCase();
-            // Never treat a savings, NRE/NRO, or FCNR/foreign-currency table as the
-            // domestic/resident retail FD table.
-            const isDecoy = /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|saving/.test(signature);
+            // Never treat a savings, NRE, or FCNR/foreign-currency table as the
+            // domestic/resident retail FD table. We deliberately do NOT reject on
+            // "nro": NRO (Non-Resident ORDINARY *rupee*) deposits earn resident INR
+            // rates and are quoted in the same "< Rs. 3 crore" retail table, so a
+            // "Domestic and NRO" heading is retail data, not a decoy. The retail pin
+            // ("tenor" + "senior citizens") plus requiring parseable % in BOTH
+            // generalCol(1) and seniorCol(3) still rejects a genuine NRE/FCNR grid.
+            // (Mirrors deutsche.ts, whose live table heading is exactly "Domestic and
+            // NRO Fixed Deposit rates".)
+            const isDecoy = /\bnre\b|\bfcnr\b|foreign\s*currency|saving/.test(signature);
             const isRetail = /\btenor\b/.test(signature) && /senior\s*citizens?/.test(signature);
             if (isDecoy)
                 continue;
