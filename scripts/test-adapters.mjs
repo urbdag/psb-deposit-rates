@@ -2112,6 +2112,125 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
+// Deutsche Bank India — SECOND fixture: BROWSER-REPAIRED / DEGRADED HEADER.
+//
+// The live 0-row failure was NOT reproduced by the literal fixture above. On
+// the REAL rendered page the header cell carries a bare, unescaped "<"
+// ("Normal interest rate (% p.a.) <Rs. 3 crore"). The headless browser treats
+// "<Rs. 3 crore</th>" as a malformed tag and DROPS that text when it
+// serializes page.content(), so the header the adapter parses has LOST the
+// "crore" token (and, in the extreme, the whole header row). Additionally the
+// resident FD table carries a FOOTNOTE row referencing "NRE / NRO / FCNR
+// deposits" / "Savings account" (pointing at other pages).
+//
+// The PRIOR adapter (a) required the positive header tokens
+// normal-interest-rate + senior-citizen + crore to match the retail table, and
+// (b) ran the decoy test against the WHOLE table text. On this degraded DOM
+// the positive header match fails AND the footnote makes the whole-table decoy
+// test reject the single correct table -> 0 rows -> ingest keeps the bogus
+// 1.5% last-known-good row. This fixture reproduces exactly that and the
+// assertions below FAIL against the prior header-token-dependent adapter
+// (proven via git stash: 0 rows -> every selection/rate assert fails).
+//
+// The fix selects the resident table by SHAPE (most distinct tenures among
+// non-decoy (tenure,%,%) grids) and computes the decoy signature from the
+// heading + HEADER row ONLY (never the footnote). A clearly-separate NRE decoy
+// table (its own heading + NRE column header) is kept and must NEVER be
+// selected (Deutsche publishes no NRE rate on this page).
+// ---------------------------------------------------------------------------
+console.log("== Deutsche Bank India (degraded/repaired header: select resident grid by SHAPE) ==");
+const DEUTSCHE_DEGRADED_FIXTURE = `
+<html><body>
+  <h3>NRE Fixed Deposit interest rates</h3>
+  <table class="rate-table nre-grid" data-nre="true">
+    <tr><th>Tenure</th><th>NRE interest rate (% p.a.)</th><th>Senior citizen</th></tr>
+    <tr><td>271 Days - 1 Yr</td><td>9.10</td><td>9.10</td></tr>
+    <tr><td>> 1 Yr - 1.5 Yrs</td><td>9.25</td><td>9.25</td></tr>
+    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>9.30</td><td>9.30</td></tr>
+    <tr><td>> 2 Yrs - 3 Yrs</td><td>9.00</td><td>9.00</td></tr>
+  </table>
+  <h3>Resident Fixed Deposit interest rates</h3>
+  <table class="cmp-savings-grid rate-table" data-nre="false">
+    <tr>
+      <th>Tenure</th>
+      <th>Normal interest rate (% p.a.)</th>
+      <th>Senior citizen interest rate (% p.a.)</th>
+    </tr>
+    <tr><td>7 Days</td><td>3.00</td><td>3.00</td></tr>
+    <tr><td>8 - 14 Days</td><td>3.00</td><td>3.00</td></tr>
+    <tr><td>15 - 29 Days</td><td>3.25</td><td>3.25</td></tr>
+    <tr><td>30 Days</td><td>3.50</td><td>3.50</td></tr>
+    <tr><td>31 - 45 Days</td><td>3.75</td><td>3.75</td></tr>
+    <tr><td>46 - 59 Days</td><td>4.00</td><td>4.00</td></tr>
+    <tr><td>60 - 89 Days</td><td>4.25</td><td>4.25</td></tr>
+    <tr><td>90 - 99 Days</td><td>4.50</td><td>4.50</td></tr>
+    <tr><td>100 Days</td><td>5.00</td><td>5.00</td></tr>
+    <tr><td>101 - 180 Days</td><td>5.25</td><td>5.25</td></tr>
+    <tr><td>181 - 270 Days</td><td>5.50</td><td>5.50</td></tr>
+    <tr><td>271 Days - 1 Yr</td><td>6.50</td><td>6.50</td></tr>
+    <tr><td>> 1 Yr - 1.5 Yrs</td><td>7.00</td><td>7.00</td></tr>
+    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>6.75</td><td>6.75</td></tr>
+    <tr><td>> 2 Yrs - 3 Yrs</td><td>6.50</td><td>6.50</td></tr>
+    <tr><td>> 3 Yrs - 4 Yrs</td><td>6.25</td><td>6.25</td></tr>
+    <tr><td>> 4 Yrs - 5 Yrs</td><td>6.00</td><td>6.00</td></tr>
+    <tr><td>5 Yrs</td><td>5.75</td><td>5.75</td></tr>
+    <tr><td colspan="3">For NRE / NRO / FCNR deposits please refer to the respective pages. Savings account rates apply separately. Rates are subject to change without notice.</td></tr>
+  </table>
+</body></html>`;
+const deuDegRows = deutsche.parseFdRd(DEUTSCHE_DEGRADED_FIXTURE, "2026-09-15");
+const deuDegFd = deuDegRows.filter((r) => r.product === "FD");
+const deuDegGen = deuDegFd.filter((r) => r.customer === "GENERAL");
+const deuDegSr = deuDegFd.filter((r) => r.customer === "SENIOR");
+// Shape-based selection must still find the resident ladder despite the
+// degraded header. >=8 each FAILS against the prior header-token adapter
+// (0 rows). Real ladder = 18 tenures -> 18 GENERAL + 18 SENIOR.
+assert(deuDegGen.length >= 8, `Deutsche(degraded): >=8 GENERAL FD rows (got ${deuDegGen.length})`);
+assert(deuDegSr.length >= 8, `Deutsche(degraded): >=8 SENIOR FD rows (got ${deuDegSr.length})`);
+// Correct rates from the resident column, not the NRE decoy, not the flat-text
+// fabricated 1.5.
+const deuDeg7 = deuDegFd.find((r) => r.tenure.minDays === 7 && r.customer === "GENERAL");
+assert(deuDeg7?.ratePercent === 3.0, "Deutsche(degraded): 7 Days general = 3.00");
+const deuDeg15 = deuDegFd.find(
+  (r) => r.tenure.minDays === 365 && r.tenure.maxDays === 548 && r.customer === "GENERAL",
+);
+assert(deuDeg15?.ratePercent === 7.0, "Deutsche(degraded): >1Yr-1.5Yrs general = 7.00 (not NRE 9.25, not 1.5)");
+const deuDeg15Sr = deuDegFd.find(
+  (r) => r.tenure.minDays === 365 && r.tenure.maxDays === 548 && r.customer === "SENIOR",
+);
+assert(deuDeg15Sr?.ratePercent === 7.0, "Deutsche(degraded): >1Yr-1.5Yrs senior = 7.00 (col 2 present)");
+const deuDeg100 = deuDegFd.find((r) => r.tenure.minDays === 100 && r.customer === "GENERAL");
+assert(deuDeg100?.ratePercent === 5.0, "Deutsche(degraded): 100 Days general = 5.00");
+// The NRE decoy table must NEVER be selected (no NRE rate published).
+assert(
+  !deuDegFd.some((r) => [9.1, 9.25, 9.3, 9.0].includes(r.ratePercent)),
+  "Deutsche(degraded): NRE decoy table never selected (no 9.x rate published)",
+);
+// Core sentinel: the fabricated flat-text 1.5 value must never appear.
+assert(
+  !deuDegFd.some((r) => r.ratePercent === 1.5),
+  "Deutsche(degraded): no row has ratePercent == 1.5 (the fabricated fallback value)",
+);
+// All rows bankId-correct + OFFICIAL + official domain.
+assert(
+  deuDegRows.every(
+    (r) =>
+      r.bankId === "deutsche" &&
+      r.source.quality === "OFFICIAL" &&
+      /deutsche\.bank\.in/.test(r.source.url),
+  ),
+  "Deutsche(degraded): all rows OFFICIAL, bankId=deutsche, deutsche.bank.in source URL",
+);
+// parseTextFdRd still fabricates nothing.
+assert(
+  deutsche.parseTextFdRd(
+    "Fixed Deposit\n> 1 Yr - 1.5 Yrs 7.00\n> 1.5 Yrs - 2 Yrs 7.00",
+    "https://www.deutsche.bank.in/x",
+    "2026-01-01",
+  ).length === 0,
+  "Deutsche(degraded): flat-text fallback neutralised (parseTextFdRd -> 0 rows)",
+);
+
+// ---------------------------------------------------------------------------
 // DBS Bank India (FOREIGN): the DBS Treasures FD page is client-rendered and
 // its retail INR table has TWO stacked header rows and INTERLEAVES an
 // annualised-yield column after each rate column: <tenor> | general rate% |

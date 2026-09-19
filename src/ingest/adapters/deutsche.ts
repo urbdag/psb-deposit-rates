@@ -28,15 +28,40 @@ const DEUTSCHE_FD_URL =
  * exists). Tenure labels are compound (e.g. "271 Days - 1 Yr", "> 1 Yr - 1.5
  * Yrs", "> 4 Yrs - <5 Yrs"), which resolvePrivateTenure handles.
  *
- * The landing interest-rates.html page renders several tables (savings, NRE,
- * NRO, FCNR foreign-currency, tax-saver), so we PIN the retail resident FD
- * table by signature ("normal interest rate" / "senior citizen" + "< Rs. 3
- * crore") and REJECT any savings / NRE / NRO / FCNR / foreign-currency /
- * tax-saver decoy table. A page reorder or the presence of those tables can
- * then never cause us to publish a non-retail column under the OFFICIAL badge.
+ * This dedicated resident-FD URL serves EXACTLY ONE rate table (the resident
+ * retail < Rs. 3 crore domestic INR grid); the NRE / NRO / FCNR / savings /
+ * tax-saver schedules live on OTHER pages, never on this one. So we SELECT the
+ * qualifying data table by SHAPE, not by fragile header text: among the tables
+ * whose data rows form a (tenure, general%, senior%) grid with >= 4 distinct
+ * tenures and that are NOT clearly a NRE/NRO/FCNR/foreign-currency/tax-saver/
+ * savings decoy, we return the one with the MOST distinct tenures (the real
+ * 17-tenure ladder wins over any small decoy that slipped through). We do NOT
+ * require any positive header token ("crore" / "normal interest rate" /
+ * "senior citizen").
+ *
+ * Root cause of the previous live 0-rows failure (reproduced with a throwaway
+ * debug harness that mirrors the BROWSER-REPAIRED serialized DOM): the header
+ * cell carries a bare, unescaped "<" ("Normal interest rate (% p.a.) <Rs. 3
+ * crore"). The headless browser treats "<Rs. 3 crore</th>" as a malformed tag
+ * and DROPS that text when it serializes page.content(), so "crore" (and
+ * sometimes the whole header row) is gone from what the adapter parses. The old
+ * header-token-dependent isRetail test then failed, and a footer note in the
+ * resident table referencing "NRE / NRO / FCNR deposits" / "Savings account"
+ * made the whole-table decoy test reject the single correct table -> 0 rows ->
+ * ingest kept the bogus 1.5% last-known-good row. Cell extraction always
+ * yielded clean rows; only the signature logic was wrong.
+ *
+ * Two fixes make selection robust: (1) shape selection drops the brittle
+ * positive header match; (2) the decoy signature is computed from the section
+ * heading + the table's HEADER row only (never the data/footnote rows), so a
+ * footnote that merely references NRE/savings pages cannot poison the retail
+ * table's signature. A genuine NRE/FCNR table still declares itself in its own
+ * column headers and is rejected.
  *
  * We extend {@link PrivateTableAdapter} (generalCol:1, seniorCol:2, renderJs)
- * and override {@link findPrivateRateTable} (pattern: cityunion.ts / rbl.ts).
+ * and override {@link findPrivateRateTable} (pattern: csb.ts most-distinct-
+ * tenures tie-break + cityunion.ts / rbl.ts decoy rejection, minus the brittle
+ * positive header match).
  */
 export class DeutscheAdapter extends PrivateTableAdapter {
   constructor() {
@@ -50,67 +75,82 @@ export class DeutscheAdapter extends PrivateTableAdapter {
   }
 
   /**
-   * Pin the resident retail "< Rs. 3 crore" normal/senior grid. Strategy:
-   * prefer a table whose text (or preceding heading context) carries the
-   * "normal interest rate" / "senior citizen" + "< Rs. 3 crore" retail
-   * signature and is NOT a savings / NRE / NRO / FCNR / foreign-currency /
-   * tax-saver table; require the (tenure, general%, senior%) shape with >= 4
-   * distinct tenures. Falls back to the first plausible unsigned rate table
-   * only if no signed retail table is found.
+   * Select the resident retail FD grid by SHAPE (not fragile header text).
+   *
+   * This URL serves exactly one rate table (the resident < Rs. 3 crore INR
+   * grid); NRE/NRO/FCNR/savings/tax-saver schedules live on other pages. So we
+   * iterate tables, keep only those whose data rows form a valid
+   * (tenure, general%, senior%) grid with >= 4 distinct tenures (a strong junk
+   * guard that skips header/note rows naturally), REJECT any that a SAFE
+   * signature clearly marks as a NRE/NRO/FCNR/foreign-currency/tax-saver/
+   * savings decoy, and among the survivors return the one with the MOST
+   * distinct tenures (the real 17-tenure ladder wins over any small decoy).
+   *
+   * We deliberately do NOT require any positive header token ("crore" /
+   * "normal interest rate" / "senior citizen"): the headless browser repairs
+   * the bare "<" in the header ("... <Rs. 3 crore") away when it serializes the
+   * DOM, so those tokens may be gone. A >= 4-distinct-tenure (tenure, %, %)
+   * grid that is not a decoy IS the retail table on this single-table page.
+   *
+   * The decoy signature is built from the section heading + the table's HEADER
+   * row only (see {@link headerSignature}), never the data/footnote rows, so a
+   * footnote that merely references NRE/savings pages cannot cause a false
+   * decoy rejection of the correct resident table. \bsaving\b uses a word
+   * boundary and the signature strips markup (bare "<" neutralised so "crore"
+   * survives), so a `cmp-savings-grid` class or `data-nre` attribute can never
+   * trigger a decoy match.
    */
   protected override findPrivateRateTable(html: string): string[][] | null {
-    let fallback: string[][] | null = null;
+    let best: string[][] | null = null;
+    let bestCount = 0;
+
     for (const table of extractTables(html)) {
       const dataRows = this.extractDataRows(table);
       if (dataRows == null) continue;
 
-      // Build the retail-signature AND decoy tests from a SAFE stripped form of
-      // the table + its preceding heading, NEVER from the raw markup.
-      //
-      // Root cause of the previous 0-rows failure (proven with a debug harness
-      // against the REAL single-table page): the decoy test was run against the
-      // RAW table html (attributes and all). The real resident FD <table>
-      // carries AEM class names such as `cmp-savings-grid` / `data-nre="..."`
-      // and a footer note linking to "NRE / NRO / FCNR deposits". The decoy
-      // regex matched the bare substring "saving" inside the CSS class (and
-      // "nre" inside an attribute), so the CORRECT retail table was rejected as
-      // a decoy, findPrivateRateTable returned null, and parseFdRd emitted 0
-      // rows -> ingest kept last-known-good (the bogus 1.5% row). Cell
-      // extraction was never the problem; the SIGNATURE logic was.
-      //
-      // The header also carries a BARE "<Rs. 3 crore" (an unescaped "<" before
-      // "Rs") and one data row is "> 4 Yrs - <5 Yrs". stripTags() uses
-      // /<[^>]*>/ and eats from that bare "<" up to the next ">", deleting
-      // "Rs. 3 crore" from the plain-stripped text. So we first NEUTRALISE bare
-      // "<" (those followed by whitespace/digit/"="/"Rs") to "&lt;" and only
-      // then strip tags: this discards all real markup (so class/attribute
-      // decoy substrings vanish) while KEEPING the "crore" amount token intact.
-      const sig = this.signatureText(
-        this.sectionContextFor(html, table) + " " + table,
-      );
-
-      // Never treat a savings, NRE/NRO, FCNR/foreign-currency, or tax-saver
-      // table as the domestic/resident retail FD table. Tested against the safe
-      // signature text (visible cell/heading text only), so real markup can no
-      // longer trigger a false decoy match.
+      const sig = this.headerSignature(html, table);
+      // Reject only a table whose header/heading clearly marks it a decoy: a
+      // NRE/NRO/FCNR/foreign-currency/tax-saver/savings schedule.
       const decoyRe =
-        /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|tax\s*saver|saving/;
-      const isDecoy = decoyRe.test(sig);
+        /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|tax\s*saver|\bsaving\b/;
+      if (decoyRe.test(sig)) continue;
 
-      // Retail resident grid: a "normal/general interest rate" + "senior
-      // citizen" header for a "crore" (retail < Rs. 3 crore) amount band. All
-      // three tokens survive in the safe signature text thanks to bare-"<"
-      // neutralisation above.
-      const isRetail =
-        /(?:normal|general)\s*interest\s*rate/.test(sig) &&
-        /senior\s*citizen/.test(sig) &&
-        /crore/.test(sig);
-
-      if (isDecoy) continue;
-      if (isRetail) return dataRows;
-      if (fallback == null) fallback = dataRows;
+      // Among non-decoy valid grids, pick the one with the MOST distinct
+      // tenures (the full ladder wins over any small decoy that slipped by).
+      const distinct = this.distinctTenureCount(dataRows);
+      if (distinct > bestCount) {
+        best = dataRows;
+        bestCount = distinct;
+      }
     }
-    return fallback;
+    return best;
+  }
+
+  /** Count distinct resolvable tenures across a set of data rows. */
+  private distinctTenureCount(dataRows: string[][]): number {
+    const distinct = new Set(
+      dataRows.map((c) => {
+        const t = resolvePrivateTenure(c[0]);
+        return t ? `${t.minDays}-${t.maxDays}` : "";
+      }),
+    );
+    return distinct.size;
+  }
+
+  /**
+   * Build the SAFE decoy signature for a table: the section heading immediately
+   * above it + the table's HEADER row (the first <tr>) only, markup removed and
+   * bare "<" neutralised. Using only the heading + header row (not the data or
+   * footnote rows) means a genuine NRE/FCNR/savings table (which declares
+   * itself in its own column headers) is still rejected, while a footnote in
+   * the resident table that merely references "NRE / NRO / FCNR" or "Savings
+   * account" cannot poison the retail table's signature.
+   */
+  private headerSignature(html: string, table: string): string {
+    const headerRow = table.match(/<tr\b[\s\S]*?<\/tr>/i)?.[0] ?? "";
+    return this.signatureText(
+      this.sectionContextFor(html, table) + " " + headerRow,
+    );
   }
 
   /**
@@ -186,13 +226,8 @@ export class DeutscheAdapter extends PrivateTableAdapter {
       if (parsePercent(cells[this.seniorCol]) == null) continue;
       dataRows.push(cells);
     }
-    const distinct = new Set(
-      dataRows.map((c) => {
-        const t = resolvePrivateTenure(c[0]);
-        return t ? `${t.minDays}-${t.maxDays}` : "";
-      }),
-    );
-    if (dataRows.length >= 4 && distinct.size >= 4) return dataRows;
+    if (dataRows.length >= 4 && this.distinctTenureCount(dataRows) >= 4)
+      return dataRows;
     return null;
   }
 }
