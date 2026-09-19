@@ -1039,11 +1039,14 @@ function productLandingPage(product) {
     product === "SAVINGS"
       ? `Compare savings account interest rates across India's banks.`
       : `The highest ${name} rates across India's banks, ranked. Amounts below ₹3 crore, general public.`;
-  // FD is the phase-1 proof: it emits the SPA enhancement layered on top of the
+  // Every product landing page emits the SPA enhancement layered on top of the
   // preserved static shell, so its static interactive sections carry the
   // `js-enhanced-hide` class (the SPA hides them at runtime; no-JS/crawlers keep
-  // them). Other products keep their static sections fully visible for now.
-  const enhance = product === "FD" ? { lockedProduct: "FD" } : undefined;
+  // them). The SPA mounts with the product locked to this page's product.
+  // SAVINGS is tenure-agnostic: renderLeaderboard() returns early for SAVINGS so
+  // no "Best rate by tenure" strip is shown. For RD the strip renders (main-page
+  // consistent) but its cells link only for FD, so no broken FD tenure links appear.
+  const enhance = { lockedProduct: product };
   const staticHideCls = enhance ? " js-enhanced-hide" : "";
   let sections = `<section class="block${staticHideCls}">
     <div class="section-head"><div><h2 class="section-title">Best ${esc(name)} rates${product !== "SAVINGS" ? " (1 year)" : ""}</h2>
