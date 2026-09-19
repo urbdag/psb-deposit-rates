@@ -72,11 +72,6 @@ export class FinoAdapter extends TableRateAdapter {
                 const rows = this.parseSavingsPdf(text, url);
                 if (rows.length > 0)
                     return rows;
-                // Diagnostic: surface the raw extracted text shape so the parser can be
-                // tuned to the real PDF layout (removed once the parser is confirmed).
-                const preview = text.replace(/\s+/g, " ").trim().slice(0, 1800);
-                // eslint-disable-next-line no-console
-                console.log(`[fino-pdf-debug] len=${text.length} preview="${preview}"`);
                 attempts.push(`${url} -> 0 savings rows (pdf)`);
             }
             catch (e) {
@@ -88,18 +83,22 @@ export class FinoAdapter extends TableRateAdapter {
     }
     /**
      * PURE parser: tiered savings rows from the PDF rate-card text. Offline-
-     * testable. PDF text extraction collapses table cells, so a slab row usually
-     * arrives as one line mixing a balance-band phrase with its rate, e.g.
+     * testable.
      *
-     *   "Up to Rs. 25,000            2.50%"
-     *   "Above Rs. 25,000 to Rs. 1,00,000   3.00%"
-     *   "Above Rs. 1,00,000            3.50%"
+     * PDF text extraction collapses whitespace/table cells so the whole slab
+     * table often lands as a single run of text with each band phrase glued
+     * directly to its rate, e.g. Fino's real 1 Dec 2025 card extracts as:
      *
-     * For each line that carries BOTH a balance-band phrase and a plausible
-     * savings % (2..7), emit a GENERAL + SENIOR SAVINGS row with an
-     * AmountThreshold derived from the band. Lines without a balance band are
-     * skipped (headers, footnotes). If NO tiered slab is found but a single
-     * headline savings % is present, emit that as one all-balances row.
+     *   "... Balance Slab %ROI per annum Up to and including Rs. 1 Lakh1.50%
+     *    Above Rs. 1 Lakh4.50%"
+     *
+     * so a line-by-line split is unreliable. Instead we scan the ENTIRE text for
+     * every "<rate>%" occurrence and treat the text BETWEEN the previous rate
+     * (or the start) and this rate as that rate's balance-band label. A segment
+     * is emitted only when its label parses to a real balance band AND the rate
+     * is a plausible savings rate (1..7% — payments-bank base rates can be as low
+     * as 1.5%). If no band-tagged slab is found but a single headline savings %
+     * exists, emit it as one all-balances row. Never fabricates.
      */
     parseSavingsPdf(text, url) {
         const source = {
@@ -107,18 +106,21 @@ export class FinoAdapter extends TableRateAdapter {
             effectiveDate: extractPdfEffectiveDate(text) ?? today(),
             quality: "OFFICIAL",
         };
-        const lines = text
-            .split(/\r?\n/)
-            .map((l) => l.replace(/\s+/g, " ").trim())
-            .filter(Boolean);
+        const flat = text.replace(/\s+/g, " ").trim();
         const slabs = [];
         const seen = new Set();
-        for (const line of lines) {
-            const band = parseBalanceBand(line);
-            if (!band)
+        // Walk every "<rate>%" match; the gap since the previous rate is the label.
+        const rateRe = /(\d{1,2}(?:\.\d{1,2})?)\s*%/g;
+        let prevEnd = 0;
+        let m;
+        while ((m = rateRe.exec(flat)) !== null) {
+            const rate = Number(m[1]);
+            const label = flat.slice(prevEnd, m.index);
+            prevEnd = m.index + m[0].length;
+            if (!plausibleSavingsRate(rate))
                 continue;
-            const rate = firstSavingsRate(line);
-            if (rate == null)
+            const band = parseBalanceBand(label);
+            if (!band)
                 continue;
             const key = `${band.minAmount}-${band.maxAmount}-${rate}`;
             if (seen.has(key))
@@ -155,23 +157,38 @@ export class FinoAdapter extends TableRateAdapter {
         return out;
     }
 }
-/** A plausible savings rate for a payments bank (2..7% p.a.). */
+/**
+ * A plausible savings rate for a payments bank (1..7% p.a.). The floor is 1%
+ * because payments-bank base savings rates can be as low as 1.50% (Fino's
+ * base band is 1.50%); 7% is a generous ceiling for the top slab.
+ */
 function plausibleSavingsRate(n) {
-    return n >= 2 && n <= 7;
+    return n >= 1 && n <= 7;
 }
-/** First plausible savings % on a line (accepts "3.00%" or bare "3.00"). */
-function firstSavingsRate(line) {
-    const hasPct = /\d{1,2}(?:\.\d{1,2})?\s*%/.test(line);
-    const re = hasPct
-        ? /(\d{1,2}(?:\.\d{1,2})?)\s*%/g
-        : /(?<![\d.])(\d{1,2}\.\d{1,2})(?![\d.,])/g;
-    let m;
-    while ((m = re.exec(line)) !== null) {
-        const v = Number(m[1]);
-        if (plausibleSavingsRate(v))
-            return v;
-    }
-    return null;
+/**
+ * Isolate the trailing balance-band clause from a label that may carry
+ * preamble/footnotes. PDF text glues a whole run together, so the raw label
+ * for a rate can include earlier prose (e.g. a "Balances Above INR 1,95,000
+ * will be transferred..." footnote) before the real band phrase. We keep only
+ * the text from the LAST band-keyword ("Up to"/"Above"/"upto"/"Rs."/"₹"/"INR")
+ * onward so the band actually adjacent to the rate wins.
+ */
+function trailingBandClause(label) {
+    // Prefer the last DIRECTIONAL qualifier (up to / above / below) so the
+    // clause keeps its min/max sense; fall back to a currency marker only when
+    // no directional word is present.
+    const lastMatch = (re) => {
+        let last = -1;
+        let m;
+        while ((m = re.exec(label)) !== null)
+            last = m.index;
+        return last;
+    };
+    const dir = lastMatch(/(up\s*to|upto|above|more than|greater than|less than|below|exceeding|and above)/gi);
+    if (dir >= 0)
+        return label.slice(dir);
+    const cur = lastMatch(/(rs\.?|₹|inr)/gi);
+    return cur >= 0 ? label.slice(cur) : label;
 }
 /**
  * Parse an Indian balance-band phrase into an AmountThreshold. Handles the
@@ -183,7 +200,8 @@ function firstSavingsRate(line) {
  * Amounts may be written in Indian grouping (1,00,000) or with lakh/crore
  * words. Returns null when the line has no balance-band signal.
  */
-export function parseBalanceBand(line) {
+export function parseBalanceBand(rawLine) {
+    const line = trailingBandClause(rawLine.trim());
     const lower = line.toLowerCase();
     // Must look like a balance band, not a tenure or a footnote.
     const hasBalanceWord = /balance|bal\.|amount|slab|up\s*to|upto|above|rs\.?|₹|inr|lakh|lac|crore/i.test(line);
@@ -260,7 +278,10 @@ function cleanLabel(line) {
 }
 /** Effective date from PDF text ("Effective from 1st Dec 2025" etc.). */
 export function extractPdfEffectiveDate(text) {
-    const m = text.match(/effective(?:\s+from)?\s*:?\s*(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(\d{4})/i);
+    // Matches "Effective from 1st Dec 2025", "Eff 1 st December 2025", "w.e.f.
+    // 01 December 2025", etc. The ordinal suffix may be separated by a space
+    // ("1 st") as pdf-parse sometimes extracts it.
+    const m = text.match(/(?:eff(?:ective)?|w\.?e\.?f\.?)(?:\s+from)?\s*:?\s*(\d{1,2})\s*(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(\d{4})/i);
     if (!m)
         return null;
     const day = m[1].padStart(2, "0");

@@ -94,9 +94,11 @@ const { ShivalikAdapter } = await import(resolve(root, `${A}/shivalik.js`));
 // "Savings Account Interest Rates" (effective 1 Dec 2025). The adapter fetches
 // that PDF via fetchPdfText and parses tiered savings-by-balance-slab with a
 // bespoke pure parseSavingsPdf (one SAVINGS row per band, GENERAL + SENIOR),
-// never FD/RD (source: fino.bank.in PDF rate card). If the PDF 403s / has
-// rotated at ingest time, Fino simply returns nothing and keeps last-known-good
-// (never a fabricated rate).
+// never FD/RD (source: fino.bank.in PDF rate card). The 1 Dec 2025 card
+// publishes two bands: up to & incl. Rs. 1 Lakh = 1.50%, above Rs. 1 Lakh =
+// 4.50% (verified live via the CI ingest run). If the PDF 403s / has rotated at
+// ingest time, Fino simply returns nothing and keeps last-known-good (never a
+// fabricated rate).
 const { FinoAdapter } = await import(resolve(root, `${A}/fino.js`));
 //
 // BLOCKED payments banks (documented, left rate-less — no fabricated rates).

@@ -1828,16 +1828,19 @@ assert(
 console.log("== Fino Payments Bank (savings-only, tiered from PDF) ==");
 const fino = new FinoAdapter();
 
-const FINO_PDF_TEXT = [
-  "FINO PAYMENTS BANK LIMITED",
-  "Savings Account Revised Interest Rates Effective from 1st Dec 2025",
-  "Daily Closing Balance (Rs.)                 Rate of Interest (p.a.)",
-  "Up to Rs. 25,000                            2.50%",
-  "Above Rs. 25,000 up to Rs. 1,00,000         3.00%",
-  "Above Rs. 1,00,000 up to Rs. 2,00,000       3.50%",
-  "Interest is calculated on daily closing balance and paid quarterly.",
-  "Balances above Rs. 2,00,000 are swept out per RBI payments-bank norms.",
-].join("\n");
+// Fixture modeled on Fino's REAL 1 Dec 2025 PDF rate card as extracted by
+// pdf-parse (observed via a CI ingest debug run): the whole slab table lands as
+// one run of text with each band phrase GLUED directly to its rate, preceded by
+// footnote prose that itself mentions "Above INR 1,95,000". The parser must
+// scan the whole text (not line-by-line), skip the footnote figure, and map the
+// two real bands: "Up to and including Rs. 1 Lakh" = 1.50%, "Above Rs. 1 Lakh"
+// = 4.50%. (1.50% is below a naive 2% floor — the parser must accept it.)
+const FINO_PDF_TEXT =
+  "Classification: Public Fino Payments Bank Savings Account – Change in Rate of Interest " +
+  "•Eff 1 st December 2025 onwards, Interest on Balances in Fino Payment Bank Saving Account will be revised as follows : " +
+  "•Interest on balance in Sweep Account with our Partner Bank Suryoday Small Finance Bank will be as per partner bank policy & norms. " +
+  "ii. Balances Above INR 1,95,000 on EOD will be transferred to Customer’s Sweep Account held with Partner Bank " +
+  "Balance Slab %ROI per annum Up to and including Rs. 1 Lakh1.50% Above Rs. 1 Lakh4.50%";
 
 const finoSav = fino.parseSavingsPdf(FINO_PDF_TEXT);
 
@@ -1849,10 +1852,10 @@ assert(
       r.product === "SAVINGS" &&
       r.bankId === "fino" &&
       r.source.quality === "OFFICIAL" &&
-      r.ratePercent >= 2 &&
+      r.ratePercent >= 1 &&
       r.ratePercent <= 7,
   ),
-  "Fino: all rows SAVINGS + fino + OFFICIAL + sane 2..7% band",
+  "Fino: all rows SAVINGS + fino + OFFICIAL + sane 1..7% band",
 );
 // NEVER FD or RD (payments-bank hard rule).
 assert(
@@ -1869,48 +1872,53 @@ assert(
   "Fino: parsePdfFdRd always returns 0 rows (never emits FD)",
 );
 
-// Three balance slabs -> 3 bands x (general+senior) = 6 rows.
-assert(finoSav.length === 6, `Fino: 3 slabs x 2 customers = 6 rows (got ${finoSav.length})`);
+// Two balance slabs -> 2 bands x (general+senior) = 4 rows.
+assert(finoSav.length === 4, `Fino: 2 slabs x 2 customers = 4 rows (got ${finoSav.length})`);
 assert(
-  finoSav.filter((r) => r.customer === "GENERAL").length === 3 &&
-    finoSav.filter((r) => r.customer === "SENIOR").length === 3,
-  "Fino: 3 GENERAL + 3 SENIOR savings rows",
+  finoSav.filter((r) => r.customer === "GENERAL").length === 2 &&
+    finoSav.filter((r) => r.customer === "SENIOR").length === 2,
+  "Fino: 2 GENERAL + 2 SENIOR savings rows",
 );
 
 // Per-slab AmountThreshold mapping (behavioral: fails if bands are mis-tiered).
 const finoGen = finoSav.filter((r) => r.customer === "GENERAL");
 const bottom = finoGen.find((r) => r.amount.minAmount === 0);
 assert(
-  bottom?.ratePercent === 2.5 && bottom?.amount.maxAmount === 25000,
-  "Fino: [0, 25,000] band = 2.50%",
-);
-const mid = finoGen.find((r) => r.amount.minAmount === 25000);
-assert(
-  mid?.ratePercent === 3.0 && mid?.amount.maxAmount === 100000,
-  "Fino: [25,000, 1,00,000] band = 3.00%",
+  bottom?.ratePercent === 1.5 && bottom?.amount.maxAmount === 100000,
+  "Fino: [0, 1,00,000] band = 1.50%",
 );
 const top = finoGen.find((r) => r.amount.minAmount === 100000);
 assert(
-  top?.ratePercent === 3.5 && top?.amount.maxAmount === 200000,
-  "Fino: [1,00,000, 2,00,000] band = 3.50%",
+  top?.ratePercent === 4.5 && top?.amount.maxAmount === null,
+  "Fino: [1,00,000, and above] band = 4.50%",
 );
-// The top slab rate must NOT be attached to the base band (mis-tier guard).
+// The top slab rate must NOT be attached to the base band (mis-tier guard):
+// a reverted parser that glued 4.50% onto the [0,1L] base band would fail here.
 assert(
-  bottom?.ratePercent !== 3.5 && !finoGen.some((r) => r.amount.minAmount === 0 && r.ratePercent === 3.5),
-  "Fino: top-slab 3.50% is never mis-tiered onto the base [0,25,000] band",
+  bottom?.ratePercent !== 4.5 &&
+    !finoGen.some((r) => r.amount.minAmount === 0 && r.ratePercent === 4.5),
+  "Fino: top-slab 4.50% is never mis-tiered onto the base [0,1L] band",
+);
+// The footnote figure (Above INR 1,95,000) must NOT become a rate band: no row
+// should carry a 195000 threshold, and only the two real rates appear.
+assert(
+  !finoSav.some((r) => r.amount.minAmount === 195000 || r.amount.maxAmount === 195000),
+  "Fino: footnote 'Above INR 1,95,000' is not mistaken for a rate band",
+);
+assert(
+  new Set(finoSav.map((r) => r.ratePercent)).size === 2,
+  "Fino: exactly two distinct rates (1.50 / 4.50), no stray footnote-derived rate",
 );
 
-// Effective date parsed from the PDF header ("Effective from 1st Dec 2025").
+// Effective date parsed from the PDF header ("Eff 1 st December 2025").
 assert(
   finoSav.every((r) => r.source.effectiveDate === "2025-12-01"),
   "Fino: effective date parsed from PDF = 2025-12-01",
 );
 
 // Single flat headline rate (no tiers) -> one all-balances band.
-const FINO_FLAT_TEXT = [
-  "Savings Account Interest Rate",
-  "Interest rate on all savings balances: 3.00% p.a.",
-].join("\n");
+const FINO_FLAT_TEXT =
+  "Savings Account Interest Rate. Interest rate on all savings balances 3.00% p.a.";
 const finoFlat = fino.parseSavingsPdf(FINO_FLAT_TEXT);
 assert(
   finoFlat.length === 2 &&
