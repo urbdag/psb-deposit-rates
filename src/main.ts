@@ -863,6 +863,24 @@ function customerLabel(c: CustomerCategory): string {
       : "Super senior";
 }
 
+/** Human label for a bank's sector category. */
+function categoryLabel(category: string): string {
+  switch (category) {
+    case "PUBLIC":
+      return "Public sector";
+    case "PRIVATE":
+      return "Private";
+    case "SMALL_FINANCE":
+      return "Small finance";
+    case "PAYMENTS_BANK":
+      return "Payments bank";
+    case "FOREIGN":
+      return "Foreign";
+    default:
+      return "Bank";
+  }
+}
+
 function qualityTag(quality: string): Node | string {
   if (quality === "OFFICIAL")
     return el("span", { class: "tag tag-official" }, ["official"]);
@@ -1003,7 +1021,9 @@ function renderTable(): void {
                 { class: "bank-name bank-link", href: `bank/${r.bank.id}/` },
                 [r.bank.name],
               ),
-              el("div", { class: "bank-short muted" }, [r.bank.shortName]),
+              el("div", { class: "bank-short muted" }, [
+                `${categoryLabel(r.bank.category)} · ${productLabel(state.product)} · DICGC insured`,
+              ]),
             ]),
           ]),
         ]),

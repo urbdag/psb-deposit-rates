@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=76f4eaf7ca";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=76f4eaf7ca";
-import { banksChangedCount, recentChanges } from "./history.js?v=76f4eaf7ca";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=21ce5f88be";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=21ce5f88be";
+import { banksChangedCount, recentChanges } from "./history.js?v=21ce5f88be";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -694,6 +694,23 @@ function customerLabel(c) {
             ? "Senior citizen"
             : "Super senior";
 }
+/** Human label for a bank's sector category. */
+function categoryLabel(category) {
+    switch (category) {
+        case "PUBLIC":
+            return "Public sector";
+        case "PRIVATE":
+            return "Private";
+        case "SMALL_FINANCE":
+            return "Small finance";
+        case "PAYMENTS_BANK":
+            return "Payments bank";
+        case "FOREIGN":
+            return "Foreign";
+        default:
+            return "Bank";
+    }
+}
 function qualityTag(quality) {
     if (quality === "OFFICIAL")
         return el("span", { class: "tag tag-official" }, ["official"]);
@@ -806,7 +823,9 @@ function renderTable() {
                     }),
                     el("div", {}, [
                         el("a", { class: "bank-name bank-link", href: `bank/${r.bank.id}/` }, [r.bank.name]),
-                        el("div", { class: "bank-short muted" }, [r.bank.shortName]),
+                        el("div", { class: "bank-short muted" }, [
+                            `${categoryLabel(r.bank.category)} · ${productLabel(state.product)} · DICGC insured`,
+                        ]),
                     ]),
                 ]),
             ]),
