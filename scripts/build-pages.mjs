@@ -212,8 +212,15 @@ function productSection(bank, product, title) {
   const rows = rateTableRows(bank.id, product);
   if (rows.length === 0) return "";
   const showTrend = HISTORY.snapshots.length >= 2;
+  // Highlight the single best (highest general rate) row in this table. On
+  // ties, the first occurrence wins. The static "top-row" class travels with
+  // the row when the client-side sort reorders <tr>s, which is correct.
+  let topIndex = 0;
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i].g.ratePercent > rows[topIndex].g.ratePercent) topIndex = i;
+  }
   const body = rows
-    .map(({ g, srRate }) => {
+    .map(({ g, srRate }, rowIndex) => {
       const scheme = g.scheme
         ? `<div class="bank-short muted">${esc(g.scheme)}</div>`
         : "";
@@ -227,7 +234,8 @@ function productSection(bank, product, title) {
       // is value-correct (tenure by duration, rates by number, amount by ₹).
       const srSort =
         srRate != null ? ` data-sort-value="${srRate}"` : ` data-sort-value="-1"`;
-      return `<tr>
+      const trAttr = rowIndex === topIndex ? ` class="top-row"` : "";
+      return `<tr${trAttr}>
         <td data-sort-value="${g.tenure.minDays}"><div class="bank-name">${esc(g.tenure.label)}</div>${scheme}</td>
         <td class="num rate-cell" data-sort-value="${g.ratePercent}" style="color:${bank.color}">${fmt.formatRate(g.ratePercent)}</td>
         <td class="num rate-cell muted"${srSort}>${srRate != null ? fmt.formatRate(srRate) : "—"}</td>
