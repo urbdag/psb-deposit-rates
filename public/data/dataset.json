@@ -10850,6 +10850,1060 @@
       }
     },
     {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 - 14 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.25,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 - 14 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 30,
+        "label": "15 - 30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.25,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 30,
+        "label": "15 - 30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 31,
+        "maxDays": 45,
+        "label": "31 - 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 31,
+        "maxDays": 45,
+        "label": "31 - 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 - 90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 - 90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 91,
+        "label": "91 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "91-day Special",
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 91,
+        "label": "91 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "91-day Special",
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 92,
+        "maxDays": 179,
+        "label": "92 Days - 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 92,
+        "maxDays": 179,
+        "label": "92 Days - 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 180,
+        "label": "180 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.5,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 180,
+        "label": "180 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.5,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 269,
+        "label": "181 Days to 269 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 269,
+        "label": "181 Days to 269 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.5,
+      "tenure": {
+        "minDays": 270,
+        "maxDays": 270,
+        "label": "270 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 270,
+        "maxDays": 270,
+        "label": "270 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 363,
+        "label": "271 Days to 363 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 363,
+        "label": "271 Days to 363 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 364,
+        "maxDays": 364,
+        "label": "364 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "364-day Special",
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 364,
+        "maxDays": 364,
+        "label": "364 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "364-day Special",
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.35,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "365 Days to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.85,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "365 Days to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.35,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "365 Days to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.85,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "365 Days to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.45,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 539,
+        "label": "15 Months - less than 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.95,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 539,
+        "label": "15 Months - less than 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.45,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 539,
+        "label": "15 Months - less than 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.95,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 539,
+        "label": "15 Months - less than 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.55,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 729,
+        "label": "18 months - less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 729,
+        "label": "18 months - less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.55,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 729,
+        "label": "18 months - less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.05,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 729,
+        "label": "18 months - less than 2 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years- less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.3,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years- less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years- less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.3,
+      "tenure": {
+        "minDays": 730,
+        "maxDays": 1094,
+        "label": "2 years- less than 3 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1459,
+        "label": "3 years and above but less than 4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1459,
+        "label": "3 years and above but less than 4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1459,
+        "label": "3 years and above but less than 4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 1095,
+        "maxDays": 1459,
+        "label": "3 years and above but less than 4 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "4 years and above but less than 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "4 years and above but less than 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "4 years and above but less than 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 1460,
+        "maxDays": 1824,
+        "label": "4 years and above but less than 5 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 years and above upto and inclusive of 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 years and above upto and inclusive of 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 years and above upto and inclusive of 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "kotak",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 years and above upto and inclusive of 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.kotak.com/en/personal-banking/deposits/fixed-deposit/fixed-deposit-interest-rate.html",
+        "effectiveDate": "2010-04-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
       "bankId": "indusind",
       "product": "FD",
       "customer": "GENERAL",
@@ -12528,8 +13582,892 @@
         "effectiveDate": "2026-09-19",
         "quality": "OFFICIAL"
       }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 29,
+        "label": "7 days to 29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 29,
+        "label": "7 days to 29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.25,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 45,
+        "label": "30 days to 45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.75,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 45,
+        "label": "30 days to 45 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 180,
+        "label": "91 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 180,
+        "label": "91 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 181,
+        "label": "181 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "181-day Special",
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 181,
+        "maxDays": 181,
+        "label": "181 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "181-day Special",
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.5,
+      "tenure": {
+        "minDays": 182,
+        "maxDays": 270,
+        "label": "182 days to 270 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 182,
+        "maxDays": 270,
+        "label": "182 days to 270 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 364,
+        "label": "271 days to less than 1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 271,
+        "maxDays": 364,
+        "label": "271 days to less than 1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 365,
+        "label": "1 year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "Above 1 year to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "Above 1 year to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "Above 1 year to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 449,
+        "label": "Above 1 year to less than 15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.65,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 450,
+        "label": "15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.15,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 450,
+        "label": "15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.65,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 450,
+        "label": "15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.15,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 450,
+        "label": "15 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 720,
+        "label": "Above 15 Months to 24 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 720,
+        "label": "Above 15 Months to 24 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 720,
+        "label": "Above 15 Months to 24 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 450,
+        "maxDays": 720,
+        "label": "Above 15 Months to 24 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 720,
+        "maxDays": 1439,
+        "label": "Above 24 months to less than 48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 720,
+        "maxDays": 1439,
+        "label": "Above 24 months to less than 48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 720,
+        "maxDays": 1439,
+        "label": "Above 24 months to less than 48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 720,
+        "maxDays": 1439,
+        "label": "Above 24 months to less than 48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.7,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 1440,
+        "label": "48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.2,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 1440,
+        "label": "48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.7,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 1440,
+        "label": "48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.2,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 1440,
+        "label": "48 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 3650,
+        "label": "Above 48 months to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 3650,
+        "label": "Above 48 months to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.4,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 3650,
+        "label": "Above 48 months to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "federal",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.9,
+      "tenure": {
+        "minDays": 1440,
+        "maxDays": 3650,
+        "label": "Above 48 months to 10 years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.federalbank.co.in/deposit-rate",
+        "effectiveDate": "2026-08-17",
+        "quality": "OFFICIAL"
+      }
     }
   ],
-  "generatedAt": "2026-09-19T03:04:15.104Z",
+  "generatedAt": "2026-09-19T03:25:09.351Z",
   "containsSampleData": false
 }
