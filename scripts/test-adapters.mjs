@@ -1403,6 +1403,14 @@ assert(
 // slab or the savings table were picked. Source: shivalik.bank.in.
 // ---------------------------------------------------------------------------
 console.log("== Shivalik SFB (pin retail <Rs.2 Crore table among many) ==");
+// NOTE: the slab labels ("less than Rs.2 Crores", "Rs.2 Crore and above",
+// "Savings") are section HEADINGS ABOVE each table (the real page's shape), NOT
+// text inside the <table> markup — so a signature test that only sees the
+// <table> element is blind to them. CRUCIALLY the BULK table is placed BEFORE
+// the retail "< Rs.2 Crores" table in DOM order: the adapter must STILL select
+// retail by heading signature, not by DOM order. This fixture FAILS the old
+// signature logic (which fell back to DOM order and would pick bulk) and PASSES
+// once the pin reads the preceding heading context.
 const SHIVALIK_FD_FIXTURE = `
 <html><body>
   <h3>Savings Account Interest Rates</h3>
@@ -1411,6 +1419,16 @@ const SHIVALIK_FD_FIXTURE = `
     <tr><td>Up to Rs.1 Lakh</td><td>2.50%</td></tr>
     <tr><td>Above Rs.5 Lakh</td><td>3.25%</td></tr>
     <tr><td>Above Rs.25 Lakh</td><td>7.00%</td></tr>
+  </table>
+  <h3>Fixed Deposit — Rs.2 Crore and above (Bulk)</h3>
+  <table>
+    <tr><th>Tenure Bucket</th><th>General</th><th>Senior Citizen</th></tr>
+    <tr><td>7 days to 14 days</td><td>5.00%</td><td>5.25%</td></tr>
+    <tr><td>181 days to 364 days</td><td>7.00%</td><td>7.25%</td></tr>
+    <tr><td>1 year to less than 18 months</td><td>7.75%</td><td>8.00%</td></tr>
+    <tr><td>18 months to 23 months</td><td>8.00%</td><td>8.25%</td></tr>
+    <tr><td>23 months 1 day to 27 months</td><td>8.50%</td><td>8.75%</td></tr>
+    <tr><td>36 months 1 day to 60 months</td><td>6.75%</td><td>7.00%</td></tr>
   </table>
   <h3>Fixed Deposit — Amount less than Rs.2 Crores</h3>
   <table>
@@ -1422,15 +1440,6 @@ const SHIVALIK_FD_FIXTURE = `
     <tr><td>23 months 1 day to 27 months</td><td>8.00%</td><td>8.25%</td></tr>
     <tr><td>36 months 1 day to 60 months</td><td>6.25%</td><td>6.50%</td></tr>
     <tr><td>60 months 1 day to 120 months</td><td>6.25%</td><td>6.50%</td></tr>
-  </table>
-  <h3>Fixed Deposit — Rs.2 Crore and above (Bulk)</h3>
-  <table>
-    <tr><th>Tenure Bucket</th><th>General</th><th>Senior Citizen</th></tr>
-    <tr><td>7 days to 14 days</td><td>5.00%</td><td>5.25%</td></tr>
-    <tr><td>181 days to 364 days</td><td>7.00%</td><td>7.25%</td></tr>
-    <tr><td>1 year to less than 18 months</td><td>7.75%</td><td>8.00%</td></tr>
-    <tr><td>18 months to 23 months</td><td>8.00%</td><td>8.25%</td></tr>
-    <tr><td>36 months 1 day to 60 months</td><td>6.75%</td><td>7.00%</td></tr>
   </table>
 </body></html>`;
 const shivalik = new ShivalikAdapter();
@@ -1453,10 +1462,11 @@ assert(
   shivalikTenures.size >= 4,
   `Shivalik SFB: >=4 distinct FD tenures (got ${shivalikTenures.size})`,
 );
-// Column-tiering + table-pinning sentinel: the peak 23m1d-27m bucket must be
-// the RETAIL 8.00/8.25 (< Rs.2 Crore), NOT the bulk 8.00/8.25 — verified by the
-// short 7-14 day bucket being 3.50 retail (bulk is 5.00). If the bulk table
-// were picked, the 7-14 day general would be 5.00 and this fails.
+// Table-pinning sentinel: the bulk table is placed BEFORE retail in DOM order,
+// so this only passes if the pin selects retail by HEADING signature, not by
+// order. The short 7-14 day bucket must be 3.50 retail (bulk is 5.00), and the
+// peak 23m1d-27m must be 8.00/8.25 retail (bulk is 8.50/8.75). If the bulk
+// table were picked, these fail.
 const shivalikShort = shivalikFd.find(
   (r) => r.customer === "GENERAL" && r.tenure.minDays === 7 && r.tenure.maxDays === 14,
 );

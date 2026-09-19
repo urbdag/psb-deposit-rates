@@ -244,10 +244,10 @@ function renderShell(): void {
         "Updated " + fresh.label.replace("updated ", ""),
       ]),
       el("h1", {
-        html: `Find the <span class="grad">highest deposit rate</span> across India's public sector and private banks.`,
+        html: `Find the <span class="grad">highest deposit rate</span> across India's public sector, private and small finance banks.`,
       }),
       el("p", { class: "hero-sub" }, [
-        "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's public sector and private banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
+        "Compare Fixed Deposit, Savings and Recurring Deposit rates across India's public sector, private and small finance banks — filtered to your exact amount and tenure, with rates verified from official bank sources.",
       ]),
       movementsStrip(),
     ]),
@@ -298,7 +298,7 @@ function renderShell(): void {
               }),
             ]),
             el("p", { class: "muted" }, [
-              "Deposit rates across India's public sector and private banks. Informational only — always verify on the bank's official website before investing.",
+              "Deposit rates across India's public sector, private and small finance banks. Informational only — always verify on the bank's official website before investing.",
             ]),
           ]),
           el("div", {}, [

@@ -1,5 +1,5 @@
 import { PrivateTableAdapter } from "./private-base.js";
-import { extractRows, extractTables, parsePercent } from "../html.js";
+import { extractRows, extractTables, parsePercent, stripTags } from "../html.js";
 import { resolvePrivateTenure } from "../private-tenure.js";
 
 const SHIVALIK_FD_URL = "https://shivalik.bank.in/interest-rate";
@@ -42,21 +42,31 @@ export class ShivalikAdapter extends PrivateTableAdapter {
   protected override findPrivateRateTable(html: string): string[][] | null {
     let fallback: string[][] | null = null;
     for (const table of extractTables(html)) {
-      const tableText = table.toLowerCase();
-
       const dataRows = this.extractDataRows(table);
       if (dataRows == null) continue;
 
+      // The amount-slab label ("less than Rs.2 Crores" / "Rs.2 Crore and above"
+      // / "Savings") is on the real page a HEADING or section label ABOVE the
+      // table, not text inside the <table> markup. So test the signature
+      // against BOTH the table's own text AND the preceding heading/section
+      // context, otherwise the retail pin never fires and selection silently
+      // falls back to DOM order (a reorder could then ship bulk rates).
+      const signature = (
+        this.sectionContextFor(html, table) +
+        " " +
+        stripTags(table)
+      ).toLowerCase();
+
       // Never treat the savings table or a higher-amount bulk slab as retail FD.
-      const isSavings = /saving/.test(tableText);
+      const isSavings = /saving/.test(signature);
       const isBulk =
-        /(?:rs\.?\s*2\s*cr(?:ore)?s?\s*(?:&|and)?\s*above)/.test(tableText) ||
-        /(?:rs\.?\s*7\s*cr(?:ore)?)/.test(tableText) ||
-        /(?:25\s*lakh)/.test(tableText);
+        /(?:rs\.?\s*2\s*cr(?:ore)?s?\s*(?:&|and)?\s*above)/.test(signature) ||
+        /(?:rs\.?\s*7\s*cr(?:ore)?)/.test(signature) ||
+        /(?:25\s*lakh)/.test(signature);
       const isRetail =
-        /less than\s*(?:rs\.?)?\s*2\s*cr/.test(tableText) ||
-        /below\s*(?:rs\.?)?\s*2\s*cr/.test(tableText) ||
-        /(?:<|&lt;)\s*(?:rs\.?)?\s*2\s*cr/.test(tableText);
+        /less than\s*(?:rs\.?)?\s*2\s*cr/.test(signature) ||
+        /below\s*(?:rs\.?)?\s*2\s*cr/.test(signature) ||
+        /(?:<|&lt;)\s*(?:rs\.?)?\s*2\s*cr/.test(signature);
 
       if (isSavings || isBulk) continue;
       if (isRetail) return dataRows;
@@ -65,6 +75,26 @@ export class ShivalikAdapter extends PrivateTableAdapter {
       if (fallback == null) fallback = dataRows;
     }
     return fallback;
+  }
+
+  /**
+   * Return the section-heading context immediately preceding a table: the HTML
+   * slice between the nearest preceding <h1..h6> (or section-label heading) and
+   * the table, stripped to plain text. Used so the retail/bulk/savings slab
+   * label is visible to the signature test even when it lives ABOVE the table
+   * rather than inside it. Dependency-free and forgiving: returns "" if no
+   * preceding heading is found.
+   */
+  private sectionContextFor(html: string, table: string): string {
+    const idx = html.indexOf(table);
+    if (idx < 0) return "";
+    const before = html.slice(0, idx);
+    // Take only the NEAREST preceding heading block: match all heading tags
+    // before the table and keep the last one (covers "<h3>label</h3> ...
+    // <table>" without absorbing earlier sections' headings).
+    const heads = before.match(/<h[1-6]\b[^>]*>[\s\S]*?<\/h[1-6]>/gi);
+    if (!heads || heads.length === 0) return "";
+    return stripTags(heads[heads.length - 1]);
   }
 
   /**
@@ -87,7 +117,7 @@ export class ShivalikAdapter extends PrivateTableAdapter {
         return t ? `${t.minDays}-${t.maxDays}` : "";
       }),
     );
-    if (dataRows.length >= 3 && distinct.size >= 4) return dataRows;
+    if (dataRows.length >= 4 && distinct.size >= 4) return dataRows;
     return null;
   }
 }
