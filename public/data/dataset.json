@@ -19125,8 +19125,92 @@
         "effectiveDate": "2026-09-19",
         "quality": "OFFICIAL"
       }
+    },
+    {
+      "bankId": "fino",
+      "product": "SAVINGS",
+      "customer": "GENERAL",
+      "ratePercent": 1.5,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 100000,
+        "label": "Up to and including Rs. 1 Lakh"
+      },
+      "source": {
+        "url": "https://www.fino.bank.in/files/fino/media/post_attachments/sites/default/files/2025-11/Savings%20Account%20Revised%20Interest%20Rates%20Effective%20from%201st%20Dec%202025.pdf",
+        "effectiveDate": "2025-12-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "fino",
+      "product": "SAVINGS",
+      "customer": "SENIOR",
+      "ratePercent": 1.5,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 100000,
+        "label": "Up to and including Rs. 1 Lakh"
+      },
+      "source": {
+        "url": "https://www.fino.bank.in/files/fino/media/post_attachments/sites/default/files/2025-11/Savings%20Account%20Revised%20Interest%20Rates%20Effective%20from%201st%20Dec%202025.pdf",
+        "effectiveDate": "2025-12-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "fino",
+      "product": "SAVINGS",
+      "customer": "GENERAL",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 100000,
+        "maxAmount": null,
+        "label": "Above Rs. 1 Lakh"
+      },
+      "source": {
+        "url": "https://www.fino.bank.in/files/fino/media/post_attachments/sites/default/files/2025-11/Savings%20Account%20Revised%20Interest%20Rates%20Effective%20from%201st%20Dec%202025.pdf",
+        "effectiveDate": "2025-12-01",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "fino",
+      "product": "SAVINGS",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 0,
+        "maxDays": null,
+        "label": "Any tenure"
+      },
+      "amount": {
+        "minAmount": 100000,
+        "maxAmount": null,
+        "label": "Above Rs. 1 Lakh"
+      },
+      "source": {
+        "url": "https://www.fino.bank.in/files/fino/media/post_attachments/sites/default/files/2025-11/Savings%20Account%20Revised%20Interest%20Rates%20Effective%20from%201st%20Dec%202025.pdf",
+        "effectiveDate": "2025-12-01",
+        "quality": "OFFICIAL"
+      }
     }
   ],
-  "generatedAt": "2026-09-19T07:19:09.882Z",
+  "generatedAt": "2026-09-19T07:26:05.028Z",
   "containsSampleData": false
 }
