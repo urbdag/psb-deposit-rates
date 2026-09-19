@@ -206,7 +206,6 @@ function renderShell(): void {
               fresh.level === "fresh" ? "Live" : capitalize(fresh.label),
             ],
           ),
-          shareButton(),
         ]),
         (() => {
           const b = el(
@@ -428,23 +427,6 @@ function wireScroll(): void {
 }
 
 // ---- Share ----------------------------------------------------------------
-
-function shareButton(): HTMLElement {
-  const btn = el(
-    "button",
-    {
-      class: "nav-pill share-btn",
-      type: "button",
-      title: "Copy a link to this view",
-    },
-    [
-      el("span", { class: "share-icon", html: shareIconSvg() }),
-      el("span", { class: "share-label" }, ["Share"]),
-    ],
-  );
-  btn.addEventListener("click", () => shareCurrentView(btn));
-  return btn;
-}
 
 function shareIconSvg(): string {
   return `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>`;
