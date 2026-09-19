@@ -72,6 +72,11 @@ export class FinoAdapter extends TableRateAdapter {
                 const rows = this.parseSavingsPdf(text, url);
                 if (rows.length > 0)
                     return rows;
+                // Diagnostic: surface the raw extracted text shape so the parser can be
+                // tuned to the real PDF layout (removed once the parser is confirmed).
+                const preview = text.replace(/\s+/g, " ").trim().slice(0, 1800);
+                // eslint-disable-next-line no-console
+                console.log(`[fino-pdf-debug] len=${text.length} preview="${preview}"`);
                 attempts.push(`${url} -> 0 savings rows (pdf)`);
             }
             catch (e) {
