@@ -250,17 +250,22 @@ function productSection(bank, product, title) {
 }
 
 /**
- * Sortable header cell. `type` picks the default sort direction/behaviour:
+ * Sortable header cell — mirrors the main-page SPA header (src/main.ts
+ * sortableTh): a plain <th class="sortable[ num]" role="button" tabindex="0">
+ * whose label text gains an appended " ↑"/" ↓" arrow once its column becomes
+ * the active sort. No nested button / caret / aria-sort presentation.
+ *
+ * `type` drives the default first-click direction (see sortScript):
  *   "num-asc" → numeric, first click ascending
- *   "num"     → numeric, first click descending (used for rate/rank columns
- *                where "best first" is the natural expectation)
+ *   "num"     → numeric, first click descending (rate/rank columns where
+ *                "best first" is the natural expectation)
  *   "text"    → lexical, first click ascending
- * `extraClass` preserves existing column classes (e.g. "num" for right-align).
- * A <button> makes the header keyboard-activatable and screen-reader-correct.
+ * `extraClass` preserves column classes (e.g. "num" for right-align).
+ * No column is active on initial (server) render, matching the SPA feel.
  */
 function sortableTh(label, type, extraClass = "") {
-  const cls = extraClass ? ` class="${extraClass}"` : "";
-  return `<th${cls} aria-sort="none" data-sort-type="${type}"><button type="button" class="th-sort">${esc(label)}<span class="sort-ind" aria-hidden="true"></span></button></th>`;
+  const cls = `sortable${extraClass ? " " + extraClass : ""}`;
+  return `<th class="${cls}" role="button" tabindex="0" data-sort-type="${type}" title="Sort by ${esc(label.toLowerCase())}">${esc(label)}</th>`;
 }
 
 function highlightsRow(bank) {
@@ -734,13 +739,17 @@ function navScript() {
 }
 
 /**
- * Shared client-side sort for static tables (progressive enhancement).
- * Scoped per-table: every `table.sortable` gets independent state. Clicking (or
- * keyboard-activating) a `<th>` that carries data-sort-type sorts the tbody rows
- * by that column; clicking the same header again toggles asc/desc. Sorting uses
- * each cell's data-sort-value (a server-emitted numeric/string key) when present,
- * falling back to trimmed textContent. With JS off, the server-rendered order is
- * untouched. aria-sort + a caret indicator convey state to all users.
+ * Shared client-side sort for static tables (progressive enhancement) — mirrors
+ * the main-page SPA behaviour (src/main.ts sortableTh/sortRanked). Scoped
+ * per-table: every `table.sortable` gets independent state. Clicking (or
+ * pressing Enter/Space on) a `<th class="sortable">` that carries data-sort-type
+ * sorts the tbody rows by that column. Clicking the same header again toggles
+ * asc/desc; switching columns applies a sensible default direction (text
+ * columns ascending, numeric/rate/rank columns descending). The active column
+ * gains the `sort-active` class and an appended " ↑"/" ↓" arrow on its label,
+ * exactly like the main page. Sorting uses each cell's data-sort-value (a
+ * server-emitted numeric/string key) when present, falling back to trimmed
+ * textContent. With JS off, the server-rendered order is untouched.
  */
 function sortScript() {
   return `(function(){
@@ -753,25 +762,44 @@ function sortScript() {
   }
   document.querySelectorAll('table.sortable').forEach(function(table){
     var heads=[].slice.call(table.tHead?table.tHead.rows[0].cells:[]);
+    var labels=heads.map(function(h){return h.textContent;});
+    var activeIdx=-1, dir='asc';
+    function apply(){
+      heads.forEach(function(h,i){
+        if(!h.getAttribute('data-sort-type'))return;
+        if(i===activeIdx){
+          h.classList.add('sort-active');
+          h.textContent=labels[i]+(dir==='asc'?' \\u2191':' \\u2193');
+        }else{
+          h.classList.remove('sort-active');
+          h.textContent=labels[i];
+        }
+      });
+    }
     heads.forEach(function(th,idx){
       var type=th.getAttribute('data-sort-type');
       if(!type)return;
       var numeric=type.indexOf('num')===0;
-      var btn=th.querySelector('.th-sort')||th;
-      btn.addEventListener('click',function(){
+      function sortBy(){
         var body=table.tBodies[0];if(!body)return;
+        if(activeIdx===idx){
+          dir=(dir==='asc'?'desc':'asc');
+        }else{
+          activeIdx=idx;
+          dir=(type==='num')?'desc':'asc'; // rate/rank start descending (best first)
+        }
+        var asc=(dir==='asc');
         var rows=[].slice.call(body.rows);
-        var cur=th.getAttribute('aria-sort');
-        var asc;
-        if(cur==='ascending')asc=false;else if(cur==='descending')asc=true;
-        else asc=(type!=='num'); // default dir: rate/rank columns start descending (best first)
         rows.sort(function(a,b){
           var x=val(a.cells[idx],numeric),y=val(b.cells[idx],numeric);
           if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;
         });
         rows.forEach(function(r){body.appendChild(r);});
-        heads.forEach(function(h){if(h.getAttribute('data-sort-type'))h.setAttribute('aria-sort','none');});
-        th.setAttribute('aria-sort',asc?'ascending':'descending');
+        apply();
+      }
+      th.addEventListener('click',sortBy);
+      th.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();sortBy();}
       });
     });
   });

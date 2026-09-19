@@ -97,25 +97,44 @@
   }
   document.querySelectorAll('table.sortable').forEach(function(table){
     var heads=[].slice.call(table.tHead?table.tHead.rows[0].cells:[]);
+    var labels=heads.map(function(h){return h.textContent;});
+    var activeIdx=-1, dir='asc';
+    function apply(){
+      heads.forEach(function(h,i){
+        if(!h.getAttribute('data-sort-type'))return;
+        if(i===activeIdx){
+          h.classList.add('sort-active');
+          h.textContent=labels[i]+(dir==='asc'?' \u2191':' \u2193');
+        }else{
+          h.classList.remove('sort-active');
+          h.textContent=labels[i];
+        }
+      });
+    }
     heads.forEach(function(th,idx){
       var type=th.getAttribute('data-sort-type');
       if(!type)return;
       var numeric=type.indexOf('num')===0;
-      var btn=th.querySelector('.th-sort')||th;
-      btn.addEventListener('click',function(){
+      function sortBy(){
         var body=table.tBodies[0];if(!body)return;
+        if(activeIdx===idx){
+          dir=(dir==='asc'?'desc':'asc');
+        }else{
+          activeIdx=idx;
+          dir=(type==='num')?'desc':'asc'; // rate/rank start descending (best first)
+        }
+        var asc=(dir==='asc');
         var rows=[].slice.call(body.rows);
-        var cur=th.getAttribute('aria-sort');
-        var asc;
-        if(cur==='ascending')asc=false;else if(cur==='descending')asc=true;
-        else asc=(type!=='num'); // default dir: rate/rank columns start descending (best first)
         rows.sort(function(a,b){
           var x=val(a.cells[idx],numeric),y=val(b.cells[idx],numeric);
           if(x<y)return asc?-1:1;if(x>y)return asc?1:-1;return 0;
         });
         rows.forEach(function(r){body.appendChild(r);});
-        heads.forEach(function(h){if(h.getAttribute('data-sort-type'))h.setAttribute('aria-sort','none');});
-        th.setAttribute('aria-sort',asc?'ascending':'descending');
+        apply();
+      }
+      th.addEventListener('click',sortBy);
+      th.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();sortBy();}
       });
     });
   });
