@@ -274,6 +274,139 @@
       "branches": 1500,
       "ownership": "Private sector bank (publicly listed)",
       "statsAsOf": 2024
+    },
+    {
+      "id": "au",
+      "name": "AU Small Finance Bank",
+      "shortName": "AU",
+      "category": "SMALL_FINANCE",
+      "color": "#e51e2a",
+      "website": "https://www.aubank.in",
+      "headquarters": "Jaipur",
+      "established": 2017,
+      "branches": 2400,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "equitas",
+      "name": "Equitas Small Finance Bank",
+      "shortName": "Equitas",
+      "category": "SMALL_FINANCE",
+      "color": "#00a19a",
+      "website": "https://www.equitasbank.com",
+      "headquarters": "Chennai",
+      "established": 2016,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "ujjivan",
+      "name": "Ujjivan Small Finance Bank",
+      "shortName": "Ujjivan",
+      "category": "SMALL_FINANCE",
+      "color": "#f37021",
+      "website": "https://www.ujjivansfb.in",
+      "headquarters": "Bengaluru",
+      "established": 2017,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "jana",
+      "name": "Jana Small Finance Bank",
+      "shortName": "Jana",
+      "category": "SMALL_FINANCE",
+      "color": "#5b2d8e",
+      "website": "https://www.janabank.com",
+      "headquarters": "Bengaluru",
+      "established": 2018,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "suryoday",
+      "name": "Suryoday Small Finance Bank",
+      "shortName": "Suryoday",
+      "category": "SMALL_FINANCE",
+      "color": "#f7941e",
+      "website": "https://www.suryodaybank.com",
+      "headquarters": "Navi Mumbai",
+      "established": 2017,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "utkarsh",
+      "name": "Utkarsh Small Finance Bank",
+      "shortName": "Utkarsh",
+      "category": "SMALL_FINANCE",
+      "color": "#00539b",
+      "website": "https://www.utkarsh.bank",
+      "headquarters": "Varanasi",
+      "established": 2017,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "esaf",
+      "name": "ESAF Small Finance Bank",
+      "shortName": "ESAF",
+      "category": "SMALL_FINANCE",
+      "color": "#e2231a",
+      "website": "https://www.esafbank.com",
+      "headquarters": "Thrissur",
+      "established": 2017,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "capitalsfb",
+      "name": "Capital Small Finance Bank",
+      "shortName": "Capital",
+      "category": "SMALL_FINANCE",
+      "color": "#0071bc",
+      "website": "https://www.capitalbank.co.in",
+      "headquarters": "Jalandhar",
+      "established": 2016,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "nesfb",
+      "name": "North East Small Finance Bank",
+      "shortName": "North East",
+      "category": "SMALL_FINANCE",
+      "color": "#2e7d32",
+      "website": "https://www.nesfb.com",
+      "headquarters": "Guwahati",
+      "established": 2017,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "shivalik",
+      "name": "Shivalik Small Finance Bank",
+      "shortName": "Shivalik",
+      "category": "SMALL_FINANCE",
+      "color": "#c8102e",
+      "website": "https://www.shivalikbank.com",
+      "headquarters": "Noida",
+      "established": 2021,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
+    },
+    {
+      "id": "unity",
+      "name": "Unity Small Finance Bank",
+      "shortName": "Unity",
+      "category": "SMALL_FINANCE",
+      "color": "#7b2d8b",
+      "website": "https://www.theunitybank.com",
+      "headquarters": "New Delhi",
+      "established": 2021,
+      "ownership": "Private (small finance bank)",
+      "statsAsOf": 2024
     }
   ],
   "rates": [
@@ -16154,8 +16287,1438 @@
         "effectiveDate": "2026-08-17",
         "quality": "OFFICIAL"
       }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 30,
+        "label": "15 Days to 30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 30,
+        "label": "15 Days to 30 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 31,
+        "maxDays": 45,
+        "label": "31 Days to 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 31,
+        "maxDays": 45,
+        "label": "31 Days to 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 89,
+        "label": "46 Days to 89 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 89,
+        "label": "46 Days to 89 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 179,
+        "label": "90 Days to 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5.25,
+      "tenure": {
+        "minDays": 90,
+        "maxDays": 179,
+        "label": "90 Days to 179 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.5,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 364,
+        "label": "180 Days to less than 1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 364,
+        "label": "180 Days to less than 1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 1824,
+        "label": "1 Year to less than 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 1824,
+        "label": "1 Year to less than 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 1824,
+        "label": "1 Year to less than 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 1824,
+        "label": "1 Year to less than 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 Years and upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 Years and upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 Years and upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 3650,
+        "label": "5 Years and upto 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.15,
+      "tenure": {
+        "minDays": 360,
+        "maxDays": 360,
+        "label": "12 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.65,
+      "tenure": {
+        "minDays": 360,
+        "maxDays": 360,
+        "label": "12 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.1,
+      "tenure": {
+        "minDays": 400,
+        "maxDays": 400,
+        "label": "400 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Capital 400 Days Deposit",
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.6,
+      "tenure": {
+        "minDays": 400,
+        "maxDays": 400,
+        "label": "400 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "scheme": "Capital 400 Days Deposit",
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 600,
+        "maxDays": 600,
+        "label": "600 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 600,
+        "maxDays": 600,
+        "label": "600 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 600,
+        "maxDays": 600,
+        "label": "600 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 600,
+        "maxDays": 600,
+        "label": "600 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 900,
+        "maxDays": 900,
+        "label": "900 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 900,
+        "maxDays": 900,
+        "label": "900 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.25,
+      "tenure": {
+        "minDays": 900,
+        "maxDays": 900,
+        "label": "900 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "capitalsfb",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 900,
+        "maxDays": 900,
+        "label": "900 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.capital.bank.in/interest-rates/callable-domestic-term-deposit",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.5,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 days to 14 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.75,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 14,
+        "label": "7 days to 14 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 3.75,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 29,
+        "label": "15 days to 29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 15,
+        "maxDays": 29,
+        "label": "15 days to 29 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.25,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 90,
+        "label": "30 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 30,
+        "maxDays": 90,
+        "label": "30 days to 90 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.75,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 180,
+        "label": "91 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 180,
+        "label": "91 days to 180 days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 269,
+        "label": "6 months to less than 9 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 180,
+        "maxDays": 269,
+        "label": "6 months to less than 9 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 270,
+        "maxDays": 360,
+        "label": "9 months to 12 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 270,
+        "maxDays": 360,
+        "label": "9 months to 12 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 361,
+        "maxDays": 539,
+        "label": "12 months 1 day to less than 18 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 361,
+        "maxDays": 539,
+        "label": "12 months 1 day to less than 18 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 690,
+        "label": "18 months to 23 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 690,
+        "label": "18 months to 23 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 690,
+        "label": "18 months to 23 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 690,
+        "label": "18 months to 23 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 8,
+      "tenure": {
+        "minDays": 691,
+        "maxDays": 810,
+        "label": "23 months 1 day to 27 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 8.25,
+      "tenure": {
+        "minDays": 691,
+        "maxDays": 810,
+        "label": "23 months 1 day to 27 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 8,
+      "tenure": {
+        "minDays": 691,
+        "maxDays": 810,
+        "label": "23 months 1 day to 27 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 8.25,
+      "tenure": {
+        "minDays": 691,
+        "maxDays": 810,
+        "label": "23 months 1 day to 27 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 811,
+        "maxDays": 1080,
+        "label": "27 months 1 day to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 811,
+        "maxDays": 1080,
+        "label": "27 months 1 day to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 7.5,
+      "tenure": {
+        "minDays": 811,
+        "maxDays": 1080,
+        "label": "27 months 1 day to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.75,
+      "tenure": {
+        "minDays": 811,
+        "maxDays": 1080,
+        "label": "27 months 1 day to 36 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1800,
+        "label": "36 months 1 day to 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1800,
+        "label": "36 months 1 day to 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1800,
+        "label": "36 months 1 day to 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1081,
+        "maxDays": 1800,
+        "label": "36 months 1 day to 60 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1801,
+        "maxDays": 3600,
+        "label": "60 months 1 day to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1801,
+        "maxDays": 3600,
+        "label": "60 months 1 day to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1801,
+        "maxDays": 3600,
+        "label": "60 months 1 day to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1801,
+        "maxDays": 3600,
+        "label": "60 months 1 day to 120 months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "Tax saver FD 5 Years (60 months)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "Tax saver FD 5 Years (60 months)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "Tax saver FD 5 Years (60 months)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "shivalik",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1825,
+        "maxDays": 1825,
+        "label": "Tax saver FD 5 Years (60 months)"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://shivalik.bank.in/interest-rate",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
     }
   ],
-  "generatedAt": "2026-09-19T04:51:57.615Z",
+  "generatedAt": "2026-09-19T05:37:28.925Z",
   "containsSampleData": false
 }
