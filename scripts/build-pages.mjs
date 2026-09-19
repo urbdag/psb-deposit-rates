@@ -225,10 +225,10 @@ function productSection(bank, product, title) {
       }
       return `<tr>
         <td><div class="bank-name">${esc(g.tenure.label)}</div>${scheme}</td>
-        <td class="muted">${esc(fmt.amountLabel(g.amount))}</td>
         <td class="num rate-cell" style="color:${bank.color}">${fmt.formatRate(g.ratePercent)}</td>
         <td class="num rate-cell muted">${srRate != null ? fmt.formatRate(srRate) : "—"}</td>
         ${trendCell}
+        <td class="muted">${esc(fmt.amountLabel(g.amount))}</td>
       </tr>`;
     })
     .join("");
@@ -239,7 +239,7 @@ function productSection(bank, product, title) {
       <p class="section-note">Rates for deposits below ₹3 crore · general vs senior citizen${showTrend ? " · trend over time" : ""}</p>
     </div></div>
     <div class="table-wrap"><table class="rate-table">
-      <thead><tr><th>Tenure</th><th>Applies to</th><th class="num">General</th><th class="num">Senior</th>${trendHead}</tr></thead>
+      <thead><tr><th>Tenure</th><th class="num">General</th><th class="num">Senior</th>${trendHead}<th>Applies to</th></tr></thead>
       <tbody>${body}</tbody>
     </table></div>
   </section>`;
