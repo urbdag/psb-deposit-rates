@@ -10,7 +10,6 @@ import {
   assessFreshness,
   formatDate,
   formatINR,
-  formatINRFull,
   formatRate,
   parseAmountInput,
   productLabel,
@@ -505,10 +504,17 @@ function renderControls(): void {
   host.innerHTML = "";
 
   const products: ProductType[] = ["FD", "RD", "SAVINGS"];
+  // Short filter-card labels only; the global productLabel() keeps full names
+  // for the podium, headline, section notes and landing pages.
+  const shortProduct: Record<ProductType, string> = {
+    FD: "Fixed Deposit",
+    RD: "Recurring",
+    SAVINGS: "Savings",
+  };
   host.append(
     segControl(
       "Product",
-      products.map((p) => ({ v: p, label: productLabel(p) })),
+      products.map((p) => ({ v: p, label: shortProduct[p] })),
       state.product,
       (v) => {
         state.product = v as ProductType;
@@ -520,7 +526,7 @@ function renderControls(): void {
 
   const customers = [
     { v: "GENERAL", label: "General" },
-    { v: "SENIOR", label: "Senior (60+)" },
+    { v: "SENIOR", label: "Senior" },
   ];
   host.append(
     segControl("Customer", customers, state.customer, (v) => {
@@ -566,7 +572,8 @@ function renderAmountControl(): HTMLElement {
     type: "text",
     inputmode: "numeric",
     "aria-label": "Deposit amount in rupees",
-    value: formatINRFull(state.amount),
+    // Grouped digits only; the .amount-prefix span already shows the ₹.
+    value: state.amount.toLocaleString("en-IN"),
   }) as HTMLInputElement;
 
   const row = el("div", { class: "amount-row" }, [
@@ -579,7 +586,7 @@ function renderAmountControl(): HTMLElement {
     if (parsed != null) {
       state.amount = clampAmount(parsed);
     }
-    input.value = formatINRFull(state.amount);
+    input.value = state.amount.toLocaleString("en-IN");
     apply();
   };
   input.addEventListener("keydown", (e) => {

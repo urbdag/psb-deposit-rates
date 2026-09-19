@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=c433e1dfd4";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatINRFull, formatRate, parseAmountInput, productLabel, } from "./format.js?v=c433e1dfd4";
-import { banksChangedCount, recentChanges } from "./history.js?v=c433e1dfd4";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=76f4eaf7ca";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=76f4eaf7ca";
+import { banksChangedCount, recentChanges } from "./history.js?v=76f4eaf7ca";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -418,14 +418,21 @@ function renderControls() {
         return;
     host.innerHTML = "";
     const products = ["FD", "RD", "SAVINGS"];
-    host.append(segControl("Product", products.map((p) => ({ v: p, label: productLabel(p) })), state.product, (v) => {
+    // Short filter-card labels only; the global productLabel() keeps full names
+    // for the podium, headline, section notes and landing pages.
+    const shortProduct = {
+        FD: "Fixed Deposit",
+        RD: "Recurring",
+        SAVINGS: "Savings",
+    };
+    host.append(segControl("Product", products.map((p) => ({ v: p, label: shortProduct[p] })), state.product, (v) => {
         state.product = v;
         state.showAll = false;
         apply(true);
     }));
     const customers = [
         { v: "GENERAL", label: "General" },
-        { v: "SENIOR", label: "Senior (60+)" },
+        { v: "SENIOR", label: "Senior" },
     ];
     host.append(segControl("Customer", customers, state.customer, (v) => {
         state.customer = v;
@@ -463,7 +470,8 @@ function renderAmountControl() {
         type: "text",
         inputmode: "numeric",
         "aria-label": "Deposit amount in rupees",
-        value: formatINRFull(state.amount),
+        // Grouped digits only; the .amount-prefix span already shows the ₹.
+        value: state.amount.toLocaleString("en-IN"),
     });
     const row = el("div", { class: "amount-row" }, [
         el("span", { class: "amount-prefix" }, ["₹"]),
@@ -474,7 +482,7 @@ function renderAmountControl() {
         if (parsed != null) {
             state.amount = clampAmount(parsed);
         }
-        input.value = formatINRFull(state.amount);
+        input.value = state.amount.toLocaleString("en-IN");
         apply();
     };
     input.addEventListener("keydown", (e) => {
