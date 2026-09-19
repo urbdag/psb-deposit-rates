@@ -84,6 +84,52 @@ const { IciciAdapter } = await import(resolve(root, `${A}/icici.js`));
 const { CapitalsfbAdapter } = await import(resolve(root, `${A}/capitalsfb.js`));
 const { ShivalikAdapter } = await import(resolve(root, `${A}/shivalik.js`));
 //
+// Payments banks (PAYMENTS_BANK) — SAVINGS-ONLY OFFICIAL scrapers. By RBI
+// license payments banks CANNOT offer FD or RD and cap balances (~Rs 2 lakh /
+// customer); they publish savings-account interest only, frequently tiered by
+// balance slab. These adapters emit ONLY SAVINGS rows and never FD/RD.
+//
+// Fino (fino): registered. fino.bank.in HTML pages render 0 tables (Next.js +
+// reCAPTCHA); the authoritative savings source is the linked PDF rate card
+// "Savings Account Interest Rates" (effective 1 Dec 2025). The adapter fetches
+// that PDF via fetchPdfText and parses tiered savings-by-balance-slab with a
+// bespoke pure parseSavingsPdf (one SAVINGS row per band, GENERAL + SENIOR),
+// never FD/RD (source: fino.bank.in PDF rate card). If the PDF 403s / has
+// rotated at ingest time, Fino simply returns nothing and keeps last-known-good
+// (never a fabricated rate).
+const { FinoAdapter } = await import(resolve(root, `${A}/fino.js`));
+//
+// BLOCKED payments banks (documented, left rate-less — no fabricated rates).
+// Verified across 4 CI diagnose rounds over base domains + .bank.in + .gov.in +
+// dedicated savings/interest-rate paths. None exposes a parseable OFFICIAL
+// savings source, so per the project hard rule they stay rate-less rather than
+// shipping fabricated data under the OFFICIAL badge.
+//
+// Airtel Payments Bank (airtel): NOT registered — www.airtelpayments.bank.in
+// (`/`, `/interest-rates`, `/savings-account`) and airtel.in/bank each return a
+// ~5.3KB Cloudflare challenge-platform shell (cdn-cgi/challenge-platform), 0
+// tables, no body rate text. Un-renderable bot gate.
+//
+// India Post Payments Bank / IPPB (ippb): NOT registered — www.ippbonline.com/
+// and /web/ippb/interest-rates, ippb.bank.in/, and www.ippb.gov.in/web/ippb/
+// interest-rate all hard-fail the headless render (goto navigation error /
+// timeout). No parseable page reachable. (IPPB is Government-of-India owned via
+// India Post; that only affects the trust line, not scrapeability.)
+//
+// NSDL Payments Bank (nsdlpb): NOT registered — nsdlpaymentsbank.com/,
+// /InterestRate.aspx, /Interest-Rate.html, www.nsdlpaymentsbank.bank.in/
+// interest-rates and www.nsdlbank.bank.in/... all hard-fail the headless
+// render. No reachable parseable rate page.
+//
+// Jio Payments Bank (jio): NOT registered — www.jiopaymentsbank.com/,
+// /en/savings-account, jiopaymentsbank.bank.in/ and jio.bank.in/ all hard-fail
+// the headless render. No reachable page.
+//
+// Paytm Payments Bank (paytm): NOT registered — www.paytmbank.com/
+// savingsAccount renders 0 tables, no body percentages, no rate links, no
+// rate-carrying network JSON. RBI-restricted (onboarding barred since Mar
+// 2024); no active/updated public savings-rate schedule. Left rate-less.
+//
 // Batch 2 private-sector banks (OFFICIAL scrapers). Structures discovered via
 // the CI diagnose workflow.
 //
@@ -237,6 +283,7 @@ const ADAPTERS = [
   new RblAdapter(),
   new CityunionAdapter(),
   new CsbAdapter(),
+  new FinoAdapter(),
 ];
 // -------------------------------------------------------------------------
 
