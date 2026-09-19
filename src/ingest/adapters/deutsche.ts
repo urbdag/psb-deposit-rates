@@ -75,6 +75,93 @@ export class DeutscheAdapter extends PrivateTableAdapter {
   }
 
   /**
+   * TEMPORARY CI diagnostic instrumentation.
+   *
+   * The compiled adapter passes every offline fixture yet returns 0 rows on the
+   * REAL live page across repeated CI ingest runs, while the runner's own
+   * diagnostic reports the live page has exactly one clean 19-row table. We
+   * have exhausted guessing, so this override wraps the inherited
+   * {@link PrivateTableAdapter.parseFdRd} and — ONLY when it is about to return
+   * 0 rows (i.e. the live-page failure path, never the passing fixtures) —
+   * prints to stdout (prefixed "DEUTSCHE-DEBUG:") the exact serialized-table
+   * ground truth the compiled parser actually sees, so it surfaces in the
+   * ingest run log. This is pure observability: selection logic is unchanged.
+   *
+   * Remove this override once the live-page ground truth is captured.
+   */
+  override parseFdRd(html: string, effectiveDate: string, url?: string): RateEntry[] {
+    const out = super.parseFdRd(html, effectiveDate, url);
+    if (out.length === 0) this.logZeroRowDiagnostics(html);
+    return out;
+  }
+
+  /** Truncate any single logged string so the ingest log stays readable. */
+  private clip(s: string, max = 1500): string {
+    return s.length > max ? s.slice(0, max) + `…[+${s.length - max} chars]` : s;
+  }
+
+  /**
+   * Print the serialized-table ground truth for the zero-row failure path. See
+   * {@link parseFdRd}. Wrapped in try/catch so instrumentation can never throw
+   * and abort the scrape.
+   */
+  private logZeroRowDiagnostics(html: string): void {
+    try {
+      const decoyRe =
+        /\bnre\b|\bnro\b|\bfcnr\b|foreign\s*currency|tax\s*saver|\bsaving\b/;
+      const tables = extractTables(html);
+      console.log(`DEUTSCHE-DEBUG: extractTables length=${tables.length}`);
+
+      tables.forEach((table, i) => {
+        const rows = extractRows(table);
+        console.log(`DEUTSCHE-DEBUG: T${i} extractRows length=${rows.length}`);
+        console.log(
+          `DEUTSCHE-DEBUG: T${i} first3rows=` +
+            this.clip(JSON.stringify(rows.slice(0, 3))),
+        );
+        console.log(
+          `DEUTSCHE-DEBUG: T${i} last2rows=` +
+            this.clip(JSON.stringify(rows.slice(-2))),
+        );
+
+        let tenureOk = 0;
+        let tenurePlusGen = 0;
+        let tenurePlusGenPlusSen = 0;
+        for (const cells of rows) {
+          const tenure = resolvePrivateTenure(cells[0]);
+          if (!tenure) continue;
+          tenureOk++;
+          const genOk =
+            cells.length > 1 && parsePercent(cells[1]) != null;
+          if (!genOk) continue;
+          tenurePlusGen++;
+          const senOk =
+            cells.length > 2 && parsePercent(cells[2]) != null;
+          if (senOk) tenurePlusGenPlusSen++;
+        }
+        const distinctTenures = new Set(
+          rows.map((cells) => {
+            const t = resolvePrivateTenure(cells[0]);
+            return t ? `${t.minDays}-${t.maxDays}` : "";
+          }),
+        );
+        distinctTenures.delete("");
+        console.log(
+          `DEUTSCHE-DEBUG: T${i} counts resolvableTenure=${tenureOk} +parsePercent(cells[1])=${tenurePlusGen} +parsePercent(cells[2])=${tenurePlusGenPlusSen} distinctTenures=${distinctTenures.size}`,
+        );
+
+        const sig = this.headerSignature(html, table);
+        console.log(
+          `DEUTSCHE-DEBUG: T${i} decoySignature="${this.clip(sig)}"`,
+        );
+        console.log(`DEUTSCHE-DEBUG: T${i} isDecoy=${decoyRe.test(sig)}`);
+      });
+    } catch (e) {
+      console.log(`DEUTSCHE-DEBUG: instrumentation error ${String(e)}`);
+    }
+  }
+
+  /**
    * Select the resident retail FD grid by SHAPE (not fragile header text).
    *
    * This URL serves exactly one rate table (the resident < Rs. 3 crore INR
