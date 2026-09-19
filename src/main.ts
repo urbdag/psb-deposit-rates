@@ -689,10 +689,9 @@ function renderHeadline(): void {
       "div",
       {
         class: "hl-value",
-        "data-count": avgRate != null ? String(avgRate) : "0",
         style: avgRate != null ? "color:#ef4444" : "",
       },
-      [avgRate != null ? "0.00%" : "—"],
+      [avgRate != null ? formatRate(avgRate) : "—"],
     ),
     el("div", { class: "hl-sub" }, [
       avgRate != null
@@ -709,8 +708,9 @@ function renderHeadline(): void {
       "div",
       {
         class: "hl-value",
+        "data-count": overall ? String(overall.entry.ratePercent) : "0",
       },
-      [overall ? formatRate(overall.entry.ratePercent) : "—"],
+      [overall ? "0.00%" : "—"],
     ),
     el("div", { class: "hl-sub" }, [
       overall
@@ -728,10 +728,10 @@ function renderHeadline(): void {
   ]);
 
   host.append(overallCell, feature, trustCell);
-  if (avgRate != null)
+  if (overall)
     countUp(
-      feature.querySelector(".hl-value") as HTMLElement,
-      avgRate,
+      overallCell.querySelector(".hl-value") as HTMLElement,
+      overall.entry.ratePercent,
     );
 }
 

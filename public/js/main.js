@@ -1,6 +1,6 @@
-import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=5377d1deea";
-import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=5377d1deea";
-import { banksChangedCount, recentChanges } from "./history.js?v=5377d1deea";
+import { bestByTenure, headlineRate, rankBanks } from "./query.js?v=79031db06c";
+import { amountLabel, assessFreshness, formatDate, formatINR, formatRate, parseAmountInput, productLabel, } from "./format.js?v=79031db06c";
+import { banksChangedCount, recentChanges } from "./history.js?v=79031db06c";
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000000; // ₹5 crore
 const state = {
@@ -550,9 +550,8 @@ function renderHeadline() {
         el("div", { class: "hl-label" }, ["Average for your selection"]),
         el("div", {
             class: "hl-value",
-            "data-count": avgRate != null ? String(avgRate) : "0",
             style: avgRate != null ? "color:#ef4444" : "",
-        }, [avgRate != null ? "0.00%" : "—"]),
+        }, [avgRate != null ? formatRate(avgRate) : "—"]),
         el("div", { class: "hl-sub" }, [
             avgRate != null
                 ? `across ${ranked.length} matching bank${ranked.length === 1 ? "" : "s"}`
@@ -565,7 +564,8 @@ function renderHeadline() {
         ]),
         el("div", {
             class: "hl-value",
-        }, [overall ? formatRate(overall.entry.ratePercent) : "—"]),
+            "data-count": overall ? String(overall.entry.ratePercent) : "0",
+        }, [overall ? "0.00%" : "—"]),
         el("div", { class: "hl-sub" }, [
             overall
                 ? `${overall.bank.shortName} · ${overall.entry.tenure.label}`
@@ -580,8 +580,8 @@ function renderHeadline() {
         el("div", { class: "hl-sub" }, ["rates fetched from bank sites"]),
     ]);
     host.append(overallCell, feature, trustCell);
-    if (avgRate != null)
-        countUp(feature.querySelector(".hl-value"), avgRate);
+    if (overall)
+        countUp(overallCell.querySelector(".hl-value"), overall.entry.ratePercent);
 }
 function countUp(node, target) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
