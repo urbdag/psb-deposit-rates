@@ -458,13 +458,6 @@ function institutionSnapshot(bank) {
     items.push(instItem("Headquarters", esc(bank.headquarters)));
   if (bank.established)
     items.push(instItem("Established", String(bank.established)));
-  if (bank.website) {
-    const displayHost = String(bank.website).replace(/^https?:\/\//, "").replace(/\/+$/, "");
-    items.push(instItem(
-      "Website",
-      `<a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">${esc(displayHost)} ${extLinkSvg()}</a>`,
-    ));
-  }
   if (Number.isFinite(bank.branches))
     items.push(instItem("Branches", `~${bank.branches.toLocaleString("en-IN")}`, true));
   if (Number.isFinite(bank.atms))
@@ -648,7 +641,7 @@ function page(bank) {
       <div class="panel overview-panel" style="padding:24px">
         <div class="section-head" style="margin-bottom:6px"><div>
           <h2 class="section-title">Overview</h2>
-          <p class="section-note">${esc(bank.shortName)} at a glance and how it compares with its ${esc(categoryLabels(bank.category).sector)} peers</p>
+          <p class="section-note">${esc(bank.shortName)} at a glance and how it compares with its ${esc(categoryLabels(bank.category).sector)} peers${bank.website ? ` · <a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">${esc(String(bank.website).replace(/^https?:\/\//, "").replace(/\/+$/, ""))} ${extLinkSvg()}</a>` : ""}</p>
         </div></div>
         ${bankIntro(bank)}
         ${institutionSnapshot(bank)}
