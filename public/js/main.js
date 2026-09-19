@@ -590,11 +590,12 @@ function renderHeadline() {
     host.innerHTML = "";
     const top = rankBanks(dataset, query())[0];
     const overall = headlineRate(dataset, state.product, state.customer, selectedCategory());
-    const feature = el("div", { class: "hl-cell feature" }, [
+    const feature = el("div", { class: "hl-cell" }, [
         el("div", { class: "hl-label" }, ["Top rate for your selection"]),
         el("div", {
             class: "hl-value",
             "data-count": top ? String(top.entry.ratePercent) : "0",
+            style: top ? `color:${top.bank.color}` : "",
         }, [top ? "0.00%" : "—"]),
         el("div", { class: "hl-sub" }, [
             top
@@ -602,13 +603,12 @@ function renderHeadline() {
                 : "No matching product",
         ]),
     ]);
-    const overallCell = el("div", { class: "hl-cell" }, [
+    const overallCell = el("div", { class: "hl-cell feature" }, [
         el("div", { class: "hl-label" }, [
             `Best ${productLabel(state.product)} overall`,
         ]),
         el("div", {
             class: "hl-value",
-            style: overall ? `color:${overall.bank.color}` : "",
         }, [overall ? formatRate(overall.entry.ratePercent) : "—"]),
         el("div", { class: "hl-sub" }, [
             overall

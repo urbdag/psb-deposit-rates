@@ -749,13 +749,14 @@ function renderHeadline(): void {
     selectedCategory(),
   );
 
-  const feature = el("div", { class: "hl-cell feature" }, [
+  const feature = el("div", { class: "hl-cell" }, [
     el("div", { class: "hl-label" }, ["Top rate for your selection"]),
     el(
       "div",
       {
         class: "hl-value",
         "data-count": top ? String(top.entry.ratePercent) : "0",
+        style: top ? `color:${top.bank.color}` : "",
       },
       [top ? "0.00%" : "—"],
     ),
@@ -766,7 +767,7 @@ function renderHeadline(): void {
     ]),
   ]);
 
-  const overallCell = el("div", { class: "hl-cell" }, [
+  const overallCell = el("div", { class: "hl-cell feature" }, [
     el("div", { class: "hl-label" }, [
       `Best ${productLabel(state.product)} overall`,
     ]),
@@ -774,7 +775,6 @@ function renderHeadline(): void {
       "div",
       {
         class: "hl-value",
-        style: overall ? `color:${overall.bank.color}` : "",
       },
       [overall ? formatRate(overall.entry.ratePercent) : "—"],
     ),
