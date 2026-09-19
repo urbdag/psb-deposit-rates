@@ -405,6 +405,18 @@ function institutionSnapshot(bank) {
     items.push(instItem("Headquarters", esc(bank.headquarters)));
   if (bank.established)
     items.push(instItem("Established", String(bank.established)));
+  if (bank.website) {
+    const displayHost = String(bank.website).replace(/^https?:\/\//, "").replace(/\/+$/, "");
+    items.push(instItem(
+      "Website",
+      `<a class="modal-link" href="${esc(bank.website)}" target="_blank" rel="noopener">${esc(displayHost)} ${extLinkSvg()}</a>`,
+    ));
+    const contactUrl = bank.contactUrl || bank.website;
+    items.push(instItem(
+      "Customer service",
+      `<a class="modal-link" href="${esc(contactUrl)}" target="_blank" rel="noopener">Contact &amp; support ${extLinkSvg()}</a>`,
+    ));
+  }
   if (Number.isFinite(bank.branches))
     items.push(instItem("Branches", `~${bank.branches.toLocaleString("en-IN")}`, true));
   if (Number.isFinite(bank.atms))
