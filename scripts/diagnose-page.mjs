@@ -138,6 +138,18 @@ try {
 
   console.log("=== DIAGNOSIS:", url, "===");
   console.log(JSON.stringify(summary, null, 2));
+
+  // DEBUG: dump the raw bodies of promising (rate-carrying) network payloads
+  // and a slice of the rendered body text, so the real rate structure is
+  // visible directly in the CI log (artifacts are not downloadable here).
+  for (const c of captured.filter((c) => c.hasPct)) {
+    console.log(`--- PROMISING BODY: ${c.url} (len ${c.len}) ---`);
+    console.log(c.body.slice(0, 6000));
+    console.log(`--- END BODY: ${c.url} ---`);
+  }
+  console.log("--- RENDERED BODY TEXT (first 4000) ---");
+  console.log(bodyText.slice(0, 4000));
+  console.log("--- END RENDERED BODY TEXT ---");
 } finally {
   await browser.close();
 }
