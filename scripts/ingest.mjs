@@ -162,6 +162,72 @@ const { RblAdapter } = await import(resolve(root, `${A}/rbl.js`));
 const { CityunionAdapter } = await import(resolve(root, `${A}/cityunion.js`));
 const { CsbAdapter } = await import(resolve(root, `${A}/csb.js`));
 //
+// Foreign banks (FOREIGN) — OFFICIAL retail domestic-INR term-deposit scrapers.
+// RBI-licensed foreign banks whose INDIAN-branch deposits are DICGC-insured but
+// are NOT government-owned (trust line mirrors PRIVATE). We map ONLY the
+// DOMESTIC/RESIDENT INR retail (< Rs 2-3 crore) term-deposit table, never the
+// FCNR/NRE/NRO foreign-currency schedules. Structures discovered via the CI
+// diagnose workflow (sandbox has no internet).
+//
+// Deutsche (deutsche): registered. Its resident FD page
+// (deutsche.bank.in/.../resident-fixed-deposits.html) is client-rendered
+// (renderJs) with ONE clean table: Deposit tenure | Normal interest rate
+// (% p.a.) <Rs. 3 crore | Senior citizen interest rate (% p.a.) <Rs. 3 crore.
+// So generalCol=1, seniorCol=2. Deutsche currently sets senior == general on
+// every row but DOES publish a distinct senior column, so mapping seniorCol=2
+// is faithful (SENIOR rows equal GENERAL — not fabrication; the column exists).
+// The picker PINS the "normal interest rate" / "senior citizen" + "< Rs. 3
+// crore" retail signature and rejects NRE/NRO/FCNR/foreign-currency/tax-saver/
+// savings decoys (source: deutsche.bank.in).
+//
+// DBS (dbs): registered. The DBS Treasures FD page
+// (dbs.bank.in/in/treasures/deposits/your-accounts/fixed-deposits) is
+// client-rendered (renderJs) with ONE rate table that INTERLEAVES an
+// annualised-yield column after each rate column: <tenor> | general rate% |
+// general yield% | senior rate% | senior yield%, e.g. 1 year 5.75/5.88/
+// 6.25/6.40. So generalCol=1, seniorCol=3 (cols 2 and 4 are annualised YIELD
+// and must NEVER be published as a rate). DBS DOES give a senior premium (6.25
+// vs 5.75 at 1yr), so SENIOR rows are real. The picker PINS the "tenor" +
+// "senior citizens" retail signature (requiring parseable %s in BOTH col 1 and
+// col 3 so a 2-3 column decoy can't be mistaken for the 5-column grid) and
+// rejects savings/NRE/NRO/FCNR decoys. The shorter-tenure single-column
+// general-only ladder on interest-rates.page is intentionally NOT used (keeps a
+// clean GENERAL/SENIOR set) (source: dbs.bank.in). Pattern: rbl.ts.
+//
+// BLOCKED / DEFUNCT foreign banks (documented, left rate-less — no fabricated
+// rates). Verified via the CI diagnose workflow across multiple rounds over the
+// RBI-mandated .bank.in domains (`.co.in`/`.com` 301 to `.bank.in`) plus guessed
+// PDF rate-card URLs. Per the project hard rule they stay rate-less rather than
+// shipping fabricated / mis-tiered data under the OFFICIAL badge.
+//
+// HSBC India (hsbc): NOT registered — www.hsbc.bank.in/term-deposits/
+// interest-rates/ (and the www.hsbc.co.in variant that 301s to it) render
+// ~184 KB but 0 <table> elements and 0 body percentage samples: rates are
+// injected by a client-side widget (LivePerson/Adobe stack) into non-table
+// markup absent from the serialized DOM. Guessed PDF rate-card URLs
+// (/content/dam/hsbc/in/documents/term-deposits/interest-rates.pdf and a
+// /1/PA_esf-ca-app-content/... variant) returned 157-2104 byte 404 bodies. No
+// parseable OFFICIAL resident-INR retail term-deposit source. Left rate-less.
+//
+// Standard Chartered India (sc): NOT registered — www.sc.com/in/save/
+// fixed-deposits/interest-rates/, .../accounts/products/fixed-deposits/, and
+// .../help/rates-and-fees/ (canonical www.sc.bank.in; deep guessed paths 404 to
+// /404-error-page/) each render ~144 KB but 0 <table> and 0 body percentage
+// samples: rates load via a client-side widget (Adobe/eddl data layer) into
+// markup absent from the serialized DOM. Guessed PDF rate cards
+// (sc.com/in/deposit-rates.pdf, av.sc.com/in/content/docs/
+// in-fixed-deposits-rates.pdf) returned 404-size bodies. No parseable OFFICIAL
+// resident-INR retail term-deposit source. Left rate-less.
+//
+// Citibank India (citi): DEFUNCT-for-retail — NOT added to banks.ts, NO adapter.
+// Citi sold its India consumer/retail banking business (incl. deposits) to Axis
+// Bank; the transaction completed in March 2023. Citi no longer runs a retail
+// term-deposit book in India, so there is no live resident deposit-rate schedule
+// to scrape. Documented here and left out entirely (never fabricate rates for a
+// business that no longer exists).
+const { DeutscheAdapter } = await import(resolve(root, `${A}/deutsche.js`));
+const { DbsAdapter } = await import(resolve(root, `${A}/dbs.js`));
+//
 // BLOCKED batch 2 private-sector banks (documented, left rate-less — no
 // fabricated rates). Each was verified via the CI diagnose workflow across
 // multiple rounds / URL variants (incl. the RBI-mandated .bank.in domains);
@@ -286,6 +352,8 @@ const ADAPTERS = [
   new CityunionAdapter(),
   new CsbAdapter(),
   new FinoAdapter(),
+  new DeutscheAdapter(),
+  new DbsAdapter(),
 ];
 // -------------------------------------------------------------------------
 

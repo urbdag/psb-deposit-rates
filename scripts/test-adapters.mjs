@@ -60,6 +60,12 @@ const { CsbAdapter } = await import(
 const { FinoAdapter } = await import(
   resolve(root, "public/js/ingest/adapters/fino.js")
 );
+const { DeutscheAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/deutsche.js")
+);
+const { DbsAdapter } = await import(
+  resolve(root, "public/js/ingest/adapters/dbs.js")
+);
 
 let failures = 0;
 const assert = (cond, msg) => {
@@ -1931,6 +1937,197 @@ assert(
 assert(
   fino.parseSavingsPdf("Terms and conditions apply. TDS as per IT Act.").length === 0,
   "Fino: non-rate PDF text -> 0 rows (no fabrication)",
+);
+
+// ---------------------------------------------------------------------------
+// Deutsche Bank India (FOREIGN): the resident FD page is client-rendered and
+// carries ONE clean retail table headed "Deposit tenure | Normal interest rate
+// (% p.a.) <Rs. 3 crore | Senior citizen interest rate (% p.a.) <Rs. 3 crore".
+// So generalCol=1, seniorCol=2. Deutsche sets senior == general on every row
+// but DOES publish a distinct senior column, so both GENERAL and SENIOR rows
+// are emitted (faithful, not fabricated). The fixture surrounds the retail
+// table with an NRE table and an FCNR foreign-currency table so the pin is
+// exercised. Sentinels FAIL if the NRE/FCNR table were picked, if a foreign
+// column surfaced, or if no senior column were emitted. Source: deutsche.bank.in.
+// ---------------------------------------------------------------------------
+console.log("== Deutsche Bank India (pin resident <Rs.3cr grid; general=1 senior=2) ==");
+const DEUTSCHE_FD_FIXTURE = `
+<html><body>
+  <h3>NRE Fixed Deposit interest rates</h3>
+  <table>
+    <tr><th>Deposit tenure</th><th>Interest rate (% p.a.)</th><th>Senior citizen</th></tr>
+    <tr><td>271 Days - 1 Yr</td><td>9.10%</td><td>9.10%</td></tr>
+    <tr><td>> 1 Yr - 1.5 Yrs</td><td>9.25%</td><td>9.25%</td></tr>
+    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>9.30%</td><td>9.30%</td></tr>
+    <tr><td>> 2 Yrs - 3 Yrs</td><td>9.00%</td><td>9.00%</td></tr>
+  </table>
+  <h3>FCNR (Foreign Currency) deposit interest rates</h3>
+  <table>
+    <tr><th>Deposit tenure</th><th>USD (% p.a.)</th><th>GBP (% p.a.)</th></tr>
+    <tr><td>271 Days - 1 Yr</td><td>4.50%</td><td>4.20%</td></tr>
+    <tr><td>> 1 Yr - 1.5 Yrs</td><td>4.60%</td><td>4.30%</td></tr>
+    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>4.70%</td><td>4.40%</td></tr>
+    <tr><td>> 2 Yrs - 3 Yrs</td><td>4.80%</td><td>4.50%</td></tr>
+  </table>
+  <h3>Resident Fixed Deposit interest rates</h3>
+  <table>
+    <tr>
+      <th>Deposit tenure</th>
+      <th>Normal interest rate (% p.a.) &lt;Rs. 3 crore</th>
+      <th>Senior citizen interest rate (% p.a.) &lt;Rs. 3 crore</th>
+    </tr>
+    <tr><td>7 Days</td><td>3.00%</td><td>3.00%</td></tr>
+    <tr><td>101 Days</td><td>4.75%</td><td>4.75%</td></tr>
+    <tr><td>271 Days - 1 Yr</td><td>6.75%</td><td>6.75%</td></tr>
+    <tr><td>> 1 Yr - 1.5 Yrs</td><td>7.00%</td><td>7.00%</td></tr>
+    <tr><td>> 1.5 Yrs - 2 Yrs</td><td>7.00%</td><td>7.00%</td></tr>
+    <tr><td>> 2 Yrs - 3 Yrs</td><td>6.25%</td><td>6.25%</td></tr>
+    <tr><td>> 4 Yrs - &lt;5 Yrs</td><td>6.25%</td><td>6.25%</td></tr>
+  </table>
+</body></html>`;
+const deutsche = new DeutscheAdapter();
+const deuRows = deutsche.parseFdRd(DEUTSCHE_FD_FIXTURE, "2026-09-15");
+const deuFd = deuRows.filter((r) => r.product === "FD");
+assert(deuFd.length >= 8, `Deutsche: >=8 FD rows (got ${deuFd.length})`);
+assert(
+  deuRows.every(
+    (r) =>
+      r.bankId === "deutsche" &&
+      r.source.quality === "OFFICIAL" &&
+      /deutsche\.bank\.in/.test(r.source.url),
+  ),
+  "Deutsche: all rows OFFICIAL, bankId=deutsche, deutsche.bank.in source URL",
+);
+const deuTenures = new Set(
+  deuFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(deuTenures.size >= 4, `Deutsche: >=4 distinct FD tenures (got ${deuTenures.size})`);
+// > 1 Yr - 1.5 Yrs bucket: retail general = 7.00 (resident, NOT NRE 9.25, NOT
+// FCNR 4.60). Senior = 7.00 (col 2, present and equal to general).
+const deu15 = deuFd.filter((r) => r.tenure.minDays === 365 && r.tenure.maxDays === 548);
+const deu15Gen = deu15.find((r) => r.customer === "GENERAL");
+const deu15Sr = deu15.find((r) => r.customer === "SENIOR");
+assert(deu15Gen?.ratePercent === 7.0, "Deutsche >1Yr-1.5Yrs general = 7.00 (resident, not NRE 9.25/FCNR 4.60)");
+assert(
+  deu15Sr?.ratePercent === 7.0,
+  "Deutsche >1Yr-1.5Yrs senior = 7.00 (col 2 present, equals general — faithful, not dropped)",
+);
+// Both GENERAL and SENIOR rows are emitted (distinct senior column exists).
+assert(
+  deuFd.some((r) => r.customer === "GENERAL") && deuFd.some((r) => r.customer === "SENIOR"),
+  "Deutsche: both GENERAL and SENIOR rows present (distinct senior column mapped)",
+);
+// 3yr bucket general = 6.25.
+const deu3y = deuFd.filter((r) => r.tenure.minDays === 730 && r.tenure.maxDays === 1095);
+assert(
+  deu3y.find((r) => r.customer === "GENERAL")?.ratePercent === 6.25,
+  "Deutsche >2Yrs-3Yrs general = 6.25 (resident retail)",
+);
+// No NRE / FCNR foreign-currency value should ever surface as a published rate.
+assert(
+  !deuFd.some((r) => [9.1, 9.25, 9.3, 9.0, 4.5, 4.6, 4.7, 4.8, 4.2, 4.3, 4.4].includes(r.ratePercent)),
+  "Deutsche: NRE / FCNR foreign-currency column never published as retail rate",
+);
+assert(
+  deutsche.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "Deutsche: garbage HTML -> 0 rows",
+);
+
+// ---------------------------------------------------------------------------
+// DBS Bank India (FOREIGN): the DBS Treasures FD page is client-rendered and
+// its retail INR table has TWO stacked header rows and INTERLEAVES an
+// annualised-yield column after each rate column: <tenor> | general rate% |
+// general yield% | senior rate% | senior yield%, e.g. 1 year 5.75/5.88/6.25/
+// 6.40. So generalCol=1, seniorCol=3 (cols 2 and 4 are yields, NEVER a rate).
+// DBS gives a real senior premium (6.25 vs 5.75 at 1yr). The fixture surrounds
+// the retail grid with a savings balance-slab table and an NRE table so the pin
+// + column mapping are exercised. Sentinels FAIL if a yield column, the savings
+// or NRE table were picked, or if general and senior were swapped. Source:
+// dbs.bank.in.
+// ---------------------------------------------------------------------------
+console.log("== DBS Bank India (pin retail grid; general=1 senior=3, skip yields) ==");
+const DBS_FD_FIXTURE = `
+<html><body>
+  <h3>Savings Account Interest Rates</h3>
+  <table>
+    <tr><th>Balance Slab</th><th>Rate (% p.a.)</th></tr>
+    <tr><td>Up to Rs.1 lakh</td><td>3.00%</td></tr>
+    <tr><td>Above Rs.5 lakh</td><td>3.50%</td></tr>
+  </table>
+  <h3>NRE Fixed Deposit interest rates</h3>
+  <table>
+    <tr><th>Tenor</th><th>Interest Rate</th><th>Senior Citizens</th></tr>
+    <tr><td>1 year</td><td>8.50%</td><td>8.50%</td></tr>
+    <tr><td>2 years</td><td>8.60%</td><td>8.60%</td></tr>
+    <tr><td>3 years</td><td>8.40%</td><td>8.40%</td></tr>
+    <tr><td>4 years</td><td>8.30%</td><td>8.30%</td></tr>
+  </table>
+  <h3>Fixed Deposit interest rates (below Rs. 3 crore)</h3>
+  <table>
+    <tr><th rowspan="2">Tenor</th><th colspan="2">General</th><th colspan="2">Senior Citizens</th></tr>
+    <tr><th>Interest Rate</th><th>Annualised Yield</th><th>Interest Rate</th><th>Annualised Yield</th></tr>
+    <tr><td>1 year</td><td>5.75%</td><td>5.88%</td><td>6.25%</td><td>6.40%</td></tr>
+    <tr><td>2 years</td><td>6.50%</td><td>6.88%</td><td>7.00%</td><td>7.44%</td></tr>
+    <tr><td>3 years</td><td>6.25%</td><td>6.82%</td><td>6.75%</td><td>7.41%</td></tr>
+    <tr><td>4 years</td><td>6.25%</td><td>7.04%</td><td>6.75%</td><td>7.68%</td></tr>
+    <tr><td>5 years</td><td>6.25%</td><td>7.27%</td><td>6.75%</td><td>7.95%</td></tr>
+  </table>
+</body></html>`;
+const dbs = new DbsAdapter();
+const dbsRows = dbs.parseFdRd(DBS_FD_FIXTURE, "2026-09-15");
+const dbsFd = dbsRows.filter((r) => r.product === "FD");
+assert(dbsFd.length >= 8, `DBS: >=8 FD rows (got ${dbsFd.length})`);
+assert(
+  dbsRows.every(
+    (r) =>
+      r.bankId === "dbs" &&
+      r.source.quality === "OFFICIAL" &&
+      /dbs\.bank\.in/.test(r.source.url),
+  ),
+  "DBS: all rows OFFICIAL, bankId=dbs, dbs.bank.in source URL",
+);
+const dbsTenures = new Set(
+  dbsFd.map((r) => `${r.tenure.minDays}-${r.tenure.maxDays}`),
+);
+assert(dbsTenures.size >= 4, `DBS: >=4 distinct FD tenures (got ${dbsTenures.size})`);
+// 1 year: retail general = 5.75 (col 1, NOT the yield 5.88, NOT NRE 8.50).
+// Senior = 6.25 (RATE col 3, NOT the yield col 2/4, NOT swapped with general).
+const dbs1y = dbsFd.filter((r) => r.tenure.minDays === 365 && r.tenure.maxDays === 365);
+const dbs1yGen = dbs1y.find((r) => r.customer === "GENERAL");
+const dbs1ySr = dbs1y.find((r) => r.customer === "SENIOR");
+assert(dbs1yGen?.ratePercent === 5.75, "DBS 1 year general = 5.75 (rate col 1, not yield 5.88, not NRE 8.50)");
+assert(
+  dbs1ySr?.ratePercent === 6.25,
+  "DBS 1 year senior = 6.25 (RATE col 3, not yield 6.40/5.88; fails if cols swapped)",
+);
+// 2 years: general 6.50 / senior 7.00 (real senior premium).
+const dbs2y = dbsFd.filter((r) => r.tenure.minDays === 730 && r.tenure.maxDays === 730);
+assert(
+  dbs2y.find((r) => r.customer === "GENERAL")?.ratePercent === 6.5,
+  "DBS 2 years general = 6.50 (rate col 1)",
+);
+assert(
+  dbs2y.find((r) => r.customer === "SENIOR")?.ratePercent === 7.0,
+  "DBS 2 years senior = 7.00 (rate col 3, real premium)",
+);
+// No annualised-yield value must EVER surface as a published rate.
+assert(
+  !dbsFd.some((r) => [5.88, 6.4, 6.88, 7.44, 6.82, 7.41, 7.04, 7.68, 7.27, 7.95].includes(r.ratePercent)),
+  "DBS: no annualised-yield value (col 2/4) ever published as a rate",
+);
+// No NRE value must surface at all.
+assert(
+  !dbsFd.some((r) => [8.5, 8.6, 8.4, 8.3].includes(r.ratePercent)),
+  "DBS: NRE table never selected as retail FD",
+);
+// RD derived for the >=1yr buckets.
+assert(
+  dbsRows.some((r) => r.product === "RD"),
+  "DBS: RD derived from FD card rates",
+);
+assert(
+  dbs.parseFdRd("<html>no tables</html>", "2026-01-01").length === 0,
+  "DBS: garbage HTML -> 0 rows",
 );
 
 if (failures === 0) {
