@@ -83,6 +83,57 @@ const { IciciAdapter } = await import(resolve(root, `${A}/icici.js`));
 // (source: shivalik.bank.in).
 const { CapitalsfbAdapter } = await import(resolve(root, `${A}/capitalsfb.js`));
 const { ShivalikAdapter } = await import(resolve(root, `${A}/shivalik.js`));
+//
+// BLOCKED small finance banks (documented, left rate-less — no fabricated
+// rates). Each was verified via the CI diagnose workflow across multiple
+// rounds; none exposes a stable, offline-parseable retail (< ₹2-3 crore)
+// GENERAL/SENIOR FD ladder, so per the project hard rule they stay rate-less
+// (their FEAT-002 profile renders with no rate rows) rather than shipping
+// wrong / mis-tiered data under the OFFICIAL badge.
+//
+// AU SFB (au): NOT registered — au.bank.in/interest-rates sits behind a
+// Cloudflare Turnstile bot-challenge (cdn-cgi/challenge-platform + turnstile
+// api.js); the headless render returns only a ~3 KB challenge shell with 0
+// tables and NO body rate text. Intermittently un-renderable and never yields
+// a parseable ladder.
+//
+// Equitas SFB (equitas): NOT registered — equitas.bank.in/interest-rate is a
+// Gatsby page with 0 tables and only a single stray "8.25%" in the DOM (no
+// tiered ladder). Its linked rate-card PDF (Overall_Interest_Rates…pdf) FAILED
+// to load in diagnose (dead / rotated hash), and the page-data JSON carries no
+// stable parseable tiered ladder. No reliable source.
+//
+// Suryoday SFB (suryoday): NOT registered — Gatsby site. interest-rates renders
+// only sparse stray percentages (no table); the dedicated rate-of-interest page
+// exposes exactly ONE table, and it is the SAVINGS balance-slab table, not an
+// FD GENERAL/SENIOR ladder. The FD ladder lives only in rotating page-data/sq/d
+// JSON with no stable tiered structure to parse. No parseable FD ladder.
+//
+// Utkarsh SFB (utkarsh): NOT registered — the fixed-deposits page's 2 tables are
+// a product-info table + a maturity CALCULATOR widget (not a rate ladder), and
+// the dedicated rate-of-interest / interest-rates pages render 0 tables. Only a
+// few stray highlight percentages appear in the DOM; no tiered GENERAL/SENIOR
+// ladder is parseable.
+//
+// ESAF SFB (esaf): NOT registered — esafbank.com and esaf.bank.in interest-rate
+// URLs return ~300-byte near-empty bodies (SSR/bot gate). No rate page reachable.
+//
+// Ujjivan SFB (ujjivan): NOT registered — ujjivansfb.in and ujjivan.bank.in FD
+// rate URLs hard-fail the headless render (page navigation / goto error). No
+// parseable page.
+//
+// Jana SFB (jana): NOT registered — janabank.com/fixed-deposit renders 0% rate
+// content; rates are published only as linked PDFs/images that FAILED to load in
+// diagnose. No reachable parseable rate card.
+//
+// North East SFB / NESFB (nesfb): NOT registered — nesfb.com/interest-rates
+// carries no percentages (rates in image/PDF) and nesfb.bank.in fails to render.
+// No parseable rate page.
+//
+// Unity SFB (unity): NOT registered — unitybank.co.in/theunitybank.com redirect
+// to slice.bank.in (Unity SFB now "slice"), a Next.js site whose rates live only
+// in _next data JSON with 0 tables and no captured body percentages. No stable
+// parseable ladder.
 const ADAPTERS = [
   new SbiAdapter(),
   new PnbAdapter(),
