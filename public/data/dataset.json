@@ -11950,6 +11950,594 @@
       }
     },
     {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 2.75,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 45,
+        "label": "7 to 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 3.25,
+      "tenure": {
+        "minDays": 7,
+        "maxDays": 45,
+        "label": "7 to 45 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 to 90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 46,
+        "maxDays": 90,
+        "label": "46 to 90 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 4.5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 184,
+        "label": "91 to 184 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 5,
+      "tenure": {
+        "minDays": 91,
+        "maxDays": 184,
+        "label": "91 to 184 Days"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 5.5,
+      "tenure": {
+        "minDays": 185,
+        "maxDays": 365,
+        "label": "185 to < 1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6,
+      "tenure": {
+        "minDays": 185,
+        "maxDays": 365,
+        "label": "185 to < 1 Year"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 539,
+        "label": "1 Year to < 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 539,
+        "label": "1 Year to < 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.25,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 539,
+        "label": "1 Year to < 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.75,
+      "tenure": {
+        "minDays": 365,
+        "maxDays": 539,
+        "label": "1 Year to < 18 Months"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 730,
+        "label": "18 Months to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 730,
+        "label": "18 Months to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.3,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 730,
+        "label": "18 Months to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.8,
+      "tenure": {
+        "minDays": 540,
+        "maxDays": 730,
+        "label": "18 Months to 2 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.45,
+      "tenure": {
+        "minDays": 731,
+        "maxDays": 1095,
+        "label": "2 Years 1 Day to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 6.95,
+      "tenure": {
+        "minDays": 731,
+        "maxDays": 1095,
+        "label": "2 Years 1 Day to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.45,
+      "tenure": {
+        "minDays": 731,
+        "maxDays": 1095,
+        "label": "2 Years 1 Day to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 6.95,
+      "tenure": {
+        "minDays": 731,
+        "maxDays": 1095,
+        "label": "2 Years 1 Day to 3 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1096,
+        "maxDays": 1825,
+        "label": "3 Years 1 Day to 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7.1,
+      "tenure": {
+        "minDays": 1096,
+        "maxDays": 1825,
+        "label": "3 Years 1 Day to 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1096,
+        "maxDays": 1825,
+        "label": "3 Years 1 Day to 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7.1,
+      "tenure": {
+        "minDays": 1096,
+        "maxDays": 1825,
+        "label": "3 Years 1 Day to 5 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1826,
+        "maxDays": 3650,
+        "label": "5 Years 1 Day to 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "FD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 1826,
+        "maxDays": 3650,
+        "label": "5 Years 1 Day to 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": 30000000,
+        "label": "Below ₹3 crore (retail)"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "GENERAL",
+      "ratePercent": 6.5,
+      "tenure": {
+        "minDays": 1826,
+        "maxDays": 3650,
+        "label": "5 Years 1 Day to 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
+      "bankId": "icici",
+      "product": "RD",
+      "customer": "SENIOR",
+      "ratePercent": 7,
+      "tenure": {
+        "minDays": 1826,
+        "maxDays": 3650,
+        "label": "5 Years 1 Day to 10 Years"
+      },
+      "amount": {
+        "minAmount": 0,
+        "maxAmount": null,
+        "label": "Any amount"
+      },
+      "source": {
+        "url": "https://www.icicibank.com/personal-banking/deposits/fixed-deposit/fd-interest-rates",
+        "effectiveDate": "2026-09-19",
+        "quality": "OFFICIAL"
+      }
+    },
+    {
       "bankId": "kotak",
       "product": "FD",
       "customer": "GENERAL",
@@ -15568,6 +16156,6 @@
       }
     }
   ],
-  "generatedAt": "2026-09-19T04:25:44.832Z",
+  "generatedAt": "2026-09-19T04:51:57.615Z",
   "containsSampleData": false
 }
