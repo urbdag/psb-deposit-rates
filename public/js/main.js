@@ -627,7 +627,7 @@ function renderHeadline() {
         ]),
         el("div", { class: "hl-sub" }, ["banks scraped from official sites"]),
     ]);
-    host.append(feature, overallCell, trustCell);
+    host.append(overallCell, feature, trustCell);
     if (top)
         countUp(feature.querySelector(".hl-value"), top.entry.ratePercent);
 }
